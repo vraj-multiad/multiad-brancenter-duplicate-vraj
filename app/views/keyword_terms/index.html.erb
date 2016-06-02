@@ -1,0 +1,39 @@
+<h1>Listing keyword_terms</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Language</th>
+      <th>Term</th>
+      <th>Term Count</th>
+      <th>Keyword type</th>
+      <th>Parent term</th>
+      <th>Child terms</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @keyword_terms.each do |keyword_term| %>
+      <tr>
+        <td><%= keyword_term.id.to_s %> - </td>
+        <td><%= keyword_term.language_id %></td>
+        <td><%= keyword_term.term %></td>
+        <td><%= keyword_term.term_count %></td>
+        <td><%= keyword_term.keyword_type %></td>
+        <td><% unless keyword_term.parent_term_id.nil? %><%= keyword_term.parent_term_id.to_s + ' - ' + keyword_term.parent_term.term  %><% end %></td>
+        <td><%  keyword_term.sub_terms.order(:term).each do |st| %><%= st.id.to_s + ' - ' + st.term %><br/><% end %></td>
+        <td><%= link_to 'Show', keyword_term %></td>
+        <td><%= link_to 'Edit', edit_keyword_term_path(keyword_term) %></td>
+        <td><%= link_to 'Destroy', keyword_term, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Keyword term', new_keyword_term_path %>

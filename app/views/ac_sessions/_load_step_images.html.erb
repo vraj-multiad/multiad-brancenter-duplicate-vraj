@@ -1,0 +1,32 @@
+<% count=0 %>
+<% if results.length > MAX_RESULTS_AC_SEARCH %>
+  <div class="alert alert-info limited-search">Search results limited to <%= MAX_RESULTS_AC_SEARCH %> use keywords or filters to refine results.</div>
+<% end %>
+<% results.first(MAX_RESULTS_AC_SEARCH).each do |result| %>
+  <% resize = '' %>
+  <% resize = 'resize' if ENABLE_RESIZE_AC_IMAGE %>
+  <% logo = '' %>
+  <% if ac_step.form_data('auto_submit') || !ENABLE_RESIZE_AC_IMAGE %>
+    <% auto_submit = 'validate-and-submit-form' %>
+    <% resize = '' %>
+  <% end %>
+  <% display = 'none' %>
+  <% image_background_color = '' %>
+  <% image_background_color = 'background-color:#fff45c;' unless result.status == 'production' %>
+  <% bg_visible = false %>
+  <% if count < MORE_AC_SEARCH_RESULTS_COUNT %>
+    <% display= 'block' %>
+    <% bg_visible = true %>
+  <% end %>
+  <div class="image-choice <%= logo %> <%= auto_submit %> image-choice-paginate <%= resize %>" style="display:<%= display %>;<%= image_background_color %>" data-background-image-url="<%= result.thumbnail_url %>">
+    <div class="img-thumbs paginate" <% if bg_visible %>style="background-image: url('<%= result.thumbnail_url %>')"<% end %>>
+        <input name="option_token" value="<%= result.token %>" type="radio">
+    </div>
+  </div>
+  <% count = count + 1 %>
+<% end %>
+<% if count > MORE_AC_SEARCH_RESULTS_COUNT %>
+  <div class="show-more-container">
+  <%= button_tag("show more results", :type => 'button', :'data-more-count' => MORE_AC_SEARCH_RESULTS_COUNT, :class => "btn btn-default show-more-results ac-show-more") %>
+  </div>
+<% end %>

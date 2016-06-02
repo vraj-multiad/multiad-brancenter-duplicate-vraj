@@ -1,0 +1,365 @@
+<%= form_for(@kwikee_nutrition) do |f| %>
+  <% if @kwikee_nutrition.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@kwikee_nutrition.errors.count, "error") %> prohibited this kwikee_nutrition from being saved:</h2>
+
+      <ul>
+      <% @kwikee_nutrition.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :kwikee_product_id %><br>
+    <%= f.number_field :kwikee_product_id %>
+  </div>
+  <div class="field">
+    <%= f.label :cal_from_sat_tran_fat %><br>
+    <%= f.text_area :cal_from_sat_tran_fat %>
+  </div>
+  <div class="field">
+    <%= f.label :calories_per_serving %><br>
+    <%= f.text_area :calories_per_serving %>
+  </div>
+  <div class="field">
+    <%= f.label :carbo_per_serving %><br>
+    <%= f.text_area :carbo_per_serving %>
+  </div>
+  <div class="field">
+    <%= f.label :carbo_uom %><br>
+    <%= f.text_area :carbo_uom %>
+  </div>
+  <div class="field">
+    <%= f.label :cholesterol_per_serving %><br>
+    <%= f.text_area :cholesterol_per_serving %>
+  </div>
+  <div class="field">
+    <%= f.label :cholesterol_uom %><br>
+    <%= f.text_area :cholesterol_uom %>
+  </div>
+  <div class="field">
+    <%= f.label :dvp_biotin %><br>
+    <%= f.text_area :dvp_biotin %>
+  </div>
+  <div class="field">
+    <%= f.label :dvp_calcium %><br>
+    <%= f.text_area :dvp_calcium %>
+  </div>
+  <div class="field">
+    <%= f.label :dvp_carbo %><br>
+    <%= f.text_area :dvp_carbo %>
+  </div>
+  <div class="field">
+    <%= f.label :dvp_chloride %><br>
+    <%= f.text_area :dvp_chloride %>
+  </div>
+  <div class="field">
+    <%= f.label :dvp_cholesterol %><br>
+    <%= f.text_area :dvp_cholesterol %>
+  </div>
+  <div class="field">
+    <%= f.label :dvp_chromium %><br>
+    <%= f.text_area :dvp_chromium %>
+  </div>
+  <div class="field">
+    <%= f.label :dvp_copper %><br>
+    <%= f.text_area :dvp_copper %>
+  </div>
+  <div class="field">
+    <%= f.label :dvp_fiber %><br>
+    <%= f.text_area :dvp_fiber %>
+  </div>
+  <div class="field">
+    <%= f.label :dvp_folic_acid %><br>
+    <%= f.text_area :dvp_folic_acid %>
+  </div>
+  <div class="field">
+    <%= f.label :dvp_iodide %><br>
+    <%= f.text_area :dvp_iodide %>
+  </div>
+  <div class="field">
+    <%= f.label :dvp_iodine %><br>
+    <%= f.text_area :dvp_iodine %>
+  </div>
+  <div class="field">
+    <%= f.label :dvp_iron %><br>
+    <%= f.text_area :dvp_iron %>
+  </div>
+  <div class="field">
+    <%= f.label :dvp_magnesium %><br>
+    <%= f.text_area :dvp_magnesium %>
+  </div>
+  <div class="field">
+    <%= f.label :dvp_manganese %><br>
+    <%= f.text_area :dvp_manganese %>
+  </div>
+  <div class="field">
+    <%= f.label :dvp_molybdenum %><br>
+    <%= f.text_area :dvp_molybdenum %>
+  </div>
+  <div class="field">
+    <%= f.label :dvp_niacin %><br>
+    <%= f.text_area :dvp_niacin %>
+  </div>
+  <div class="field">
+    <%= f.label :dvp_panthothenate %><br>
+    <%= f.text_area :dvp_panthothenate %>
+  </div>
+  <div class="field">
+    <%= f.label :dvp_phosphorus %><br>
+    <%= f.text_area :dvp_phosphorus %>
+  </div>
+  <div class="field">
+    <%= f.label :dvp_potassium %><br>
+    <%= f.text_area :dvp_potassium %>
+  </div>
+  <div class="field">
+    <%= f.label :dvp_protein %><br>
+    <%= f.text_area :dvp_protein %>
+  </div>
+  <div class="field">
+    <%= f.label :dvp_riboflavin %><br>
+    <%= f.text_area :dvp_riboflavin %>
+  </div>
+  <div class="field">
+    <%= f.label :dvp_sat_tran_fat %><br>
+    <%= f.text_area :dvp_sat_tran_fat %>
+  </div>
+  <div class="field">
+    <%= f.label :dvp_saturated_fat %><br>
+    <%= f.text_area :dvp_saturated_fat %>
+  </div>
+  <div class="field">
+    <%= f.label :dvp_selenium %><br>
+    <%= f.text_area :dvp_selenium %>
+  </div>
+  <div class="field">
+    <%= f.label :dvp_sodium %><br>
+    <%= f.text_area :dvp_sodium %>
+  </div>
+  <div class="field">
+    <%= f.label :dvp_sugar %><br>
+    <%= f.text_area :dvp_sugar %>
+  </div>
+  <div class="field">
+    <%= f.label :dvp_thiamin %><br>
+    <%= f.text_area :dvp_thiamin %>
+  </div>
+  <div class="field">
+    <%= f.label :dvp_total_fat %><br>
+    <%= f.text_area :dvp_total_fat %>
+  </div>
+  <div class="field">
+    <%= f.label :dvp_vitamin_a %><br>
+    <%= f.text_area :dvp_vitamin_a %>
+  </div>
+  <div class="field">
+    <%= f.label :dvp_vitamin_b12 %><br>
+    <%= f.text_area :dvp_vitamin_b12 %>
+  </div>
+  <div class="field">
+    <%= f.label :dvp_vitamin_b6 %><br>
+    <%= f.text_area :dvp_vitamin_b6 %>
+  </div>
+  <div class="field">
+    <%= f.label :dvp_vitamin_c %><br>
+    <%= f.text_area :dvp_vitamin_c %>
+  </div>
+  <div class="field">
+    <%= f.label :dvp_vitamin_d %><br>
+    <%= f.text_area :dvp_vitamin_d %>
+  </div>
+  <div class="field">
+    <%= f.label :dvp_vitamin_e %><br>
+    <%= f.text_area :dvp_vitamin_e %>
+  </div>
+  <div class="field">
+    <%= f.label :dvp_vitamin_k %><br>
+    <%= f.text_area :dvp_vitamin_k %>
+  </div>
+  <div class="field">
+    <%= f.label :dvp_zinc %><br>
+    <%= f.text_area :dvp_zinc %>
+  </div>
+  <div class="field">
+    <%= f.label :fat_calories_per_serving %><br>
+    <%= f.text_area :fat_calories_per_serving %>
+  </div>
+  <div class="field">
+    <%= f.label :fiber_per_serving %><br>
+    <%= f.text_area :fiber_per_serving %>
+  </div>
+  <div class="field">
+    <%= f.label :fiber_uom %><br>
+    <%= f.text_area :fiber_uom %>
+  </div>
+  <div class="field">
+    <%= f.label :insol_fiber_per_serving %><br>
+    <%= f.text_area :insol_fiber_per_serving %>
+  </div>
+  <div class="field">
+    <%= f.label :insol_fiber_per_serving_uom %><br>
+    <%= f.text_area :insol_fiber_per_serving_uom %>
+  </div>
+  <div class="field">
+    <%= f.label :mono_unsat_fat %><br>
+    <%= f.text_area :mono_unsat_fat %>
+  </div>
+  <div class="field">
+    <%= f.label :mono_unsat_fat_uom %><br>
+    <%= f.text_area :mono_unsat_fat_uom %>
+  </div>
+  <div class="field">
+    <%= f.label :nutrient_disclaimer_1 %><br>
+    <%= f.text_area :nutrient_disclaimer_1 %>
+  </div>
+  <div class="field">
+    <%= f.label :nutrient_disclaimer_2 %><br>
+    <%= f.text_area :nutrient_disclaimer_2 %>
+  </div>
+  <div class="field">
+    <%= f.label :nutrient_disclaimer_3 %><br>
+    <%= f.text_area :nutrient_disclaimer_3 %>
+  </div>
+  <div class="field">
+    <%= f.label :nutrient_disclaimer_4 %><br>
+    <%= f.text_area :nutrient_disclaimer_4 %>
+  </div>
+  <div class="field">
+    <%= f.label :nutrition_label %><br>
+    <%= f.text_area :nutrition_label %>
+  </div>
+  <div class="field">
+    <%= f.label :omega_3_polyunsat %><br>
+    <%= f.text_area :omega_3_polyunsat %>
+  </div>
+  <div class="field">
+    <%= f.label :omega_3_polyunsat_uom %><br>
+    <%= f.text_area :omega_3_polyunsat_uom %>
+  </div>
+  <div class="field">
+    <%= f.label :omega_6_polyunsat %><br>
+    <%= f.text_area :omega_6_polyunsat %>
+  </div>
+  <div class="field">
+    <%= f.label :omega_6_polyunsat_uom %><br>
+    <%= f.text_area :omega_6_polyunsat_uom %>
+  </div>
+  <div class="field">
+    <%= f.label :omega_9_polyunsat %><br>
+    <%= f.text_area :omega_9_polyunsat %>
+  </div>
+  <div class="field">
+    <%= f.label :omega_9_polyunsat_uom %><br>
+    <%= f.text_area :omega_9_polyunsat_uom %>
+  </div>
+  <div class="field">
+    <%= f.label :poly_unsat_fat %><br>
+    <%= f.text_area :poly_unsat_fat %>
+  </div>
+  <div class="field">
+    <%= f.label :poly_unsat_fat_uom %><br>
+    <%= f.text_area :poly_unsat_fat_uom %>
+  </div>
+  <div class="field">
+    <%= f.label :potassium_per_serving %><br>
+    <%= f.text_area :potassium_per_serving %>
+  </div>
+  <div class="field">
+    <%= f.label :potassium_uom %><br>
+    <%= f.text_area :potassium_uom %>
+  </div>
+  <div class="field">
+    <%= f.label :protein_per_serving %><br>
+    <%= f.text_area :protein_per_serving %>
+  </div>
+  <div class="field">
+    <%= f.label :protein_uom %><br>
+    <%= f.text_area :protein_uom %>
+  </div>
+  <div class="field">
+    <%= f.label :sat_fat_per_serving %><br>
+    <%= f.text_area :sat_fat_per_serving %>
+  </div>
+  <div class="field">
+    <%= f.label :sat_fat_uom %><br>
+    <%= f.text_area :sat_fat_uom %>
+  </div>
+  <div class="field">
+    <%= f.label :serving_size %><br>
+    <%= f.text_area :serving_size %>
+  </div>
+  <div class="field">
+    <%= f.label :serving_size_uom %><br>
+    <%= f.text_area :serving_size_uom %>
+  </div>
+  <div class="field">
+    <%= f.label :servings_per_container %><br>
+    <%= f.text_area :servings_per_container %>
+  </div>
+  <div class="field">
+    <%= f.label :sodium_per_serving %><br>
+    <%= f.text_area :sodium_per_serving %>
+  </div>
+  <div class="field">
+    <%= f.label :sodium_uom %><br>
+    <%= f.text_area :sodium_uom %>
+  </div>
+  <div class="field">
+    <%= f.label :sol_fiber_per_serving %><br>
+    <%= f.text_area :sol_fiber_per_serving %>
+  </div>
+  <div class="field">
+    <%= f.label :sol_fiber_per_serving_uom %><br>
+    <%= f.text_area :sol_fiber_per_serving_uom %>
+  </div>
+  <div class="field">
+    <%= f.label :starch_per_serving %><br>
+    <%= f.text_area :starch_per_serving %>
+  </div>
+  <div class="field">
+    <%= f.label :starch_per_serving_uom %><br>
+    <%= f.text_area :starch_per_serving_uom %>
+  </div>
+  <div class="field">
+    <%= f.label :sub_number %><br>
+    <%= f.text_area :sub_number %>
+  </div>
+  <div class="field">
+    <%= f.label :sugar_per_serving %><br>
+    <%= f.text_area :sugar_per_serving %>
+  </div>
+  <div class="field">
+    <%= f.label :sugar_uom %><br>
+    <%= f.text_area :sugar_uom %>
+  </div>
+  <div class="field">
+    <%= f.label :suger_alc_per_serving %><br>
+    <%= f.text_area :suger_alc_per_serving %>
+  </div>
+  <div class="field">
+    <%= f.label :suger_alc_per_serving_uom %><br>
+    <%= f.text_area :suger_alc_per_serving_uom %>
+  </div>
+  <div class="field">
+    <%= f.label :total_fat_per_serving %><br>
+    <%= f.text_area :total_fat_per_serving %>
+  </div>
+  <div class="field">
+    <%= f.label :total_fat_uom %><br>
+    <%= f.text_area :total_fat_uom %>
+  </div>
+  <div class="field">
+    <%= f.label :trans_fat_per_serving %><br>
+    <%= f.text_area :trans_fat_per_serving %>
+  </div>
+  <div class="field">
+    <%= f.label :trans_fat_uom %><br>
+    <%= f.text_area :trans_fat_uom %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

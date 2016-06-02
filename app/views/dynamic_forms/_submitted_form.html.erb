@@ -1,0 +1,33 @@
+<div class='container'>
+  <div class='row'>
+    <div class='col-lg-12'>
+      <% if @dynamic_form.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@dynamic_form.errors.count, "error") %> prohibited this dynamic_form from being saved:</h2>
+
+          <ul>
+          <% @dynamic_form.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="field">
+        <h4><%= @dynamic_form.title %></h4><br/>
+        <%= @dynamic_form.response_text.html_safe %>
+      </div>
+
+      <div class="field" style="width:75%;float:left;">
+        <% @dynamic_form.dynamic_form_input_groups.order(:name).each do |dfig| %>
+          <h4><%= dfig.title %></h4><br/>
+
+          <% dfig.dynamic_form_inputs.each do |dfi| %>
+            <%= render partial: "dynamic_forms/fields/#{dfi.input_type}", locals: { dynamic_form_input: dfi, render_type: 'show' } %>
+          <% end %>
+          <br/>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

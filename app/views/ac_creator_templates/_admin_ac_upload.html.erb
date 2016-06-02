@@ -1,0 +1,7 @@
+<strong>Upload New Template</strong><br/>
+<%= direct_upload_form_for @uploader do |f| %>
+    <%= f.file_field :bundle , class: "bundle-input file" %>
+    <br>
+    <%= f.submit 'Upload Template', class: "btn btn-default submit-butt" %>
+<% end %>
+<hr>

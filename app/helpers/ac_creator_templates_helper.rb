@@ -1,0 +1,2 @@
+module AcCreatorTemplatesHelper
+end

@@ -1,0 +1,113 @@
+<div id="cart-wrapper">
+<div class="container">
+  <div class="panel panel-default">
+  <% if @order.open? %>
+    <div class="panel-heading">
+      <%= t '__order_confirmation__' %>
+    </div>
+    
+     <div class="panel-body">
+		<% if notice.present? %>
+			<p id="notice"><%= notice %></p>
+		<% end %>
+		
+		<h4><strong><%= t '__billing_info__' %></strong></h4>
+		<div class="do-not-edit">
+			<%= render partial: 'order_billing' %>
+			</div> <!-- End: #billing_info -->
+		</div>
+		<br/>	  
+		
+		<h4><strong><%= t '__shipping_info__' %></strong></h4>
+		<div class="do-not-edit">
+			<%= render partial: 'order_shipping' %>
+			</div> <!-- End: #billing_info -->
+		</div>
+		
+		<br/>
+		
+		<div class="row">
+		<% @order.order_items.each do |item| %>
+		<%= hidden_field_tag 'order[order_items_attributes][][id]', item.id %>
+		
+		<div class="results-spacing">
+			<div class="thumbnail" style="width:359px;height:300px;">
+				<div class="crop-images">
+				  <div class="align-images">
+				      <%= image_tag(item.orderable.thumbnail_url) %>
+				  </div>
+				</div> 
+				<div class="cart-item-details">
+					<div class="form-group">
+						<% if item.mailing_list.present? %>
+							<strong>Mailing List</strong><br/>
+							<%= item.mailing_list.title + ' (' + item.mailing_list.quantity.to_s + ')' %><br/>
+						<% else %>
+							<strong>Quantity</strong><br/>
+							<%= item.quantity.to_i %>
+						<% end %>
+					</div>
+					<div class="form-group">
+						<strong>Price Per Unit</strong><br/>
+						<%= sprintf('%.2f', (item.unit_price || 0)) %>
+					</div>
+					<div class="form-group">
+						<strong>Total</strong><br/>
+						<%= sprintf('%.2f', (item.item_total || 0)) %>
+					</div>
+				</div>
+				  
+				<div class="caption" style="width:100%;">
+				<!-- <h3>Thumbnail label</h3> -->
+				  <p style="width:100%;text-align:left;"><%= simple_format(item.description) %></p>
+				</div>
+			</div>
+		</div>
+		<% end %>
+		</div><!--end row -->
+		
+		<table class="order-totals alert alert-info">
+	      <tr>
+	        <td><strong>Subtotal:</strong></td>
+	        <td style="width:1%"><%= sprintf('%.2f', (@order.sub_total || 0)) %></td>
+	      </tr>
+	      <tr>
+	        <td><strong>Shipping:</strong></td>
+	        <td style="width:1%"><%= @order.shipping_method %></td>
+	      </tr>
+	      <tr>
+	        <td><strong>Total:</strong></td>
+	        <td style="width:1%"><%= sprintf('%.2f', (@order.total ||0)) %></td>
+	      </tr>
+	    </table>	
+		
+		
+		<%= form_tag(cart_path, remote: true, :'data-order-cart-panel' => 'order-cart-panel', id: 'order-cart-edit-form', role: 'form') do %>
+		  <%= button_tag(t('__cart__'), type: 'submit', id: 'cart-form-submit', class: "btn btn-default pull-left") do %><%= t '__edit_cart__' %><% end %>
+		<% end %>
+		<%= form_tag(cart_submit_path(@order.id), remote: true, :'data-order-cart-submit' => 'order-cart-panel', id: 'order-cart-submit-form', role: 'form') do %>
+		  <%= button_tag(t('__cart__'), type: 'submit', data: { disable_with: t('__loading__') }, id: 'cart-form-submit', class: "btn btn-primary pull-right") do %><%= t '__complete_order__' %><% end %>
+		<% end %>
+		<% else %>
+		
+			<div class="panel-heading">
+		      <%= t '__order_completed__' %>
+		    </div>
+		    
+		    <div class="panel-body">
+		    	<h4>Thank you, your order has been placed.</h4>
+		    	An email confirmation has been sent to you with all your order details.		
+		<% end %>
+		</div><!--end panel-body-->
+		
+		<div class="panel-footer">
+			<a href="javascript:void(0)"><button type="button" class="btn btn-default rounded close-order-cart"><%= t '__return_to_previous__' %></button></a>
+		</div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="modal-backdrop in"></div>
+<div class="modal-backdrop in"></div>

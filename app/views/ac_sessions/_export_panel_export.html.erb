@@ -1,0 +1,172 @@
+<% approval = ac_step.form_data('approval') == 'y' %>
+<% bleed = ac_step.form_data('bleed') == 'y' %>
+<% email = ac_step.form_data('email') == 'y' %>
+<% inline_email = ac_step.form_data('inline_email') == 'y' %>
+<% marketing_email = ac_step.form_data('marketing_email') == 'y' %>
+<% email_subject = ac_step.form_data('email_subject') %>
+<% ac_session_history = @ac_session.current_ac_session_history %>
+<% if ac_session_history.present? && ac_session_history.first_ac_session_attribute('@email_subject').present? %>
+  <% email_subject = ac_session_history.first_ac_session_attribute('@email_subject') %>
+<% end %>
+<% pdf = ac_step.form_data('pdf') == 'y' %>
+<% jpg = ac_step.form_data('jpg') == 'y' %>
+<% eps = ac_step.form_data('eps') == 'y' %>
+<% allowed_export_formats = [] %>
+<% allowed_export_formats << 'pdf' if pdf %>
+<% allowed_export_formats << 'jpg' if jpg %>
+<% allowed_export_formats << 'eps' if eps %>
+<% allowed_export_formats = %w(pdf jpg eps) if allowed_export_formats.empty? %>
+<% hidden_field = [] %>
+<% hidden_field= allowed_export_formats if allowed_export_formats.length == 1 %>
+<!-- _export_panel -->
+  <div class="panel-functions" id="panel-functions-export" style='display:<%= export_display %>;'>
+    <% if marketing_email %>
+      <br/>
+      <div class="profile-email-list-upload">
+        <iframe style="width:100%;height:200px;border:solid 1px lightgrey;padding:10px;" frameBorder="0" src='/email_list/upload_form' name="email_list_upload_form_iframe" id="email_list_upload_form_iframe" onLoad="$('#refresh_user_email_lists').submit();" scrolling="yes" ></iframe>
+      </div>
+      <%= form_tag('/adcreator/user_email_lists_select', :remote => true, :'data-ac-user-email-lists-select' => 'ac-user-email-lists-select', :class => "form-inline", :role => "form", :id => 'refresh_user_email_lists') do %>
+        <%= hidden_field_tag 'ac_session_id', @ac_session.id %>
+        <%= hidden_field_tag 'ac_step_id', ac_step.id %>
+      <% end %>
+      <%= form_tag('/adcreator/process_step', :remote => true,  :id => 'export_form', :'data-ac-process-export' => 'panel-functions-export') do %>
+        <%= hidden_field_tag 'ac_session_id', @ac_session.id %>
+        <%= hidden_field_tag 'ac_step', 'export' %>
+        <%= hidden_field_tag 'ac_step_id', ac_step.id %>
+        <%= hidden_field_tag 'export_type', 'email_list' %>
+        <%= hidden_field_tag 'export_formats[]', 'EMAIL' %>
+        <%= hidden_field_tag 'layer', '', :id => 'export_layer' %>
+        <%= hidden_field_tag 'set_layer', '' %>
+        <div class="ac-user-email-lists-select">
+          <%= render partial: 'user_email_lists_select', locals: { email_subject: email_subject, email_lists: @current_user.email_lists } %>
+        </div><!--user-endemail-list-->
+      <% end %>
+    <% elsif inline_email %>
+      <% ac_process_export = 'export-copy' %>
+      <% ac_process_export = 'panel-functions-export' if approval %>
+      <%= form_tag('/adcreator/process_step', :remote => true,  :id => 'export_form', :'data-ac-process-export' => ac_process_export) do %>
+        <%= hidden_field_tag 'ac_session_id', @ac_session.id %>
+        <%= hidden_field_tag 'ac_step', 'export' %>
+        <%= hidden_field_tag 'ac_step_id', ac_step.id %>
+        <%= hidden_field_tag 'export_formats[]', 'EMAIL' %>
+        <%= hidden_field_tag 'export_type', 'email' %>
+        <%= hidden_field_tag 'layer', '', :id => 'export_layer' %>
+        <%= hidden_field_tag 'set_layer', '' %>
+        <% if ENABLE_INLINE_EMAIL_SUBJECT %>
+          <div style="float:left;margin-top:10px;width:100%;">
+            <span><%= t('ac_export_panel_subject') %></span>
+            <%= text_field_tag 'email_subject', email_subject, :class => "form-control required-field", data: { alert: t('__missing_required_value__') + ': ' + t('ac_export_panel_subject') } %>
+          </div>
+        <% end %>
+        <div class="input-group">
+          <span><%= t('__email_recipient__') %></span><br/>
+          <div class="input-group" style="padding-top:0px;">
+          <%= text_field_tag 'email_address', '', id: 'export-emails', :class => "form-control required_field validate-email", data: { alert: t('__missing_required_value__') + ': ' + t('__email_address__'), 'alert-validate' => t('__email_address_format_is_invalid__') } %>
+            <span class="input-group-btn">
+              <%= button_tag(t('__submit__'), :type => 'button', :id => 'send-export-inline-emails', :class => "btn branded-button exxport-email validate-and-submit-form", data: { style: 'slide-down', 'form-id' => 'export_form' }) do %>
+                <span>
+                  <% if approval %>
+                    <%= t '__submit_for_approval__' %>
+                  <% else %>
+                    <%= t '__send__' %>
+                  <% end %>
+                </span>
+              <% end %>
+            </span>
+          </div>
+        </div>
+        <div class="note-text"><%= t '__send_to_multiple__' %></div>
+      <% end %>
+    <% else %>
+      <% ac_process_export = 'export-copy' %>
+      <% ac_process_export = 'panel-functions-export' if approval %>
+      <%= form_tag('/adcreator/process_step', :remote => true,  :id => 'export_form', :'data-ac-process-export' => ac_process_export) do %>
+        <%= hidden_field_tag 'ac_session_id', @ac_session.id %>
+        <%= hidden_field_tag 'ac_step', 'export' %>
+        <%= hidden_field_tag 'ac_step_id', ac_step.id %>
+        <%= hidden_field_tag 'export_type', '' %>
+        <%= hidden_field_tag 'layer', '', :id => 'export_layer' %>
+        <%= hidden_field_tag 'set_layer', '' %>
+        <div class="export-file-types pull-left">
+          <% unless hidden_field.present? %>
+            <p><%= t '__select_file_type__' %></p>
+          <% end %>
+          <div class="pull-left">
+            <% if email %>
+              <label>
+                <%= t('__email_single__').upcase %><%= check_box_tag 'export_formats[]', 'EMAIL', false, :class => 'file-type' %>
+              </label>
+            <% else %>
+              <% if hidden_field.present? %>
+                <% hidden_field.each do |export_format| %>
+                  <%= check_box_tag 'export_formats[]', export_format.upcase, true, :class => 'file-type', :style => 'display:none;' %>
+                <% end %>
+              <% else %>
+                <% allowed_export_formats.each do |export_format| %>
+                  <label>
+                    <%= export_format.upcase %><%= check_box_tag 'export_formats[]', export_format.upcase, hidden_field.include?(export_format), :class => 'file-type' %>
+                  </label>
+                <% end %>
+                <label>
+                  <%= t '__ALL__' %><%= check_box_tag 'ALL', 'ALL', false, :class => 'file-type' %>
+                </label>
+              <% end %>
+            <% end %>
+          </div>
+          <% unless approval %>
+            <%= button_tag(t('__submit__'), :type => 'button', :id => 'download-files', :class => "btn branded-button", data: { style: 'slide-down'}) do %><span><%= t '__download__' %></span><% end %>
+          <% end %>
+        </div>
+        <% if approval %>
+          <div class="input-group">
+            <%= t('__approval_required__') %><br/><br/>
+          </div>
+        <% end %>
+        <% if bleed %>
+          <div class="export-bleed pull-left">
+            <h5><%= t('__bleed__') %></h5>
+            <label>
+              <%= t('__send_to_printer__') %><input class="bleed-choice" type="checkbox" name='bleed' value="1">
+            </label>
+            <label class='active'>
+              <%= t('__print_at_desk__') %><input class="bleed-choice" type="checkbox" name='bleed' checked='checked' value="0">
+            </label>
+          </div>
+        <% end %>
+     
+        <div class="input-group">
+          <span><%= t('__email_recipient__') %></span><br/>
+          <div class="input-group" style="padding-top:0px;">
+            <%= text_field_tag 'email_address', '', id: 'export-emails', :class => "form-control validate-email", data: { 'alert-validate' => t('__email_address_format_is_invalid__') + ': ' + t('__email_address__') } %>
+            <span class="input-group-btn">
+              <%= button_tag(t('__submit__'), :type => 'button', :id => 'send-export-emails', :class => "btn branded-button export-email", data: { style: 'slide-down'}) do %>
+                <span>
+                  <% if approval %>
+                    <%= t '__submit_for_approval__' %>
+                  <% else %>
+                    <%= t '__send__' %>
+                  <% end %>
+                </span>
+              <% end %>
+            </span>
+          </div>
+        </div>
+        <div class="note-text"><%= t '__send_to_multiple__' %></div>
+        <% if ENABLE_AC_EXPORT_EMAIL_SUBJECT %>
+          <div style="float:left;margin-top:10px;width: 100%;">
+            <span><%= t('ac_export_panel_subject') %></span>
+            <%= text_field_tag 'email_subject', email_subject, :class => "form-control required-field", data: { alert: t('__missing_required_value__') + ': ' + t('ac_export_panel_subject')  }  %>
+          </div>
+        <% end %>
+          
+        <% if ENABLE_AC_EXPORT_EMAIL_BODY %>
+          <div style="float:left;margin-top:10px;width: 100%;">
+            <span><%= t('ac_export_panel_body') %></span>
+            <%= text_area_tag 'email_body', '', :class => "form-control2", :style => "width: 100%;" %>
+          </div>
+         <% end %>
+      <% end #form %>
+    <% end # non marketing_email %>
+    <div class="export-copy" id="export-copy">
+    </div>
+  </div>

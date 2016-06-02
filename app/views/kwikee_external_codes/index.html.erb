@@ -1,0 +1,33 @@
+<h1>Listing kwikee_external_codes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Kwikee product</th>
+      <th>Kwikee profile</th>
+      <th>Name</th>
+      <th>Value</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @kwikee_external_codes.each do |kwikee_external_code| %>
+      <tr>
+        <td><%= kwikee_external_code.kwikee_product_id %></td>
+        <td><%= kwikee_external_code.kwikee_profile_id %></td>
+        <td><%= kwikee_external_code.name %></td>
+        <td><%= kwikee_external_code.value %></td>
+        <td><%= link_to 'Show', kwikee_external_code %></td>
+        <td><%= link_to 'Edit', edit_kwikee_external_code_path(kwikee_external_code) %></td>
+        <td><%= link_to 'Destroy', kwikee_external_code, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Kwikee external code', new_kwikee_external_code_path %>

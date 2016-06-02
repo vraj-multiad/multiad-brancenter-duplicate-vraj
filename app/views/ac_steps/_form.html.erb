@@ -1,0 +1,54 @@
+<%= form_for(@ac_step) do |f| %>
+  <% if @ac_step.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ac_step.errors.count, "error") %> prohibited this ac_step from being saved:</h2>
+
+      <ul>
+      <% @ac_step.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<table>
+  <tr>
+    <td>
+      <div class="field">
+        <%= f.label :step_number %><br>
+        <%= f.text_field :step_number %>
+      </div>
+      <div class="field">
+        <%= f.label :name %><br>
+        <%= f.text_field :name %>
+      </div>
+      <div class="field">
+        <%= f.label :title %><br>
+        <%= f.text_field :title %>
+      </div>
+      <div class="field">
+        <%= f.label :ac_base_id %><br>
+        <%= f.number_field :ac_base_id %>
+      </div>
+      <div class="field">
+        <%= f.label :actions %><br>
+        <%= f.text_area :actions %>
+      </div>
+      <div class="field">
+        <%= render partial: 'set_attributes/set_attribute_list', locals: {attribute_list: @ac_step.set_attributes} %>
+      </div>
+      <div class="field">
+        <%= render partial: 'responds_to_attributes/responds_to_attribute_list', locals: {attribute_list: @ac_step.responds_to_attributes} %>
+      </div>
+    </td>
+    <td>
+      <div class="field">
+        <%= f.label :form %><br>
+        <%= f.text_area :form, :rows => "12", :cols => "80"%>
+      </div>
+      <div class="actions">
+      </div>
+    </td>
+  </tr>
+</table>
+        <%= f.submit %>
+<% end %>

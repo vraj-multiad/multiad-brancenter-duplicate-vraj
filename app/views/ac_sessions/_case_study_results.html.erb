@@ -1,0 +1,25 @@
+<div class="case-study-container panel panel-default">
+<% if results.present? %>
+  <% results.each do |result| %>
+  	<div class="panel panel-default">
+	  	<div class="panel-heading"><h3 class="panel-title"><%= result.title %></h3></div>
+	  	<div class="panel-body">
+      <%= form_tag('/adcreator/process_step', :remote => true, :'data-ac-process-step' => 'template-canvas', :id => "text-form", :role => "form") do %>
+        <%= hidden_field_tag 'ac_session_id', ac_session_id %>
+        <%= hidden_field_tag 'ac_step_id', ac_step_id %>
+        <%= hidden_field_tag 'option_type', 'AcText' %>
+        <%= hidden_field_tag 'option_token', result.token %>
+        <%= hidden_field_tag 'template_canvas_only', '1' %>
+        <div><%= result.html.html_safe %></div>
+        <%= submit_tag 'Choose', type: 'submit' , class: "btn btn-default pull-right case-study-choice" %>
+      </div>
+  	</div>
+    <% end %>
+  <% end %>
+<% else %>
+  <div class="panel panel-default">No case studies were found with your specified criteria</div>
+<% end %>
+<%= button_tag( 'Cancel', type: 'button', class: "btn btn-default btn-lg close-case-study-drill-down-butt pull-right")  %>
+</div>
+<div class="modal-backdrop in"></div>
+<div class="modal-backdrop in"></div>

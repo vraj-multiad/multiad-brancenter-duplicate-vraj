@@ -1,0 +1,48 @@
+<%= form_for(@ac_creator_template_group) do |f| %>
+  <% if @ac_creator_template_group.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ac_creator_template_group.errors.count, "error") %> prohibited this ac_creator_template_group from being saved:</h2>
+
+      <ul>
+      <% @ac_creator_template_group.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name, class: "form-control"%>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title, class: "form-control" %>
+  </div>
+  <div class="form">
+    <%= f.label :spec %><br>
+    <%= f.text_area :spec, rows: 20, class: "form-control2" %>
+  </div>
+
+  <% if @sub_templates.present? && @sub_templates.count > 1 %>
+    <div class="form-group">
+      <span>Set SubTemplate Relationships</span>
+      <div class="alert alert-warning">
+        <ul class="nav nav-pills pill-checkboxes">
+          <% current_category = '' %>
+          <% @sub_templates.each do |sub_template| %>
+            <% if current_category != sub_template.ac_creator_template_type %>
+              <% current_category = sub_template.ac_creator_template_type %>
+              <div class='col-lg-12'><%= current_category %></div>
+            <% end %>
+            <li><label for="<%= sub_template.title.to_s  %>"><%= "#{sub_template.title.to_s} (#{sub_template.status.to_s}):" %></label><%= check_box_tag "ac_creator_template_group[ac_creator_template_ids][]", sub_template.id, @ac_creator_template_group.ac_creator_templates.pluck(:id).include?(sub_template.id) %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

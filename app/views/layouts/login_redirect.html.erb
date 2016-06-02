@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html class="SI-FILES-STYLIZED">
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+  <title>Brand Center</title>
+  <meta http-equiv="content-type" content="text/html; charset=unicode-1-1-utf-8" />
+  <script>
+  function isIE () {
+    var myNav = navigator.userAgent.toLowerCase();
+    return (myNav.indexOf('msie') != -1) ? parseInt(myNav.split('msie')[1]) : false;
+  }
+  function redirect(){
+    document.getElementById('messageBox').innerHTML="Redirecting to /home";
+    if (isIE () && isIE () < 10) {
+      window.event.returnValue = false;
+      window.location="/home";
+    } else {
+      history.pushState( null, "Login Redirect", "/redirect");
+      document.location="/home";
+    }
+
+  }
+  </script>
+
+</head>
+
+<body onload="redirect()">
+  <div id='messageBox'></div>
+  <p>Your browser should redirect shortly.  If your browser does not redirect automatically, you may click <%= link_to "here", home_path %>.
+  <%= yield %>
+</body>
+
+</html>

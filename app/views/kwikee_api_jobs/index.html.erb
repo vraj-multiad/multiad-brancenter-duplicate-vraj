@@ -1,0 +1,37 @@
+<h1>Listing kwikee_api_jobs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Job type</th>
+      <th>Replication date</th>
+      <th>Status</th>
+      <th>Transaction ID</th>
+      <th>Response code</th>
+      <th>Response description</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @kwikee_api_jobs.each do |kwikee_api_job| %>
+      <tr>
+        <td><%= kwikee_api_job.job_type %></td>
+        <td><%= kwikee_api_job.replication_date %></td>
+        <td><%= kwikee_api_job.status %></td>
+        <td><%= kwikee_api_job.transaction_id %></td>
+        <td><%= kwikee_api_job.response_code %></td>
+        <td><%= kwikee_api_job.response_description %></td>
+        <td><%= link_to 'Show', kwikee_api_job %></td>
+        <td><%= link_to 'Edit', edit_kwikee_api_job_path(kwikee_api_job) %></td>
+        <td><%= link_to 'Destroy', kwikee_api_job, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Kwikee api job', new_kwikee_api_job_path %>

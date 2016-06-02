@@ -1,0 +1,33 @@
+<%= form_for(@kwikee_external_code) do |f| %>
+  <% if @kwikee_external_code.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@kwikee_external_code.errors.count, "error") %> prohibited this kwikee_external_code from being saved:</h2>
+
+      <ul>
+      <% @kwikee_external_code.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :kwikee_product_id %><br>
+    <%= f.number_field :kwikee_product_id %>
+  </div>
+  <div class="field">
+    <%= f.label :kwikee_profile_id %><br>
+    <%= f.number_field :kwikee_profile_id %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :value %><br>
+    <%= f.text_field :value %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,37 @@
+<%= form_for(@ac_session_attribute) do |f| %>
+  <% if @ac_session_attribute.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ac_session_attribute.errors.count, "error") %> prohibited this ac_session_attribute from being saved:</h2>
+
+      <ul>
+      <% @ac_session_attribute.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :ac_session_history_id %><br>
+    <%= f.number_field :ac_session_history_id %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :value %><br>
+    <%= f.text_field :value %>
+  </div>
+  <div class="field">
+    <%= f.label :ac_step_id %><br>
+    <%= f.number_field :ac_step_id %>
+  </div>
+  <div class="field">
+    <%= f.label :attribute_type %><br>
+    <%= f.text_field :attribute_type %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,14 @@
+<div class='modal' id='session-timeout-modal' data-timeout='<%= @session_timeout_duration %>' data-warning='<%= @session_timeout_warning_duration %>' >
+  <div class='modal-dialog modal-small'>
+    <div class='modal-content'>
+      <div class='modal-body' style='padding-bottom: 20px; padding-top: 20px;'>
+        <p align='center'>
+          <%= t('__session_about_to_expire__') %>
+        </p>
+
+        <a class='account-info-buttons' id='session-timeout-continue' ><%= t('__continue__') %></a>
+        <a class='account-info-buttons pull-right' id='session-timeout-logout'><%= t('__logout__') %></a>
+      </div>
+    </div>
+  </div>
+</div>

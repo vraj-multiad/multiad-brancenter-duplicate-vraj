@@ -1,0 +1,5 @@
+<%= direct_upload_form_for @uploader do |f| %>
+    <%= f.file_field :bundle , class: "bundle-input file" %>
+    <br>
+    <%= f.submit 'Upload DL Image' %>
+<% end %>

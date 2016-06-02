@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Expires at:</strong>
+  <%= @social_media_account.expires_at %>
+</p>
+
+<p>
+  <strong>Oauth refresh token:</strong>
+  <%= @social_media_account.oauth_refresh_token %>
+</p>
+
+<p>
+  <strong>Oauth secret:</strong>
+  <%= @social_media_account.oauth_secret %>
+</p>
+
+<p>
+  <strong>Oauth token:</strong>
+  <%= @social_media_account.oauth_token %>
+</p>
+
+<p>
+  <strong>Profile image:</strong>
+  <%= @social_media_account.profile_image %>
+</p>
+
+<p>
+  <strong>Profile name:</strong>
+  <%= @social_media_account.profile_name %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @social_media_account.user_id %>
+</p>
+
+<p>
+  <strong>Uid:</strong>
+  <%= @social_media_account.uid %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @social_media_account.type %>
+</p>
+
+<%= link_to 'Edit', edit_social_media_account_path(@social_media_account) %> |
+<%= link_to 'Back', social_media_accounts_path %>

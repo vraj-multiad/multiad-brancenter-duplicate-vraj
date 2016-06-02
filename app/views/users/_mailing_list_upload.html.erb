@@ -1,0 +1,20 @@
+
+<div class="col-lg-6 col-md-6 col-sm-6" style="margin-top:30px;float:left;" id="mailing-list-upload-area">
+  <h3><strong><%= t '__upload_mailing_list__' %></strong></h3>
+
+  <div class="editable-area2">
+    <div class="row social-headers">
+      <div class="col-xs-12 col-sm-12 col-lg-12">
+        <div class="profile-mailing-list-upload">
+          <iframe style="width:100%;min-height:149px;" frameBorder="0" src='/mailing_list/upload_form' name="mailing_list_upload_form_iframe" id="mailing_list_upload_form_iframe" onLoad="$('#refresh_profile_user_mailing_lists').submit();" ></iframe>
+          <%= form_tag('/profile/user_mailing_lists', :remote => true, :'data-update-user-mailing-lists' => 'user-mailing-lists', :class => "form-inline", :role => "form", :id => 'refresh_profile_user_mailing_lists') do %>
+          <% end %>
+          <ul class="fileupload-status-mailing-list"></ul>
+        </div><!-- profile-mailing-list-upload -->
+      </div><!-- col-xs-12-->
+    </div><!--end row social-headers-->
+  </div><!--end editable-area2-->
+</div><!--end mailing-list-upload-area-->
+<div class="col-lg-6 col-md-6 col-sm-6" style="margin-top:30px;float:left;" id="user-mailing-lists">
+  <%= render partial: "mailing_lists/user_mailing_lists", locals: { mailing_lists: @user.mailing_lists } %>
+</div><!--end:logos-->

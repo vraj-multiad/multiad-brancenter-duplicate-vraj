@@ -1,0 +1,29 @@
+<%= form_for(@shared_page_item) do |f| %>
+  <% if @shared_page_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@shared_page_item.errors.count, "error") %> prohibited this shared_page_item from being saved:</h2>
+
+      <ul>
+      <% @shared_page_item.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :shared_page_id %><br>
+    <%= f.number_field :shared_page_id %>
+  </div>
+  <div class="field">
+    <%= f.label :shareable_id %><br>
+    <%= f.number_field :shareable_id %>
+  </div>
+  <div class="field">
+    <%= f.label :shareable_type %><br>
+    <%= f.text_field :shareable_type %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

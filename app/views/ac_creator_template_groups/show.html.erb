@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @ac_creator_template_group.name %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @ac_creator_template_group.title %>
+</p>
+
+<p>
+  <strong>Token:</strong>
+  <%= @ac_creator_template_group.token %>
+</p>
+
+<p>
+  <strong>Spec:</strong>
+  <%= @ac_creator_template_group.spec %>
+</p>
+
+<%= link_to 'Edit', edit_ac_creator_template_group_path(@ac_creator_template_group) %> |
+<%= link_to 'Back', ac_creator_template_groups_path %>

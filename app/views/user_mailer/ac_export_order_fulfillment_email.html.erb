@@ -1,0 +1,71 @@
+<strong><%= @user.first_name %> <%= @user.last_name %></strong> has placed an order for following item:<br/>
+<br/>
+Order Information:<br/>
+Quantity: <%= @ac_session_attributes["quantity"] %><br/>
+Item: <%= @ac_export.ac_session_history.ac_session.ac_creator_template.title %>
+<br/>
+<br/>
+Item available for download from the following location:<br/>
+<%= PICKUP_URL + @ac_export.location %><br/>
+<br/>
+
+User Information:
+<p>
+  <strong>First name:</strong>
+  <%= @user.first_name %>
+</p>
+
+<p>
+  <strong>Last name:</strong>
+  <%= @user.last_name %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @user.title %>
+</p>
+
+<p>
+  <strong>Address 1:</strong>
+  <%= @user.address_1 %>
+</p>
+
+<p>
+  <strong>Address 2:</strong>
+  <%= @user.address_2 %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @user.city %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @user.state %>
+</p>
+
+<p>
+  <strong>Zip code:</strong>
+  <%= @user.zip_code %>
+</p>
+
+<p>
+  <strong>Phone number:</strong>
+  <%= @user.phone_number %>
+</p>
+
+<p>
+  <strong>Fax number:</strong>
+  <%= @user.fax_number %>
+</p>
+
+<p>
+  <strong>Email address:</strong>
+  <%= @user.email_address %>
+</p>
+
+<p>
+  <strong>Username:</strong>
+  <%= @user.username %>
+</p>

@@ -1,0 +1,57 @@
+<%= form_for(@ac_export) do |f| %>
+  <% if @ac_export.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ac_export.errors.count, "error") %> prohibited this ac_export from being saved:</h2>
+
+      <ul>
+      <% @ac_export.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :ac_session_history_id %><br>
+    <%= f.number_field :ac_session_history_id %>
+  </div>
+  <div class="field">
+    <%= f.label :email_address %><br>
+    <%= f.text_area :email_address %>
+  </div>
+  <div class="field">
+    <%= f.label :email_subject %><br>
+    <%= f.text_area :email_subject %>
+  </div>
+  <div class="field">
+    <%= f.label :email_body %><br>
+    <%= f.text_area :email_body %>
+  </div>
+  <div class="field">
+    <%= f.label :from_name %><br>
+    <%= f.text_area :from_name %>
+  </div>
+  <div class="field">
+    <%= f.label :from_address %><br>
+    <%= f.text_area :from_address %>
+  </div>
+  <div class="field">
+    <%= f.label :reply_to %><br>
+    <%= f.text_area :reply_to %>
+  </div>
+  <div class="field">
+    <%= f.label :format %><br>
+    <%= f.text_area :format %>
+  </div>
+  <div class="field">
+    <%= f.label :bleed %><br>
+    <%= f.text_area :bleed %>
+  </div>
+  <div class="field">
+    <%= f.label :location %><br>
+    <%= f.text_area :location %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

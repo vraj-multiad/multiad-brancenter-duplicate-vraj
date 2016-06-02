@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Job type:</strong>
+  <%= @kwikee_api_job.job_type %>
+</p>
+
+<p>
+  <strong>Replication date:</strong>
+  <%= @kwikee_api_job.replication_date %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @kwikee_api_job.status %>
+</p>
+
+<p>
+  <strong>Transaction ID:</strong>
+  <%= @kwikee_api_job.transaction_id %>
+</p>
+
+<p>
+  <strong>Response code:</strong>
+  <%= @kwikee_api_job.response_code %>
+</p>
+
+<p>
+  <strong>Response description:</strong>
+  <%= @kwikee_api_job.response_description %>
+</p>
+
+<%= link_to 'Edit', edit_kwikee_api_job_path(@kwikee_api_job) %> |
+<%= link_to 'Back', kwikee_api_jobs_path %>

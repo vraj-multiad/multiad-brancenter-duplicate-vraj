@@ -1,0 +1,31 @@
+<h1>Listing shared_page_downloads</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Shared page</th>
+      <th>Shareable type</th>
+      <th>Shareable</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @shared_page_downloads.each do |shared_page_download| %>
+      <tr>
+        <td><%= shared_page_download.shared_page_id %></td>
+        <td><%= shared_page_download.shareable_type %></td>
+        <td><%= shared_page_download.shareable_id %></td>
+        <td><%= link_to 'Show', shared_page_download %></td>
+        <td><%= link_to 'Edit', edit_shared_page_download_path(shared_page_download) %></td>
+        <td><%= link_to 'Destroy', shared_page_download, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Shared page download', new_shared_page_download_path %>

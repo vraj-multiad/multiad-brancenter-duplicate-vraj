@@ -1,0 +1,41 @@
+<%= form_for(@kwikee_asset) do |f| %>
+  <% if @kwikee_asset.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@kwikee_asset.errors.count, "error") %> prohibited this kwikee_asset from being saved:</h2>
+
+      <ul>
+      <% @kwikee_asset.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :kwikee_product_id %><br>
+    <%= f.number_field :kwikee_product_id %>
+  </div>
+  <div class="field">
+    <%= f.label :asset_id %><br>
+    <%= f.number_field :asset_id %>
+  </div>
+  <div class="field">
+    <%= f.label :promotion %><br>
+    <%= f.text_area :promotion %>
+  </div>
+  <div class="field">
+    <%= f.label :asset_type %><br>
+    <%= f.text_area :asset_type %>
+  </div>
+  <div class="field">
+    <%= f.label :version %><br>
+    <%= f.text_area :version %>
+  </div>
+  <div class="field">
+    <%= f.label :view %><br>
+    <%= f.text_area :view %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

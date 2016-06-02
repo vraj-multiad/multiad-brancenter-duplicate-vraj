@@ -1,0 +1,73 @@
+<%= form_tag('/admin/user/reset_password', :id => 'admin-user-reset-password-form', :remote => true, :'data-admin-user-reset-password' => 'admin-panel') do %>
+  <%= hidden_field_tag 'admin_user_reset_password_id' %>
+<% end %>
+<%= form_tag('/admin/user/expire', :id => 'admin-user-expire-form', :remote => true, :'data-admin-user-expire' => 'admin-panel') do %>
+  <%= hidden_field_tag 'admin_user_expire_id' %>
+<% end %>
+<%= form_tag('/admin/user/edit', :id => 'admin-user-edit-form', :remote => true, :'data-admin-user-edit' => 'admin-user-edit-panel') do %>
+  <%= hidden_field_tag 'admin_user_edit_id' %>
+<% end %>
+<div id="admin-user-edit-contents" style="display:none;">
+  <div id="admin-user-edit-wrapper">
+    <div class="container">
+      <div id="admin-user-edit-panel">
+        <div id="admin-user-edit-panel2">
+          <div class="admin-user-edit-options col-lg-7 col-md-7 col-sm-7 col-xs-7">
+            <h5><%= t '__edit_user__' %></h5>
+          </div><!--end:admin-user-edit-options-->
+        </div><!--end:admin-user-edit-panel2-->
+      </div><!--end:admin-user-edit-panel-->
+    </div><!--end: container-->
+  </div><!--end: admin-user-edit-wrapper-->
+</div><!-- admin-user-edit-contents -->
+
+
+<table class="user-table">
+  <tr class="table-header">
+    <td style="text-align:left;"><%= t '__user__' %></td>
+    <td><%= t '__date__' %></td>
+    <td><%= t '__document__' %></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <% @approve_documents.each do |document| %>
+    <tr>
+      <% user = document.operable.ac_session_history.ac_session.user %>
+      <td style="text-align:left;">
+        Username: <%= user.username %> <br/>
+        Email Address: <%= user.email_address %> <br/>
+        Name: <%= user.first_name %> <%= user.last_name %> <br/>
+        <% if user.title.present? %>Title: <%= user.title %> <br/><% end %>
+        Address 1: <%= user.address_1 %> <br/>
+        <% if user.address_2.present? %>Address 2: <%= user.address_2 %> <br/><% end %>
+        City/State/Zip: <%= user.city %>, <%= user.state %>, <%= user.zip_code %> <br/>
+        Phone Number: <%= user.phone_number %> <br/>
+        <% if user.fax_number.present? %>Fax Number: <%= user.fax_number %><% end %></td>
+      <td><%= document.created_at.strftime('%m/%d/%Y : %l:%M %p') %></td>
+      <td><%= document.operable.ac_session_history.ac_session.ac_creator_template.title %></td>
+      <td><a href='<%= document.operable.download_url %>'><div><%= t '__download__' %></div></a></td>
+      <td>
+        <%= form_tag(admin_approve_document_path, :id => 'admin-approve-document-form-approve-' + document.token, :remote => true, :'data-admin-approve-document' => 'admin-panel') do %>
+          <%= hidden_field_tag 'token', document.token %>
+          <%= hidden_field_tag 'operation', 'approve' %>
+          <%= button_tag(class: 'pull-right', data: { confirm:  t('__are_you_sure__') }) do %>
+            <div class="button"><%= t('__approve__') %></div>
+          <% end %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td colspan='4'>
+        <%= form_tag(admin_approve_document_path, :id => 'admin-approve-document-form-deny-' + document.token, :remote => true, :'data-admin-approve-document' => 'admin-panel') do %>
+          <%= hidden_field_tag 'token', document.token %>
+          <%= hidden_field_tag 'operation', 'deny' %>
+          <%= text_field_tag 'comments', nil, class: 'form-control', placeholder: t('__comments__'), required: true %>
+          <%= button_tag(class: 'pull-right', data: { confirm:  t('__are_you_sure__') }) do %>
+            <div class="button"><%= t('__deny__') %></div>
+          <% end %>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>

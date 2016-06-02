@@ -1,0 +1,52 @@
+default:
+  menubar: "false"
+  plugins: 'textcolor paste'
+  font_formats: "Arial=arial;Arial Narrow='arial narrow';Constantia=constantia;Garamond=garamond;Georgia=georgia;HandScript=handscript;Helvetica=helvetica;Palatino=palatino;Trebuchet MS='trebuchet ms'"
+  fontsize_formats: "8pt 9pt 10pt 11pt 12pt 13pt 14pt 18pt 24pt 30pt 36pt 46pt"
+  textcolor_map: ["000000", "Black", "888888", "Gray", "FF0000", "Red", "FFFFFF", "White"]
+  toolbar1: "fontsizeselect"
+  toolbar2: "alignleft aligncenter alignright | forecolor"
+  toolbar3: "bold italic underline | superscript subscript"
+  formats : {
+    alignleft : {selector : 'p', styles : {text-align : 'left'}},
+    aligncenter : {selector : 'p', styles : {text-align : 'center'}},
+    alignright : {selector : 'p', styles : {text-align : 'right'}},
+    fontname : {selector : 'p', styles : {font-family : '%value'}},
+    fontsize : {selector : 'p', styles : {font-size : '%value'}}
+  }
+  content_css : "/assets/mce-custom.css"
+  paste_as_text : true
+  valid_elements : "strong,span[style],p[style|text-align],sup,sub,em,br"
+  convert_fonts_to_spans : true
+  paste_auto_cleanup_on_paste : true,
+  paste_remove_styles: true,
+  paste_remove_styles_if_webkit: true,
+  paste_strip_class_attributes: true,
+  paste_text_linebreaktype: 'p'
+
+test:
+  menubar: "false"
+  plugins: 'textcolor paste'
+  font_formats: "Arial=arial;Arial Narrow='arial narrow';Constantia=constantia;Garamond=garamond;Georgia=georgia;HandScript=handscript;Helvetica=helvetica;Palatino=palatino;Trebuchet MS='trebuchet ms'"
+  fontsize_formats: "8pt 9pt 10pt 11pt 12pt 13pt 14pt 18pt 24pt 30pt 36pt 46pt"
+  textcolor_map: ["000000", "Black", "888888", "Gray", "FF0000", "Red", "FFFFFF", "White"]
+  toolbar1: "fontsizeselect"
+  toolbar2: "alignleft aligncenter alignright | forecolor"
+  toolbar3: "bold italic underline | superscript subscript"
+  formats : {
+    alignleft : {selector : 'p', styles : {text-align : 'left'}},
+    aligncenter : {selector : 'p', styles : {text-align : 'center'}},
+    alignright : {selector : 'p', styles : {text-align : 'right'}},
+    fontname : {selector : 'p', styles : {font-family : '%value'}},
+    fontsize : {selector : 'p', styles : {font-size : '%value'}}
+  }
+  content_css : "/assets/mce-custom.css"
+  paste_as_text : true
+  valid_elements : "strong,span[style],p[style|text-align],sup,sub,em,br"
+  convert_fonts_to_spans : true
+  paste_auto_cleanup_on_paste : true,
+  paste_remove_styles: true,
+  paste_remove_styles_if_webkit: true,
+  paste_strip_class_attributes: true,
+  paste_text_linebreaktype: 'p'
+

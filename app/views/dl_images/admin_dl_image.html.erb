@@ -1,0 +1,26 @@
+<%= render partial: 'admin_dl_image_upload' %>
+
+<a href='/admin/dl_image?display=staged'>Staged DL Images</a><br/>
+<% if @staged_dl_images %>
+  <%= render partial: 'admin_dl_image_details', locals: {dl_images: @staged_dl_images} %>
+<% end %>
+<hr>
+  <a href='/admin/dl_image?display=processed'>Processed DL Images</a><br/>
+<% if @processed_dl_images %>
+  <%= render partial: 'admin_dl_image_details', locals: {dl_images: @processed_dl_images} %>
+<% end %>
+<hr>
+  <a href='/admin/dl_image?display=production'>Published (Production) DL Images</a><br/>
+<% if @production_dl_images %>
+  <%= render partial: 'admin_dl_image_details', locals: {dl_images: @production_dl_images} %>
+<% end %>
+<hr>
+  <a href='/admin/dl_image?display=unstaged'>Unstaged DL Images</a><br/>
+<% if @unstaged_dl_images %>
+  <%= render partial: 'admin_dl_image_details', locals: {dl_images: @unstaged_dl_images} %>
+<% end %>
+<hr>
+  <a href='/admin/dl_image?display=unpublished'>Unpublished DL Images</a><br/>
+<% if @unpublished_dl_images %>
+  <%= render partial: 'admin_dl_image_details', locals: {dl_images: @unpublished_dl_images} %>
+<% end %>

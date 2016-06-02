@@ -1,0 +1,73 @@
+An order has been placed:<br/><br/>
+
+Order Information:<br/>
+<div class="field">
+  Billing
+  <%= render partial: 'orders/order_billing' %><br/><br/>
+  Shipping
+  <%= render partial: 'orders/order_shipping' %><br/><br/>
+
+  Order Items
+  <table>
+    <tr>
+      <td></td>
+      <td>Thumbnail</td>
+      <td>Description</td>
+      <td>Quantity</td>
+      <td>Unit Price</td>
+      <td>Total</td>
+      <td>&nbsp;</td>
+    </tr>
+    <% @order.order_items.each do |item| %>
+      <% next unless item.fulfillment_item.fulfillment_method_id == @fulfillment_method.id %>
+      <tr>
+        <td>
+          <%= @fulfillment_method.title %><br/>
+          <% if item.fulfillment_item.item_category.present? %><%= item.fulfillment_item.item_category %><br/><% end %>
+          <% if item.fulfillment_item.item_type.present? %><%= item.fulfillment_item.item_type %><br/><% end %>
+          <% if item.fulfillment_item.vendor_item_id.present? %><%= item.fulfillment_item.vendor_item_id %><br/><% end %>
+        </td>
+        <td><%= hidden_field_tag 'order[order_items_attributes][][id]', item.id %><%= image_tag(item.thumbnail_url) %></td>
+        <td><%= item.description %></td>
+        <td>
+          <% if item.mailing_list.present? %>
+            <%= item.mailing_list.title + ' (' + item.quantity.to_s + ')' %>
+          <% else %>
+            <%= item.quantity %>
+          <% end %>
+        </td>
+        <td><%= sprintf('%.2f', (item.unit_price || 0)) %></td>
+        <td><%= sprintf('%.2f', (item.item_total || 0)) %></td>
+        <td><% if ENABLE_ORDER_EMAIL_DOWNLOAD %><%= link_to 'Download ' + item.description.to_s, item.download_url %><% end %></td>
+      </tr>
+    <% end %>
+  </table>
+
+
+  <table>
+    <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Subtotal:</td>
+        <td><%= sprintf('%.2f', (@order.sub_total || 0)) %></td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td><%#= @order.shipping_method %></td>
+        <td>&nbsp;</td>
+        <td>Shipping:</td>
+        <td><%= @order.shipping_method %></td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Total:</td>
+        <td><%= sprintf('%.2f', (@order.total ||0)) %></td>
+    </tr>
+  </table>
+</div>
+<div class="actions">
+</div>
+<br/>

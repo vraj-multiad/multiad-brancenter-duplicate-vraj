@@ -1,0 +1,1354 @@
+development:
+  # url to make calls to MASI (adcreator, etc.)
+  AC_BASE_URL: http://bc-sandbox.dev.multiad.com
+
+  # url to make calls to MASI (dlimage, ac_creator_template)
+  ADMIN_URL: http://bc-sandbox.dev.multiad.com/admin_requests/new
+
+  # api callbacks, static assets
+  APP_DOMAIN: http://localhost:3000         # running locally
+  # APP_DOMAIN: https://something.ngrok.com # running on ngrok
+
+  # determines directory names used on MASI servers
+  APP_ID: myapp
+
+  # view helpers for boilerplate stuff
+  APP_NAME_EMAIL: My App
+
+  # view helpers for boilerplate stuff
+  APP_NAME_LONG: My App
+
+  # view helpers for boilerplate stuff
+  APP_NAME_PROPER: My App
+
+  # view helpers for boilerplate stuff
+  APP_NAME_SHORT: myapp
+
+  # adcreator approver
+  APPROVER_EMAIL_ADCREATOR: tselle+adcreator_approver@multiadsolutions.com
+
+  # order approver
+  APPROVER_EMAIL_ORDER: tselle+order_approver@multiadsolutions.com
+
+  # user approver
+  APPROVER_EMAIL_USER: tselle+user_approver@multiadsolutions.com
+
+  # AWS keys
+  AWS_ACCESS_KEY_ID: asdf
+
+  # AWS keys
+  AWS_BUCKET_NAME: mybucket
+
+  # AWS keys
+  AWS_SECRET_ACCESS_KEY: asdf
+
+  # blitline api key
+  BLITLINE_APP_ID: asdf
+
+  # maximum amount of times to poll s3 before giving up
+  BLITLINE_S3_MAX_POLLS: '24'
+
+  # maximum amount of times to try moving pdf on s3 before giving up
+  BLITLINE_S3_MOVE_MAX_RETRIES: '60'
+
+  # interval to poll s3 (in seconds)
+  BLITLINE_S3_POLL_INTERVAL: '10'
+
+  # url for MASI cart
+  CART_URL: http://bc-sandbox.dev.multiad.com/cart_requests/new
+
+  # MASI dir with cs build
+  CS_BUILD_LOCATION: rails_cs_8_5_4
+
+  # dropped into xml request to MASI
+  CS_BUILD_NAME: 'linux 8.5.3 prod'
+
+  # contact fields
+  CONTACT_FIELDS: 'first_name, last_name, title, company_name, address_1, address_2, city, state, zip_code, country, alt_address, phone_number, mobile_number, fax_number, website, email_address, facebook_id, twitter_id, map_link, shared'
+
+  # number of pooled database connections
+  DB_POOL: '30'
+
+  # default country
+  DEFAULT_COUNTRY: US
+
+  # # default marketing email from name
+  # DEFAULT_MARKETING_EMAIL_FROM_NAME: Brandcenter
+
+  # # default marketing email from address
+  # DEFAULT_MARKETING_EMAIL_FROM_ADDRESS: noreply@multiadsolutions.com
+
+  # default publish at in days from now
+  DEFAULT_PUBLISH_AT: '1'
+
+  # default publish duration in years
+  DEFAULT_PUBLISH_DURATION: '10'
+
+  # default search results order
+  DEFAULT_SORT_ORDER: title_asc
+
+  # default system email recipient
+  DEFAULT_SYSTEM_EMAIL: tselle@multiadsolutions.com,gpotts@multiadsolutions.com
+
+  # default recipient for dynamic_forms
+  DEFAULT_DYNAMIC_FORM_EMAIL: tselle+dynamic_form@multiadsolutions.com,gpotts@multiadsolutions.com
+
+  # url for creator commands
+  DIRECT_REQUEST_URL: http://bc-sandbox.dev.multiad.com/requests/new
+
+  # EMAIL_DEFAULT_FROM
+  EMAIL_DEFAULT_FROM: 'noreply@multiadsolutions.com'
+
+  # ENABLE_AC_EXPORT_EMAIL_BODY
+  ENABLE_AC_EXPORT_EMAIL_BODY: 'false'
+
+  # ENABLE_AC_EXPORT_EMAIL_SUBJECT
+  ENABLE_AC_EXPORT_EMAIL_SUBJECT: 'false'
+
+  # ENABLE_AC_EXPORT_FROM_USER_EMAIL_ADDRESS
+  ENABLE_AC_EXPORT_FROM_USER_EMAIL_ADDRESS: 'false'
+
+  # ENABLE_HELP
+  ENABLE_HELP: 'false'
+
+  # ENABLE_MY_DOCUMENTS
+  ENABLE_MY_DOCUMENTS: 'true'
+
+  # ENABLE_OPT_OUT_ON_ALL_EMAILS
+  ENABLE_OPT_OUT_ON_ALL_EMAILS: 'false'
+
+  # ENABLE_PREVIEW_KEYWORD_DISPLAY
+  ENABLE_PREVIEW_KEYWORD_DISPLAY: 'true'
+
+  # ENABLE_RESIZE_AC_IMAGE
+  ENABLE_RESIZE_AC_IMAGE: 'true'
+
+  # ENABLE_RESIZE_USER_UPLOADED_IMAGE
+  ENABLE_RESIZE_USER_UPLOADED_IMAGE: 'false'
+
+  # ENABLE_SORT_NAME
+  ENABLE_SORT_NAME: 'false'
+
+  # ENABLE_SORT_TITLE
+  ENABLE_SORT_TITLE: 'true'
+
+  # ENABLE_SORT_DATE
+  ENABLE_SORT_DATE: 'true'
+
+  # ENABLE_SORT_CUSTOM_1
+  ENABLE_SORT_CUSTOM_1: 'false'
+
+  # ENABLE_SORT_CUSTOM_2
+  ENABLE_SORT_CUSTOM_2: 'false'
+
+  # ENABLE_EMAIL_LIST_UPLOAD
+  ENABLE_EMAIL_LIST_UPLOAD: 'false'
+
+  # ENABLE_MAILING_LIST_UPLOAD
+  ENABLE_MAILING_LIST_UPLOAD: 'false'
+
+  # ENABLE_MARKETING_EMAIL_SUBJECT
+  ENABLE_INLINE_EMAIL_SUBJECT: 'true'
+
+  # ENABLE_MARKETING_EMAIL_SUBJECT
+  ENABLE_MARKETING_EMAIL_SUBJECT: 'true'
+
+  # ENABLE_MARKETING_EMAIL_FROM
+  ENABLE_MARKETING_EMAIL_FROM: 'true'
+
+  # ENABLE_MARKETING_EMAIL_REPLY_TO
+  ENABLE_MARKETING_EMAIL_REPLY_TO: 'true'
+
+  # ENABLE_LOGO_UPLOAD
+  ENABLE_LOGO_UPLOAD: 'true'
+
+  # ENABLE_MY_LIBRARY_UPLOAD
+  ENABLE_MY_LIBRARY_UPLOAD: 'false'
+
+  # ENABLE_ADVANCED_ORDER_DETAIL
+  ENABLE_ADVANCED_ORDER_DETAIL: 'false'
+
+  # ENABLE_SEARCH_FILTER_OPTIONS
+  ENABLE_SEARCH_FILTER: 'true'
+  ENABLE_SEARCH_FILTER_AUTO_SEARCH: 'true'
+  ENABLE_SEARCH_FILTER_MENU_ACCESS_LEVEL: 'true'
+  ENABLE_SEARCH_FILTER_MENU_CATEGORY: 'true'
+  ENABLE_SEARCH_FILTER_MENU_CATEGORY_ADCREATOR_SEARCH: 'true'
+  ENABLE_SEARCH_FILTER_MENU_MEDIA_TYPE: 'true'
+  ENABLE_SEARCH_FILTER_MENU_TOPIC: 'true'
+
+  # ENABLE_SOCIAL_MEDIA
+  ENABLE_SOCIAL_MEDIA: 'false'
+
+  # ENABLE_SOCIAL_MEDIA_EMAIL_FROM_USER_EMAIL_ADDRESS
+  ENABLE_SOCIAL_MEDIA_EMAIL_FROM_USER_EMAIL_ADDRESS: 'false'
+
+  # ENABLE_SOCIAL_MEDIA_EMAIL_SUBJECT
+  ENABLE_SOCIAL_MEDIA_EMAIL_SUBJECT: 'true'
+
+  # ENABLE_ADCREATOR_EXPORT_APPROVAL
+  ENABLE_ADCREATOR_EXPORT_APPROVAL: 'false'
+
+  # ENABLE_ORDER_APPROVAL
+  ENABLE_ORDER_APPROVAL: 'false'
+
+  # ENABLE_ORDER_EMAIL_DOWNLOAD
+  ENABLE_ORDER_EMAIL_DOWNLOAD: 'true'
+
+  # ENABLE_AC_ORDER_PANEL_DOWNLOAD
+  ENABLE_AC_ORDER_PANEL_DOWNLOAD_PDF: 'false'
+  ENABLE_AC_ORDER_PANEL_DOWNLOAD_PNG: 'false'
+
+  # ENABLE_FULFILLMENT_CART_DOWNLOAD
+  ENABLE_FULFILLMENT_CART_DOWNLOAD_PDF: 'false'
+  ENABLE_FULFILLMENT_CART_DOWNLOAD_PNG: 'false'
+
+  # ENABLE_USER_APPROVAL
+  ENABLE_USER_APPROVAL: 'false'
+
+  # ENABLE_CONTACT_CREATE
+  ENABLE_CONTACT_CREATE: 'false'
+
+  # ENABLE_CONTACT_SHARE
+  ENABLE_CONTACT_SHARE: 'false'
+
+  # ENABLE_CONTACTS
+  ENABLE_CONTACTS: 'false'
+
+  # ENABLE_USER_REGISTRATION
+  ENABLE_USER_REGISTRATION: 'true'
+
+  # ENABLE_USER_FORGOT_PASSWORD
+  ENABLE_USER_FORGOT_PASSWORD: 'true'
+
+  # ENABLE_FACEBOOK_ID
+  ENABLE_FACEBOOK_ID: 'false'
+
+  # ENABLE_LINKEDIN_ID
+  ENABLE_LINKEDIN_ID: 'false'
+
+  # ENABLE_TWITTER_ID
+  ENABLE_TWITTER_ID: 'false'
+
+  # facebook api keys
+  FACEBOOK_APP_ID: asdf
+
+  # facebook api keys
+  FACEBOOK_APP_SECRET: asdf
+
+  # flowplayer key (specific to domain app is being served on)
+  FLOWPLAYER_KEY: ABCDEF
+
+  # gmail username
+  GMAIL_USERNAME: you@multiad.com
+
+  # gmail password
+  GMAIL_PASSWORD: PASSWORD
+
+  # kwikee api access levels 'true'/'false'
+  KWIKEE_API_ACCESS_LEVELS: 'true'
+
+  # kwikee api endpoint
+  KWIKEE_API_ENDPOINT: 'https://api.kwikeesystems.com/v1.1'
+
+  # kwikee_api password
+  KWIKEE_API_PASSWORD: password
+
+  # kwikee_api username
+  KWIKEE_API_USERNAME: username
+
+  # kwikee_api status update email recipients
+  KWIKEE_API_UPDATE_EMAIL: you@multiad.com
+
+  # KWIKEE_PRODUCT_CUSTOM_DATA_GROUPS separated by ,
+  KWIKEE_PRODUCT_CUSTOM_DATA_GROUPS: 'custom_group_name,other_group_name'
+
+  # max total search results
+  MAX_RESULTS: '200'
+
+  # max total search results
+  MAX_RESULTS_AC_SEARCH: '48'
+
+  # search page length
+  MORE_AC_SEARCH_RESULTS_COUNT: '12'
+
+  # search page length
+  MORE_CATEGORY_RESULTS_COUNT: '10'
+
+  # search page length
+  MORE_SEARCH_RESULTS_COUNT: '25'
+
+  # key for storing encrypted oauth tokens from social media
+  # generate one with `ruby -e "require 'aes'; puts AES.key"`
+  OAUTH_AES_KEY: asdf
+
+  # SAML configuration
+  # local authentication target from idP
+  # OMNIAUTH_SAML_ASSERTION_CONSUMER_SERVICE_URL: 'https://www.mydomain.com/auth/saml/callback'
+
+  # idP URL
+  # OMNIAUTH_SAML_IDP_SSO_TARGET_URL: 'http://adfs.associatedbank.com/adfs/services/trust'
+
+  # idP provided cert in PEM format with \n linebreaks
+  # OMNIAUTH_SAML_IDP_CERT: "-----BEGIN CERTIFICATE-----\nIMIMI...=\n-----END CERTIFICATE-----\n"
+
+  # idP provided cert fingerprint, untested
+  # OMNIAUTH_SAML_IDP_CERT_FINGERPRINT: ''
+
+  # idP provided cert fingerprint validator, untested
+  # OMNIAUTH_SAML_IDP_CERT_FINGERPRINT_VALIDATOR: ''
+
+  # application name
+  # OMNIAUTH_SAML_ISSUER: 'myapp-bc'
+
+  # SAML userid key, emailAddress in this example
+  # OMNIAUTH_SAML_NAME_IDENTIFIER_FORMAT: 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress'
+
+  # Custom user provision routine
+  # OMNIAUTH_SAML_PROVISION_USER_ROUTINE: provision_user
+
+  # recipients for notifications for placed orders
+  ORDER_EMAIL: you@multiad.com
+
+  # base url for MASI adcreator exports and carts
+  PICKUP_URL: https://dev.ssl.multi-ad.com/bc_sandbox
+
+  # publish notification
+  PUBLISH_NOTIFICATION_EMAIL: you@multiad.com
+
+  # publish soon duration in days
+  PUBLISH_SOON_DURATION: '60'
+
+  # rack timeout no more than 20!!!
+  RACK_TIMEOUT: '15'
+
+  # rails env
+  RAILS_ENV: development
+
+  # recipients for notifications of new registration
+  REGISTRATION_EMAIL: you@multiad.com
+
+  # REQUIRE_FIRST_NAME
+  REQUIRE_FIRST_NAME: true
+
+  # REQUIRE_LAST_NAME
+  REQUIRE_LAST_NAME: true
+
+  # REQUIRE_TITLE
+  REQUIRE_TITLE: false
+
+  # REQUIRE_ADDRESS_1
+  REQUIRE_ADDRESS_1: true
+
+  # REQUIRE_ADDRESS_2
+  REQUIRE_ADDRESS_2: false
+
+  # REQUIRE_CITY
+  REQUIRE_CITY: true
+
+  # REQUIRE_STATE
+  REQUIRE_STATE: true
+
+  # REQUIRE_ZIP_CODE
+  REQUIRE_ZIP_CODE: true
+
+  # REQUIRE_COUNTRY
+  REQUIRE_COUNTRY: true
+
+  # REQUIRE_PHONE_NUMBER
+  REQUIRE_PHONE_NUMBER: true
+
+  # REQUIRE_FAX_NUMBER
+  REQUIRE_FAX_NUMBER: false
+
+  # REQUIRE_MOBILE_NUMBER
+  REQUIRE_MOBILE_NUMBER: false
+
+  # REQUIRE_WEBSITE
+  REQUIRE_WEBSITE: false
+
+  # REQUIRE_COMPANY_NAME
+  REQUIRE_COMPANY_NAME: false
+
+  # saved_ad duration in days
+  SAVED_AD_DURATION: '365'
+
+  # ssl url for served images
+  SECURE_BASE_URL: https://dev.ssl.multi-ad.com/bc_sandbox
+
+  # sendgrid settings
+  SENDGRID_API_URL: https://api.sendgrid.com/
+
+  # sendgrid settings
+  SENDGRID_USERNAME: your_sendgrid_username
+
+  # sendgrid settings
+  SENDGRID_PASSWORD: your_sendgrid_password
+
+  # Session timeout in minutes
+  SESSION_TIMEOUT_DURATION: '60'
+  SESSION_TIMEOUT_WARNING_DURATION: '5'
+
+  # Shared page duration in days
+  SHARED_PAGE_DURATION: '90'
+
+  # smtp settings
+  SMTP_SETTINGS_DOMAIN: gmail.com
+
+  # smtp settings
+  SMTP_SETTINGS_ADDRESS: smtp.gmail.com
+
+  # smtp settings
+  SMTP_SETTINGS_PORT: '587'
+
+  # smtp settings
+  SMTP_SETTINGS_AUTHENTICATION: plain
+
+  # smtp settings
+  SMTP_SETTINGS_ENABLE_STARTTLS_AUTO: 'true'
+
+  # twitter api key
+  TWITTER_CONSUMER_KEY: asdf
+
+  # twitter api key
+  TWITTER_CONSUMER_SECRET: asdf
+
+  # timezone
+  TZ: America/Chicago
+
+  # number of unicorn workers
+  UNICORN_WORKER_COUNT: '1'
+
+  # youtube api key
+  YOUTUBE_API_KEY: asdf
+
+  # youtube api key
+  YOUTUBE_CLIENT_ID: asdf
+
+  # youtube api key
+  YOUTUBE_CLIENT_SECRET: asdf
+
+  # zencoder api key
+  ZENCODER_API_KEY: zencoder_api_key
+
+  # set to a 'true' value (anything) to transcode the original video and serve it as original
+  # ZENCODER_TRANSCODE_ORIGINAL: 'true'
+
+  # audio codec to use to transcode original video
+  # defaults to 'aac' if not set
+  ZENCODER_TRANSCODE_ORIGINAL_AUDIO_CODEC: aac
+
+  # format (container) to use to transcode original video
+  # defaults to 'mp4' if not set
+  ZENCODER_TRANSCODE_ORIGINAL_FORMAT: mp4
+
+  # size (resolution) to use to transcode original video
+  # defaults to '1920x1080' if not set
+  ZENCODER_TRANSCODE_ORIGINAL_SIZE: 1920x1080
+
+  # video codec to use to transcode original video
+  # defaults to 'h264' if not set
+  ZENCODER_TRANSCODE_ORIGINAL_VIDEO_CODEC: 'h264'
+
+test:
+  # url to make calls to MASI (adcreator, etc.)
+  AC_BASE_URL: http://bc-sandbox.dev.multiad.com
+
+  # url to make calls to MASI (dlimage, ac_creator_template)
+  ADMIN_URL: http://bc-sandbox.dev.multiad.com/admin_requests/new
+
+  # api callbacks, static assets
+  APP_DOMAIN: http://localhost:3000         # running locally
+  # APP_DOMAIN: https://something.ngrok.com # running on ngrok
+
+  # determines directory names used on MASI servers
+  APP_ID: myapp
+
+  # view helpers for boilerplate stuff
+  APP_NAME_EMAIL: My App
+
+  # view helpers for boilerplate stuff
+  APP_NAME_LONG: My App
+
+  # view helpers for boilerplate stuff
+  APP_NAME_PROPER: My App
+
+  # view helpers for boilerplate stuff
+  APP_NAME_SHORT: myapp
+
+  # adcreator approver
+  APPROVER_EMAIL_ADCREATOR: tselle+adcreator_approver@multiadsolutions.com
+
+  # order approver
+  APPROVER_EMAIL_ORDER: tselle+order_approver@multiadsolutions.com
+
+  # user approver
+  APPROVER_EMAIL_USER: tselle+user_approver@multiadsolutions.com
+
+  # AWS keys
+  AWS_ACCESS_KEY_ID: asdf
+
+  # AWS keys
+  AWS_BUCKET_NAME: mybucket
+
+  # AWS keys
+  AWS_SECRET_ACCESS_KEY: asdf
+
+  # blitline api key
+  BLITLINE_APP_ID: asdf
+
+  # maximum amount of times to poll s3 before giving up
+  BLITLINE_S3_MAX_POLLS: '24'
+
+  # maximum amount of times to try moving pdf on s3 before giving up
+  BLITLINE_S3_MOVE_MAX_RETRIES: '60'
+
+  # interval to poll s3 (in seconds)
+  BLITLINE_S3_POLL_INTERVAL: '10'
+
+  # url for MASI cart
+  CART_URL: http://bc-sandbox.dev.multiad.com/cart_requests/new
+
+  # MASI dir with cs build
+  CS_BUILD_LOCATION: rails_cs_8_5_4
+
+  # dropped into xml request to MASI
+  CS_BUILD_NAME: 'linux 8.5.3 prod'
+
+  # contact fields
+  CONTACT_FIELDS: 'first_name, last_name, title, company_name, address_1, address_2, city, state, zip_code, country, alt_address, phone_number, mobile_number, fax_number, website, email_address, facebook_id, twitter_id, map_link, shared'
+
+  # number of pooled database connections
+  DB_POOL: '30'
+
+  # default country
+  DEFAULT_COUNTRY: US
+
+  # # default marketing email from name
+  # DEFAULT_MARKETING_EMAIL_FROM_NAME: Brandcenter
+
+  # # default marketing email from address
+  # DEFAULT_MARKETING_EMAIL_FROM_ADDRESS: noreply@multiadsolutions.com
+
+  # default publish at in days from now
+  DEFAULT_PUBLISH_AT: '1'
+
+  # default publish duration in years
+  DEFAULT_PUBLISH_DURATION: '10'
+
+  # default search results order
+  DEFAULT_SORT_ORDER: title_asc
+
+  # default system email recipient
+  DEFAULT_SYSTEM_EMAIL: tselle@multiadsolutions.com,gpotts@multiadsolutions.com
+
+  # default recipient for dynamic_forms
+  DEFAULT_DYNAMIC_FORM_EMAIL: tselle+dynamic_form@multiadsolutions.com,gpotts@multiadsolutions.com
+
+  # url for creator commands
+  DIRECT_REQUEST_URL: http://bc-sandbox.dev.multiad.com/requests/new
+
+  # EMAIL_DEFAULT_FROM
+  EMAIL_DEFAULT_FROM: 'noreply@multiadsolutions.com'
+
+  # ENABLE_AC_EXPORT_EMAIL_BODY
+  ENABLE_AC_EXPORT_EMAIL_BODY: 'false'
+
+  # ENABLE_AC_EXPORT_EMAIL_SUBJECT
+  ENABLE_AC_EXPORT_EMAIL_SUBJECT: 'false'
+
+  # ENABLE_AC_EXPORT_FROM_USER_EMAIL_ADDRESS
+  ENABLE_AC_EXPORT_FROM_USER_EMAIL_ADDRESS: 'false'
+
+ # ENABLE_HELP
+  ENABLE_HELP: 'false'
+
+  # ENABLE_MY_DOCUMENTS
+  ENABLE_MY_DOCUMENTS: 'true'
+
+  # ENABLE_OPT_OUT_ON_ALL_EMAILS
+  ENABLE_OPT_OUT_ON_ALL_EMAILS: 'false'
+
+  # ENABLE_PREVIEW_KEYWORD_DISPLAY
+  ENABLE_PREVIEW_KEYWORD_DISPLAY: 'true'
+
+  # ENABLE_RESIZE_AC_IMAGE
+  ENABLE_RESIZE_AC_IMAGE: 'true'
+
+  # ENABLE_RESIZE_USER_UPLOADED_IMAGE
+  ENABLE_RESIZE_USER_UPLOADED_IMAGE: 'false'
+
+  # ENABLE_SORT_NAME
+  ENABLE_SORT_NAME: 'false'
+
+  # ENABLE_SORT_TITLE
+  ENABLE_SORT_TITLE: 'true'
+
+  # ENABLE_SORT_DATE
+  ENABLE_SORT_DATE: 'true'
+
+  # ENABLE_SORT_CUSTOM_1
+  ENABLE_SORT_CUSTOM_1: 'false'
+
+  # ENABLE_SORT_CUSTOM_2
+  ENABLE_SORT_CUSTOM_2: 'false'
+
+  # ENABLE_EMAIL_LIST_UPLOAD
+  ENABLE_EMAIL_LIST_UPLOAD: 'false'
+
+  # ENABLE_MAILING_LIST_UPLOAD
+  ENABLE_MAILING_LIST_UPLOAD: 'false'
+
+  # ENABLE_MARKETING_EMAIL_SUBJECT
+  ENABLE_INLINE_EMAIL_SUBJECT: 'true'
+
+  # ENABLE_MARKETING_EMAIL_SUBJECT
+  ENABLE_MARKETING_EMAIL_SUBJECT: 'true'
+
+  # ENABLE_MARKETING_EMAIL_FROM
+  ENABLE_MARKETING_EMAIL_FROM: 'true'
+
+  # ENABLE_MARKETING_EMAIL_REPLY_TO
+  ENABLE_MARKETING_EMAIL_REPLY_TO: 'true'
+
+  # ENABLE_LOGO_UPLOAD
+  ENABLE_LOGO_UPLOAD: 'true'
+
+  # ENABLE_MY_LIBRARY_UPLOAD
+  ENABLE_MY_LIBRARY_UPLOAD: 'false'
+
+  # ENABLE_ADVANCED_ORDER_DETAIL
+  ENABLE_ADVANCED_ORDER_DETAIL: 'false'
+
+  # ENABLE_SEARCH_FILTER_OPTIONS
+  ENABLE_SEARCH_FILTER: 'true'
+  ENABLE_SEARCH_FILTER_AUTO_SEARCH: 'true'
+  ENABLE_SEARCH_FILTER_MENU_ACCESS_LEVEL: 'true'
+  ENABLE_SEARCH_FILTER_MENU_CATEGORY: 'true'
+  ENABLE_SEARCH_FILTER_MENU_CATEGORY_ADCREATOR_SEARCH: 'true'
+  ENABLE_SEARCH_FILTER_MENU_MEDIA_TYPE: 'true'
+  ENABLE_SEARCH_FILTER_MENU_TOPIC: 'true'
+
+  # ENABLE_SOCIAL_MEDIA
+  ENABLE_SOCIAL_MEDIA: 'false'
+
+  # ENABLE_SOCIAL_MEDIA_EMAIL_FROM_USER_EMAIL_ADDRESS
+  ENABLE_SOCIAL_MEDIA_EMAIL_FROM_USER_EMAIL_ADDRESS: 'false'
+
+  # ENABLE_SOCIAL_MEDIA_EMAIL_SUBJECT
+  ENABLE_SOCIAL_MEDIA_EMAIL_SUBJECT: 'true'
+
+  # ENABLE_ADCREATOR_EXPORT_APPROVAL
+  ENABLE_ADCREATOR_EXPORT_APPROVAL: 'false'
+
+  # ENABLE_ORDER_APPROVAL
+  ENABLE_ORDER_APPROVAL: 'false'
+
+  # ENABLE_ORDER_EMAIL_DOWNLOAD
+  ENABLE_ORDER_EMAIL_DOWNLOAD: 'true'
+
+  # ENABLE_AC_ORDER_PANEL_DOWNLOAD
+  ENABLE_AC_ORDER_PANEL_DOWNLOAD_PDF: 'false'
+  ENABLE_AC_ORDER_PANEL_DOWNLOAD_PNG: 'false'
+
+  # ENABLE_FULFILLMENT_CART_DOWNLOAD
+  ENABLE_FULFILLMENT_CART_DOWNLOAD_PDF: 'false'
+  ENABLE_FULFILLMENT_CART_DOWNLOAD_PNG: 'false'
+
+  # ENABLE_USER_APPROVAL
+  ENABLE_USER_APPROVAL: 'false'
+
+  # ENABLE_CONTACT_CREATE
+  ENABLE_CONTACT_CREATE: 'false'
+
+  # ENABLE_CONTACT_SHARE
+  ENABLE_CONTACT_SHARE: 'false'
+
+  # ENABLE_CONTACTS
+  ENABLE_CONTACTS: 'false'
+
+  # ENABLE_USER_REGISTRATION
+  ENABLE_USER_REGISTRATION: 'true'
+
+  # ENABLE_USER_FORGOT_PASSWORD
+  ENABLE_USER_FORGOT_PASSWORD: 'true'
+
+  # ENABLE_FACEBOOK_ID
+  ENABLE_FACEBOOK_ID: 'false'
+
+  # ENABLE_LINKEDIN_ID
+  ENABLE_LINKEDIN_ID: 'false'
+
+  # ENABLE_TWITTER_ID
+  ENABLE_TWITTER_ID: 'false'
+
+  # facebook api keys
+  FACEBOOK_APP_ID: asdf
+
+  # facebook api keys
+  FACEBOOK_APP_SECRET: asdf
+
+  # flowplayer key (specific to domain app is being served on)
+  FLOWPLAYER_KEY: ABCDEF
+
+  # gmail username
+  GMAIL_USERNAME: you@multiad.com
+
+  # gmail password
+  GMAIL_PASSWORD: PASSWORD
+
+  # kwikee api access levels 'true'/'false'
+  KWIKEE_API_ACCESS_LEVELS: 'true'
+
+  # kwikee api endpoint
+  KWIKEE_API_ENDPOINT: 'https://api.kwikeesystems.com/v1.1'
+
+  # kwikee_api password
+  KWIKEE_API_PASSWORD: password
+
+  # kwikee_api username
+  KWIKEE_API_USERNAME: username
+
+  # kwikee_api status update email recipients
+  KWIKEE_API_UPDATE_EMAIL: you@multiad.com
+
+  # KWIKEE_PRODUCT_CUSTOM_DATA_GROUPS separated by ,
+  KWIKEE_PRODUCT_CUSTOM_DATA_GROUPS: 'custom_group_name,other_group_name'
+
+  # max total search results
+  MAX_RESULTS: '200'
+
+  # max total search results
+  MAX_RESULTS_AC_SEARCH: '48'
+
+  # search page length
+  MORE_AC_SEARCH_RESULTS_COUNT: '12'
+
+  # search page length
+  MORE_CATEGORY_RESULTS_COUNT: '10'
+
+  # search page length
+  MORE_SEARCH_RESULTS_COUNT: '25'
+
+  # key for storing encrypted oauth tokens from social media
+  # generate one with `ruby -e "require 'aes'; puts AES.key"`
+  OAUTH_AES_KEY: asdf
+
+  # SAML configuration
+  # local authentication target from idP
+  # OMNIAUTH_SAML_ASSERTION_CONSUMER_SERVICE_URL: 'https://www.mydomain.com/auth/saml/callback'
+
+  # idP URL
+  # OMNIAUTH_SAML_IDP_SSO_TARGET_URL: 'http://adfs.associatedbank.com/adfs/services/trust'
+
+  # idP provided cert in PEM format with \n linebreaks
+  # OMNIAUTH_SAML_IDP_CERT: "-----BEGIN CERTIFICATE-----\nIMIMI...=\n-----END CERTIFICATE-----\n"
+
+  # idP provided cert fingerprint, untested
+  # OMNIAUTH_SAML_IDP_CERT_FINGERPRINT: ''
+
+  # idP provided cert fingerprint validator, untested
+  # OMNIAUTH_SAML_IDP_CERT_FINGERPRINT_VALIDATOR: ''
+
+  # application name
+  # OMNIAUTH_SAML_ISSUER: 'myapp-bc'
+
+  # SAML userid key, emailAddress in this example
+  # OMNIAUTH_SAML_NAME_IDENTIFIER_FORMAT: 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress'
+
+  # Custom user provision routine
+  # OMNIAUTH_SAML_PROVISION_USER_ROUTINE: provision_user
+
+  # recipients for notifications for placed orders
+  ORDER_EMAIL: you@multiad.com
+
+  # base url for MASI adcreator exports and carts
+  PICKUP_URL: https://dev.ssl.multi-ad.com/bc_sandbox
+
+  # publish notification
+  PUBLISH_NOTIFICATION_EMAIL: you@multiad.com
+
+  # publish soon duration in days
+  PUBLISH_SOON_DURATION: '60'
+
+  # rack timeout no more than 20!!!
+  RACK_TIMEOUT: '15'
+
+  # rails env
+  RAILS_ENV: development
+
+  # recipients for notifications of new registration
+  REGISTRATION_EMAIL: you@multiad.com
+
+  # REQUIRE_FIRST_NAME
+  REQUIRE_FIRST_NAME: true
+
+  # REQUIRE_LAST_NAME
+  REQUIRE_LAST_NAME: true
+
+  # REQUIRE_TITLE
+  REQUIRE_TITLE: false
+
+  # REQUIRE_ADDRESS_1
+  REQUIRE_ADDRESS_1: true
+
+  # REQUIRE_ADDRESS_2
+  REQUIRE_ADDRESS_2: false
+
+  # REQUIRE_CITY
+  REQUIRE_CITY: true
+
+  # REQUIRE_STATE
+  REQUIRE_STATE: true
+
+  # REQUIRE_ZIP_CODE
+  REQUIRE_ZIP_CODE: true
+
+  # REQUIRE_COUNTRY
+  REQUIRE_COUNTRY: true
+
+  # REQUIRE_PHONE_NUMBER
+  REQUIRE_PHONE_NUMBER: true
+
+  # REQUIRE_FAX_NUMBER
+  REQUIRE_FAX_NUMBER: false
+
+  # REQUIRE_MOBILE_NUMBER
+  REQUIRE_MOBILE_NUMBER: false
+
+  # REQUIRE_WEBSITE
+  REQUIRE_WEBSITE: false
+
+  # REQUIRE_COMPANY_NAME
+  REQUIRE_COMPANY_NAME: false
+
+  # saved_ad duration in days
+  SAVED_AD_DURATION: '365'
+
+  # ssl url for served images
+  SECURE_BASE_URL: https://dev.ssl.multi-ad.com/bc_sandbox
+
+  # sendgrid settings
+  SENDGRID_API_URL: https://api.sendgrid.com/
+
+  # sendgrid settings
+  SENDGRID_USERNAME: your_sendgrid_username
+
+  # sendgrid settings
+  SENDGRID_PASSWORD: your_sendgrid_password
+
+  # Session timeout in minutes
+  SESSION_TIMEOUT_DURATION: '60'
+  SESSION_TIMEOUT_WARNING_DURATION: '5'
+
+  # Shared page duration in days
+  SHARED_PAGE_DURATION: '90'
+
+  # smtp settings
+  SMTP_SETTINGS_DOMAIN: gmail.com
+
+  # smtp settings
+  SMTP_SETTINGS_ADDRESS: smtp.gmail.com
+
+  # smtp settings
+  SMTP_SETTINGS_PORT: '587'
+
+  # smtp settings
+  SMTP_SETTINGS_AUTHENTICATION: plain
+
+  # smtp settings
+  SMTP_SETTINGS_ENABLE_STARTTLS_AUTO: 'true'
+
+  # twitter api key
+  TWITTER_CONSUMER_KEY: asdf
+
+  # twitter api key
+  TWITTER_CONSUMER_SECRET: asdf
+
+  # timezone
+  TZ: America/Chicago
+
+  # number of unicorn workers
+  UNICORN_WORKER_COUNT: '1'
+
+  # youtube api key
+  YOUTUBE_API_KEY: asdf
+
+  # youtube api key
+  YOUTUBE_CLIENT_ID: asdf
+
+  # youtube api key
+  YOUTUBE_CLIENT_SECRET: asdf
+
+  # zencoder api key
+  ZENCODER_API_KEY: zencoder_api_key
+
+  # set to a 'true' value (anything) to transcode the original video and serve it as original
+  # ZENCODER_TRANSCODE_ORIGINAL: 'true'
+
+  # audio codec to use to transcode original video
+  # defaults to 'aac' if not set
+  ZENCODER_TRANSCODE_ORIGINAL_AUDIO_CODEC: aac
+
+  # format (container) to use to transcode original video
+  # defaults to 'mp4' if not set
+  ZENCODER_TRANSCODE_ORIGINAL_FORMAT: mp4
+
+  # size (resolution) to use to transcode original video
+  # defaults to '1920x1080' if not set
+  ZENCODER_TRANSCODE_ORIGINAL_SIZE: 1920x1080
+
+  # video codec to use to transcode original video
+  # defaults to 'h264' if not set
+  ZENCODER_TRANSCODE_ORIGINAL_VIDEO_CODEC: 'h264'
+
+production:
+  # sets config.action_mailer.default_url_options
+  ACTION_MAILER_HOST: https://bc-myapp.herokuapp.com
+
+  # url to make calls to MASI (adcreator, etc.)
+  AC_BASE_URL: http://brandcenterserver.multiad.com
+
+  # url to make calls to MASI (dlimage, ac_creator_template)
+  ADMIN_URL: http://brandcenterserver.multiad.com/admin_requests/new
+
+  # api callbacks, static assets
+  APP_DOMAIN: https://bc-myapp.herokuapp.com
+
+  # determines directory names used on MASI servers
+  APP_ID: myapp
+
+  # view helpers for boilerplate stuff
+  APP_NAME_EMAIL: My App
+
+  # view helpers for boilerplate stuff
+  APP_NAME_LONG: My App
+
+  # view helpers for boilerplate stuff
+  APP_NAME_PROPER: My App
+
+  # view helpers for boilerplate stuff
+  APP_NAME_SHORT: myapp
+
+  # adcreator approver
+  APPROVER_EMAIL_ADCREATOR: tselle+adcreator_approver@multiadsolutions.com
+
+  # order approver
+  APPROVER_EMAIL_ORDER: tselle+order_approver@multiadsolutions.com
+
+  # user approver
+  APPROVER_EMAIL_USER: tselle+user_approver@multiadsolutions.com
+
+  # AWS keys
+  AWS_ACCESS_KEY_ID: asdf
+
+  # AWS keys
+  AWS_BUCKET_NAME: mybucket
+
+  # AWS keys
+  AWS_SECRET_ACCESS_KEY: asdf
+
+  # blitline api key
+  BLITLINE_APP_ID: asdf
+
+  # maximum amount of times to poll s3 before giving up
+  BLITLINE_S3_MAX_POLLS: '24'
+
+  # maximum amount of times to try moving pdf on s3 before giving up
+  BLITLINE_S3_MOVE_MAX_RETRIES: '60'
+
+  # interval to poll s3 (in seconds)
+  BLITLINE_S3_POLL_INTERVAL: '10'
+
+  # url for MASI cart
+  CART_URL: http://brandcenterserver.multiad.com/cart_requests/new
+
+  # MASI dir with cs build
+  CS_BUILD_LOCATION: rails_cs_8_5_4
+
+  # dropped into xml request to MASI
+  CS_BUILD_NAME: 'linux 8.5.3 prod'
+
+  # contact fields
+  CONTACT_FIELDS: 'first_name, last_name, title, company_name, address_1, address_2, city, state, zip_code, country, alt_address, phone_number, mobile_number, fax_number, website, email_address, facebook_id, twitter_id, map_link, shared'
+
+  # number of pooled database connections
+  DB_POOL: '30'
+
+  # default country
+  DEFAULT_COUNTRY: US
+
+  # # default marketing email from name
+  # DEFAULT_MARKETING_EMAIL_FROM_NAME: Brandcenter
+
+  # # default marketing email from address
+  # DEFAULT_MARKETING_EMAIL_FROM_ADDRESS: noreply@multiadsolutions.com
+
+  # default publish at in days from now
+  DEFAULT_PUBLISH_AT: '1'
+
+  # default publish duration in years
+  DEFAULT_PUBLISH_DURATION: '10'
+
+  # default search results order
+  DEFAULT_SORT_ORDER: title_asc
+
+  # default system email recipient
+  DEFAULT_SYSTEM_EMAIL: tselle@multiadsolutions.com,gpotts@multiadsolutions.com,rdickinson@multiadsolutions.com
+
+  # default recipient for dynamic_forms
+  DEFAULT_DYNAMIC_FORM_EMAIL: tselle+dynamic_form@multiadsolutions.com,gpotts@multiadsolutions.com
+
+  # url for creator commands
+  DIRECT_REQUEST_URL: http://brandcenterserver.multiad.com/requests/new
+
+  # EMAIL_DEFAULT_FROM
+  EMAIL_DEFAULT_FROM: 'noreply@multiadsolutions.com'
+
+  # ENABLE_AC_EXPORT_EMAIL_BODY
+  ENABLE_AC_EXPORT_EMAIL_BODY: 'false'
+
+  # ENABLE_AC_EXPORT_EMAIL_SUBJECT
+  ENABLE_AC_EXPORT_EMAIL_SUBJECT: 'false'
+
+  # ENABLE_AC_EXPORT_FROM_USER_EMAIL_ADDRESS
+  ENABLE_AC_EXPORT_FROM_USER_EMAIL_ADDRESS: 'false'
+
+  # ENABLE_SOCIAL_MEDIA_EMAIL_SUBJECT
+  ENABLE_SOCIAL_MEDIA_EMAIL_SUBJECT: 'true'
+
+  # ENABLE_HELP
+  ENABLE_HELP: 'false'
+
+  # ENABLE_MY_DOCUMENTS
+  ENABLE_MY_DOCUMENTS: 'true'
+
+  # ENABLE_OPT_OUT_ON_ALL_EMAILS
+  ENABLE_OPT_OUT_ON_ALL_EMAILS: 'false'
+
+  # ENABLE_PREVIEW_KEYWORD_DISPLAY
+  ENABLE_PREVIEW_KEYWORD_DISPLAY: 'true'
+
+  # ENABLE_RESIZE_AC_IMAGE
+  ENABLE_RESIZE_AC_IMAGE: 'true'
+
+  # ENABLE_RESIZE_USER_UPLOADED_IMAGE
+  ENABLE_RESIZE_USER_UPLOADED_IMAGE: 'false'
+
+  # ENABLE_SORT_NAME
+  ENABLE_SORT_NAME: 'false'
+
+  # ENABLE_SORT_TITLE
+  ENABLE_SORT_TITLE: 'true'
+
+  # ENABLE_SORT_DATE
+  ENABLE_SORT_DATE: 'true'
+
+  # ENABLE_SORT_CUSTOM_1
+  ENABLE_SORT_CUSTOM_1: 'false'
+
+  # ENABLE_SORT_CUSTOM_2
+  ENABLE_SORT_CUSTOM_2: 'false'
+
+  # ENABLE_EMAIL_LIST_UPLOAD
+  ENABLE_EMAIL_LIST_UPLOAD: 'false'
+
+  # ENABLE_MAILING_LIST_UPLOAD
+  ENABLE_MAILING_LIST_UPLOAD: 'false'
+
+  # ENABLE_MARKETING_EMAIL_SUBJECT
+  ENABLE_INLINE_EMAIL_SUBJECT: 'true'
+
+  # ENABLE_MARKETING_EMAIL_SUBJECT
+  ENABLE_MARKETING_EMAIL_SUBJECT: 'true'
+
+  # ENABLE_MARKETING_EMAIL_FROM
+  ENABLE_MARKETING_EMAIL_FROM: 'true'
+
+  # ENABLE_MARKETING_EMAIL_REPLY_TO
+  ENABLE_MARKETING_EMAIL_REPLY_TO: 'true'
+
+  # ENABLE_LOGO_UPLOAD
+  ENABLE_LOGO_UPLOAD: 'true'
+
+  # ENABLE_MY_LIBRARY_UPLOAD
+  ENABLE_MY_LIBRARY_UPLOAD: 'false'
+
+  # ENABLE_ADVANCED_ORDER_DETAIL
+  ENABLE_ADVANCED_ORDER_DETAIL: 'false'
+
+  # ENABLE_SEARCH_FILTER_OPTIONS
+  ENABLE_SEARCH_FILTER: 'true'
+  ENABLE_SEARCH_FILTER_AUTO_SEARCH: 'true'
+  ENABLE_SEARCH_FILTER_MENU_ACCESS_LEVEL: 'true'
+  ENABLE_SEARCH_FILTER_MENU_CATEGORY: 'true'
+  ENABLE_SEARCH_FILTER_MENU_CATEGORY_ADCREATOR_SEARCH: 'true'
+  ENABLE_SEARCH_FILTER_MENU_MEDIA_TYPE: 'true'
+  ENABLE_SEARCH_FILTER_MENU_TOPIC: 'true'
+
+  # ENABLE_SOCIAL_MEDIA
+  ENABLE_SOCIAL_MEDIA: 'false'
+
+  # ENABLE_SOCIAL_MEDIA_EMAIL_FROM_USER_EMAIL_ADDRESS
+  ENABLE_SOCIAL_MEDIA_EMAIL_FROM_USER_EMAIL_ADDRESS: 'false'
+
+  # ENABLE_ADCREATOR_EXPORT_APPROVAL
+  ENABLE_ADCREATOR_EXPORT_APPROVAL: 'false'
+
+  # ENABLE_ORDER_APPROVAL
+  ENABLE_ORDER_APPROVAL: 'false'
+
+  # ENABLE_ORDER_EMAIL_DOWNLOAD
+  ENABLE_ORDER_EMAIL_DOWNLOAD: 'true'
+
+  # ENABLE_AC_ORDER_PANEL_DOWNLOAD
+  ENABLE_AC_ORDER_PANEL_DOWNLOAD_PDF: 'false'
+  ENABLE_AC_ORDER_PANEL_DOWNLOAD_PNG: 'false'
+
+  # ENABLE_FULFILLMENT_CART_DOWNLOAD
+  ENABLE_FULFILLMENT_CART_DOWNLOAD_PDF: 'false'
+  ENABLE_FULFILLMENT_CART_DOWNLOAD_PNG: 'false'
+
+  # ENABLE_USER_APPROVAL
+  ENABLE_USER_APPROVAL: 'false'
+
+  # ENABLE_CONTACT_CREATE
+  ENABLE_CONTACT_CREATE: 'false'
+
+  # ENABLE_CONTACT_SHARE
+  ENABLE_CONTACT_SHARE: 'false'
+
+  # ENABLE_CONTACTS
+  ENABLE_CONTACTS: 'false'
+
+  # ENABLE_USER_REGISTRATION
+  ENABLE_USER_REGISTRATION: 'true'
+
+  # ENABLE_USER_FORGOT_PASSWORD
+  ENABLE_USER_FORGOT_PASSWORD: 'true'
+
+  # ENABLE_FACEBOOK_ID
+  ENABLE_FACEBOOK_ID: 'false'
+
+  # ENABLE_LINKEDIN_ID
+  ENABLE_LINKEDIN_ID: 'false'
+
+  # ENABLE_TWITTER_ID
+  ENABLE_TWITTER_ID: 'false'
+
+  # facebook api keys
+  FACEBOOK_APP_ID: asdf
+
+  # facebook api keys
+  FACEBOOK_APP_SECRET: asdf
+
+  # flowplayer key (specific to domain app is being served on)
+  FLOWPLAYER_KEY: ABCDEF
+
+  # kwikee api access levels 'true'/'false'
+  KWIKEE_API_ACCESS_LEVELS: 'true'
+
+  # kwikee api endpoint
+  KWIKEE_API_ENDPOINT: 'https://api.kwikeesystems.com/v1.1'
+
+  # kwikee_api password
+  KWIKEE_API_PASSWORD: password
+
+  # kwikee_api username
+  KWIKEE_API_USERNAME: username
+
+  # kwikee_api status update email recipients
+  KWIKEE_API_UPDATE_EMAIL: you@multiad.com
+
+  # KWIKEE_PRODUCT_CUSTOM_DATA_GROUPS separated by ,
+  KWIKEE_PRODUCT_CUSTOM_DATA_GROUPS: 'custom_group_name,other_group_name'
+
+  # max total search results
+  MAX_RESULTS: '200'
+
+  # max total search results
+  MAX_RESULTS_AC_SEARCH: '48'
+
+  # search page length
+  MORE_AC_SEARCH_RESULTS_COUNT: '12'
+
+  # search page length
+  MORE_CATEGORY_RESULTS_COUNT: '10'
+
+  # search page length
+  MORE_SEARCH_RESULTS_COUNT: '25'
+
+  # key for storing encrypted oauth tokens from social media
+  # generate one with `ruby -e "require 'aes'; puts AES.key"`
+  OAUTH_AES_KEY: asdf
+
+  # SAML configuration
+  # local authentication target from idP
+  # OMNIAUTH_SAML_ASSERTION_CONSUMER_SERVICE_URL: 'https://www.mydomain.com/auth/saml/callback'
+
+  # idP URL, will be used as location for login page
+  # OMNIAUTH_SAML_IDP_SSO_TARGET_URL: 'http://adfs.associatedbank.com/adfs/services/trust'
+
+  # idP provided cert in PEM format with \n linebreaks
+  # OMNIAUTH_SAML_IDP_CERT: "-----BEGIN CERTIFICATE-----\nIMIMI...=\n-----END CERTIFICATE-----\n"
+
+  # idP provided cert fingerprint, untested
+  # OMNIAUTH_SAML_IDP_CERT_FINGERPRINT: ''
+
+  # idP provided cert fingerprint validator, untested
+  # OMNIAUTH_SAML_IDP_CERT_FINGERPRINT_VALIDATOR: ''
+
+  # application name
+  # OMNIAUTH_SAML_ISSUER: 'myapp-bc'
+
+  # SAML userid key, emailAddress in this example
+  # OMNIAUTH_SAML_NAME_IDENTIFIER_FORMAT: 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress'
+
+  # Custom user provision routine
+  # OMNIAUTH_SAML_PROVISION_USER_ROUTINE: provision_user
+
+  # recipients for notifications for placed orders
+  ORDER_EMAIL: tselle@multiadsolutions.com,gpotts@multiadsolutions.com,rdickinson@multiadsolutions.com
+
+  # base url for MASI adcreator exports and carts
+  PICKUP_URL: https://ssl.multi-ad.com/brandcenter
+
+  # publish notification
+  PUBLISH_NOTIFICATION_EMAIL: you@multiad.com
+
+  # publish soon duration in days
+  PUBLISH_SOON_DURATION: '60'
+
+  # rack timeout no more than 20!!!
+  RACK_TIMEOUT: '15'
+
+  # rails env
+  RAILS_ENV: production
+
+  # need to set this to redis url
+  REDIS_PROVIDER: REDISTOGO_URL
+
+  # recipients for notifications of new registration
+  REGISTRATION_EMAIL: tselle@multiadsolutions.com,gpotts@multiadsolutions.com,rdickinson@multiadsolutions.com
+
+  # REQUIRE_FIRST_NAME
+  REQUIRE_FIRST_NAME: true
+
+  # REQUIRE_LAST_NAME
+  REQUIRE_LAST_NAME: true
+
+  # REQUIRE_TITLE
+  REQUIRE_TITLE: false
+
+  # REQUIRE_ADDRESS_1
+  REQUIRE_ADDRESS_1: true
+
+  # REQUIRE_ADDRESS_2
+  REQUIRE_ADDRESS_2: false
+
+  # REQUIRE_CITY
+  REQUIRE_CITY: true
+
+  # REQUIRE_STATE
+  REQUIRE_STATE: true
+
+  # REQUIRE_ZIP_CODE
+  REQUIRE_ZIP_CODE: true
+
+  # REQUIRE_COUNTRY
+  REQUIRE_COUNTRY: true
+
+  # REQUIRE_PHONE_NUMBER
+  REQUIRE_PHONE_NUMBER: true
+
+  # REQUIRE_FAX_NUMBER
+  REQUIRE_FAX_NUMBER: false
+
+  # REQUIRE_MOBILE_NUMBER
+  REQUIRE_MOBILE_NUMBER: false
+
+  # REQUIRE_WEBSITE
+  REQUIRE_WEBSITE: false
+
+  # REQUIRE_COMPANY_NAME
+  REQUIRE_COMPANY_NAME: false
+
+  # saved_ad duration in days
+  SAVED_AD_DURATION: '365'
+
+  # ssl url for served images
+  SECURE_BASE_URL: https://ssl.multi-ad.com/brandcenter
+
+  # sendgrid settings
+  SENDGRID_API_URL: https://api.sendgrid.com/
+
+  # sendgrid settings
+  # SENDGRID_USERNAME: your_sendgrid_username  # automatically provisioned by heroku add-on
+
+  # sendgrid settings
+  # SENDGRID_PASSWORD: your_sendgrid_password  # automatically provisioned by heroku add-on
+
+  # Session timeout in minutes
+  SESSION_TIMEOUT_DURATION: '60'
+  SESSION_TIMEOUT_WARNING_DURATION: '5'
+
+  # Shared page duration in days
+  SHARED_PAGE_DURATION: '90'
+
+# smtp settings
+  SMTP_SETTINGS_ADDRESS: smtp.sendgrid.net
+
+  # smtp settings
+  SMTP_SETTINGS_AUTHENTICATION: plain
+
+  # smtp settings
+  SMTP_SETTINGS_DOMAIN: myapp.herokuapp.com
+
+  # smtp settings
+  SMTP_SETTINGS_ENABLE_STARTTLS_AUTO: 'true'
+
+  # smtp settings
+  SMTP_SETTINGS_PORT: '587'
+
+  # twitter api key
+  TWITTER_CONSUMER_KEY: asdf
+
+  # twitter api key
+  TWITTER_CONSUMER_SECRET: asdf
+
+  # timezone
+  TZ: America/Chicago
+
+  # number of unicorn workers
+  UNICORN_WORKER_COUNT: '3'
+
+  # youtube api key
+  YOUTUBE_API_KEY: asdf
+
+  # youtube api key
+  YOUTUBE_CLIENT_ID: asdf
+
+  # youtube api key
+  YOUTUBE_CLIENT_SECRET: asdf
+
+  # zencoder api key
+  ZENCODER_API_KEY: zencoder_api_key
+
+  # set to a 'true' value (anything) to transcode the original video and serve it as original
+  # ZENCODER_TRANSCODE_ORIGINAL: 'true'
+
+  # audio codec to use to transcode original video
+  # defaults to 'aac' if not set
+  ZENCODER_TRANSCODE_ORIGINAL_AUDIO_CODEC: aac
+
+  # format (container) to use to transcode original video
+  # defaults to 'mp4' if not set
+  ZENCODER_TRANSCODE_ORIGINAL_FORMAT: mp4
+
+  # size (resolution) to use to transcode original video
+  # defaults to '1920x1080' if not set
+  ZENCODER_TRANSCODE_ORIGINAL_SIZE: 1920x1080
+
+  # video codec to use to transcode original video
+  # defaults to 'h264' if not set
+  ZENCODER_TRANSCODE_ORIGINAL_VIDEO_CODEC: 'h264'

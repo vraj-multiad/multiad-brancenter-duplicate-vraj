@@ -1,0 +1,29 @@
+<%= form_for(@dl_cart_item) do |f| %>
+  <% if @dl_cart_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@dl_cart_item.errors.count, "error") %> prohibited this dl_cart_item from being saved:</h2>
+
+      <ul>
+      <% @dl_cart_item.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :dl_cart_id %><br>
+    <%= f.number_field :dl_cart_id %>
+  </div>
+  <div class="field">
+    <%= f.label :downloadable_id %><br>
+    <%= f.number_field :downloadable_id %>
+  </div>
+  <div class="field">
+    <%= f.label :downloadable_type %><br>
+    <%= f.text_field :downloadable_type %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

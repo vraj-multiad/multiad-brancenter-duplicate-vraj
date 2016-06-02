@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Operable type:</strong>
+  <%= @operation_queue.operable_type %>
+</p>
+
+<p>
+  <strong>Operable:</strong>
+  <%= @operation_queue.operable_id %>
+</p>
+
+<p>
+  <strong>Queue type:</strong>
+  <%= @operation_queue.queue_type %>
+</p>
+
+<p>
+  <strong>Operation type:</strong>
+  <%= @operation_queue.operation_type %>
+</p>
+
+<p>
+  <strong>Operation:</strong>
+  <%= @operation_queue.operation %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @operation_queue.status %>
+</p>
+
+<p>
+  <strong>Error message:</strong>
+  <%= @operation_queue.error_message %>
+</p>
+
+<p>
+  <strong>Path:</strong>
+  <%= @operation_queue.path %>
+</p>
+
+<p>
+  <strong>Alt path:</strong>
+  <%= @operation_queue.alt_path %>
+</p>
+
+<p>
+  <strong>Scheduled at:</strong>
+  <%= @operation_queue.scheduled_at %>
+</p>
+
+<p>
+  <strong>Completed at:</strong>
+  <%= @operation_queue.completed_at %>
+</p>
+
+<%= link_to 'Edit', edit_operation_queue_path(@operation_queue) %> |
+<%= link_to 'Back', operation_queues_path %>

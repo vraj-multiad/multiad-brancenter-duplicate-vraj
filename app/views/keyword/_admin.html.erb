@@ -1,0 +1,170 @@
+<% if @group_objs.count > 0 %>
+  <div id="categorize-wrapper">
+    <div class="container">
+      <div class="panel panel-default">
+      
+        <div class="panel-heading">
+          <label id="categorize-add-tab" class="admin-tab <%= @admin_active_panel_style['add']['active'] %>"><%= t '__ADD_CATEGORIZATION__' %></label>
+          <label id="categorize-edit-tab"  class="admin-tab <%= @admin_active_panel_style['edit']['active'] %>"><%= t '__REMOVE_CATEGORIZATION__' %></label>
+          <label id="categorize-advanced-tab" class="admin-tab <%= @admin_active_panel_style['advanced']['active'] %>"><%= t '__ADVANCED__' %></label>
+        </div>
+        
+        <div class="panel-body">
+
+          <div id="categorize-add" style="display:<%= @admin_active_panel_style['add']['display'] %>;">
+            <div id="admin-keyword-types">
+              <%= render partial: 'admin_keyword_types' %>
+            </div>  <!-- end:admin-keyword-types -->
+          </div><!--end:categorize-add-->
+
+          <!-- edit categories
+              BEGIN EDIT CATEGORIES
+              edit categories -->
+
+          <div id="categorize-edit" style="display:<%= @admin_active_panel_style['edit']['display'] %>;">
+            
+            <%= form_tag('/admin/assets_keywords', :remote => true, :id => 'categorize-assets-remove', :'data-categorize' => 'categorize-contents') do %>
+              <div class="alert alert-warning" style="margin-top:15px;float:left;"><%= t '__select_any_number__' %></div>
+              <button class="btn btn-default btn-lg categorize-choice-all dynamic" type="button" style="float:left; width:100%; margin-bottom:15px;"><%= t '  __select_all__' %></button>
+
+              <div class="category-padding select-thumbnail" style="padding-top:15px;">
+                <div class="row" style="margin-left:-23px">
+                
+                  <%= hidden_field_tag('admin_active_panel', 'edit') %>
+                  <%= hidden_field_tag('operation', 'remove') %>
+
+                  <% @group_objs.each do |group_obj| %>
+                    <% group_obj_class = 'asset-ungrouped' %>
+                    <% if group_obj[:key] != 'ungrouped' %>
+                      <% group_obj_class = 'asset-grouped' %>
+                    <% end %>
+                    <div class="<%= group_obj_class %>">
+                      <div class="panel panel-default category-box">
+                        <div class="panel-heading" style="padding:10px 15px;font-size:15px;">
+                          <% if group_obj[:asset].present? %>
+                            <%= group_obj[:asset].name.to_s + '' + group_obj[:asset].title.to_s %>
+                          <% end %>
+                        </div>
+                        <div class="panel-body">
+                          <% group_obj[:assets].each do |asset_obj| %>
+                            <% asset = asset_obj[:asset] %>
+                            <% asset_key = asset_obj[:key] %>
+                            <label for="categorized_asset[]">
+                              <div class="results-spacing">
+                                <div class="thumbnail categorize-choice remove-categorize-choice dynamic">
+                                  <div class="crop-images">
+                                    <div class="align-images">
+                                      <% @all_keyword_types.each do |keyword_type| %>
+                                        <%= hidden_field_tag asset_key + '-' + keyword_type.name, asset_obj[keyword_type.name].join(','), :class => keyword_type.name + "-  string admin-keyword-string-field", :'data-type' => keyword_type.name %>
+                                      <% end %>
+                                      <% if @access_levels.count > 0 %>
+                                        <%= hidden_field_tag asset_key + '-access_level', asset.asset_access_levels.pluck(:access_level_id).join(','), :class => "  access_level-string admin-keyword-string-field", :'data-type' => 'access_level' %>
+                                      <% end %>
+                                      <% if asset.class.name == 'UserUploadedImage' %>
+                                        <%= image_tag( asset.thumbnail_url ) %>
+                                        <%= check_box_tag('categorized_asset[]',  asset.class.name.to_s + '|' + asset.token.to_s ) %>
+                                      <% else %>
+                                        <%= image_tag( asset.thumbnail_url ) %>
+                                        <%= check_box_tag('categorized_asset[]', asset.class.name.to_s + '|' + asset.token.to_s) %>
+                                      <% end %>
+                                    </div>
+                                  </div>
+                                  <div class="caption">
+                                    <p><%= asset.title %></p>
+                                  </div>
+                                </div>
+                              </div>
+                            </label>
+                          <% end %>
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
+
+                </div><!--end:row-->
+              </div><!--end category-padding select-thumbnail-->
+
+              <!-- remove --> 
+              <div class="more-categorize-options col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                <h6><%= t '__CATEGORIES_ATTACHED_TO_SELECTED__' %></h6>
+                <div class="place-categories">
+                
+                <!-- access_levels -->
+                  <ul class="add-category-list btn btn-default"  id="remove-categories-list" role="menu" style="display:block;padding-top:9px;padding-left:5px;">
+                    <li><%= t '__assigned_access_groups__' %><br/></li>
+                    <% if @access_levels.count > 0 %>
+                      <% @access_levels.each do |access_level| %>
+                        <li class="remove-category-selection categories-remove categories-remove-access_level remove-system-keyword-dynamic" data-type="access_level" data-term-id="<%= 'access_level-' + access_level.id.to_s %>" style="display:none;"><a><span class="glyphicon glyphicon-remove"></span><%= access_level.title %><input type="checkbox" data-type="access_level" name="<%= access_level.id %>" value="<%= access_level.id %>" style="display:none;" /></a></li>
+                      <% end %>
+                      <div style="display:none;">
+                        <% logger.debug 'access_levels ' %>
+                        <% logger.debug '@access_levels: ' + @access_levels.pluck(:id).join(',').to_s %>
+                        __remove__ access_level: <%= text_field_tag 'access_level', @access_levels.pluck(:id).join(',').to_s %></br>
+                      </div>
+                    <% end %>
+                  </ul>
+                
+                
+                
+                  <!-- hidden until referenced by selecting image -->
+                  <% @all_top_level_categories.each do |keyword_type, top_level_keywords| %>
+                  
+                    <ul class="add-category-list"  id="remove-categories-list" role="menu" style="display:block;margin-bottom:0px;">
+                      <% top_level_keywords.each do |top_level_keyword| %>
+                        <li class="remove-category-selection categories-remove categories-remove-<%= keyword_type %> remove-system-keyword-dynamic" data-type="<%= keyword_type %>" data-term-id="<%= keyword_type + '-' + top_level_keyword.id.to_s %>" style="display:none;margin:0px;"><a><span class="glyphicon glyphicon-remove"></span><%= top_level_keyword.term %><input type="checkbox" data-type="<%= keyword_type %>" name="<%= top_level_keyword.term %>" value="<%= top_level_keyword.term %>" style="display:none;margin:0px;" /></a>
+                          <ul style="margin-left:-48px;margin-top:1px;">
+                            <% top_level_keyword.sub_terms.order(:term).each do |child_keyword| %>
+                              <li class="categories-remove categories-remove-<%= keyword_type %> child-categories-remove child-categories-remove-<%= keyword_type + '-' + top_level_keyword.id.to_s %> remove-system-keyword-dynamic" data-type="<%= keyword_type %>" data-term-id="<%= keyword_type + '-' + top_level_keyword.id.to_s %>"  style="display:none;margin:0px"><a style="border:none;"><span class="glyphicon glyphicon-remove"></span><%= child_keyword.term %><input type="checkbox" data-type="<%= keyword_type %>" name="<%= child_keyword.term %>" value="<%= child_keyword.term %>" style="display:none;" /></a></li>
+                            <% end %>
+                          </ul>
+                        </li>
+                      <% end %>
+                    </ul>
+
+                    <div style="display:none;">
+                      <% logger.debug 'keyword_type: ' + keyword_type.to_s %>
+                      <% logger.debug '@keyword_strings[keyword_type]: ' + @all_keyword_strings[keyword_type].inspect %>
+                      __remove__ <%= keyword_type %>: <%= text_field_tag keyword_type, @all_keyword_strings[keyword_type].uniq.sort.join(',').to_s %></br>
+                    </div>
+                  <% end %>                  
+                  
+                </div>
+              </div>
+
+              <!-- separate static location for search keywords -->
+              <div class="more-categorize-options col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                <% keyword_type = 'search' %>
+                <h6><%= t '__KEYWORDS_ATTACHED_TO_SELECTED__' %></h6>
+                <div class="place-categories">
+                  <ul id="remove-<%= keyword_type %>-list" class="remove-type-dynamic">
+                  </ul>
+                </div>
+              </div>
+              <div style="display:none;">
+                <% logger.debug 'keyword_type: ' + keyword_type.to_s %>
+                <% logger.debug '@keyword_strings[keyword_type]: ' + @keyword_strings[keyword_type].inspect %>
+                __remove__ <%= keyword_type %>: <%= text_field_tag keyword_type, @all_keyword_strings[keyword_type].uniq.sort.join(',').to_s %></br>
+              </div>
+
+              <div class="panel-button" style="padding-right:15px;">
+                <%= button_tag(t("__APPLY__"), :type => 'submit', data: { disable_with: '<span class="launch_ac">&nbsp;</span>' }, :class => "btn btn-default btn-lg submit-butt pull-right disabled") %>
+              </div>
+            <% end %>
+          </div><!--end:categorize-edit-->
+          <div id="categorize-advanced" style="display:<%= @admin_active_panel_style['advanced']['display'] %>;">
+            <div id="categorize-advanced-contents">
+              <%= render partial: 'admin_advanced' %>
+            </div>  <!-- end:admin-keyword-types -->
+          </div><!--end:advanced-->
+          <div id="panel-admin-advanced" style="display:none;"></div>
+        </div><!--end:panel-body-->
+
+        <div class="panel-footer">
+         <a href="javascript:void(0)" id="close-categorize"><button type="button" class="btn btn-default rounded"><%= t '__return_to_search__' %></button></a>
+        </div><!--end: panel-footer-->
+      </div><!--end:panel-->
+    </div><!--end: container-->
+  </div><!--end: share-wrapper-->
+  <div class="modal-backdrop in"></div>
+  <div class="modal-backdrop in"></div>
+<% end %>

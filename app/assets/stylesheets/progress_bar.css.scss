@@ -1,0 +1,31 @@
+.progress {
+  display: inline-block;
+  margin-bottom: 0px;
+  width: 90%;
+}
+
+.progress-bar {
+  color: #333;
+  text-align: left;
+}
+
+// replaces '.remove-upload span'
+.progress-cancel {
+  background: url('icons/remove-stuff.png') repeat scroll 0 0 rgba(0, 0, 0, 0);
+  cursor: pointer;
+  display: inline-block;
+  height: 16px;
+  margin-bottom: 2px;
+  margin-left: 5px;
+  margin-top: 2px;
+  width: 16px;
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: none;
+  }
+}
+
+.progress-label {
+  margin-left: 20px;
+}

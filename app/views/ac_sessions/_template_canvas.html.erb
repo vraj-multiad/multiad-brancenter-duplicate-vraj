@@ -1,0 +1,62 @@
+<% if @ac_session.ready? %>
+  <script>
+    var finished_steps = <%= JSON.pretty_generate(@ac_session.finished_steps).html_safe %>;
+    var step_requirements = <%= JSON.pretty_generate(@ac_session.step_requirements).html_safe %>
+    var cleared_steps = <%= JSON.pretty_generate(@ac_session.cleared_steps).html_safe %>
+  </script>
+  <!-- spread -->
+  <%=  hidden_field_tag('current_spread', 1) %>
+  <%=  hidden_field_tag('resizing_in_progress', 0) %>
+  <% dc = @ac_session.document_coordinates %>
+  <% @ac_session.spreads.sort.each do |spread_index, elements| %>
+    <% spread_number = spread_index.to_i + 1.to_i %>
+    <% #logger.debug elements.inspect %>
+    <div class="template" id="template_<%= spread_number.to_s %>" data-dimensions='{"width":"<%= dc['width'] %>","height":"<%= dc['height'] %>"}'>
+      <% preview_index = 1 %>
+      <% style = 'preview-layers' %>
+      <div id="previews_<%= spread_number %>">
+      <% @ac_session.layer_previews(spread_number).each do |layer| %>
+        <% if @ac_session.layer_previews(spread_number).count == preview_index %>
+          <% style="preview-paper" %>
+        <% end %>
+        <img class="<%= style %> on-layer-<%= layer['name'].to_s %>" style="<%= layer['hidden'] %>" src="<%= layer['url'] %>" width="100%" />
+        <% preview_index = preview_index + 1 %>
+      <% end %>
+      </div>
+      <div id="template-highlights">
+        <% hidden_elements = @ac_session.hidden_elements %>
+        <% @ac_session.ac_base.ac_steps.each do |ac_step| %>
+          <% element_name = ac_step.form_data('element_name') %>
+          <% if element_name %>
+            <% element_style = 'display:block;' %>
+            <% if hidden_elements.include?(element_name) %>
+              <% element_style = 'display:none;' %>
+            <% end %>
+            <% c = @ac_session.element_overlay_data(ac_step) %>
+            <% if elements[c['element_name']] %>
+              <% next if ac_step.form_data('hidden').present? %>
+              <% step_type = ac_step.form_data('ac_step_type') %>
+              <% next if step_type == 'layer' %>
+              <% step_type = 'image' if step_type == 'user_uploaded_image' %>
+              <div data-step-number="<%= ac_step.step_number %>" class="template-highlight <%= step_type %>-edit on-layer-<%= c['layer_name'].to_s %> ac-step-<%= ac_step.id %>" id="editable-area-<%= ac_step.step_number %>" style="width: <%= c['width_percent'] %>%; height: <%= c['height_percent'] %>%; top: <%= c['top_percent'] %>%; left: <%= c['left_percent'] %>%; <%= 'transform:rotate(' + c['rotation'].to_s + 'deg);-ms-transform:rotate(' + c['rotation'].to_s + 'deg);-webkit-transform:rotate(' + c['rotation'].to_s + 'deg);' %> <%= element_style %>">
+                <div class="highlight-label"><div class="label-id" data-fontsize="21"><%= ac_step.step_number %></div></div>
+              </div>
+              <% if c['resize_top'].present? %>
+                <div data-step-number="<%= ac_step.step_number %>" class="template-highlight-resize-containmentbox <%= step_type %>-resize-containmentbox ac-step-<%= ac_step.id %>" id="resizable-area-containmentbox-<%= ac_step.step_number %>" style="display: none; width: <%= c['resize_containmentbox_width_percent'] %>%; height: <%= c['resize_containmentbox_height_percent'] %>%; top: <%= c['resize_containmentbox_top_percent'] %>%; left: <%= c['resize_containmentbox_left_percent'] %>%; <%= 'transform:rotate(' + c['rotation'].to_s + 'deg);-ms-transform:rotate(' + c['rotation'].to_s + 'deg);-webkit-transform:rotate(' + c['rotation'].to_s + 'deg);' %> ">
+                </div>
+                <div data-step-number="<%= ac_step.step_number %>" class="template-highlight-resize-containmentmask <%= step_type %>-resize-containmentmask ac-step-<%= ac_step.id %>" id="resizable-area-containmentmask-<%= ac_step.step_number %>" style="display: none; width: <%= c['resize_containmentmask_width_percent'] %>%; height: <%= c['resize_containmentmask_height_percent'] %>%; top: <%= c['resize_containmentmask_top_percent'] %>%; left: <%= c['resize_containmentmask_left_percent'] %>%; <%= 'transform:rotate(' + c['rotation'].to_s + 'deg);-ms-transform:rotate(' + c['rotation'].to_s + 'deg);-webkit-transform:rotate(' + c['rotation'].to_s + 'deg);' %> ">
+                </div>
+                <div data-step-number="<%= ac_step.step_number %>" class="template-highlight-resize-mask <%= step_type %>-resize-mask ac-step-<%= ac_step.id %>" id="resizable-area-mask-<%= ac_step.step_number %>" style="overflow: hidden; display: none; width: <%= c['resize_mask_width_percent'] %>%; height: <%= c['resize_mask_height_percent'] %>%; top: <%= c['resize_mask_top_percent'] %>%; left: <%= c['resize_mask_left_percent'] %>%; <%= 'transform:rotate(' + c['rotation'].to_s + 'deg);-ms-transform:rotate(' + c['rotation'].to_s + 'deg);-webkit-transform:rotate(' + c['rotation'].to_s + 'deg);' %> ">
+                  <div data-step-number="<%= ac_step.step_number %>" class="template-highlight-resize <%= step_type %>-resize ac-step-<%= ac_step.id %>" id="resizable-area-<%= ac_step.step_number %>" data-raw-left="0" data-raw-top="0" style="display: none; background-size: 100%; width: <%= c['resize_width_percent'] %>%; height: <%= c['resize_height_percent'] %>%; top: <%= c['resize_top_percent'] %>%; left: <%= c['resize_left_percent'] %>%; <%= 'transform:rotate(' + c['resize_rotation'].to_s + 'deg);-ms-transform:rotate(' + c['resize_rotation'].to_s + 'deg);-webkit-transform:rotate(' + c['resize_rotation'].to_s + 'deg);' %> ">
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+        </div> <!-- End: #template-highlights -->
+    </div> <!-- End: .template -->
+  <% end %> <!-- @ac_session.spreads.sort.each -->
+<% else %>
+  <%= render :partial => 'ac_auto_refresh', locals: {:ac_session_id => @ac_session.id, :uuid => @ac_session.uuid} %>
+<% end %>

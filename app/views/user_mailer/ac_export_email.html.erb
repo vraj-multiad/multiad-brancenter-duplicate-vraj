@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Your document is ready.</h1>
+    <% if ENABLE_AC_EXPORT_EMAIL_BODY %><p><%= @email_body %></p><% end %>
+   <p> <a href="<%= @ac_export.download_url %>">Download</a></p>
+  </body>
+</html>

@@ -1,0 +1,53 @@
+<%= form_for(@social_media_account) do |f| %>
+  <% if @social_media_account.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@social_media_account.errors.count, "error") %> prohibited this social_media_account from being saved:</h2>
+
+      <ul>
+      <% @social_media_account.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :expires_at %><br>
+    <%= f.number_field :expires_at %>
+  </div>
+  <div class="field">
+    <%= f.label :oauth_refresh_token %><br>
+    <%= f.text_area :oauth_refresh_token %>
+  </div>
+  <div class="field">
+    <%= f.label :oauth_secret %><br>
+    <%= f.text_area :oauth_secret %>
+  </div>
+  <div class="field">
+    <%= f.label :oauth_token %><br>
+    <%= f.text_area :oauth_token %>
+  </div>
+  <div class="field">
+    <%= f.label :profile_image %><br>
+    <%= f.text_field :profile_image %>
+  </div>
+  <div class="field">
+    <%= f.label :profile_name %><br>
+    <%= f.text_field :profile_name %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.number_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :uid %><br>
+    <%= f.text_field :uid %>
+  </div>
+  <div class="field">
+    <%= f.label :type %><br>
+    <%= f.text_field :type %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

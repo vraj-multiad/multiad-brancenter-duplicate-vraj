@@ -1,0 +1,30 @@
+<img src="<%= APP_DOMAIN + '/assets/logo.png' %>"><br/>
+
+<div class="field">
+  <h3><%= @dynamic_form.title %></h3><br/>
+  <%= @dynamic_form.email_text.html_safe %>
+  <p>
+    <strong>User Details:</strong><br/><br/>
+    <%= @user.first_name %> <%= @user.last_name %><br/>
+    <% if @user.title.present? %><%= @user.title %><br/><% end %>
+    <% if @user.company_name.present? %><%= @user.company_name %><br/><% end %>
+    <%= @user.address_1 %><br/>
+    <% if @user.address_2.present? %><%= @user.address_2 %><br/><% end %>
+    <%= @user.city %>, <%= @user.state %> <%= @user.zip_code %><br/>
+    Phone number: <%= @user.phone_number %><br/>
+    <% if @user.fax_number.present? %>Fax number: <%= @user.fax_number %><br/><% end %>
+    <%= @user.email_address %><br/>
+    Username: <%= @user.username %><br/>
+  </p>
+</div>
+
+<div class="field" style="width:75%;float:left;">
+  <strong>Form Details:</strong><br/><br/>
+  <% @dynamic_form.dynamic_form_input_groups.order(:name).each do |dfig| %>
+    <h4><%= dfig.title %></h4><br/>
+    <% dfig.dynamic_form_inputs.each do |dfi| %>
+      <%= render partial: "dynamic_forms/fields/#{dfi.input_type}", locals: { dynamic_form_input: dfi, render_type: 'email' } %>
+    <% end %>
+    <br/>
+  <% end %>
+</div>

@@ -1,0 +1,9 @@
+DlImage.all.each do |x|
+x.status='production'
+x.save
+end
+AcCreatorTemplate.all.each do |x|
+x.status='production'
+x.save
+end
+

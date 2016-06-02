@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>New User Approval Request</h1>
+    <p>
+      username: <%= @user.username %> <br/>
+      email_address: <%= @user.email_address %> <br/>
+      first_name: <%= @user.first_name %> <br/>
+      last_name: <%= @user.last_name %> <br/>
+      title: <%= @user.title %> <br/>
+      address_1: <%= @user.address_1 %> <br/>
+      address_2: <%= @user.address_2 %> <br/>
+      city: <%= @user.city %> <br/>
+      state: <%= @user.state %> <br/>
+      zip_code: <%= @user.zip_code %> <br/>
+      phone_number: <%= @user.phone_number %> <br/>
+      fax_number: <%= @user.fax_number %> <br/>
+      created_at: <%= @user.created_at %> <br/>
+      role: <%= @user.role.title %><br/>
+      <br/>
+      In order to activate the account you will need to click the following link: <a href="<%= APP_DOMAIN + "/activate?activation_string=" + @user.token.to_s %>">Activate Account</a>
+    </p>
+  </body>
+</html>

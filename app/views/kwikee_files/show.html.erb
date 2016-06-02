@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Kwikee product:</strong>
+  <%= @kwikee_file.kwikee_product_id %>
+</p>
+
+<p>
+  <strong>Kwikee asset:</strong>
+  <%= @kwikee_file.kwikee_asset_id %>
+</p>
+
+<p>
+  <strong>Extension:</strong>
+  <%= @kwikee_file.extension %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @kwikee_file.url %>
+</p>
+
+<%= link_to 'Edit', edit_kwikee_file_path(@kwikee_file) %> |
+<%= link_to 'Back', kwikee_files_path %>

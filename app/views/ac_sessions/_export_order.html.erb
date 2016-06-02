@@ -1,0 +1,29 @@
+<% if @ac_session.ready? %>
+  <p>Your document is prepared for fulfillment.</p>
+  <% if ENABLE_FULFILLMENT_CART_DOWNLOAD_PDF.present? && @ac_session.current_ac_session_history.ac_document.pdf.present? %>
+    <%= link_to SECURE_BASE_URL + @ac_session.current_ac_session_history.ac_document.pdf, target: '_blank' do %>
+      <%= t('__download__') %> PDF<br/>
+    <% end %>
+  <% end %>
+  <% if ENABLE_FULFILLMENT_CART_DOWNLOAD_PNG.present? %>
+    <%= link_to @ac_session.current_ac_session_history.ac_document.preview_url, target: '_blank' do %>
+      <%= t('__download__') %> PNG<br/>
+    <% end %>
+  <% end %>
+  <br/>
+  <%= form_tag('/cart/add', :remote => true, :'data-ac-export-add-to-cart' => 'cart-button', :id => 'cart_add_form') do %>
+    <input type="hidden" name="token" value="<%= @ac_session.ac_creator_template.token %>">
+    <input type="hidden" name="orderable_type" value="AcCreatorTemplate">
+    <input type="hidden" name="ac_export_id" value="<%= @ac_session.current_ac_session_history.ac_exports.order(id: :asc).last.id %>">
+    <%= button_tag 'add_to_cart', data: { disable_with: '' }, title: 'add to cart', type: 'submit', :class => '' do %><%= t('__add_and_view_cart__') %>
+    <% end %>
+  <% end %> 
+  
+<% else %>
+  <div name='ac_auto_refresh'>
+    <%= form_tag('/adcreator/workspace', :remote => true, :'data-ac-process-order' => 'export-order-copy', :id => 'ac_auto_refresh') do %>
+      <input type="hidden" name="id" value="<%= @ac_session.id %>"/>
+    <% end %>
+  </div>
+  <p><%= t('__document_in_process__') %></p>
+<% end %>

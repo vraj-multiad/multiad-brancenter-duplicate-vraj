@@ -1,0 +1,20 @@
+<% if @num_pages > 1 %>
+  <ul class="pagination pagination-sm">
+    <% (1..@num_pages.to_i).each do |page_number| %>
+      <% if page_number < @current_page %>
+        <li class="admin-user-change-page" data-user-results-page="<%= page_number %>" data-user-search="<%= @user_search %>">
+          <a href="#"><%= page_number %></a>
+        </li>
+      <% elsif page_number == @current_page  %>
+        <li class="admin-user-change-page active disabled" data-user-results-page="<%= page_number %>" data-user-search="<%= @user_search %>">
+          <a href="#"><%= page_number %></a>
+        </li>
+      </li>
+      <% elsif page_number > @current_page  %>
+        <li class="admin-user-change-page" data-user-results-page="<%= page_number %>" data-user-search="<%= @user_search %>">
+          <a href="#"><%= page_number %></a>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+<% end %>

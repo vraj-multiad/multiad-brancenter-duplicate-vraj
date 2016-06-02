@@ -1,0 +1,27 @@
+<!-- _index_results.html.erb -->
+<table border=1>
+  <thead>
+    <tr>
+      <th>Name/ID/Title/Contacts</th>
+      <th>Creator</th>
+      <th>Html</th>
+      <th>Inputs</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @ac_texts.each do |ac_text| %>
+      <tr>
+        <td align="center"><b><%= ac_text.name %> </b><b>(<%= ac_text.id.to_s %>)</b><br/><%= ac_text.title %><br/>contact_flag: <%= ac_text.contact_flag %><br/>contact_type: <%= ac_text.contact_type %><br/>contact_filter: <%= ac_text.contact_filter %><br/></td>
+        <td><%= ac_text.creator %></td>
+        <td><%= ac_text.html %></td>
+        <td><%= ac_text.inputs %></td>
+        <td><%= link_to 'Show', ac_text %></td>
+        <td><%= link_to 'Edit', edit_ac_text_path(ac_text) %></td>
+        <td><%= link_to 'Destroy', ac_text, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

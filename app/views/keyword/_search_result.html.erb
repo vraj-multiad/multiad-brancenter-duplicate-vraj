@@ -1,0 +1,793 @@
+<!-- KWIKEE PRODUCT RESULT -->
+<% if searchable_type == 'KwikeeProduct' %>
+  <% kp = KwikeeProduct.find(searchable_id) %>
+  <% logger.debug '+++before first_available: ' + Time.now.to_s  %>
+  <% main_image = kp.default_kwikee_file %>
+  <% logger.debug '+++after default_kwikee_file: ' + Time.now.to_s  %>
+
+  <div class="results-spacing paginate-result" style="display:<%= display %>;">
+    <% active = @current_asset_group['KwikeeProduct'][kp.token.to_s].to_s %>
+    <% checked_asset = 'display:none;' %>
+    <% if active == 'active' %>
+      <% checked_asset = 'display:block;' %>
+    <% end %>
+    <div class="thumbnail <%= active %> thumb-<%= kp.token %>">
+
+      <div class="checked-asset" data-token="<%= kp.token %>" style="<%= checked_asset %>"><span class="un-checked"></span><%= t '__checked__' %><span class="ed-checked"></span>
+        <%= form_tag('/asset_group/add', :remote => true ) do %>
+          <input type="hidden" name="temp" value="<%= kp.token %>">
+          <input type="hidden" name="token" value="<%= kp.token %>">
+          <input type="hidden" name="asset_group_type" value="KwikeeProduct">
+        <% end %>
+      </div>
+      <% adminable = false %>
+      <% if current_user.admin? || current_user.superuser? %>
+        <% adminable = true %>
+      <% end %>
+      <div class="crop-images">
+        <div class="align-images">
+          <%= form_tag('/asset_preview', :remote => true, :'data-asset-detail-display' => 'asset-detail-display' ) do %>
+            <input type="hidden" name="type" value="KwikeeProduct">
+            <input type="hidden" name="token" value="<%= kp.token %>">
+            <a href="javascript:void(0)" class='asset-detail-button'>&nbsp;</a>
+          <% end %>
+          <% img_tag = '' %>
+          <% img_url = '' %>
+          <% if main_image.present? %>
+            <% if visible %>
+              <% img_tag = image_tag(main_image.secure_url.to_s) %>
+            <% end %>
+            <% img_url = main_image.secure_url.to_s %>
+          <% else %>
+            <% if visible %>
+              <% img_tag = main_image.default_thumbnail %>
+            <% end %>
+            <% img_url = main_image.default_thumbnail_url %>
+          <% end %>
+          <div class="paginate" data-image-url="<%= img_url %>">
+            <% if visible %><%= img_tag %><% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="show-buttons">
+        <%= form_tag('/asset_group/add', :remote => true ) do %>
+          <input type="hidden" name="token" value="<%= kp.token %>">
+          <input type="hidden" name="asset_group_type" value="KwikeeProduct">
+          <a href="javascript:void(0)" class="select-asset-group-button tip <%= @current_asset_group['KwikeeProduct'][kp.token.to_s].to_s %> <% if kp.shareable? %> asset-group-share <% end %> <% if adminable %> asset-group-admin-keywords <% end %>" data-toggle="tooltip" data-placement="bottom" data-token="<%= kp.token %>" title=""><span style="<%= checked_asset %>" class="un-check"></span><%= t '__check__' %></a>
+        <% end %>
+
+        <%= form_tag('/social_media_post/share', :remote => true, :'data-share' => 'share-contents' ) do %>
+          <input type="hidden" name="token" value="<%= kp.token %>">
+          <input type="hidden" name="asset_type" value="KwikeeProduct">
+          <input type="hidden" name="asset_preview" value="<%= main_image.share_preview %>">
+          <input type="hidden" name="asset_share_link" value="<%= shared_assets_page_url + '?reference=share&asset_id='  + kp.token %>">
+          <input type="hidden" name="asset_email_link" value="<%= shared_assets_page_url + '?reference=email&asset_id='  + kp.token %>">
+          <input type="hidden" name="video" value="<%= kp.video? %>">
+          <input type="hidden" name="image" value="<%= kp.image? %>">
+          <input type="hidden" name="file" value="<%= kp.file? %>">
+          <input type="hidden" name="page" value="false">
+          <input type="hidden" name="extension" value="<%= kp.extension %>">
+          <input type="hidden" name="title" value="<%= kp.title %>">
+          <% if kp.shareable? %>
+            <%= button_tag 'Share', data: { disable_with: t('__loading__') }, title: t('__share__'), type: 'submit', :class => 'share-asset-button share-asset-submit' do %><%= t '__share__' %>
+            <% end %>
+          <% end %>
+        <% end %>
+
+        <%= form_tag('/download', :remote => true, :'data-dl-single' => 'dl_single_' + kp.token ) do %>
+          <input type="hidden" name="token" value="<%= kp.token %>">
+          <input type="hidden" name="downloadable_type" value="KwikeeProduct">
+          <%= button_tag 'Download', data: { disable_with: t('__downloading__') },  title: t('__download__'), type: 'submit', :class => 'download-asset-button' do %><%= t '__download__' %>
+          <% end %>
+        <% end %>
+
+        <div id="dl_single_<%= kp.token %>"></div>
+      </div>
+
+      <div class="caption">
+        <p>
+          <span class="status_alert"></span>
+          <%= truncate(kp.title, length: 46, escape: false).to_s.html_safe %>
+        </p>
+      </div>
+
+      <% fav_class = 'fav-star' %>
+      <% if kp.favorite? current_user.id %>
+        <% fav_class = 'fav-star active' %>
+      <% end %>
+      <%= form_tag('/add_to_favorites', :remote => true,  :id => 'add_to_favorite_form') do %>
+        <input type="hidden" name="token" value="<%= kp.token %>">
+        <input type="hidden" name="categorizable_type" value="KwikeeProduct">
+        <%= button_tag 'add_to_favorites', data: { disable_with: '' }, title: 'add to library', type: 'submit', :class => fav_class do %><% end %>
+      <% end %>
+    </div>
+    <div class="thumbnail thumbnail-group-2"></div>
+    <div class="thumbnail thumbnail-group-3"></div>
+  </div>
+
+<!-- END :: KWIKEE PRODUCT RESULT -->
+<!-- DOWNLOAD IMAGE GROUP RESULT -->
+<% elsif searchable_type == 'DlImageGroup' %>
+  <% dlig = DlImageGroup.find(searchable_id) %>
+  <% main_image = dlig.main_image(current_user.id) %>
+
+  <div class="results-spacing paginate-result" style="display:<%= display %>;">
+    <% active = @current_asset_group['DlImageGroup'][dlig.token.to_s].to_s %>
+    <% checked_asset = 'display:none;' %>
+    <% if active == 'active' %>
+      <% checked_asset = 'display:block;' %>
+    <% end %>
+    <div class="thumbnail <%= active %> thumb-<%= dlig.token %>">
+
+      <div class="checked-asset" data-token="<%= dlig.token %>" style="<%= checked_asset %>"><span class="un-checked"></span><%= t '__checked__' %><span class="ed-checked"></span>
+        <%= form_tag('/asset_group/add', :remote => true ) do %>
+          <input type="hidden" name="temp" value="<%= dlig.token %>">
+          <input type="hidden" name="token" value="<%= dlig.token %>">
+          <input type="hidden" name="asset_group_type" value="DlImageGroup">
+        <% end %>
+      </div>
+      <% adminable = false %>
+      <% if current_user.contributor? || current_user.admin? || current_user.superuser? %>
+        <% adminable = true %>
+      <% end %>
+      <% if adminable %>
+        <div class="unbundle-button"><span class="clip-unbundle-text"><span class="unbundle-text"><%= t '__unbundle__' %></span></span></div>
+        <div class="clip-are-you-sure-unbundle">
+          <div class="are-you-sure-unbundle">
+            <h3><%= t '__are_you_sure__' %></h3>
+            <%= form_tag('/admin/dl_image_group/remove', :remote => true, :'data-expire' => 'search') do %>
+              <input type="hidden" name="token" value="<%= dlig.token %>">
+              <%= button_tag 'Ungroup Dl Image Group', data: { disable_with: t('__unbundling__') }, type: 'submit', :class => 'yes-remove-button-unbundle'  do %>
+                <%= t '__YES__' %>
+              <% end %>
+            <% end %>
+            <%= button_tag 'cancel remove', data: { disable_with: t('__cancel__') }, type: 'submit', :class => 'no-remove-button-unbundle'  do %>
+              <%= t '__NO__' %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <% case main_image.upload_type %>
+      <% when 'image', 'file', 'video' %>
+        <div class="crop-images">
+          <div class="align-images">
+            <%= form_tag('/asset_preview', :remote => true, :'data-asset-detail-display' => 'asset-detail-display' ) do %>
+              <input type="hidden" name="type" value="DlImageGroup">
+              <input type="hidden" name="token" value="<%= dlig.token %>">
+              <a href="javascript:void(0)" class='asset-detail-button'>&nbsp;</a>
+            <% end %>
+            <% img_tag = '' %>
+            <% img_url = '' %>
+            <% if visible %>
+              <% img_tag = image_tag(main_image.thumbnail_url.to_s) %>
+            <% end %>
+            <% img_url = main_image.thumbnail_url.to_s %>
+            <div class="paginate" data-image-url="<%= img_url %>">
+              <% if visible %><%= img_tag %><% end %>
+            </div>
+          </div>
+        </div>
+      <% when 'video' %>
+        <div class="crop-images video-preview">
+          <div class="align-images">
+            <%= form_tag('/asset_preview', :remote => true, :'data-asset-detail-display' => 'asset-detail-display' ) do %>
+              <input type="hidden" name="type" value="DlImageGroup">
+              <input type="hidden" name="token" value="<%= dlig.token %>">
+              <a href="javascript:void(0)" class='video-detail-button'>&nbsp;</a>
+            <% end %>
+            <% img_tag = '' %>
+            <% if visible %>
+              <% img_tag = image_tag(main_image.bundle.thumbnail.url) %>
+            <% end %>
+            <div class="paginate" data-image-url="<%= main_image.bundle.thumbnail.url %>">
+              <%= img_tag %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="show-buttons">
+
+        <%= form_tag('/asset_group/add', :remote => true ) do %>
+          <input type="hidden" name="token" value="<%= dlig.token %>">
+          <input type="hidden" name="asset_group_type" value="DlImageGroup">
+          <a href="javascript:void(0)" class="select-asset-group-button tip <%= @current_asset_group['DlImageGroup'][dlig.token.to_s].to_s %> <% if dlig.shareable? %> asset-group-share <% end %> <% if adminable %> asset-group-admin-keywords <% end %>" data-toggle="tooltip" data-placement="bottom" data-token="<%= dlig.token %>" title=""><span style="<%= checked_asset %>" class="un-check"></span><%= t '__check__' %></a>
+        <% end %>
+
+        <%= form_tag('/social_media_post/share', :remote => true, :'data-share' => 'share-contents' ) do %>
+          <input type="hidden" name="token" value="<%= dlig.token %>">
+          <input type="hidden" name="asset_type" value="DlImageGroup">
+          <input type="hidden" name="asset_preview" value="<%= main_image.share_preview %>">
+          <input type="hidden" name="video" value="<%= dlig.video? %>">
+          <input type="hidden" name="image" value="<%= dlig.image? %>">
+          <input type="hidden" name="file" value="<%= dlig.file? %>">
+          <input type="hidden" name="page" value="false">
+          <input type="hidden" name="extension" value="<%= dlig.extension %>">
+          <input type="hidden" name="title" value="<%= dlig.title %>">
+          <% if dlig.shareable? %>
+            <%= button_tag 'Share', data: { disable_with: t('__loading__') }, title: t('__share__'), type: 'submit', :class => 'share-asset-button share-asset-submit' do %>
+              <%= t '__share__' %>
+            <% end %>
+          <% end %>
+        <% end %>
+
+        <% if dlig.downloadable? %>
+          <%= form_tag('/download', :remote => true, :'data-dl-single' => 'dl_single_' + dlig.token ) do %>
+            <input type="hidden" name="token" value="<%= dlig.token %>">
+            <input type="hidden" name="downloadable_type" value="DlImageGroup">
+            <%= button_tag 'Download', data: { disable_with: t('__downloading__') },  title: t('__download__'), type: 'submit', :class => 'download-asset-button' do %>
+              <%= t '__download__' %>
+            <% end %>
+          <% end %>
+        <% end %>
+
+        <div id="dl_single_<%= dlig.token %>"></div>
+      </div>
+
+      <div class="caption">
+        <p>
+          <span class="status_alert"></span>
+          <%= truncate(dlig.title, length: 46, escape: false).to_s.html_safe %>
+        </p>
+      </div>
+
+      <% fav_class = 'fav-star' %>
+      <% if dlig.favorite? current_user.id %>
+        <% fav_class = 'fav-star active' %>
+      <% end %>
+      <%= form_tag('/add_to_favorites', :remote => true,  :id => 'add_to_favorite_form') do %>
+        <input type="hidden" name="token" value="<%= dlig.token %>">
+        <input type="hidden" name="categorizable_type" value="DlImageGroup">
+        <%= button_tag 'add_to_favorites', data: { disable_with: '' }, title: 'add to library', type: 'submit', :class => fav_class do %><% end %>
+      <% end %>
+    </div>
+    <div class="thumbnail thumbnail-group-2"></div>
+    <div class="thumbnail thumbnail-group-3"></div>
+  </div>
+
+<!-- END :: DOWNLOAD IMAGE GROUP RESULT -->
+<!-- DOWNLOAD CONTENT RESULT -->
+<% elsif searchable_type == 'DlImage' %>
+  <% dli = DlImage.find(searchable_id) %>
+
+  <div class="results-spacing paginate-result" style="display:<%= display %>;">
+
+    <% active = @current_asset_group['DlImage'][dli.token.to_s].to_s %>
+    <% checked_asset = 'display:none;' %>
+    <% if active == 'active' %>
+      <% checked_asset = 'display:block;' %>
+    <% end %>
+    <div class="thumbnail <%= active %> thumb-<%= dli.token %>">
+
+      <div class="checked-asset" data-token="<%= dli.token %>" style="<%= checked_asset %>"><span class="un-checked"></span><%= t '__checked__' %><span class="ed-checked"></span>
+        <%= form_tag('/asset_group/add', :remote => true ) do %>
+          <input type="hidden" name="temp" value="<%= dli.token %>">
+          <input type="hidden" name="token" value="<%= dli.token %>">
+          <input type="hidden" name="asset_group_type" value="DlImage">
+        <% end %>
+      </div>
+      <% adminable = false %>
+      <% if (dli.user_id == current_user.id  && current_user.contributor?) || current_user.admin? || current_user.superuser? %>
+        <% adminable = true %>
+      <% end %>
+      <% if adminable %>
+        <div class="remove-button"><span class="clip-remove-text"><span class="remove-text"><%= t '__remove__' %></span></span></div>
+        <div class="clip-are-you-sure">
+          <div class="are-you-sure">
+            <h3><%= t '__are_you_sure__' %></h3>
+            <%= form_tag('/admin/dl_image/publish', :remote => true, :'data-expire' => 'search') do %>
+              <input type="hidden" name="token" value="<%= dli.token %>">
+              <input type="hidden" name="status" value="unpublished">
+              <%= button_tag 'Expire Dl Image', data: { disable_with: t('__removing__') }, type: 'submit', :class => 'yes-remove-button'  do %>
+                <%= t '__YES__' %>
+              <% end %>
+            <% end %>
+            <%= button_tag 'cancel remove', data: { disable_with: t('__cancel__') }, type: 'submit', :class => 'no-remove-button'  do %>
+              <%= t '__NO__' %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <% case dli.upload_type %>
+      <% when 'image','file' %>
+        <div class="crop-images">
+          <div class="align-images">
+            <%= form_tag('/asset_preview', :remote => true, :'data-asset-preview-panel' => 'asset-preview-panel' ) do %>
+              <input type="hidden" name="type" value="DlImage">
+              <input type="hidden" name="token" value="<%= dli.token %>">
+              <a href="javascript:void(0)" class='asset-preview-button'>&nbsp;</a>
+            <% end %>
+            <% img_tag = '' %>
+            <% img_url = '' %>
+            <% if visible %>
+              <% img_tag = image_tag( dli.thumbnail_url.to_s ) %>
+            <% end %>
+            <% img_url = dli.thumbnail_url.to_s %>
+            <div class="paginate" data-image-url="<%= img_url %>">
+              <% if visible %><%= img_tag %><% end %>
+            </div>
+          </div>
+        </div>
+      <% when 'video' %>
+        <div class="crop-images video-preview">
+          <div class="align-images">
+            <%= form_tag('/asset_preview', :remote => true, :'data-asset-preview-panel' => 'asset-preview-panel' ) do %>
+              <input type="hidden" name="type" value="DlImage">
+              <input type="hidden" name="token" value="<%= dli.token %>">
+              <a href="javascript:void(0)" class='video-preview-button'>&nbsp;</a>
+            <% end %>
+            <% img_tag = '' %>
+            <% if visible %>
+              <% img_tag = image_tag(dli.bundle.thumbnail.url) %>
+            <% end %>
+            <div class="paginate" data-image-url="<%= dli.bundle.thumbnail.url %>">
+              <%= img_tag %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="show-buttons">
+        <% if dli.shareable? || dli.downloadable? || (dli.user_id == current_user.id  && current_user.contributor?) || current_user.admin? || current_user.superuser? %>
+          <%= form_tag('/asset_group/add', :remote => true ) do %>
+            <input type="hidden" name="token" value="<%= dli.token %>">
+            <input type="hidden" name="asset_group_type" value="DlImage">
+            <a href="javascript:void(0)" class="select-asset-group-button tip <%= @current_asset_group['DlImage'][dli.token.to_s].to_s %> <% if dli.shareable? %> asset-group-share <% end %> <% if adminable %> asset-group-admin-keywords <% end %>" data-toggle="tooltip" data-placement="bottom" data-token="<%= dli.token %>" title=""><span style="<%= checked_asset %>" class="un-check"></span><%= t '__check__' %></a>
+          <% end %>
+        <% end %>
+
+        <% if dli.shareable? %>
+          <%= form_tag('/social_media_post/share', :remote => true, :'data-share' => 'share-contents' ) do %>
+            <input type="hidden" name="token" value="<%= dli.token %>">
+            <input type="hidden" name="asset_type" value="DlImage">
+            <input type="hidden" name="asset_preview" value="<%= dli.share_preview %>">
+            <input type="hidden" name="asset_share_link" value="<%= shared_assets_page_url + '?reference=share&asset_id='  + dli.token %>">
+            <input type="hidden" name="asset_email_link" value="<%= shared_assets_page_url + '?reference=email&asset_id='  + dli.token %>">
+            <input type="hidden" name="video" value="<%= dli.video? %>">
+            <input type="hidden" name="image" value="<%= dli.image? %>">
+            <input type="hidden" name="file" value="<%= dli.file? %>">
+            <input type="hidden" name="page" value="false">
+            <input type="hidden" name="extension" value="<%= dli.extension %>">
+            <input type="hidden" name="title" value="<%= dli.title %>">
+            <%= button_tag 'Share', data: { disable_with: t('__loading__') }, title: t('__share__'), type: 'submit', :class => 'share-asset-button share-asset-submit' do %>
+              <%= t '__share__' %>
+            <% end %>
+          <% end %>
+        <% end %>
+
+        <% if dli.external_link.present? && dli.external_link_label.present? %>
+          <%= form_tag('/click_event/create', :remote => true ) do %>
+            <input type="hidden" name="token" value="<%= dli.token %>">
+            <input type="hidden" name="clickable_type" value="DlImage">
+            <%= button_tag dli.external_link_label.to_s,  title: dli.external_link_label.to_s, type: 'button', :class => 'external-link-button external-link', data: { 'external-link' => dli.external_link.to_s } do %>
+              <%= dli.external_link_label.to_s %>
+            <% end %>
+          <% end %>
+        <% elsif dli.downloadable? %>
+          <%= form_tag('/download', :remote => true, :'data-dl-single' => 'dl_single_' + dli.token ) do %>
+            <input type="hidden" name="token" value="<%= dli.token %>">
+            <input type="hidden" name="downloadable_type" value="DlImage">
+            <%= button_tag 'Download', data: { disable_with: t('__downloading__') },  title: t('__download__'), type: 'submit', :class => 'download-asset-button external-link-button' do %>
+              <%= t '__download__' %>
+            <% end %>
+          <% end %>
+        <% end %>
+
+        <div id="dl_single_<%= dli.token %>"></div>
+      </div>
+
+      <div class="caption">
+        <p>
+          <span class="status_alert">
+            <% if dli.status != 'production' %>
+              [<%= dli.status + ' ' + dli.user.username %>] :
+            <% end %>
+          </span>
+          <%= truncate(dli.title, length: 46, escape: false).to_s.html_safe %>
+        </p>
+      </div>
+      <% if dli.fulfillment_items.present? %>
+        <% cart_class = 'cart-icon' %>
+        <% if dli.in_cart? current_user.id %>
+            <% cart_class = 'cart-icon active' %>
+        <% end %>
+        <%= form_tag('/cart/add', :remote => true, :'data-add-to-cart' => 'cart-button', :id => 'cart_add_form') do %>
+          <input type="hidden" name="token" value="<%= dli.token %>">
+          <input type="hidden" name="orderable_type" value="DlImage">
+          <%= button_tag 'add_to_cart', data: { disable_with: '' }, title: 'add to cart', type: 'submit', :class => cart_class do %><% end %>
+        <% end %>
+      <% end %>
+
+      <% fav_class = 'fav-star' %>
+      <% if dli.favorite? current_user.id %>
+        <% fav_class = 'fav-star active' %>
+      <% end %>
+      <%= form_tag('/add_to_favorites', :remote => true,  :id => 'add_to_favorite_form') do %>
+        <input type="hidden" name="token" value="<%= dli.token %>">
+        <input type="hidden" name="categorizable_type" value="DlImage">
+        <%= button_tag 'add_to_favorites', data: { disable_with: '' }, title: 'add to library', type: 'submit', :class => fav_class do %><% end %>
+      <% end %>
+    </div>
+  </div>
+
+<!-- END :: DOWNLOAD CONTENT RESULT -->
+<!-- ADCREATOR IMAGES CONTENT RESULT -->
+<% elsif searchable_type == 'AcImage' %>
+  <% aci = AcImage.find(searchable_id) %>
+
+  <div class="results-spacing paginate-result" style="display:<%= display %>;">
+
+    <% active = @current_asset_group['AcImage'][aci.token.to_s].to_s %>
+    <% checked_asset = 'display:none;' %>
+    <% if active == 'active' %>
+      <% checked_asset = 'display:block;' %>
+    <% end %>
+    <div class="thumbnail <%= active %> thumb-<%= aci.token %>">
+
+      <div class="checked-asset"  data-token="<%= aci.token %>" style="<%= checked_asset %>"><span class="un-checked"></span><%= t '__checked__' %><span class="ed-checked"></span>
+        <%= form_tag('/asset_group/add', :remote => true ) do %>
+          <input type="hidden" name="temp" value="<%= aci.token %>">
+          <input type="hidden" name="token" value="<%= aci.token %>">
+          <input type="hidden" name="asset_group_type" value="AcImage">
+        <% end %>
+      </div>
+
+      <% adminable = false %>
+      <% if current_user.superuser? %>
+        <% adminable = true %>
+      <% end %>
+      <% if adminable %>
+        <div class="remove-button"><span class="clip-remove-text"><span class="remove-text"><%= t '__remove__' %></span></span></div>
+        <div class="clip-are-you-sure">
+          <div class="are-you-sure">
+            <h3><%= t '__are_you_sure__' %></h3>
+            <%= form_tag('/admin/ac_image/publish', :remote => true, :'data-expire' => 'search') do %>
+              <input type="hidden" name="token" value="<%= aci.token %>">
+              <input type="hidden" name="status" value="unpublished">
+              <%= button_tag 'Expire Ac Image', data: { disable_with: t('__removing__') }, type: 'submit', :class => 'yes-remove-button'  do %>
+                <%= t '__YES__' %>
+              <% end %>
+            <% end %>
+            <%= button_tag 'cancel remove', data: { disable_with: t('__cancel__') }, type: 'submit', :class => 'no-remove-button'  do %>
+              <%= t '__NO__' %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="align-images">
+        <div class="crop-images">
+          <%= form_tag('/asset_preview', :remote => true, :'data-asset-preview-panel' => 'asset-preview-panel' ) do %>
+            <input type="hidden" name="type" value="AcImage">
+            <input type="hidden" name="token" value="<%= aci.token %>">
+            <a href="javascript:void(0)" class='asset-preview-button'>&nbsp;</a>
+          <% end %>
+          <% img_tag = '' %>
+          <% img_url = '' %>
+          <% if visible %>
+            <% img_tag = image_tag( aci.thumbnail_url.to_s ) %>
+          <% end %>
+          <% img_url = aci.thumbnail_url.to_s %>
+          <div class="paginate" data-image-url="<%= img_url %>">
+            <% if visible %><%= img_tag %><% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="show-buttons">
+        <%= form_tag('/asset_group/add', :remote => true ) do %>
+          <input type="hidden" name="token" value="<%= aci.token %>">
+          <input type="hidden" name="asset_group_type" value="AcImage">
+          <a href="javascript:void(0)" class="select-asset-group-button tip <%= @current_asset_group['AcImage'][aci.token.to_s].to_s %><% if adminable %> asset-group-admin-keywords <% end %>" data-toggle="tooltip" data-placement="bottom"  data-token="<%= aci.token %>" title=""><span style="<%= checked_asset %>" class="un-check"></span><%= t '__check__' %></a>
+        <% end %>
+
+        <%= form_tag('/download', :remote => true, :'data-dl-single' => 'dl_single_' + aci.token ) do %>
+          <input type="hidden" name="token" value="<%= aci.token %>">
+          <input type="hidden" name="downloadable_type" value="AcImage">
+          <%= button_tag 'Download', data: { disable_with: t('__downloading__') },  title: t('__download__'), type: 'submit', :class => 'download-asset-button' do %><%= t '__download__' %>
+          <% end %>
+        <% end %>
+
+        <div id="dl_single_<%= aci.token %>"></div>
+      </div>
+
+      <div class="caption">
+        <p>
+          <span class="status_alert">
+            <% if aci.status != 'production' %>
+              [<%= aci.status %>] :
+            <% end %>
+          </span>
+          <%= truncate(aci.title, length: 46, escape: false).to_s.html_safe %>
+        </p>
+      </div>
+    </div>
+  </div>
+
+<!-- END :: ADCREATOR IMAGES CONTENT RESULT -->
+<!-- USER UPLOADED CONTENT -->
+<% elsif searchable_type == 'UserUploadedImage' %>
+  <% uui = UserUploadedImage.find(searchable_id) %>
+
+  <div class="results-spacing paginate-result" style="display:<%= display %>;">
+    <% active = @current_asset_group['UserUploadedImage'][uui.token.to_s].to_s %>
+    <% checked_asset = 'display:none;' %>
+    <% if active == 'active' %>
+      <% checked_asset = 'display:block;' %>
+    <% end %>
+    <div class="thumbnail <%= active %> thumb-<%= uui.token %>">
+
+      <div class="checked-asset"  data-token="<%= uui.token %>" style="<%= checked_asset %>"><span class="un-checked"></span><%= t '__checked__' %><span class="ed-checked"></span>
+        <%= form_tag('/asset_group/add', :remote => true ) do %>
+          <input type="hidden" name="temp" value="<%= uui.token %>">
+          <input type="hidden" name="token" value="<%= uui.token %>">
+          <input type="hidden" name="asset_group_type" value="UserUploadedImage">
+        <% end %>
+      </div>
+
+      <div class="remove-button"><span class="clip-remove-text"><span class="remove-text"><%= t '__remove__' %></span></span></div>
+      <div class="clip-are-you-sure">
+        <div class="are-you-sure">
+          <h3><%= t '__are_you_sure__' %></h3>
+
+          <%= form_tag('/user_uploaded_images/expire_image', :remote => true, :'data-expire' => 'search') do %>
+            <input type="hidden" name="token" value="<%= uui.token %>">
+            <%= button_tag 'Expire Document', data: { disable_with: t('__removing__') }, type: 'submit', :class => 'yes-remove-button' do %>
+              <%= t '__YES__' %>
+            <% end %>
+          <% end %>
+          <%= button_tag 'cancel remove', data: { disable_with: t('__cancel__') }, type: 'submit', :class => 'no-remove-button'  do %>
+            <%= t '__NO__' %>
+          <% end %>
+        </div>
+      </div>
+
+      <% case uui.upload_type %>
+      <% when 'ac_image', 'logo', 'library_image', 'library_file' %>
+        <div class="crop-images">
+          <div class="align-images">
+            <%= form_tag('/asset_preview', :remote => true, :'data-asset-preview-panel' => 'asset-preview-panel' ) do %>
+              <input type="hidden" name="type" value="UserUploadedImage">
+              <input type="hidden" name="token" value="<%= uui.token %>">
+              <a href="javascript:void(0)" class='asset-preview-button'>&nbsp;</a>
+            <% end %>
+            <% img_tag = '' %>
+            <% img_url = '' %>
+            <% if visible %>
+              <% img_tag = image_tag(uui.thumbnail_url) %>
+            <% end %>
+            <% img_url = uui.thumbnail_url %>
+
+            <div class="paginate" data-image-url="<%= img_url %>">
+              <% if visible %><%= img_tag %><% end %>
+            </div>
+          </div>
+        </div>
+      <% when 'library_video' %>
+        <div class="crop-images video-preview">
+          <div class="align-images">
+            <%= form_tag('/asset_preview', :remote => true, :'data-asset-preview-panel' => 'asset-preview-panel' ) do %>
+              <input type="hidden" name="type" value="UserUploadedImage">
+              <input type="hidden" name="token" value="<%= uui.token %>">
+              <a href="javascript:void(0)" class='video-preview-button'>&nbsp;</a>
+            <% end %>
+            <% img_tag = '' %>
+            <% img_url = '' %>
+            <% if visible %>
+              <% img_tag = image_tag( uui.image_upload.thumbnail.url ) %>
+            <% end %>
+            <% img_url = uui.image_upload.thumbnail.url %>
+
+            <div class="paginate" data-image-url="<%= img_url %>">
+              <% if visible %><%= img_tag %><% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="show-buttons">
+        <%= form_tag('/asset_group/add', :remote => true ) do %>
+          <input type="hidden" name="token" value="<%= uui.token %>">
+          <input type="hidden" name="asset_group_type" value="UserUploadedImage">
+          <a href="javascript:void(0)" class="select-asset-group-button tip <%= @current_asset_group['UserUploadedImage'][uui.token.to_s].to_s %> <% if uui.shareable? %>asset-group-share<% end %>" data-toggle="tooltip" data-placement="bottom" data-token="<%= uui.token %>" title=""><span style="<%= checked_asset %>" class="un-check"></span><%= t '__check__' %></a>
+        <% end %>
+
+        <%= form_tag('/social_media_post/share', :remote => true, :'data-share' => 'share-contents' ) do %>
+          <input type="hidden" name="token" value="<%= uui.token %>">
+          <input type="hidden" name="asset_type" value="UserUploadedImage">
+          <input type="hidden" name="asset_preview" value="<%= uui.share_preview %>">
+          <input type="hidden" name="asset_share_link" value="<%= shared_assets_page_url + '?reference=share&asset_id='  + uui.token %>">
+          <input type="hidden" name="asset_email_link" value="<%= shared_assets_page_url + '?reference=email&asset_id='  + uui.token %>">
+          <input type="hidden" name="video" value="<%= uui.video? %>">
+          <input type="hidden" name="image" value="<%= uui.image? %>">
+          <input type="hidden" name="file" value="<%= uui.file? %>">
+          <input type="hidden" name="page" value="false">
+          <input type="hidden" name="extension" value="<%= uui.extension %>">
+          <input type="hidden" name="title" value="<%= uui.title %>">
+          <% if uui.shareable? %>
+            <%= button_tag 'Share', data: { disable_with: t('__loading__') }, title: t('__share__'), type: 'submit', :class => 'share-asset-button share-asset-submit' do %><%= t '__share__' %>
+            <% end %>
+          <% end %>
+        <% end %>
+        <%= form_tag('/download', :remote => true, :'data-dl-single' => 'dl_single_' + uui.token ) do %>
+          <input type="hidden" name="token" value="<%= uui.token %>">
+          <input type="hidden" name="downloadable_type" value="UserUploadedImage">
+          <%= button_tag 'Download', data: { disable_with: t('__downloading__') },  title: t('__download__'), type: 'submit', :class => 'download-asset-button' do %><%= t '__download__' %>
+          <% end %>
+        <% end %>
+
+        <div id="dl_single_<%= uui.token %>"></div>
+      </div>
+
+      <div class="caption">
+        <p>
+          <%= uui.title %>
+        </p>
+      </div>
+      <% fav_class = 'fav-star' %>
+      <% if uui.favorite? current_user.id %>
+        <% fav_class = 'fav-star active' %>
+      <% end %>
+      <%= form_tag('/add_to_favorites', :remote => true,  :id => 'add_to_favorite_form') do %>
+        <input type="hidden" name="token" value="<%= uui.token %>">
+        <input type="hidden" name="categorizable_type" value="UserUploadedImage">
+        <%= button_tag 'add_to_favorites', data: { disable_with: '' }, title: 'add to library', type: 'submit', :class => fav_class do %><% end %>
+      <% end %>
+
+    </div>
+  </div>
+
+<!-- END :: USER UPLOADED CONTENT -->
+<!-- ADCREATOR - CUSTOMIZABLE RESULT -->
+<% elsif searchable_type == 'AcCreatorTemplate' %>
+  <% act = AcCreatorTemplate.find(searchable_id) %>
+  <div class="results-spacing paginate-result" style="display:<%= display %>;">
+
+    <% active = @current_asset_group['AcCreatorTemplate'][act.token.to_s].to_s %>
+    <% checked_asset = 'display:none;' %>
+    <% if active == 'active' %>
+      <% checked_asset = 'display:block;' %>
+    <% end %>
+
+    <div class="thumbnail thumb-<%= act.token %>">
+
+      <div class="checked-asset" data-token="<%= act.token %>" style="<%= checked_asset %>"><span class="un-checked"></span><%= t '__checked__' %><span class="ed-checked"></span>
+        <%= form_tag('/asset_group/add', :remote => true ) do %>
+          <input type="hidden" name="temp" value="<%= act.token %>">
+          <input type="hidden" name="token" value="<%= act.token %>">
+          <input type="hidden" name="asset_group_type" value="AdCreatorTemplate">
+        <% end %>
+      </div>
+
+      <div class="crop-images">
+        <div class="align-images">
+          <%= form_tag('/asset_preview', :remote => true, :'data-asset-preview-panel' => 'asset-preview-panel' ) do %>
+            <input type="hidden" name="type" value="AcCreatorTemplate">
+            <input type="hidden" name="token" value="<%= act.token %>">
+            <a href="javascript:void(0)" class='asset-preview-button'>&nbsp;</a>
+          <% end %>
+          <% img_tag = '' %>
+          <% img_url = '' %>
+          <% if visible %>
+            <% img_tag = image_tag( act.thumbnail_url ) %>
+          <% end %>
+          <% img_url = act.thumbnail_url %>
+
+          <div class="paginate" data-image-url="<%= img_url %>">
+            <% if visible %><%= img_tag %><% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="show-buttons">
+        <% if current_user.admin? || current_user.superuser? %>
+          <%= form_tag('/asset_group/add', :remote => true ) do %>
+            <input type="hidden" name="token" value="<%= act.token %>">
+            <input type="hidden" name="asset_group_type" value="AcCreatorTemplate">
+            <a href="javascript:void(0)" class="select-asset-group-button tip <%= @current_asset_group['AcCreatorTemplate'][act.token.to_s].to_s %> " data-toggle="tooltip" data-placement="bottom" data-token="<%= act.token %>" title=""><span style="<%= checked_asset %>" class="un-check"></span><%= t '__check__' %></a>
+          <% end %>
+        <% end %>
+
+        <%= form_tag('/adcreator/start', :remote => true, :'data-update-adcreator' => 'adcreator-contents') do %>
+          <input type="hidden" name="ac_creator_template_id" value="<%= act.id %>">
+          <input type="hidden" name="ac_base_id" value="<%= act.ac_base_id %>">
+
+          <%= button_tag 'Build Document', data: { disable_with: t('__loading__') }, title: t('__edit_ad__'), type: 'submit', :class => 'btn edit-template-button' do %>
+          <%= t '__customize__' %>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="caption">
+        <p>
+          <span class="status_alert">
+            <% if act.status != 'production' %>
+              [<%= act.status %>] :
+            <% end %>
+          </span>
+          <%= truncate(act.title, length: 46, escape: false).to_s.html_safe %>
+        </p>
+      </div>
+
+      <% fav_class = 'fav-star' %>
+      <% if act.favorite? current_user.id %>
+        <% fav_class = 'fav-star active' %>
+      <% end %>
+      <%= form_tag('/add_to_favorites', :remote => true,  :id => 'add_to_favorite_form') do %>
+        <input type="hidden" name="token" value="<%= act.token %>">
+        <input type="hidden" name="categorizable_type" value="AcCreatorTemplate">
+        <%= button_tag 'add_to_favorites', data: { disable_with: '' }, title: 'add to library', type: 'submit', :class => fav_class do %><% end %>
+      <% end %>
+
+    </div>
+  </div>
+
+<!--END :: ADCREATOR - CUSTOMIZABLE RESULT -->
+<!--SAVED AD RESULTS -->
+<% elsif searchable_type == 'UserSavedAds' %>
+  <% ash = AcSessionHistory.find(searchable_id) %>
+  <% ad = ash.ac_document %>
+
+  <div class="results-spacing paginate-result" style="display:<%= display %>;">
+
+    <div class="thumbnail">
+      <% if ash.allow_expire? %>
+        <div class="remove-button"><span class="clip-remove-text"><span class="remove-text"><%= t '__remove__' %></span></span></div>
+          <div class="clip-are-you-sure">
+            <div class="are-you-sure">
+             <h3><%= t '__are_you_sure__' %></h3>
+              <%= form_tag('/adcreator/expire', :remote => true, :'data-expire' => 'search') do %>
+                <input type="hidden" name="id" value="<%= ash.id %>">
+                <%= button_tag 'Expire Document', data: { disable_with: t('__removing__') }, type: 'submit', :class => 'yes-remove-button'  do %>
+                  <%= t '__YES__' %>
+                <% end %>
+              <% end %>
+              <%= button_tag 'cancel remove', data: { disable_with: t('__cancel__') }, type: 'submit', :class => 'no-remove-button'  do %>
+                <%= t '__NO__' %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <div class="crop-images">
+        <div class="align-images">
+          <%= form_tag('/asset_preview', :remote => true, :'data-asset-preview-panel' => 'asset-preview-panel' ) do %>
+            <input type="hidden" name="type" value="UserSavedAds">
+            <input type="hidden" name="id" value="<%= ash.id %>">
+            <a href="javascript:void(0)" class='asset-preview-button'>&nbsp;</a>
+          <% end %>
+          <% img_tag = '' %>
+          <% img_url = '' %>
+          <% if visible %>
+            <% img_tag = image_tag( ad.thumbnail_url ) %>
+          <% end %>
+          <% img_url = ad.thumbnail_url %>
+
+          <div class="paginate" data-image-url="<%= img_url %>">
+            <% if visible %><%= img_tag %><% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="show-buttons">
+        <%= form_tag('/adcreator/load', :remote => true, :'data-load-saved-ad' => 'adcreator-contents') do %>
+          <input type="hidden" name="ac_session_id" value="<%= ash.ac_session_id %>">
+          <input type="hidden" name="ac_session_history_id" value="<%= ash.id %>">
+          <%= button_tag 'Load Document', data: { disable_with: t('__loading__') }, title: 'edit saved ad', type: 'submit', :class => 'btn edit-template-button' do %>
+            <%= t '__customize__' %>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="caption">
+        <p>
+          <%= truncate(ash.name, length: 46, escape: false).to_s.html_safe %>
+        </p>
+      </div>
+    </div>
+  </div>
+
+<% end %>
+<!--END :: SAVED AD RESULTS -->

@@ -1,0 +1,29 @@
+<%= form_for(@kwikee_custom_datum) do |f| %>
+  <% if @kwikee_custom_datum.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@kwikee_custom_datum.errors.count, "error") %> prohibited this kwikee_custom_datum from being saved:</h2>
+
+      <ul>
+      <% @kwikee_custom_datum.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :kwikee_product_id %><br>
+    <%= f.number_field :kwikee_product_id %>
+  </div>
+  <div class="field">
+    <%= f.label :kwikee_profile_id %><br>
+    <%= f.number_field :kwikee_profile_id %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

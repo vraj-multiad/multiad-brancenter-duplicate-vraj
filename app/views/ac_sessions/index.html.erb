@@ -1,0 +1,31 @@
+<h1>Listing ac_sessions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Ac creator template</th>
+      <th>Ac base</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ac_sessions.each do |ac_session| %>
+      <tr>
+        <td><%= ac_session.user_id %></td>
+        <td><%= ac_session.ac_creator_template %></td>
+        <td><%= ac_session.ac_base_id %></td>
+        <td><%= link_to 'Show', ac_session %></td>
+        <td><%= link_to 'Edit', edit_ac_session_path(ac_session) %></td>
+        <td><%= link_to 'Destroy', ac_session, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ac session', new_ac_session_path %>

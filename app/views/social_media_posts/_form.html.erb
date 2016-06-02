@@ -1,0 +1,49 @@
+<%= form_for(@social_media_post) do |f| %>
+  <% if @social_media_post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@social_media_post.errors.count, "error") %> prohibited this social_media_post from being saved:</h2>
+
+      <ul>
+      <% @social_media_post.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :social_media_account_id %><br>
+    <%= f.number_field :social_media_account_id %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :finished_at %><br>
+    <%= f.datetime_select :finished_at %>
+  </div>
+  <div class="field">
+    <%= f.label :error %><br>
+    <%= f.text_area :error %>
+  </div>
+  <div class="field">
+    <%= f.label :type %><br>
+    <%= f.text_field :type %>
+  </div>
+  <div class="field">
+    <%= f.label :user_uploaded_image_id %><br>
+    <%= f.number_field :user_uploaded_image_id %>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :success %><br>
+    <%= f.text_area :success %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

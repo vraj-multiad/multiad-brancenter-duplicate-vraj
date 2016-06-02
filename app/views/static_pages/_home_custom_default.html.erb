@@ -1,0 +1,82 @@
+<!-- _home_custom_default.html.erb -->
+
+<div class="category-padding">
+	<div class="category-filter promo">
+			<% if @video.present? %>
+				<div class="promo-text">
+					<h1></h1>
+					<p></p>
+				</div>
+				<div class="promo-video">
+					<%= content_tag :div, :class => 'flowplayer functional play-button' do %>
+						<%= content_tag :video, :id => 'video', :preload => 'none', :poster => @video.video.thumbnail.url do %>
+							<%= content_tag :source, '', :src => @video.video.preview.url, :type => 'video/mp4' %>
+						<% end %>
+					<% end %>
+					<script>$('.flowplayer').flowplayer();</script>
+				</div>
+			<% else %>
+<!--	 			<div class="promo-text">
+					<h1></h1>
+					<p></p>
+				</div> -->
+				<div class="promo-video" style="float: left;">
+					<%= image_tag("brandcenter_homepage.jpg", :alt => "home page image") %>
+				</div>
+			<% end %>
+	</div>
+</div>
+
+
+
+
+
+
+		<% first_half = (all_top_level_topics.length / 2).to_i %>
+		<% second_half = all_top_level_topics.length - first_half %>
+		<% t1 = (all_top_level_topics.first second_half) %>
+		<% t2 = (all_top_level_topics.last first_half) %>
+		<ul style="display:none;">
+			<li><h1><%= t '__select_topic__' %></h1></li>
+			<% t1.each do |tt| %>
+			<li class="main-categories topic" data-term-type="topic" data-term="<%= tt.term.downcase %>" ><%= tt.term %></li>
+			<% tt.sub_terms.each do |st| %>
+			<li class="sub-categories sub-topic" data-term-type="sub-topic" data-term="<%= st.term.downcase %>" data-parent="<%= tt.term.downcase %>" style="display: none;"><span><%= st.term %></span></li>
+			<% end %>
+			<% end %>
+		</ul>
+		<ul style="display:none;">
+			<li><h1>&nbsp;</h1></li>
+			<% t2.each do |tt| %>
+			<li class="main-categories topic" data-term-type="topic" data-term="<%= tt.term.downcase %>" ><%= tt.term %></li>
+			<% tt.sub_terms.each do |st| %>
+			<li class="sub-categories sub-topic" data-term-type="sub-topic" data-term="<%= st.term.downcase %>" data-parent="<%= tt.term.downcase %>" style="display: none;"><span><%= st.term %></span></li>
+			<% end %>
+			<% end %>
+		</ul>
+
+		<% first_half = (all_top_level_media_types.length / 2).to_i %>
+		<% second_half = all_top_level_media_types.length - first_half %>
+		<% m1 = (all_top_level_media_types.first second_half) %>
+		<% m2 = (all_top_level_media_types.last first_half) %>
+		<ul id="media-type-category" style="display:none;">
+			<li><h1>Select Media Type</h1></li>
+			<% m1.each do |tt| %>
+			<li class="main-categories media-type" data-term-type="media-type" data-term="<%= tt.term.downcase %>" ><%= tt.term %></li>
+			<% tt.sub_terms.each do |st| %>
+			<li class="sub-categories sub-media-type" data-term-type="sub-media-type" data-term="<%= st.term.downcase %>" data-parent="<%= tt.term.downcase %>" style="display: none;"><span><%= st.term %></span></li>
+			<% end %>
+			<% end %>
+		</ul>
+		<ul style="display:none;">
+			<li><h1>&nbsp;</h1></li>
+			<% m2.each do |tt| %>
+			<li class="main-categories media-type" data-term-type="media-type" data-term="<%= tt.term.downcase %>" ><%= tt.term %></li>
+			<% tt.sub_terms.each do |st| %>
+			<li class="sub-categories sub-media-type" data-term-type="sub-media-type" data-term="<%= st.term.downcase %>" data-parent="<%= tt.term.downcase %>" style="display: none;"><span><%= st.term %></span></li>
+			<% end %>
+			<% end %>
+		</ul>
+		<div id="filter-search" style="display:none;">
+			<button type="submit" onClick="runSearchForm" class="btn btn-default btn-sm search-form-submit">search selected filters</button>
+		</div>

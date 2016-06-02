@@ -1,0 +1,39 @@
+<h1>Listing current_cart.dl_cart_items</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User id</th>
+      <th>Dl cart</th>
+      <th>Downloadable</th>
+      <th>Downloadable type</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% logger.debug "(erb)current_cart: " + current_cart.inspect %>
+    <% current_cart.dl_cart_items.each do |dl_cart_item| %>
+      <tr>
+        <td><%= current_user.id %></td>
+        <td><%= dl_cart_item.dl_cart_id %></td>
+        <td><%= dl_cart_item.downloadable_id %></td>
+        <td><%= dl_cart_item.downloadable_type %></td>
+        <td><%= link_to 'Show', dl_cart_item %></td>
+        <td><%= link_to 'Edit', edit_dl_cart_item_path(dl_cart_item) %></td>
+        <td><%= link_to '/dl_cart/remove', dl_cart_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+                <%= form_tag('/dl_cart/submit', :remote => false) do %>
+                  <input type="text" name="email_address" placeholder="Email Address">
+                  <%= button_tag 'Email', name: 'email', type: 'submit', :class => 'btn btn-default' do %>
+                  Email Cart
+                  <% end %>
+                <% end %> 
+
+<br>
+

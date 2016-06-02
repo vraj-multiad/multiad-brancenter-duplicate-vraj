@@ -1,0 +1,144 @@
+<label for="categorized_asset[]">
+  <div class="results-spacing">
+    <div class="thumbnail">
+      <div class="crop-images">
+        <div class="align-images <% if shared_asset.class.name == 'KwikeeAsset' %>view-<%= shared_asset.view %><% end %>">
+          <% if shared_asset.class.name == 'UserUploadedImage' %>
+            <% case shared_asset.upload_type %>
+            <% when 'ac_image', 'logo', 'library_image', 'library_file' %>
+              <img src="<%= shared_asset.share_url %>" />
+            <% when 'attachment' %>
+              <img src="<%= shared_asset.thumbnail_url %>" />
+            <% when 'library_video' %>
+              <%= content_tag :div, :class => 'flowplayer functional' do %>
+                <%= content_tag :video, :preload => 'none', :poster => shared_asset.image_upload.thumbnail.url do %>
+                  <%= content_tag :source, '', :src => shared_asset.image_upload.preview.url, :type => 'video/mp4' %>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% elsif shared_asset.class.name == 'KwikeeProduct'%>
+            <% main_image = shared_asset.default_kwikee_file %>
+            <%= form_tag(shared_assets_asset_preview_path, :remote => true, :'data-shared-page-asset-detail-display' => 'shared-page-asset-detail-display' ) do %>
+              <input type="hidden" name="shared_page_token" value="<%= @shared_page_token %>">
+              <input type="hidden" name="shared_page_view_token" value="<%= @shared_page_view_token %>">
+              <input type="hidden" name="shared_page_item_type" value="<%= shared_asset.class.name %>">
+              <input type="hidden" name="shared_page_item_token" value="<%= shared_asset.token %>">
+              <% if @parent_asset.present? %>
+                <input type="hidden" name="shared_page_parent_item_type" value="<%= @parent_asset.class.name %>">
+                <input type="hidden" name="shared_page_parent_item_token" value="<%= @parent_asset.token %>">
+              <% end %>
+              <a href="javascript:void(0)" class='shared-page-asset-detail-button'>&nbsp;</a>
+              <% if main_image.secure_url.present? %>
+                <%= image_tag(main_image.secure_url.to_s) %>
+              <% else %>
+                <%= image_tag(main_image.default_thumbnail) %>
+              <% end %>
+            <% end %>
+            <%= check_box_tag('categorized_asset[]', 'KwikeeProduct|' + shared_asset.token.to_s) %>
+
+          <% elsif shared_asset.class.name == 'KwikeeAsset'%>
+            <%= form_tag(shared_assets_asset_preview_path, :remote => true, :'data-shared-page-asset-preview-panel' => 'shared-page-asset-preview-panel' ) do %>
+              <input type="hidden" name="shared_page_token" value="<%= @shared_page_token %>">
+              <input type="hidden" name="shared_page_view_token" value="<%= @shared_page_view_token %>">
+              <input type="hidden" name="shared_page_item_type" value="<%= shared_asset.class.name %>">
+              <input type="hidden" name="shared_page_item_token" value="<%= shared_asset.token %>">
+              <% if @parent_asset.present? %>
+                <input type="hidden" name="shared_page_parent_item_type" value="<%= @parent_asset.class.name %>">
+                <input type="hidden" name="shared_page_parent_item_token" value="<%= @parent_asset.token %>">
+              <% end %>
+              <a href="javascript:void(0)" class='shared-page-asset-detail-button'>&nbsp;</a>
+              <% if shared_asset.secure_url.present? %>
+                  <%= image_tag( shared_asset.secure_url ) %>
+              <% else %>
+                  <%= image_tag(main_image.default_thumbnail) %>
+              <% end %>
+            <% end %>
+            <%= check_box_tag('categorized_asset[]', 'DlImage|' + shared_asset.token.to_s) %>
+
+          <% elsif shared_asset.class.name == 'DlImageGroup'%>
+            <% main_image = shared_asset.main_image_shared_email(@asset.user_id, true) %>
+            <% # stub for shareable_via_social_media # no clients have social_media yet %>
+            <% #main_image = shared_asset.main_image_shared_social_media(@asset.user_id, true) %>
+            <%= form_tag(shared_assets_asset_preview_path, :remote => true, :'data-shared-page-asset-detail-display' => 'shared-page-asset-detail-display' ) do %>
+              <input type="hidden" name="shared_page_token" value="<%= @shared_page_token %>">
+              <input type="hidden" name="shared_page_view_token" value="<%= @shared_page_view_token %>">
+              <input type="hidden" name="shared_page_item_type" value="<%= shared_asset.class.name %>">
+              <input type="hidden" name="shared_page_item_token" value="<%= shared_asset.token %>">
+              <% if @parent_asset.present? %>
+                <input type="hidden" name="shared_page_parent_item_type" value="<%= @parent_asset.class.name %>">
+                <input type="hidden" name="shared_page_parent_item_token" value="<%= @parent_asset.token %>">
+              <% end %>
+              <a href="javascript:void(0)" class='shared-page-asset-detail-button'>&nbsp;</a>
+              <% if main_image.video? %>
+                <div class="result-thumb"><%= image_tag( main_image.thumbnail_url ) %></div>
+              <% else %>
+                  <%= image_tag( main_image.thumbnail_url ) %>
+              <% end %>
+            <% end %>
+            <%= check_box_tag('categorized_asset[]', 'DlImage|' + main_image.token.to_s) %>
+
+          <% elsif shared_asset.class.name == 'DlImage' && shared_asset.video? %>
+            <%= form_tag(shared_assets_asset_preview_path, :remote => true, :'data-shared-page-asset-preview-panel' => 'shared-page-asset-preview-panel' ) do %>
+              <input type="hidden" name="shared_page_token" value="<%= @shared_page_token %>">
+              <input type="hidden" name="shared_page_view_token" value="<%= @shared_page_view_token %>">
+              <input type="hidden" name="shared_page_item_type" value="<%= shared_asset.class.name %>">
+              <input type="hidden" name="shared_page_item_token" value="<%= shared_asset.token %>">
+              <% if @parent_asset.present? %>
+                <input type="hidden" name="shared_page_parent_item_type" value="<%= @parent_asset.class.name %>">
+                <input type="hidden" name="shared_page_parent_item_token" value="<%= @parent_asset.token %>">
+              <% end %>
+              <a href="javascript:void(0)" class='shared-page-asset-detail-button'>&nbsp;</a>
+              <div class="result-thumb"><%= image_tag( shared_asset.bundle.thumbnail.url ) %></div>
+            <% end %>
+          <% else %>
+            <%= form_tag(shared_assets_asset_preview_path, :remote => true, :'data-shared-page-asset-preview-panel' => 'shared-page-asset-preview-panel' ) do %>
+              <input type="hidden" name="shared_page_token" value="<%= @shared_page_token %>">
+              <input type="hidden" name="shared_page_view_token" value="<%= @shared_page_view_token %>">
+              <input type="hidden" name="shared_page_item_type" value="<%= shared_asset.class.name %>">
+              <input type="hidden" name="shared_page_item_token" value="<%= shared_asset.token %>">
+              <% if @parent_asset.present? %>
+                <input type="hidden" name="shared_page_parent_item_type" value="<%= @parent_asset.class.name %>">
+                <input type="hidden" name="shared_page_parent_item_token" value="<%= @parent_asset.token %>">
+              <% end %>
+              <a href="javascript:void(0)" class='shared-page-asset-detail-button'>&nbsp;</a>
+              <% if shared_asset.video? %>
+                <div class="result-thumb"><%= image_tag( shared_asset.thumbnail_url ) %></div>
+              <% elsif shared_asset.thumbnail.present? %>
+                  <%= image_tag( shared_asset.thumbnail_url ) %>
+              <% else %>
+                  <%= image_tag(shared_asset.thumbnail_url) %>
+              <% end %>
+            <% end %>
+            <%= check_box_tag('categorized_asset[]', 'DlImage|' + shared_asset.token.to_s) %>
+            
+          <% end %>
+        </div>
+      </div>
+      <% if shared_asset.downloadable? %>
+        <div class="show-buttons">
+          <%= form_tag(shared_download_path, :remote => true, :'data-dl-single' => 'dl_single_' + shared_asset.token ) do %>
+            <input type="hidden" name="shared_page_token" value="<%= @shared_page_token %>">
+            <input type="hidden" name="shared_page_view_token" value="<%= @shared_page_view_token %>">
+            <input type="hidden" name="token" value="<%= shared_asset.token %>">
+            <input type="hidden" name="downloadable_type" value="<%= shared_asset.class.name %>">
+            <% if @parent_asset.present? %>
+              <input type="hidden" name="shared_page_parent_item_type" value="<%= @parent_asset.class.name %>">
+              <input type="hidden" name="shared_page_parent_item_token" value="<%= @parent_asset.token %>">
+            <% end %>
+              <%= button_tag 'Download', data: { disable_with: t('__downloading__') }, type: 'submit', :class => 'download-asset-button' do %>
+              <%= t '__download__' %>
+            <% end %>
+          <% end %>
+          <div id="dl_single_<%= shared_asset.token %>"></div>
+        </div>
+      <% end %>
+      <div class="caption">
+        <p><%= truncate(shared_asset.title, length: 46, escape: false).to_s.html_safe %></p>
+      </div>
+    </div>
+    <% if shared_asset.class.name == 'DlImageGroup'%>
+      <div class="thumbnail thumbnail-group-2"></div>
+      <div class="thumbnail thumbnail-group-3"></div>
+    <% end %>
+  </div>
+</label>

@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Ac session history:</strong>
+  <%= @ac_export.ac_session_history_id %>
+</p>
+
+<p>
+  <strong>Email address:</strong>
+  <%= @ac_export.email_address %>
+</p>
+
+<% %w(email_address email_subject email_body from_name from_address reply_to).each do |email_field| %>
+  <% if @ac_export.send(email_field).present? %>
+    <p>
+      <strong><%= email_field.titleize %>:</strong>
+      <%= @ac_export.send(email_field).to_s %>
+    </p>
+  <% end %>
+<% end %>
+
+
+<p>
+  <strong>Format:</strong>
+  <%= @ac_export.format %>
+</p>
+
+<p>
+  <strong>Bleed:</strong>
+  <%= @ac_export.bleed.to_s %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @ac_export.location %>
+</p>
+
+<%= link_to 'Edit', edit_ac_export_path(@ac_export) %> |
+<%= link_to 'Back', ac_exports_path %>

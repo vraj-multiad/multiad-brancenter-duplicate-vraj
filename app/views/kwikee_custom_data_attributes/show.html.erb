@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Kwikee custom data:</strong>
+  <%= @kwikee_custom_data_attribute.kwikee_custom_data_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @kwikee_custom_data_attribute.name %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @kwikee_custom_data_attribute.value %>
+</p>
+
+<%= link_to 'Edit', edit_kwikee_custom_data_attribute_path(@kwikee_custom_data_attribute) %> |
+<%= link_to 'Back', kwikee_custom_data_attributes_path %>

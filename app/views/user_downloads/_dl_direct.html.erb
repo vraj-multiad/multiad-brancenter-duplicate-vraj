@@ -1,0 +1,9 @@
+<% if @dl_direct.location %>
+  <a id="dl_direct_download_url" data-dl-direct-download-url="<%= @pickup_url + @dl_direct.location %>" href="<%= @dl_direct.location %>"></a>
+<% elsif @dl_direct.status == 'submitted' %>
+  <div name='dl_direct_auto_refresh'>
+    <%= form_tag('/download/dl_direct', :remote => true, :'data-dl-direct-download-all' => 'dl-direct-download-all', :id => 'dl_direct_auto_refresh') do %>
+    <%= hidden_field_tag 'dl_direct_id', @dl_direct_id.to_s %>
+    <% end %>
+  </div>
+<% end %>

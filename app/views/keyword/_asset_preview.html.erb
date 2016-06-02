@@ -1,0 +1,127 @@
+<% @assets.each do |asset| %>
+  <div id="large-preview-panel">
+    <div class="container">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <%= t '__asset_name__' %> <%= asset.title.to_s.html_safe %>
+        </div>
+        <div class="panel-body">
+
+          <div class="large-preview">
+            <div class="preview-position">
+              <% if asset.image? %>
+                <%= image_tag( asset.preview_url ) %>
+              <% elsif asset.audio? %>
+                <div style="margin-top:45px;">
+                  <section id="audio">
+                    <%= link_to asset.title, asset.share_url, :class => "html5" %>
+                  </section>
+                </div>
+              <% elsif asset.video? %>
+                <%= content_tag :div, :class => 'flowplayer functional play-button' do %>
+                  <%= content_tag :video, :id => 'video', :preload => 'none', :poster => asset.thumbnail_url do %>
+                    <%= content_tag :source, '', :src => asset.video_preview_url, :type => 'video/mp4' %>
+                  <% end %>
+                <% end %>
+              <% else %>
+                <%= image_tag(asset.thumbnail_url) %>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="asset-download-types">
+            <% if !@exclude_download && asset.downloadable? && asset.cart_files.present? %>
+              <div class="form-group">
+                <strong><%= t('__download__').upcase %>:</strong>
+              </div>
+              <% extensions = Hash.new %>
+              <% logger.debug asset.class.name %>
+              <% if asset.class.name == 'KwikeeAsset' %>
+                <% asset.kwikee_files.each do |kf| %>
+                  <%= form_tag('/download', :remote => true, :'data-dl-single' => 'dl_single_' + asset.token ) do %>
+                    <input type="hidden" name="token" value="<%= asset.token %>">
+                    <input type="hidden" name="downloadable_type" value="<%= asset.class.name %>">
+                    <input type="hidden" name="filetype" value="<%= kf.extension.to_s %>">
+                    <a href="javascript:void(0)" class="download-single-file-button tip" data-toggle="tooltip"  title="download this asset"><%= kf.label  %></a>
+                  <% end %>
+                <% end %>
+              <% else %>
+                <% asset.cart_files.each do |file| %>
+                  <% logger.debug file %>
+                  <% path = nil %>
+                  <% if file["location"] %>
+                    <% path = file["location"] %>
+                  <% else %>
+                    <% path = file["path"] %>
+                  <% end %>
+                  <% filetype = File.extname(path) %>
+                  <% unless extensions[filetype] %>
+                    <% extensions[filetype] = 1 %>
+                    <% label = filetype.sub('.', '').upcase %>
+                    <%= form_tag('/download', :remote => true, :'data-dl-single' => 'dl_single_' + asset.token ) do %>
+                      <input type="hidden" name="token" value="<%= asset.token %>">
+                      <input type="hidden" name="downloadable_type" value="<%= asset.class.name %>">
+                      <input type="hidden" name="filetype" value="<%= filetype.to_s %>">
+
+                      <a href="javascript:void(0)" class="download-single-file-button tip" data-toggle="tooltip"  title="download this asset"><%= label %></a>
+                    <% end %>
+                    <div id="dl_single_<%= asset.token %>"></div> 
+                  <% end %>
+                <% end %>
+              <% end %>
+            <% end %>
+      
+            <div class="form-group">
+              <strong><%= t('__description__').upcase %>:</strong>
+            </div>
+            <div class="description-tag" style="width:100%;margin-top:-5px;display:inline-block;white-space:inherit;text-align:left;">
+              <%= simple_format(asset.description.to_s.html_safe) %>
+            </div>
+
+            <% if asset.class.name == 'UserUploadedImage' %>
+              <div class="form-group">
+                <strong><%= t('__keywords__').upcase %>:</strong>
+              </div>
+              <div class="description-tag" style="width:100%;margin-top:-5px;display:inline-block;white-space:inherit;text-align:left;">
+                <%= simple_format(asset.user_keywords.pluck(:term).sort.uniq.join(', ').to_s.html_safe) %>
+              </div>
+            <% else %>
+              <% if ENABLE_PREVIEW_KEYWORD_DISPLAY && asset.respond_to?('keywords') %>
+                <div class="form-group">
+                  <strong><%= t('__keywords__').upcase %>:</strong>
+                </div>
+                <div class="description-tag" style="width:100%;margin-top:-5px;display:inline-block;white-space:inherit;text-align:left;">
+                    <%= simple_format(asset.keywords.where(keyword_type: Keyword.keyword_types('search_only', current_user.admin? || current_user.superuser?)).pluck(:term).sort.uniq.join(', ').to_s.html_safe) %>
+                </div>
+              <% end %>
+
+              <% if current_user.admin? || current_user.superuser? %>
+                <div class="form-group">
+                  <strong><%= t('__asset_details__').upcase %>:</strong>
+                </div>
+                 <div class="description-tag" style="width:100%;margin-top:-5px;display:inline-block;white-space:inherit;text-align:left;">
+                  <%= t('__owner__') + ": #{asset.user.email_address}" if asset.respond_to?('user') %><br/>
+                  <%= t('__status__') + ": #{asset.status}" if asset.respond_to?('status') %><br/>
+                  <%= t('__created__') + ": #{asset.created_at}" if asset.respond_to?('created_at') %><br/>
+                  <%= t('__updated__') + ": #{asset.updated_at}" if asset.respond_to?('updated_at') %><br/>
+                  <%= t('__publish_date__') + ": #{asset.publish_at}" if asset.respond_to?('publish_at') %><br/>
+                  <%= t('__unpublish_date__') + ": #{asset.unpublish_at}" if asset.respond_to?('unpublish_at') %><br/>
+                </div>
+              <% end %>
+            <% end %>
+
+            
+          </div>
+    
+        </div>
+        <div class="panel-footer" style="text-align:center">
+          <a href="javascript:void(0)" id="close-asset-preview">
+            <button type="button" class="btn btn-default rounded"><%= t '__return_to_search__' %></button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-backdrop in"></div>
+  <div class="modal-backdrop in"></div>
+<% end %>

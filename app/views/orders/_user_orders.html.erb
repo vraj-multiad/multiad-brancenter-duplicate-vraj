@@ -1,0 +1,48 @@
+<div >
+  <h3><strong><%= t('__orders__').titleize %></strong>
+    <div class="pull-right">
+      <%= form_tag('/profile/user_orders', remote: true, data: { 'user-orders' => 'user-orders' }, id: 'refresh-user-orders-form') do %>
+        <span class="input-group-btn pull-right" style="margin: -5px 41px 0px 0px;">
+          <%= button_tag 'search', type:'submit', :class => 'btn btn-default repeat', data:{ disable_with: '<span class="glyphicon glyphicon-repeat glyphicon-repeat-animate"></span>'} do %>
+            <span class="glyphicon glyphicon-repeat"></span>
+          <% end %>
+        </span>
+      <% end %>
+    </div></h3>
+  <div class="editable-area2">
+    <div class="row social-headers">
+      <div class="col-xs-12 col-sm-12 col-lg-12">
+        <div class="order">
+          <table>
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Tracking Number</th>
+                <th>Comments</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @orders.each do |order| %>
+              <tr>
+                <td> <%= order.id.to_s %></td>
+                <td><%= order.order_date.strftime('%m/%d/%Y : %l:%M %p ') + Time.now.zone.to_s  %></td>
+                <td><%= order.status.to_s %></td>
+                <td><%= order.tracking_number.to_s %></td>
+                <td><%= order.order_comments.to_s %></td>
+                <td><%= form_tag(user_order_details_path(order), :remote => true,  :id => 'user_order_details_' + order.id.to_s, :'data-user-order-details' => 'user-order-details') do %>
+                    <%= button_tag('', :type => 'submit', :class => "btn glyphicon glyphicon-search", data: { disable_with: '' }) %>
+                  <% end %>
+                </td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

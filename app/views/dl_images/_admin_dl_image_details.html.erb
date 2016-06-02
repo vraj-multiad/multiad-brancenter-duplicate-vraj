@@ -1,0 +1,17 @@
+<% dl_images.each do |dl_image| %>
+  <%= dl_image.name %> - <%= dl_image.title %>
+  - <a href='/admin/dl_image/display?token=<%= dl_image.token.to_s %>'> <%= image_tag( dl_image.thumbnail_url) %> </a>
+  <% case dl_image.status %>
+  <% when 'staged' %>
+  - <a href='/admin/dl_image/publish?token=<%= dl_image.token.to_s %>&status=unstaged'> Unstage dl_image </a>
+  <% when 'processed' %>
+  - <a href='/admin/dl_image/publish?token=<%= dl_image.token.to_s %>&status=unstaged'> Unstage dl_image </a>
+  - <a href='/admin/dl_image/publish?token=<%= dl_image.token.to_s %>&status=production'> Publish (Production) dl_image </a>
+  <% when 'production' %>
+  - <a href='/admin/dl_image/publish?token=<%= dl_image.token.to_s %>&status=unpublished'> UnPublish dl_image </a>
+  <% when 'unpublished' %>
+  - <a href='/admin/dl_image/publish?token=<%= dl_image.token.to_s %>&status=staged'> Stage dl_image </a>
+  - <a href='/admin/dl_image/publish?token=<%= dl_image.token.to_s %>&status=unstaged'> Unstage dl_image </a>
+  <% end %>
+  <br/>
+<% end %>

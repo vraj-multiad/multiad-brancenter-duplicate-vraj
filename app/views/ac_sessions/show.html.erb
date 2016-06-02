@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @ac_session.user_id %>
+</p>
+
+<p>
+  <strong>Ac creator template:</strong>
+  <%= @ac_session.ac_creator_template %>
+</p>
+
+<p>
+  <strong>Ac base:</strong>
+  <%= @ac_session.ac_base_id %>
+</p>
+
+<%= link_to 'Edit', edit_ac_session_path(@ac_session) %> |
+<%= link_to 'Back', ac_sessions_path %>

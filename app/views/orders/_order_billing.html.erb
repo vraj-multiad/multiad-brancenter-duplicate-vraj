@@ -1,0 +1,55 @@
+
+
+  <div class="row">
+    <div class="col-lg-6 " id="prof_name">
+      <h4>
+      <span class="billing" style="letter-spacing:1px;">
+        <%= @order.bill_first_name %> <%= @order.bill_last_name %>
+      </span>
+      </h4>
+    </div> 
+  </div> 
+
+  <div class="editable-area billing">
+
+    <div class="row"> 
+      <div class="col-xs-2 col-sm-3 col-lg-3">
+        <%= t '__address__' %>:
+      </div>
+      <div class="col-xs-4 col-sm-5 col-md-6 col-lg-5" id="prof_address">
+        <span class="billing" >
+          <%= @order.bill_address_1 %><br/>
+          <% if @order.bill_address_2 %>
+            <%= @order.bill_address_2 %><br/>
+          <% end %>
+          <%= @order.bill_city %>, <%= @order.bill_state %> <%= @order.bill_zip_code %>
+        </span>
+      </div>
+    </div>
+
+    <div class="row bump-10"> 
+      <div class="col-xs-2 col-sm-3 col-lg-3">
+        <%= t '__phone_single__' %>:
+      </div>
+      <div class="col-xs-4 col-sm-5 col-md-6 col-lg-5" id="prof_phone">
+        <span class="billing" >
+          <%= @order.bill_phone_number %>
+        </span>
+      </div>
+    </div>
+
+    <div class="row bump-10"> 
+      <div class="col-xs-2 col-sm-3 col-lg-3">
+        <%= t '__email_single__' %>:
+      </div>
+      <div class="col-xs-4 col-sm-5 col-md-6 col-lg-5" id="prof_email">
+        <span class="billing" >
+          <%= @order.bill_email_address %>
+        </span>
+      </div>
+    </div>
+
+
+
+
+

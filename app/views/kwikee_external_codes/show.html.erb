@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Kwikee product:</strong>
+  <%= @kwikee_external_code.kwikee_product_id %>
+</p>
+
+<p>
+  <strong>Kwikee profile:</strong>
+  <%= @kwikee_external_code.kwikee_profile_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @kwikee_external_code.name %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @kwikee_external_code.value %>
+</p>
+
+<%= link_to 'Edit', edit_kwikee_external_code_path(@kwikee_external_code) %> |
+<%= link_to 'Back', kwikee_external_codes_path %>

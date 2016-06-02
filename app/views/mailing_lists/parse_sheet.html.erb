@@ -1,0 +1,40 @@
+<% if @recipient_list.length > 0 %>
+  <%= form_tag('/mailing_list/set_title', :id => 'mailing_set_title') do |f| %>
+    <% if @mailing_list.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@mailing_list.errors.count, "error") %> prohibited this mailing_list from being saved:</h2>
+
+        <ul>
+        <% @mailing_list.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+	
+	<h5>Name Your List</h5>
+    <div class="field" style="float:left;width:298px;">
+      <%= hidden_field_tag :token, @mailing_list.token.to_s  %>
+      <%= hidden_field_tag :quantity, @recipient_list.length  %>
+      <%= text_field_tag 'title', nil, class: "form-control" %>
+    </div>
+    <div class="actions" style="margin-left:10px;float:left;">
+      <%= submit_tag 'Submit', class: "btn branded-button", data: { disable_with: '...' } %>
+    </div>
+  <% end %>
+  <table style="float:left;width:100%;margin-top:15px;">
+  <tr>
+	  <td colspan="2" style="font-weight:600;padding-bottom:5px;"><%= @recipient_list.count.to_s %> valid recipients found.</td>
+  </tr>
+  <% @recipient_list.each do |recipient| %>
+  <tr>
+	  <td style="padding:0 5px 5px 0;"><%= recipient['mailing'] %></td>
+	  <td><% if recipient['name'].present? %><%= recipient['name'] %><% else %><%= recipient['first'] %> <%= recipient['last'] %><% end %><br/><%= recipient['address'] %><br/><%= recipient['city'] %>, <%= recipient['state'] %>  <%= recipient['zip'].to_s.gsub(/\..$/,'') %><br/><br/></td>
+	  
+  </tr>
+  <% end %>
+  </table>  
+<% else %>
+  No valid recipients were found in sheet.  Please verify that spreadsheet has mailing and name keys defined for recipients.<br/><br/>
+  <a href="/mailing_list/upload_form">Back</a>
+<% end %>

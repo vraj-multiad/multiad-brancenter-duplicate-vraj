@@ -1,0 +1,33 @@
+<%= form_for(@set_attribute) do |f| %>
+  <% if @set_attribute.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@set_attribute.errors.count, "error") %> prohibited this set_attribute from being saved:</h2>
+
+      <ul>
+      <% @set_attribute.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :setable_id %><br>
+    <%= f.number_field :setable_id %>
+  </div>
+  <div class="field">
+    <%= f.label :setable_type %><br>
+    <%= f.text_field :setable_type %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :value %><br>
+    <%= f.text_field :value %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

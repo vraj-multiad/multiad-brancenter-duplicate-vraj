@@ -1,0 +1,70 @@
+  <!-- Billing Info Modal -->
+  <div id="edit-billing-wrapper">
+  <div class="modal fade" id="edit_billing_info">
+   <div class="container">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title"><%= t '__update_your_info__' %></h4>
+        </div>
+        <%= form_tag('/cart/update', remote: true, :'data-order-cart-update' => 'order-cart-panel', id: 'order-cart-update-billing-form', role: 'form') do %>
+          <%= hidden_field_tag 'order[id]', @order.id %>
+          <div class="modal-body">
+            <div class="row">
+              <div style="padding:15px;">
+                <div class="form-group" style="width:49%;float:left">
+                  <span><%= t '__first_name__' %></span>
+                  <%= text_field_tag 'order[bill_first_name]', @order.bill_first_name , class: "form-control", placeholder: '' %>
+                </div>              
+                <div class="form-group" style="width:49%;float:left;margin-left:2%;">
+                  <span><%= t '__last_name__' %></span>
+                  <%= text_field_tag 'order[bill_last_name]', @order.bill_last_name , class: "form-control", placeholder: '' %>
+                </div>
+                <div class="form-group">
+                  <span><%= t '__address_1__' %></span>
+                  <%= text_field_tag 'order[bill_address_1]', @order.bill_address_1 , class: "form-control", placeholder: '' %>
+                </div>
+                <div class="form-group">
+                  <span><%= t '__address_2__' %></span>
+                  <%= text_field_tag 'order[bill_address_2]', @order.bill_address_2 , class: "form-control", placeholder: '' %>
+                </div>
+                <div class="form-group" style="width:49%;float:left;">
+                  <span><%= t '__city__' %></span>
+                  <%= text_field_tag 'order[bill_city]', @order.bill_city , class: "form-control", placeholder: '' %>
+                </div>
+                <div class="form-group" style="width:25%;float:left;margin-left:2%">
+                  <span><%= t '__state__' %></span>
+                  <%= select_tag 'order[bill_state]', options_for_select(us_states, @order.bill_state), class: "form-control" %>
+                </div>
+                <div class="form-group" style="width:22%;float:left;margin-left:2%">
+                  <span><%= t '__postal_code__' %></span>
+                  <%= text_field_tag 'order[bill_zip_code]', @order.bill_zip_code , class: "form-control", placeholder: '' %>
+                </div>
+                <div class="form-group" style="width:49%;float:left">
+                  <span><%= t '__phone_single__' %></span>
+                  <%= text_field_tag 'order[bill_phone_number]', @order.bill_phone_number , class: "form-control", placeholder: '' %>
+                </div>
+                <div class="form-group" style="width:49%;float:left;margin-left:2%">
+                  <span><%= t '__email_address__' %></span>
+                  <%= text_field_tag 'order[bill_email_address]', @order.bill_email_address , class: "form-control", placeholder: '' %>
+                </div>
+                <div class="form-group">
+                  <span><%= t '__bill_comments__' %></span>
+                  <%= text_area_tag 'order[bill_comments]', @order.bill_comments , class: "form-control2", placeholder: '' %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal"><%= t '__cancel__' %></button>
+            <%= button_tag(t("__submit__"), :class => "btn btn-default") %>          
+          </div>
+       <% end %>        
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+   </div>
+  </div><!-- /.modal -->
+  <div class="modal-backdrop in"></div> 
+  </div>
+  <!-- End: Billing Info Modal -->

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @user_download.user_id %>
+</p>
+
+<p>
+  <strong>Dl cart:</strong>
+  <%= @user_download.dl_cart_id %>
+</p>
+
+<p>
+  <strong>Downloadable:</strong>
+  <%= @user_download.downloadable_id %>
+</p>
+
+<p>
+  <strong>Downloadable type:</strong>
+  <%= @user_download.downloadable_type %>
+</p>
+
+<%= link_to 'Edit', edit_user_download_path(@user_download) %> |
+<%= link_to 'Back', user_downloads_path %>

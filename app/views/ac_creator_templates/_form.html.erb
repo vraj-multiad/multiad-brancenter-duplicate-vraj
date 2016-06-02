@@ -1,0 +1,64 @@
+<%= form_for(@ac_creator_template) do |f| %>
+  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+    <% if @ac_creator_template.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@ac_creator_template.errors.count, "error") %> prohibited this ac_creator_template from being saved:</h2>
+
+        <ul>
+        <% @ac_creator_template.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div>
+      <%= f.label :name %><br>
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+    <div>
+      <%= f.label :title %><br>
+      <%= f.text_field :title, class: 'form-control' %>
+    </div>
+    <div>
+      <%= f.label :bundle %><br>
+      <%= f.text_field :bundle, class: 'form-control' %>
+    </div>
+    <div>
+      <%= f.label :preview %><br>
+      <%= f.text_field :preview, class: 'form-control' %>
+    </div>
+    <div>
+      <%= f.label :thumbnail %><br>
+      <%= f.text_field :thumbnail, class: 'form-control' %>
+    </div>
+    <div>
+      <%= f.label :folder %><br>
+      <%= f.text_field :folder, class: 'form-control' %>
+    </div>
+    <div>
+      <%= f.label :filename %><br>
+      <%= f.text_field :filename, class: 'form-control' %>
+    </div>
+    <%= render partial: 'keyword/form_publish_dates' , locals: { f: f, publish_at: @ac_creator_template.publish_at, unpublish_at: @ac_creator_template.unpublish_at } %>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+    <div>
+      <%= render partial: 'set_attributes/set_attribute_list', locals: {attribute_list: @ac_creator_template.set_attributes} %>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+    <div>
+      <%= render partial: 'responds_to_attributes/responds_to_attribute_list', locals: {attribute_list: @ac_creator_template.responds_to_attributes} %>
+    </div>
+  </div>
+  <div class="col-lg-12">
+    <div>
+      <%= f.label :document_spec_xml %><br>
+      <%= f.text_area :document_spec_xml, class: 'form-control2' %>
+    </div>
+  </div>
+  <div class="actions col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <%= f.submit %>
+  </div>
+<% end %>

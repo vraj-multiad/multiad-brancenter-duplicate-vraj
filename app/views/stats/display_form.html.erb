@@ -1,0 +1,59 @@
+<%= form_tag('/stats/download_report', remote: false, target: '_blank', :'data-stats-process' => 'stats-area', id: "stats-form", role: "form") do %>
+  <strong>Month</strong><br/>
+  <% @months.each do |month| %>
+    <%= month %>
+    <%= radio_button_tag(:month, month, month.to_i == @month.to_i) %>
+  <% end %>
+  <br/>
+  <br/>
+  <div style="display:none;">
+    YTD: <%= check_box_tag(:ytd) %><br/>
+    <br/>
+  </div>
+  <strong>Year</strong><br/>
+  <% @years.each do |year| %>
+    <%= year %>
+    <%= radio_button_tag(:year, year, year.to_i == @year.to_i) %>
+  <% end %>
+  <br/>
+  <br/>
+  <strong>Report</strong><br/>
+  <% checked = true %>
+  <% @available_reports.each do |report| %>
+    <%= radio_button_tag(:report, report, checked) %>
+    <%= report.gsub(/_/, ' ').capitalize %>
+    <br/>
+    <% checked = false %>
+  <% end %>
+  <br/>
+  <br/>
+
+  <strong>Asset Report Only Params</strong><br/>
+  Index (num_results: <%= @num_results.to_i %>)<br/>
+  <%= hidden_field_tag :num_results, @num_results.to_s %>
+  <% @indices.each do |index| %>
+    <%= index %>
+    <%= radio_button_tag(:index, index, index.to_i == @index.to_i) %>
+  <% end %>
+  <br/>
+  <br/>
+
+  <strong>User Report Only Params</strong><br/>
+  User type:<br/>
+  <% @user_types.each do |user_type| %>
+    <%= user_type.to_s %>
+    <%= radio_button_tag(:user_type, user_type, user_type == @user_type) %>
+  <% end %>
+  <br/>
+  <br/>
+
+  Email will be sent with link to file on this address: <%= @current_user.email_address %><br/>
+  <br/>
+  <%= button_tag(t('__submit__'), type: 'submit') %>
+<% end %>
+<br/>
+<br/>
+<%= form_tag('/stats/display_form') do %>
+  <%= text_field_tag(:num_results, @num_results) %>
+  <%= button_tag('Reload with new num_results', type: 'submit') %>
+<% end %>

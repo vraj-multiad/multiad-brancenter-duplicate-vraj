@@ -1,0 +1,33 @@
+<h1>Listing dl_image_groups</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Main dl image</th>
+      <th>Name</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dl_image_groups.each do |dl_image_group| %>
+      <tr>
+        <td><%= dl_image_group.main_dl_image_id %></td>
+        <td><%= dl_image_group.name %></td>
+        <td><%= dl_image_group.title %></td>
+        <td><%= dl_image_group.description %></td>
+        <td><%= link_to 'Show', dl_image_group %></td>
+        <td><%= link_to 'Edit', edit_dl_image_group_path(dl_image_group) %></td>
+        <td><%= link_to 'Destroy', dl_image_group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Dl image group', new_dl_image_group_path %>

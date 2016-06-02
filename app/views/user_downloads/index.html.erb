@@ -1,0 +1,33 @@
+<h1>Listing user_downloads</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Dl cart</th>
+      <th>Downloadable</th>
+      <th>Downloadable type</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user_downloads.each do |user_download| %>
+      <tr>
+        <td><%= user_download.user_id %></td>
+        <td><%= user_download.dl_cart_id %></td>
+        <td><%= user_download.downloadable_id %></td>
+        <td><%= user_download.downloadable_type %></td>
+        <td><%= link_to 'Show', user_download %></td>
+        <td><%= link_to 'Edit', edit_user_download_path(user_download) %></td>
+        <td><%= link_to 'Destroy', user_download, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New User download', new_user_download_path %>

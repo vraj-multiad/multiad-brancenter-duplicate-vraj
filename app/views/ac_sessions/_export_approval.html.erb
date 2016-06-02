@@ -1,0 +1,12 @@
+<div class="pull-left" style="margin-top:20px;">
+  <% if @ac_session.ready? %>
+    <p><%= t('ac_export_approval_complete') %></p>
+  <% else %>
+    <div name='ac_auto_refresh' style="margin-top:20px;">
+      <%= form_tag('/adcreator/workspace', :remote => true, :'data-ac-process-export' => 'panel-functions-export', :id => 'ac_auto_refresh') do %>
+        <input type="hidden" name="id" value="<%= @ac_session.id %>"/>
+      <% end %>
+    </div>
+    <p><%= t('ac_export_approval_in_process') %></p>
+  <% end %>
+</div>

@@ -1,0 +1,76 @@
+<div id="social-media">
+<h3><strong><%= t '__social_media_accounts__' %></strong></h3>
+
+<div class="editable-area2">
+<div class="row social-headers">
+	<div class="col-xs-12 col-sm-12 col-lg-12">
+		<table>
+		  <tbody>
+		    
+		    <!-- headers -->
+		    <tr>
+		      <th style="text-align:center;width:13%"><strong><%= t '__network__' %></strong></th>
+		      <th><strong><%= t '__profile_name__' %></strong></th>
+		      <th style="text-align:center;"><strong><%= t '__profile_image__' %></strong></th>
+		      <th style="text-align:center;"><strong><%= t '__login_out__' %></strong></th>
+		    </tr>
+		    
+		    <!-- -facebook -->
+		    <tr>
+		      <td style="text-align:center;"><span><%= image_tag("icons/facebook-icon.png") %></span></td>
+		      <td>
+		        <strong><%= @user.facebook_account.profile_name %></strong>
+		      </td>
+		      <td class="profile" style="text-align:center;">
+		        <%= image_tag @user.facebook_account.profile_image %>
+		      </td>
+		      <td style="text-align:center;">
+			     <% if @user.facebook_account.logged_in? %>
+		          <%= link_to 'logout', url_for(:controller => 'social_media_accounts', :action => 'facebook_logout'), method: 'post' %>
+		        <% else %>
+		          <a href="/auth/facebook"><%= t '__login__' %></a>
+		        <% end %>
+		      </td>
+		    </tr>
+		    
+		    <!-- twitter -->
+		    <tr style="background-color:#F5F5F5">
+		      <td style="text-align:center;"><span><%= image_tag("icons/twitter-icon.png") %></span></td>
+		      <td>
+		        <strong><%= @user.twitter_account.profile_name %></strong>
+		      </td>
+		      <td class="profile" style="text-align:center;">
+		        <%= image_tag @user.twitter_account.profile_image %>
+		      </td>
+		      <td style="text-align:center;">
+			      <% if @user.twitter_account.logged_in? %>
+			          <%= link_to 'logout', url_for(:controller => 'social_media_accounts', :action => 'twitter_logout'), method: 'post' %>
+				  <% else %>
+		          	<a href="/auth/twitter"><%= t '__login__' %></a>
+				  <% end %>
+		      </td>
+		    </tr>
+		    
+		    <!-- youtube -->
+		    <tr>
+		      <td style="text-align:center;"><span><%= image_tag("icons/youtube-icon.png") %></span></td>
+		        <td>
+		          <strong><%= @user.youtube_account.profile_name %></strong>
+		        </td>
+		        <td class="profile" style="text-align:center;">
+		          <%= image_tag @user.youtube_account.profile_image %>
+		        </td>
+				<td style="text-align:center;">
+		        <% if @user.youtube_account.logged_in? %>
+		          <%= link_to 'logout', url_for(:controller => 'social_media_accounts', :action => 'youtube_logout'), method: 'post' %>
+		        <% else %>
+		          <a href="/auth/youtube"><%= t '__login__' %></a>
+		        <% end %>
+		        </td>
+		    </tr>
+			</tbody>
+  		</table>
+	</div>
+</div>
+</div>
+</div>

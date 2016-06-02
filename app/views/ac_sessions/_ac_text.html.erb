@@ -1,0 +1,102 @@
+<% ac_step.search(@ac_session.user, @ac_session.current_ac_session_history_id, {}).each do |result| %>
+  <!-- ac_text -->
+  <div style="display: none;" class="edit-tool body-text" id="<%= ac_step.step_number %>" ac_step_id="<%= ac_step.step_number %>">
+    <h3><span class="edit-numx"><%= ac_step.step_number.to_s %>.</span> <%= ac_step.title %></h3>
+    <%= form_tag('/adcreator/process_step', remote: true, data: { 'ac-process-step' => 'template-canvas', 'form-id' => 'ac_step_' + ac_step.step_number.to_s }, id: 'ac_step_' + ac_step.step_number.to_s, role: 'form') do %>
+      <%= hidden_field_tag 'ac_session_id', @ac_session.id %>
+      <%= hidden_field_tag 'ac_step_id', ac_step.id %>
+      <%= hidden_field_tag 'option_type', 'AcText' %>
+      <%= hidden_field_tag 'option_token', result.token %>
+      <%= hidden_field_tag 'template_canvas_only', '1' %>
+      <%= hidden_field_tag 'layer_element', ac_step.form_data('element_name') %>
+      <%= hidden_field_tag 'layer', '' %>
+      <%= hidden_field_tag 'set_layer', '' %>
+
+      <% if (@system_contacts.present? && (ac_step.form_data('system_contacts').present? || result.contact_flag.present? && result.contact_filter == 'system_contacts')) %>
+        <div id="contact_form">
+          <%= t('__system_contacts__') %><br/>
+          <%= select_tag result["name"], options_for_select([''] + @system_contacts.pluck(:display_name).each_with_index.map {|name, index| [name, index]}), class: "form-control ac-step-contact-selection chosen-select", data: { 'placeholder-text-single' => t('__ac_select_chosen_placeholder_text__'), 'no-results-text' => t('__ac_select_chosen_no_results__') } %>
+        </div>
+      <% elsif (@user_contacts.present? && (ac_step.form_data('user_contacts').present? || result.contact_flag.present? && result.contact_filter == 'user_contacts')) %>
+        <div id="contact_form">
+          <%= t('__contacts__') %><br/>
+          <%= select_tag result["name"], options_for_select([''] + @user_contacts.pluck(:display_name).each_with_index.map {|name, index| [name, index]}), class: "form-control ac-step-contact-selection chosen-select", data: { 'placeholder-text-single' => t('__ac_select_chosen_placeholder_text__'), 'no-results-text' => t('__ac_select_chosen_no_results__') } %>
+        </div>
+      <% end %>
+      <% unless ac_step.inputs.nil? %>
+        <% Array(ac_step.inputs).each do |result| %>
+          <% attribute_name = result["name"] %>
+          <% if attribute_name == 'text' %>
+            <% attribute_name = ac_step.id.to_s + 'text' %>
+          <% end %>
+
+          <div class="form-group">
+            <% value = ac_step.form_data('default_copy').to_s %>
+            <% if result["type"].to_s == 'editor' && @wysiwyg_data[ac_step.form_data('element_name')].present? %>
+              <% value = @wysiwyg_data[ac_step.form_data('element_name')] %>
+              <% logger.debug 'erb value1: ' + value.to_s %>
+            <% end %>
+            <% if @ac_session_attributes[ attribute_name.downcase].to_s.length > 0 %>
+              <% value = @ac_session_attributes[ attribute_name.downcase]  %>
+              <% logger.debug 'erb value2: ' + value.to_s %>
+            <% elsif @ac_session_attributes[ result["name"].downcase].to_s.length > 0 %>
+              <% value = @ac_session_attributes[ result["name"].downcase]  %>
+              <% logger.debug 'erb value3: ' + value.to_s %>
+            <% end %>
+            <% if result["type"].to_s == 'textarea' %>
+              <span><%= result["title"].to_s %></span>
+              <% input_class = 'form-control' %>
+              <% input_data = {} %>
+              <% if result['required'] %>
+                <% input_class += ' required-field' %>
+                <% input_data[:alert] = t('__missing_required_value__') + ': ' + result["title"] %>
+                <span class="" style="color:red;margin-left:0px;">*</span>
+              <% end %>
+              <% num_rows = 5 %>
+              <% num_rows = result["num_rows"] if result["num_rows"].to_i > 0 %>
+              <%= text_area_tag result["name"], value, :id => result["name"] + '-' + @ac_session.id.to_s + '-' + @ac_session.current_ac_session_history_id.to_s + '-' + ac_step.id.to_s, class: input_class, rows: num_rows.to_s, data: input_data %>
+              <% scale = @element_scales[ac_step.form_data('element_name')].to_i  %>
+              <% if scale < 100 %>
+                *Note: Too much text for the available area text is currently scaled down to <%= scale.to_s %>%.
+              <% end %>
+            <% elsif result["type"].to_s == 'editor' %>
+              <% num_rows = 5 %>
+              <% num_rows = result["num_rows"] if result["num_rows"].to_i > 0 %>
+              <% input_class = 'tinymce' %>
+              <%= text_area_tag result["name"], value, :id => result["name"] + '-' + @ac_session.id.to_s + '-' + @ac_session.current_ac_session_history_id.to_s + '-' + ac_step.id.to_s, :class => input_class, :rows => num_rows.to_s %>
+              <% scale = @element_scales[ac_step.form_data('element_name')].to_i  %>
+              <% if scale < 100 %>
+                *Note: Too much text for the available area text is currently scaled down to <%= scale.to_s %>%.
+              <% end %>
+            <% elsif result["type"].to_s == 'select' %>
+              <span><%= result["title"].to_s %></span>
+              <% input_class = 'form-control ac-step-text-selection' %>
+              <% input_data = {} %>
+              <% if result['required'] %>
+                <% input_class += ' required-field' %>
+                <% input_data[:alert] = t('__missing_required_value__') + ': ' + result["title"] %>
+                <span class="" style="color:red;margin-left:0px;">*</span>
+              <% end %>
+              <%= select_tag result["name"], options_for_select(ac_step.options_search(result["options_keyword"])), class: input_class, data: input_data %>
+            <% else # text %>
+              <span><%= result["title"].to_s %></span>
+              <% input_class = 'form-control' %>
+              <% input_data = { 'contact-field' => result["name"] } %>
+              <% if result['required'] %>
+                <% input_class += ' required-field' %>
+                <% input_data[:alert] = t('__missing_required_value__') + ': ' + result["title"] %>
+                <span class="" style="color:red;margin-left:0px;">*</span>
+              <% end %>
+              <% text_field_tag_params = { class: input_class, data: input_data } %>
+              <% text_field_tag_params[:maxlength] = result["maxlength"] if result["maxlength"].present? %>
+              <%= text_field_tag result["name"], value, text_field_tag_params %>
+              <% #= text_field_tag result["name"], value, :class => input_class, data: input_data %>
+            <% end %>
+          </div> <!-- form-group -->
+        <% end %> <!-- Array.each -->
+      <% end %> <!-- unless  -->
+      <%= button_tag(t("__submit__"), :type => 'submit', data: { disable_with: '<span class="launch_ac">&nbsp;</span>' }, :class => "btn btn-primary submit-butt set-layer") %>
+      
+    <% end %> <!-- form -->
+  </div>
+<% end %>

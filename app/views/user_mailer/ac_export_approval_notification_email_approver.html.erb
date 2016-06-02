@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+
+    <h1><%= t('email_ac_export_approval_notification_approver_body_h', user_email: @ac_export.ac_session_history.ac_session.user.email_address) %></h1>
+    <p><%= t('email_ac_export_approval_notification_approver_body_p', template_name: @ac_export.ac_session_history.ac_session.ac_creator_template.title) %></p>
+    <p>
+      <%= t('__username__') %>: <%= @ac_export.ac_session_history.ac_session.user.username %><br/>
+      <%= t('__email_address__') %>: <%= @ac_export.ac_session_history.ac_session.user.email_address %><br/>
+      <%= t('__name__') %>: <%= @ac_export.ac_session_history.ac_session.user.first_name + ' ' + @ac_export.ac_session_history.ac_session.user.last_name  %><br/>
+      <%= t('__title__') %>: <%= @ac_export.ac_session_history.ac_session.user.title %><br/>
+      <%= t('__address_1__') %>: <%= @ac_export.ac_session_history.ac_session.user.address_1 %><br/>
+      <%= t('__address_2__') %>: <%= @ac_export.ac_session_history.ac_session.user.address_2 %><br/>
+      <%= t('__city__') + '/' + t('__state__') + '/' + t('__zip_code__') %>: <%= @ac_export.ac_session_history.ac_session.user.city + '/' + @ac_export.ac_session_history.ac_session.user.state + '/' + @ac_export.ac_session_history.ac_session.user.zip_code %><br/>
+      <%= t('__phone__') %>: <%= @ac_export.ac_session_history.ac_session.user.phone_number %><br/>
+      <%= t('__fax__') %>: <%= @ac_export.ac_session_history.ac_session.user.fax_number %>
+    </p>
+  </body>
+</html>

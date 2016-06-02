@@ -1,0 +1,41 @@
+<%= form_for(@ac_document) do |f| %>
+  <% if @ac_document.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ac_document.errors.count, "error") %> prohibited this ac_document from being saved:</h2>
+
+      <ul>
+      <% @ac_document.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :bundle %><br>
+    <%= f.text_field :bundle %>
+  </div>
+  <div class="field">
+    <%= f.label :document_spec_xml %><br>
+    <%= f.text_area :document_spec_xml %>
+  </div>
+  <div class="field">
+    <%= f.label :pdf %><br>
+    <%= f.text_field :pdf %>
+  </div>
+  <div class="field">
+    <%= f.label :preview %><br>
+    <%= f.text_field :preview %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br>
+    <%= f.text_area :status %>
+  </div>
+  <div class="field">
+    <%= f.label :thumbnail %><br>
+    <%= f.text_field :thumbnail %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,8 @@
+  <%= direct_upload_form_for @uploader, :html => { :target => "_blank_iframe" } do |f| %>
+    <div class="image-upload dl-image">
+      <label class="cabinet">
+        <%= f.file_field :image_upload , :'data-upload-type' => 'dl_image', class: "image-upload-input file" %>
+      </label>
+      <input type="text" readonly="readonly" placeholder="<%= t '__upload_single_piece__' %>" class="upload-text">
+    </div>
+  <% end %>

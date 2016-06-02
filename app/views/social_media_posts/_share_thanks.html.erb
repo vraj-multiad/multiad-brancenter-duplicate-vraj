@@ -1,0 +1,21 @@
+<!-- _share_thanks.html.erb -->
+  <% if @post['success'] || @post['error'] %>
+
+    <% if @post['success'] %>
+
+      <div id="post-success"><%= t '__success__' %>: <a target ="_blank" href="<%= @post['success'] %>"><%= t '__click_to_preview__' %></a></div>
+
+    <% end %>
+    <% if @post['error'] %>
+
+      <div id="post-error"><%= t '__error__' %> <%= @post['error'] %></div>
+
+    <% end %>
+  <% else %>
+
+    <p>Your Social Media post is being submitted.</p>
+    <%= form_tag('/social_media_post/status', :remote => true, :'data-process-share' => 'share-copy', :id => 'social_media_auto_refresh') do %>
+      <input type="hidden" name="id" value="<%= @post['id'] %>"/>
+    <% end %>
+
+  <% end %>

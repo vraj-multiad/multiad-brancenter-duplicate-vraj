@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Fulfillable type:</strong>
+  <%= @fulfillment_item.fulfillable_type %>
+</p>
+
+<p>
+  <strong>Fulfillable:</strong>
+  <%= @fulfillment_item.fulfillable_id %>
+</p>
+
+<p>
+  <strong>Fulfillment method:</strong>
+  <%= @fulfillment_item.fulfillment_method_id %>
+</p>
+
+<p>
+  <strong>Price schedule:</strong>
+  <%= @fulfillment_item.price_schedule %>
+</p>
+
+<p>
+  <strong>Price per unit:</strong>
+  <%= @fulfillment_item.price_per_unit %>
+</p>
+
+<p>
+  <strong>Weight per unit:</strong>
+  <%= @fulfillment_item.weight_per_unit %>
+</p>
+
+<p>
+  <strong>Taxable:</strong>
+  <%= @fulfillment_item.taxable %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @fulfillment_item.description %>
+</p>
+
+<%= link_to 'Edit', edit_fulfillment_item_path(@fulfillment_item) %> |
+<%= link_to 'Back', fulfillment_items_path %>

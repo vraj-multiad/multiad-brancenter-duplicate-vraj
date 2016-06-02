@@ -1,0 +1,25 @@
+<%= form_for(@ac_basis) do |f| %>
+  <% if @ac_basis.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ac_basis.errors.count, "error") %> prohibited this ac_basis from being saved:</h2>
+
+      <ul>
+      <% @ac_basis.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

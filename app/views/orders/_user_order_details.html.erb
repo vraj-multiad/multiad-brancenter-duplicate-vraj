@@ -1,0 +1,97 @@
+<div id="order-details-wrapper">
+  <div class="container">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <a href="javascript:void(0)"><button type="button" class="btn btn-default rounded user-order-details-close"><%= t '__return_to_previous__' %></button></a>
+        <h4><strong><%= t('__order__') + ' #' + @order.id.to_s  %></strong></h4>
+
+      </div>
+      
+      <div class="panel-body">
+        <h4><strong><%= t '__billing_info__' %></strong></h4>
+        <div class="do-not-edit">
+          <%= render partial: 'orders/order_billing' %>
+        </div> <!-- End: #billing_info -->
+      </div>
+      <br/>   
+      
+      <h4><strong><%= t '__shipping_info__' %></strong></h4>
+      <div class="do-not-edit">
+        <%= render partial: 'orders/order_shipping' %>
+      </div> <!-- End: #billing_info -->
+    </div>
+      
+    <br/>
+      
+    <div class="row">
+      <% @order.order_items.each do |item| %>
+        <%= hidden_field_tag 'order[order_items_attributes][][id]', item.id %>
+        
+        <div class="results-spacing">
+          <div class="thumbnail" style="width:540px;height:360px;">
+            <div class="crop-images">
+              <div class="align-images">
+                  <%= image_tag(item.orderable.thumbnail_url) %>
+                  <strong><%= item.orderable.title.to_s %></strong>
+              </div>
+            </div> 
+            <div class="cart-item-details-wide">
+              <div class="form-group">
+                <% if item.mailing_list.present? %>
+                  <strong>Mailing List</strong><br/>
+                  <%= item.mailing_list.title + ' (' + item.mailing_list.quantity.to_s + ')' %><br/>
+                <% else %>
+                  <strong>Quantity</strong><br/>
+                  <%= item.quantity.to_i %>
+                <% end %>
+              </div>
+              <div class="form-group">
+                <strong>Price Per Unit</strong><br/>
+                <%= sprintf('%.2f', (item.unit_price || 0)) %>
+              </div>
+              <div class="form-group">
+                <strong>Total</strong><br/>
+                <%= sprintf('%.2f', (item.item_total || 0)) %>
+              </div>
+              <div class="form-group">
+                <strong>Comments</strong><br/>
+                <%= item.comments.to_s %>
+              </div>
+              <div class="form-group">
+                <strong>Status</strong><br/>
+                <%= item.status.to_s %>
+              </div>
+              <div class="form-group">
+                <strong>Tracking Number</strong><br/>
+                <%= item.tracking_number.to_s %>
+              </div>
+            </div>
+            <div style="width:200px;text-align:left;">
+              <p><%= simple_format(item.description) %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div><!--end row -->
+      
+    <table class="order-totals alert alert-info">
+        <td><strong><%= t('__subtotal__') %> (<%= @order.order_items.count.to_s + ' ' + t('__item__').pluralize(@order.order_items.count) %>):</strong></td>
+        <td style="width:1%"><%= sprintf('%.2f', (@order.sub_total || 0)) %></td>
+      </tr>
+      <tr>
+        <td><strong><%= t('__shipping__') %>:</strong></td>
+        <td style="width:1%"><%= @order.shipping_method %></td>
+      </tr>
+      <tr>
+        <td><strong><%= t('__total___') %>:</strong></td>
+        <td style="width:1%"><%= sprintf('%.2f', (@order.total ||0)) %></td>
+      </tr>
+    </table>
+        
+    <div class="panel-footer">
+      <a href="javascript:void(0)"><button type="button" class="btn btn-default rounded user-order-details-close"><%= t '__return_to_previous__' %></button></a>
+    </div>
+  </div><!--end panel-body-->
+</div>
+</div>
+</div>

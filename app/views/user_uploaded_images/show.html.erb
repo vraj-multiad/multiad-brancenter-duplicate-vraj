@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @user_uploaded_image.name %>
+</p>
+
+<p>
+  <strong>Image upload:</strong>
+  <%= @user_uploaded_image.image_upload %>
+</p>
+
+<p>
+  <strong>Filename:</strong>
+  <%= @user_uploaded_image.filename %>
+</p>
+
+<p>
+  <strong>Extension:</strong>
+  <%= @user_uploaded_image.extension %>
+</p>
+
+<p>
+  <strong>Expired:</strong>
+  <%= @user_uploaded_image.expired %>
+</p>
+
+<%= link_to 'Edit', edit_user_uploaded_image_path(@user_uploaded_image) %> |
+<%= link_to 'Back', user_uploaded_images_path %>

@@ -1,0 +1,48 @@
+<% if email_lists.present? %>
+  <h5>Select an email list for distribution.</h5>  
+  <ul style="margin-left:0px;padding-left:0px;">
+    <% email_list_select = [] %>
+    <% email_lists.each do |email_list| %>
+      <% email_list_select << [email_list.title.to_s, email_list.token]%>
+    <% end %>
+    <%= select_tag 'email_list_choice', options_for_select(email_list_select),  class: "form-control ac-step-filter" %>
+  </ul>
+  <a href="javascript:void(0)" class="submit-user-email-list-select"><button type="button" class="btn btn-default rounded" style="display:none;">refresh</button></a>
+  <p>
+  <% if ENABLE_EMAIL_LIST_UPLOAD %>
+    You may always upload additional email lists from your <a href="/profile" target="_blank">Profile Page</a>.
+  <% end %>
+  </p>
+  <div class="input-group2">
+  <% if ENABLE_MARKETING_EMAIL_FROM %>
+    <% marketing_email_from_name = @current_user.first_name + ' ' + @current_user.last_name %>
+    <% if DEFAULT_MARKETING_EMAIL_FROM_NAME %>
+      <% marketing_email_from_name = DEFAULT_MARKETING_EMAIL_FROM_NAME %>
+    <% end %>
+    <h5><%= t('ac_export_panel_from_name') %>:</h5>
+    <%= text_field_tag 'from_name', marketing_email_from_name, class: 'form-control required-field', data: { alert: t('__missing_required_value__') + ': ' + t('ac_export_panel_from_name') } %>
+    <% marketing_email_from_address = @current_user.email_address %>
+    <% if DEFAULT_MARKETING_EMAIL_FROM_ADDRESS %>
+      <% marketing_email_from_address = DEFAULT_MARKETING_EMAIL_FROM_ADDRESS %>
+    <% end %>
+    <h5><%= t('ac_export_panel_from_address') %>:</h5>
+    <%= text_field_tag 'from_address', marketing_email_from_address, class: 'form-control required-field validate-email', data: { alert: t('__missing_required_value__') + ': ' + t('ac_export_panel_from_address'), 'alert-validate' => t('ac_export_panel_from_address') + ': ' + t('__email_address_format_is_invalid__') } %>
+  <% end %>
+  <% if ENABLE_MARKETING_EMAIL_REPLY_TO %>
+    <h5><%= t('ac_export_panel_reply_to') %>:</h5>
+    <%= text_field_tag 'reply_to', @current_user.email_address, class: 'form-control required-field validate-email', data: { alert: t('__missing_required_value__') + ': ' + t('ac_export_panel_reply_to'), 'alert-validate' => t('ac_export_panel_reply_to') + ': ' + t('__email_address_format_is_invalid__') } %>
+  <% end %>
+  <% if ENABLE_MARKETING_EMAIL_SUBJECT %>
+    <h5><%= t('ac_export_panel_subject') %>:</h5>
+    <%= text_field_tag 'email_subject', email_subject, :class => "form-control required-field", data: { alert: t('__missing_required_value__') + ': ' + t('ac_export_panel_subject') } %>
+  <% end %>
+    <%= button_tag t('__send_marketing_email__'), id: 'submit-marketing-email', class: 'btn branded-button validate-and-submit-form', style: 'margin-top:15px;', data: { style: 'slide-down', 'form-id' => 'export_form'  } %>
+  </div>
+<% else %>
+  <p>
+    You currently do not have any email lists available. Please upload your email list by using the Upload List box above.
+    <% if ENABLE_EMAIL_LIST_UPLOAD %>
+      You may always upload additional email lists from your <a href="/profile" target="_blank">Profile Page</a>.
+    <% end %>
+  </p>
+<% end %>

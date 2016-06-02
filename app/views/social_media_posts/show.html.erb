@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Social media account:</strong>
+  <%= @social_media_post.social_media_account_id %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @social_media_post.description %>
+</p>
+
+<p>
+  <strong>Finished at:</strong>
+  <%= @social_media_post.finished_at %>
+</p>
+
+<p>
+  <strong>Error:</strong>
+  <%= @social_media_post.error %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @social_media_post.type %>
+</p>
+
+<p>
+  <strong>User uploaded image:</strong>
+  <%= @social_media_post.user_uploaded_image_id %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @social_media_post.title %>
+</p>
+
+<p>
+  <strong>Success:</strong>
+  <%= @social_media_post.success %>
+</p>
+
+<%= link_to 'Edit', edit_social_media_post_path(@social_media_post) %> |
+<%= link_to 'Back', social_media_posts_path %>

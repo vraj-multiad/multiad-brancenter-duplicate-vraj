@@ -1,0 +1,65 @@
+<div id="large-preview-panel">
+  <div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <%= @asset.title.html_safe %>
+    </div>
+    <div class="panel-body">
+      <div class="description-tag" style="margin-bottom:15px;">
+<!--         <%= @asset.brand_name.titlecase.html_safe %>  
+        <%= @asset.description %> 
+        <%= @asset.product_name%> 
+        <%= @asset.unit_size.titlecase.html_safe %> 
+        <%= @asset.uom.titlecase.html_safe %>. 
+        <%= @asset.unit_container.titlecase.html_safe %>  -->
+        <table class="product-table">
+        	<tr>
+        		<td><strong>10 digit UPC:</strong><br/><%= @asset.upc_10.to_s.html_safe %></td>
+        		<td><strong>12 digit UPC:</strong><br/><%= @asset.upc_12.to_s.html_safe %></td>
+        		<td><strong>14 digit GTIN:</strong><br/><%= @asset.gtin.to_s.html_safe %></td>
+        		<td>&nbsp;</td>
+        	</tr>
+        	<tr>
+	        	<td><strong>Mfr:</strong><br/><%= @asset.manufacturer_name.to_s.html_safe %></td>
+	        	<td><strong>Brand:</strong><br/><%= @asset.brand_name.to_s.html_safe %><br/></td>
+	        	<td><strong>Brick:</strong><br/><%= @asset.gpc_brick_name.to_s.html_safe %><br/></td>
+	        	<td><strong>Approval Date:</strong><br/><%= @asset.last_publish_date.to_s.html_safe %></td>
+        	</tr>
+        	<% if @asset.why_buy_1.present? || @asset.why_buy_2.present? || @asset.why_buy_3.present? || @asset.why_buy_4.present? || @asset.why_buy_5.present? || @asset.why_buy_6.present? || @asset.why_buy_7.present? %>
+	        	<% if @asset.why_buy_1.present? %><tr><th colspan="4"><strong>Why Buy Lines</strong><br/><%= @asset.why_buy_1.to_s.html_safe %></th></tr><% end %>
+	        	<% if @asset.why_buy_2.present? %><tr><th colspan="4"><%= @asset.why_buy_2.to_s.html_safe %></th></tr><% end %>
+	        	<% if @asset.why_buy_3.present? %><tr><th colspan="4"><%= @asset.why_buy_3.to_s.html_safe %></th></tr><% end %>
+		       	<% if @asset.why_buy_4.present? %><tr><th colspan="4"><%= @asset.why_buy_4.to_s.html_safe %></th></tr><% end %>
+		       	<% if @asset.why_buy_5.present? %><tr><th colspan="4"><%= @asset.why_buy_5.to_s.html_safe %></th></tr><% end %>
+		       	<% if @asset.why_buy_6.present? %><tr><th colspan="4"><%= @asset.why_buy_6.to_s.html_safe %></th></tr><% end %>
+		       	<% if @asset.why_buy_7.present? %><tr><th colspan="4"><%= @asset.why_buy_7.to_s.html_safe %></th></tr><% end %>
+	        	
+        	<% end %>
+        	
+        	<% if @asset.romance_copy_1.present? || @asset.romance_copy_2.present? || @asset.romance_copy_3.present? || @asset.romance_copy_4.present? %>
+        		<% if @asset.romance_copy_1.present? %><tr><th colspan="4"><strong>Romance Copy</strong><br/><%= @asset.romance_copy_1.to_s.html_safe %></th></tr><% end %>
+        		<% if @asset.romance_copy_2.present? %><tr><th colspan="4"><%= @asset.romance_copy_2.to_s.html_safe %></th></tr><% end %>
+        		<% if @asset.romance_copy_3.present? %><tr><th colspan="4"><%= @asset.romance_copy_3.to_s.html_safe %></th></tr><% end %>
+        		<% if @asset.romance_copy_4.present? %><tr><th colspan="4"><%= @asset.romance_copy_4.to_s.html_safe %></th></tr><% end %>
+        	<% end %>
+        </table>        
+      </div>
+      
+
+      <% @assets.each do |asset| %>
+        <% searchable_type = asset.class.name %>
+        <% searchable_id = asset.id %>
+        <% display= 'block' %>
+          <% visible = true %>
+          <%= render partial: 'asset_preview_result', :locals => { :searchable_type => searchable_type, :searchable_id => searchable_id, :display => display, :visible => visible } %>
+      <% end %>
+      
+    </div><!--end panel body-->
+    <div class="panel-footer" style="text-align:center">
+        <a href="javascript:void(0)" id="close-asset-detail">
+          <button type="button" class="btn btn-default rounded"><%= t '__return_to_search__' %></button>
+        </a>
+    </div><!--end panel footer-->
+  </div><!-- end panel-->
+  </div><!-- end container -->
+</div><!-- end wrapper -->

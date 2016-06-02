@@ -1,0 +1,26 @@
+<%= render partial: 'admin_ac_image_upload' %>
+
+<a href='/admin/ac_image?display=staged'>Staged AC Images</a><br/>
+<% if @staged_ac_images %>
+  <%= render partial: 'admin_ac_image_details', locals: {ac_images: @staged_ac_images} %>
+<% end %>
+<hr>
+  <a href='/admin/ac_image?display=processed'>Processed AC Images</a><br/>
+<% if @processed_ac_images %>
+  <%= render partial: 'admin_ac_image_details', locals: {ac_images: @processed_ac_images} %>
+<% end %>
+<hr>
+  <a href='/admin/ac_image?display=production'>Published (Production) AC Images</a><br/>
+<% if @production_ac_images %>
+  <%= render partial: 'admin_ac_image_details', locals: {ac_images: @production_ac_images} %>
+<% end %>
+<hr>
+  <a href='/admin/ac_image?display=unstaged'>Unstaged AC Images</a><br/>
+<% if @unstaged_ac_images %>
+  <%= render partial: 'admin_ac_image_details', locals: {ac_images: @unstaged_ac_images} %>
+<% end %>
+<hr>
+  <a href='/admin/ac_image?display=unpublished'>Unpublished AC Images</a><br/>
+<% if @unpublished_ac_images %>
+  <%= render partial: 'admin_ac_image_details', locals: {ac_images: @unpublished_ac_images} %>
+<% end %>

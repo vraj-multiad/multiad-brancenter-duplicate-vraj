@@ -1,0 +1,33 @@
+<h1>Listing shared_pages</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Token</th>
+      <th>Expiration data</th>
+      <th>Share url</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @shared_pages.each do |shared_page| %>
+      <tr>
+        <td><%= shared_page.user_id %></td>
+        <td><%= shared_page.token %></td>
+        <td><%= shared_page.expiration_date %></td>
+        <td><%= link_to(shared_page.share_link, shared_page.share_link  ) %></td>
+        <td><%= link_to 'Show', shared_page %></td>
+        <td><%= link_to 'Edit', edit_shared_page_path(shared_page) %></td>
+        <td><%= link_to 'Destroy', shared_page, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Shared page', new_shared_page_path %>

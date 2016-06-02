@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Term:</strong>
+  <%= @user_keyword.term %>
+</p>
+
+<p>
+  <strong>Categorizable:</strong>
+  <%= @user_keyword.categorizable_id %>
+</p>
+
+<p>
+  <strong>Categorizable type:</strong>
+  <%= @user_keyword.categorizable_type %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @user_keyword.user_id %>
+</p>
+
+<p>
+  <strong>User keyword type:</strong>
+  <%= @user_keyword.user_keyword_type %>
+</p>
+
+<%= link_to 'Edit', edit_user_keyword_path(@user_keyword) %> |
+<%= link_to 'Back', user_keywords_path %>

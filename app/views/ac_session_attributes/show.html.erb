@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Ac session history:</strong>
+  <%= @ac_session_attribute.ac_session_history_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @ac_session_attribute.name %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @ac_session_attribute.value %>
+</p>
+
+<p>
+  <strong>Adcreator step:</strong>
+  <%= @ac_session_attribute.adcreator_step_id %>
+</p>
+
+<p>
+  <strong>Attribute type:</strong>
+  <%= @ac_session_attribute.attribute_type %>
+</p>
+
+<%= link_to 'Edit', edit_ac_session_attribute_path(@ac_session_attribute) %> |
+<%= link_to 'Back', ac_session_attributes_path %>

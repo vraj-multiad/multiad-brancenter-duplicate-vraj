@@ -1,0 +1,66 @@
+<%= form_for(@ac_text) do |f| %>
+  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+    <% if @ac_text.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@ac_text.errors.count, "error") %> prohibited this ac_text from being saved:</h2>
+
+        <ul>
+        <% @ac_text.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div>
+      <%= f.label :name %><br>
+      <%= f.text_field :name,  class: "form-control" %>
+    </div>
+    <div>
+      <%= f.label :title %><br>
+      <%= f.text_field :title,  class: "form-control" %>
+    </div>
+    <div>
+      <%= f.label :creator %><br>
+      <%= f.text_area :creator,  class: "form-control2" %>
+    </div>
+    <div>
+      <%= f.label :html %><br>
+      <%= f.text_area :html,  class: "form-control2" %>
+    </div>
+    <div>
+      <%= f.label :inputs %><br>
+      <%= f.text_area :inputs,  class: "form-control2" %>
+    </div>
+    <%= render partial: 'keyword/form_publish_dates' , locals: { f: f, publish_at: @ac_text.publish_at, unpublish_at: @ac_text.unpublish_at } %>
+    <div>
+      <%= f.label :contact_flag %><br>
+      <%= f.check_box :contact_flag,  class: "form-control" %>
+    </div>
+    <div>
+      <%= f.label :contact_type %><br>
+      <%= f.select :contact_type, options_for_select(@contact_types.pluck(:name), @ac_text.contact_type), { include_blank: true }, { class: 'form-control'} %>
+    </div>
+    <div>
+      <%= f.label :contact_filter %><br>
+      <%= f.select :contact_filter,  options_for_select(['system_contacts', 'user_contacts'], @ac_text.contact_filter), { include_blank: true }, { class: 'form-control'} %>
+    </div>
+    <div>
+      Keywords (comma separated)<br>
+      <%= text_field_tag 'keywords',  @ac_text.keywords.where(keyword_type: 'search').pluck(:term).join(','), :class => "form-control" %>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+    <div>
+      <%= render partial: 'set_attributes/set_attribute_list', locals: {attribute_list: @ac_text.set_attributes} %>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+    <div>
+      <%= render partial: 'responds_to_attributes/responds_to_attribute_list', locals: {attribute_list: @ac_text.responds_to_attributes} %>
+    </div>
+  </div>
+  <div class="actions col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <%= f.submit %>
+  </div>
+<% end %>

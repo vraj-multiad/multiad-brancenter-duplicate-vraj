@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html class="SI-FILES-STYLIZED">
+<head>
+  <title>Brand Center</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--[if IE]>
+      <style type="text/css">
+
+        .result-border {
+          filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='transparent.png', sizingMethod='scale');
+          background:none !important;
+        }
+        </style>
+    <![endif]-->
+  <%= stylesheet_link_tag "bootstrap", media: "all", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+  <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300,700' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<script type="text/javascript">
+  flowplayer.conf.key = '<%= ENV['FLOWPLAYER_KEY'] %>';
+  flowplayer.conf.embed = false;
+</script>
+<div id="site-contents">
+    <!-- SITE MENU -->
+  <% if current_user.present? %>
+   <nav class="navbar navbar-default" id="site-menu">
+    <div class="container">
+      <div class="category-padding">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          </button>
+          <div class="home-logo">
+            <a href="/" tabindex="-1">
+              <% if current_user.role.present? %>
+                <% role_name = current_user.role.name.gsub(/\W/, '_') %>
+                <% if Rails.application.assets.find_asset(role_name + '_logo.png') %>
+                  <%= image_tag(role_name + '_logo.png') %>
+                <% else %>
+                  <%= image_tag("logo.png") %>
+                <% end %>
+              <% else %>
+                <%= image_tag("logo.png") %>
+              <% end %>
+            </a>
+          </div>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <% nav_active = Hash.new %>
+            <% case request.fullpath %>
+            <% when '/', '/home' %>
+              <% nav_active['home'] = 'active' %>
+            <% when '/admin_ac_images' %>
+              <% nav_active['admin_ac_images'] = 'active' %>
+            <% when '/admin' %>
+              <% nav_active['admin'] = 'active' %>
+            <% when '/my_contributions' %>
+              <% nav_active['my_contributions'] = 'active' %>
+            <% when '/my_library' %>
+              <% nav_active['my_library'] = 'active' %>
+            <% when '/my_documents' %>
+              <% nav_active['my_documents'] = 'active' %>
+          <% end %>
+          <% logger.debug nav_active.inspect %>
+          <ul class="nav navbar-nav navbar-right top-nav">
+            <li class="">
+              <a href="/" class="<%= nav_active['my_library'] %>"><%= t '__home__' %></a>
+            </li>
+            
+            <% if current_user.contributor? || current_user.admin? || current_user.superuser? %>
+              <li class="dropdown ">
+                <a class="dropdown-toggle" id="branded-button" data-toggle="dropdown" href="javascript:void(0)">
+                  <%= t '__administer__' %><span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                  <% if current_user.superuser? %>
+                    <li>
+                      <a href="/admin_ac_images" class="<%= nav_active['admin_ac_images'] %>"><%= t '__ac_images__' %></a>
+                    </li>
+                  <% end %>
+                  <% if current_user.admin? || current_user.superuser? %>
+                    <li>
+                      <a href="/admin"  class="<%= nav_active['admin'] %>"><%= t '__edit_users_filters__' %></a>
+                    </li>
+                  <% end %>
+                  <li>
+                    <a href="/my_contributions" class="<%= nav_active['my_contributions'] %>"><%= t '__contribute__' %></a>
+                  </li>
+                </ul>
+              </li>
+            <% end %>
+
+            <% dynamic_forms = Language.find_by(name: current_language).dynamic_forms.active %>
+            <% if dynamic_forms.present? %>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">
+                  <%= t '__forms__' %><span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                  <% dynamic_forms.each do |dynamic_form| %>
+                    <li><%= link_to dynamic_form.title, display_form_path(dynamic_form.token) %></li>
+                  <% end %>
+                </ul>
+              </li>
+            <% end %>
+
+            <% order_cart_display = 'none' %>
+            <% active_cart_items = current_user.active_cart_items %>
+            <% if active_cart_items > 0 %>
+              <% order_cart_display='block' %>
+            <% end %>
+
+            <li id="cart-button" class="" style="display:<%= order_cart_display %>;">
+              <%= render partial: 'orders/cart_button', locals: { active_cart_items: active_cart_items } %>
+            </li>
+            <li class="">
+              <a href="/my_library" class="<%= nav_active['my_library'] %>"><%= t '__library__' %></a>
+            </li>
+            <% if ENABLE_MY_DOCUMENTS %>
+              <li class="">
+                <a href="/my_documents" class="<%= nav_active['my_documents'] %> "><%= t '__saved_ads__' %><span class="badge" style="display:none;"></span></a>
+              </li>
+            <% end %>
+
+            <li class="dropdown user">
+              <div class="logged-in"><%= t '__logged_in__' %></div>
+              <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">
+                <% if current_user.sso_flag.present? %><%=current_user.first_name + ' ' + current_user.last_name %><% else %><%= current_user.username %><% end %> <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-right user-info" role="menu">
+                <% if real_user.superuser? %>
+                  <li>
+                    <strong><%= current_user.first_name %> <%= current_user.last_name %></strong>
+                    <span>
+                      &nbsp;(<a href="/superuser/users"><%= t('__change_user__').html_safe %></a>)
+                    </span>
+                  </li>
+                  <li>
+                    <%= current_user.email_address %>
+                  </li>
+                  <li>
+                    <%= t(current_user.user_type) %>
+                  </li>
+                  <li>
+                  </li>
+                  <% if real_user.username != current_user.username %>
+                    <li>
+                      <%= t '__revert__' %> <a href="/superuser/become_user?id=<%= real_user.id %>"><%= real_user.username %></a>
+                    </li>
+                  <% end %>
+                <% else %>
+                  <li>
+                    <strong><%= current_user.first_name %> <%= current_user.last_name %></strong>
+                  </li>
+                <% end %>
+                <li>
+                  <a href="/profile" id="profile-button"><%= t '__view_profile__' %></a>
+                </li>
+                <li>
+                  <hr>
+                </li>
+                <li>
+                  <div class="btn-toolbar" role="toolbar">
+                    <div class="btn-group" role="group">
+                      <% if ENABLE_HELP %>
+                        <a href="/help" class="account-info-buttons"><%= t '__help__' %></a>
+                      <% end %>
+                    </div>
+                    <div class="btn-group pull-right" role="group">
+                      <a href="/logout" class="account-info-buttons"><%= t '__logout__' %></a>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>     
+        </div><!-- /.navbar-collapse -->
+      </div>
+    </div><!-- /.container -->
+
+    <div id="fixed-position-buttons">
+      <!-- asset_group -->
+      <% logger.debug 'asset_group: ' + current_asset_group.inspect %>
+      <% asset_group_display = 'none' %>
+      <% if current_asset_group['DlImageGroup'].length + current_asset_group['DlImage'].length + current_asset_group['UserUploadedImage'].length > 0 %>
+        <% asset_group_display = 'inline-block' %>
+      <% else %>
+        <% #do nothing for empty asset-group %>
+      <% end %>
+
+      <div id='asset-group-all'></div><!-- what's this? -->
+
+      <!-- cart  -->
+      <% cart_display = 'none' %>
+      <% cart_processing = 'none' %>
+      <% if current_cart_items['DlImage'].length + current_cart_items['UserUploadedImage'].length > 0 %>
+        <% case current_cart.status %>
+        <% when 'submitted', 'complete'%>
+        <% #cart_processing = '25px' %>
+        <%= javascript_tag do %>
+          <%=  'setCartButton( numDlItems()); ' %>
+          <%=  '$(document).ready(function() { ' %>
+          <%=   ' submitCart();'  %>
+          <%=  '});' %>
+        <% end %>
+      <% else %>
+        <% #cart_display = '25px' %>
+      <% end %>
+      <% else %>
+        <% #do nothing for empty cart %>
+      <% end %>
+
+      <div id='dl-cart-download-all'></div>
+
+      <button id="download-all-zipping" type="button" class="btn btn-default" style="display:<%= cart_processing %>">
+        <%= t '__zipping__' %> <span>&nbsp;</span>
+      </button>
+    </div>
+
+    <%= form_tag('/my_library',:id => 'my-library-form') do %>
+    <% end %>
+    <%= form_tag('/my_documents', :id => 'my-documents-form') do %>
+    <% end %>
+   </nav>
+
+    <!-- end: SITE MENU -->
+  <% end %>
+
+<%= yield %>
+</div><!--end: site-contents-->
+
+  <% if current_user.present? %>
+<div id="adcreator-panel">
+  <%=  hidden_field_tag('adcreator_set_spread', 1) %>
+  <div id="adcreator-contents"></div> <!-- end: #adcreator-content -->
+
+  <div class="ac-image-uploader collapse">
+    <ul id='user-uploaded-images-processing-ac-image' class="fileupload-status acimage"></ul>
+
+    <div class="image-upload-open" style="padding:0px 0px 5px 0px;border:none;">
+      <div class="btn btn-default" style="width:100%;white-space:normal;"><%= t '__upload_your_own_images__' %></div>
+    </div>
+    <div class="image-upload-warning" style="padding:0;border:none;display:none;">
+      <div class="alert alert-danger">
+        <p><strong><%= t '__WARNING__' %>:</strong> <%= t '__photo_release__' %></p>
+      </div>
+      <ul class="fileupload-status-useracimage"></ul>
+      <div class="image-upload" style="padding:0px 0px 20px 0px;border:none;">
+        <label class="cabinet">
+          <input type="file" name="file" class="image-upload-input file fileupload-useracimage" />
+        </label>
+        <input type="text" readonly="readonly" placeholder="<%= t '__upload_image__' %>" class="upload-text" style="top:-6px">
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop in"></div><!-- end: #modal-backdrop -->
+  <div class="modal-backdrop in"></div><!-- end: #modal-backdrop -->
+
+  <div id="adcreator-processing" style="display:none;">
+    <div class="container">
+      <div id="ac-processing-animation">
+        <%= t '__building_preview__' %><br/>
+        <span><%= image_tag("process-bar.gif") %></span>
+      </div>
+    </div>
+  </div>  <!-- adcreator-processing -->
+</div><!-- end: AdCreator Panel -->
+
+<div id="order-cart-panel" style="display:none;"></div>
+
+<div id="download-cart-panel"></div>
+
+<div id="share-contents" style="display:none;position:fixed;z-index:2001;"></div><!-- share-contents -->
+
+<div id="categorize-contents" style="display:none;position:fixed;z-index:2001;"></div><!-- categorize-contents -->
+
+<div id="asset-detail-contents" style="display:none;">
+  <div id="asset-detail-display"></div><!-- asset-detail-contents -->
+  <div class="modal-backdrop in"></div><!-- end: #modal-backdrop -->
+  <div class="modal-backdrop in"></div><!-- end: #modal-backdrop -->
+</div><!-- asset-detail-contents -->
+
+<div id="asset-preview-panel" style="display:none;position:fixed;z-index:2002;"></div>
+
+<ul class="nav nav-pills" id="asset-group-button" style="display:<%= asset_group_display %>">
+  <li class="dropup">
+    <a id="activate-action-panel" class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" title=""><%= t '__manage_checked__' %>
+      <span class="badge" id="asset-group-length"><%= current_asset_group['DlImageGroup'].length + current_asset_group['DlImage'].length + current_asset_group['UserUploadedImage'].length %></span>
+      <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+      <% if current_user.contributor? || current_user.admin? || current_user.superuser? %>
+      <%= form_tag('/asset_group/admin_keywords', :remote => true,  :id => 'asset_group_admin_keywords_form', :'data-categorize' => 'categorize-contents') do %>
+        <li id="asset-group-admin-keywords-button">
+          <a href="javascript:void(0)"><%= t '__admin__' %></a>
+          <span style="display:none;" id="asset-group-admin-keywords-length"><%= current_admin_keywordable_count %></span>
+        </li>
+      <% end %>
+      <% end %>
+
+    <%= form_tag('/asset_group/share', :remote => true,  :id => 'asset_group_share_form', :'data-share' => 'share-contents') do %>
+      <% share_display = 'block' %>
+      <% if current_shareable_count == 0 %>
+        <% share_display = 'none' %>
+      <% end %>
+      <li id="asset-group-share-button" style="display:<%= share_display %>;"><a href="javascript:void(0);"><%= t '__share__' %></a></li><span style="display:none;" id="asset-group-share-length"><%= current_shareable_count %></span>
+    <% end %>
+
+    <%= form_tag('/asset_group/download', :remote => true,  :id => 'asset_group_download_form', :'data-asset-group-download' => 'asset-group-download') do %>
+      <li id="asset-group-download-button" stylex="display:none;">
+        <a href="javascript:void(0);"><%= t '__download__' %></a>
+      </li>
+      <span style="display:none;" id="asset-group-download-length"><%= current_downloadable_count %></span>
+    <% end %>
+    <div id="asset-group-download"></div>
+
+    <%= form_tag('/asset_group/categorize', :remote => true,  :id => 'asset_group_categorize_form', :'data-categorize' => 'categorize-contents') do %>
+      <li id="asset-group-categorize-button" stylex="display:none;">
+        <a href="javascript:void(0);"><%= t '__library__' %></a>
+      </li>
+      <span style="display:none;" id="asset-group-categorize-length"><%= current_categorizable_count %></span>
+    <% end %>
+
+    <%= form_tag('/asset_group/init', :remote => true,  :id => 'asset_group_init_form', :'data-asset-group-init' => 'asset-group-init') do %>
+      <li id="asset-group-init-button" stylex="display:none;">
+        <a href="javascript:void(0);"><%= t '__clear_checked__' %></a>
+      </li>
+    <% end %>
+
+    </ul>
+  </li>
+</ul>
+<% if logged_in? %>
+  <%= render partial: 'sessions/session_timeout' %>
+<% end %>
+
+<iframe style="display=none;" frameBorder="0" src='about:blank' name="_blank_iframe" id="_blank_iframe"></iframe>
+  <% end %>
+</body>
+</html>

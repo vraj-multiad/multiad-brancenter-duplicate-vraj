@@ -1,0 +1,49 @@
+<h1>Listing roles</h1>
+
+<table border=1>
+  <thead>
+    <tr>
+      <th>Language/Name/Title/Default flag/Role type </th>
+      <th>Configuration Points</th>
+      <th>Access Levels</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @roles.each do |role| %>
+      <tr>
+        <td>
+          Language: <strong><%= role.language.title %></strong><br/><br/>
+          ID: <strong><%= role.id %></strong><br/>
+          Name: <strong><%= role.name %></strong><br/>
+          Title: <strong><%= role.title %></strong><br/><br/>
+          Default: <strong><%= role.default_flag %></strong><br/>
+          Role Type: <strong><%= role.role_type %></strong></td>
+        <td>
+          enable_ac_creator_template_customize: <strong><%= role.enable_ac_creator_template_customize %></strong><br/>
+          enable_dl_image_download: <strong><%= role.enable_dl_image_download %></strong><br/>
+          enable_user_uploaded_image_download: <strong><%= role.enable_user_uploaded_image_download %></strong><br/>
+          enable_order: <strong><%= role.enable_order %></strong><br/>
+          enable_share_dl_image_via_email: <strong><%= role.enable_share_dl_image_via_email %></strong><br/>
+          enable_share_dl_image_via_social_media: <strong><%= role.enable_share_dl_image_via_social_media %></strong><br/>
+          enable_share_user_uploaded_image_via_email: <strong><%= role.enable_share_user_uploaded_image_via_email %></strong><br/>
+          enable_share_user_uploaded_via_social_media: <strong><%= role.enable_share_user_uploaded_via_social_media %></strong><br/>
+          enable_upload_ac_image: <strong><%= role.enable_upload_ac_image %></strong><br/>
+          enable_upload_mailing_list: <strong><%= role.enable_upload_mailing_list %></strong><br/>
+          enable_upload_my_library: <strong><%= role.enable_upload_my_library %></strong>
+        </td>
+        <td><%= simple_format(role.access_levels.pluck(:id, :name).to_s.gsub(/, \[/,"\n").gsub(/\[|\]/,'')) %></td>
+        <td>
+        <%= link_to 'Show', role %><br/>
+        <%= link_to 'Edit', edit_role_path(role) %><br/><br/><br/>
+        <%= link_to 'Destroy', role, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Role', new_role_path %>

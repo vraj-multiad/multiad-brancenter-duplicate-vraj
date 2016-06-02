@@ -1,0 +1,189 @@
+<div id="cart-wrapper">
+<div class="container">
+  <div class="panel panel-default">
+  
+    <div class="panel-heading">
+      <%= t '__shopping_cart__' %>
+    </div>
+    
+     <div class="panel-body">
+    <% if notice.present? %>
+      <p id="notice" class="alert alert-warning"><%= notice %></p>
+    <% end %>
+      <h3><strong><%= t '__billing_info__' %></strong></h3>
+      
+      <%= render partial: 'order_billing' %>
+      
+        <div class="edit-button">
+          <div class="glyphicon glyphicon-pencil"><span><%= t '__edit__' %></span></div>
+        </div> <!-- End: .edit-button -->
+        <div class="click_to_edit"></div>
+      </div> <!-- End: #billing_info -->
+    
+    <div class="row bump-10">
+      <div class="col-lg-7">
+          <label class="checkbox-inline same-as-billing">
+            <%= form_tag( '/cart/update', remote: true, :'data-order-cart-update' => 'order-cart-panel', id: 'order-cart-same-billing-shipping-update-form', role: 'form' ) do %>
+              <%= hidden_field_tag 'order[id]', @order.id %>
+              <%= check_box 'order', 'same_billing_shipping', { class: 'order-same-as-billing-submit' }, 'true', 'false' %><span class="same-as-billing"><%= t '__same_as_billing__' %></span>
+            <% end %>
+          </label>
+      </div>
+    </div>
+    
+    <%= render partial: 'order_billing_modal' %>
+    <% shipping_display = 'block' %>
+    <% shipping_display = 'none' if @order.same_billing_shipping %>
+    <div style="display:<%= shipping_display %>;">
+      <h3><strong><%= t '__shipping_info__' %></strong></h3>
+      
+      <%= render partial: 'order_shipping' %>
+        
+        <div class="edit-button">
+          <div class="glyphicon glyphicon-pencil"><span><%= t '__edit__' %></span></div>
+        </div> <!-- End: .edit-button -->
+        <div class="click_to_edit"></div>
+      </div> <!-- End: #shipping_info -->
+      
+      
+      <%= render partial: 'order_shipping_modal' %>
+    </div>
+    
+    <% if @order.order_items.present? %>
+      <% allow_confirm = true %>
+      <% mailing_list_upload = false %>
+      <%= form_tag( '/cart/update', remote: true, :'data-order-cart-update' => 'order-cart-panel', id: 'order-cart-update-form', role: 'form' ) do %>
+        <%= hidden_field_tag 'order[id]', @order.id %>
+        <%= hidden_field_tag 'remove_cart_item_id', '' %>
+        
+        <h3><strong><%= t '__order_items__' %></strong></h3>
+         
+        <div class="row">
+          <% @order.order_items.sort.each do |item| %>
+             <% allow_confirm = false unless item.quantity.present? && item.quantity > 0 %>
+             <% if item.fulfillment_item.min_quantity.present? %>
+               <% allow_confirm = false if item.fulfillment_item.min_quantity.to_i > item.quantity %>
+             <% end %>
+             <% if item.fulfillment_item.max_quantity.present? %>
+               <% allow_confirm = false if item.fulfillment_item.max_quantity.to_i < item.quantity %>
+             <% end %>
+            <%= hidden_field_tag 'order[order_items_attributes][][id]', item.id %>
+             
+            <div class="results-spacing">
+              <div class="thumbnail" style="width:359px;height:300px;">
+                <div class="crop-images">
+                  <div class="align-images">
+                      <%= image_tag(item.thumbnail_url) %>
+                      <strong><%= item.orderable.title.to_s %></strong><br/>
+                      <% if item.ac_export.present? %>
+                        <% if ENABLE_FULFILLMENT_CART_DOWNLOAD_PDF.present? && item.ac_export.ac_session_history.ac_document.pdf.present? %>
+                          <%= link_to SECURE_BASE_URL + item.ac_export.ac_session_history.ac_document.pdf, target: '_blank' do %>
+                            <%= t('__download__') %> PDF<br/>
+                          <% end %>
+                        <% end %>
+                        <% if ENABLE_FULFILLMENT_CART_DOWNLOAD_PNG.present? %>
+                          <%= link_to item.ac_export.ac_session_history.ac_document.preview_url, target: '_blank' do %>
+                            <%= t('__download__') %> PNG<br/>
+                          <% end %>
+                        <% end %>
+                      <% end %>
+                  </div>
+                </div>
+                <div>
+                  <%= link_to  'javascript:void(0)', data: { confirm: 'Are you sure?', item_id: item.id }, class: 'remove-cart-item', rel: "nofollow" do %>
+                    <%= content_tag(:div, class: 'remove-button') do %>
+                      <%= content_tag(:span, class: 'clip-remove-text') do %>
+                        <%= content_tag(:span, 'remove', class: 'remove-text', style: 'right:-80px') %>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                </div>
+                <p style="width:100%;text-align:left;"><strong><%= simple_format(item.description) %></strong></p>
+                <div class="cart-item-details">
+                  <div class="form-group">
+                    <% if item.fulfillment_item.mailing_list_item.present? && ENABLE_MAILING_LIST_UPLOAD && @user.enabled('enable_upload_mailing_list') %>
+                      <% mailing_list_upload = true %>
+                      <%= render partial: 'mailing_lists/user_mailing_lists_select', locals: { mailing_lists: @order.user.mailing_lists, mailing_list_id: item.mailing_list_id, min: item.fulfillment_item.min_quantity, max: item.fulfillment_item.max_quantity } %>
+                    <% else %>
+                      <strong>Quantity</strong>
+                      <% if item.fulfillment_item.price_schedule.present? %>
+                        <%= select_tag 'order[order_items_attributes][][quantity]', options_for_select(item.fulfillment_item.price_schedule_quantities, item.quantity), class: "form-control quantity-input" %>
+                      <% else %>
+                        <%= text_field_tag 'order[order_items_attributes][][quantity]', item.quantity.to_i, class: "form-control quantity-input", data: { min_quantity: item.fulfillment_item.min_quantity, max_quantity: item.fulfillment_item.max_quantity } %>
+                      <% end %>
+                    <% end %>
+                    <% if item.fulfillment_item.min_quantity.present? || item.fulfillment_item.max_quantity.present? %>
+                      <% if item.fulfillment_item.min_quantity.present? %>
+                          Min: <%= item.fulfillment_item.min_quantity %> - 
+                      <% end %>
+                      <% if item.fulfillment_item.max_quantity.present? %>
+                          Max: <%= item.fulfillment_item.max_quantity %>
+                      <% end %>
+                      <br/>
+                    <% end %>
+                  </div>
+
+                  <div class="form-group">
+                    <strong>Price Per Unit</strong><br/>
+                    <%= sprintf('%.2f', (item.unit_price || 0)) %>
+                  </div>
+                  <div class="form-group">
+                    <strong>Total</strong><br/>
+                    <%= sprintf('%.2f', (item.item_total || 0)) %>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+          <% end %>          
+        </div><!-- end: row-->
+        
+        <% if mailing_list_upload.present? %>
+          <div>In order to upload additional mailing lists, proceed to your <a href='/profile'>Profile</a> page, upload your mailing lists, and return to your cart.<br/><br/>
+          </div>
+        <% end %>
+        <table class="order-totals alert alert-info">
+            <td><strong><%= t('__subtotal__') %> (<%= @order.order_items.count.to_s + ' ' + t('__item__').pluralize(@order.order_items.count) %>):</strong></td>
+            <td style="width:1%"><%= sprintf('%.2f', (@order.sub_total || 0)) %></td>
+          </tr>
+          <tr>
+            <td><strong><%= t('__shipping__') %>:</strong></td>
+            <td style="width:1%"><%= @order.shipping_method %></td>
+          </tr>
+          <tr>
+            <td><strong><%= t('__total__') %>:</strong></td>
+            <td style="width:1%"><%= sprintf('%.2f', (@order.total ||0)) %></td>
+          </tr>
+        </table>
+        
+        <div class="actions" style="display:inline">
+          <%= button_tag(t('__update_cart__'), type: 'submit', id: 'cart-process-form-update-submit', class: "btn btn-default pull-left", style: "display:inline") %>
+        </div>
+      <% end %>
+      <% if allow_confirm %>
+        <%= form_tag(cart_process_path, remote: true, :'data-order-cart-panel' => 'order-cart-panel', id: 'order-cart-process-form', role: 'form') do %>
+          <%= button_tag(t('__cart__'), type: 'submit', id: 'cart-process-form-submit'  ,class: "btn btn-primary pull-right", style: "display:inline") do %><%= t '__order_confirmation__' %><% end %>
+        <% end %>
+        <% else %>
+          <div style="float:right;">
+            Please supply quantities and/or mailing lists for all items in your cart and click Update Cart.
+          </div>
+        <% end %>
+      <% else %>
+        <p>
+          There are no items for fulfillment items in your cart.
+        </p>
+      <% end %>
+    </div><!--end:panel-body-->
+    <div class="panel-footer">
+         <a href="javascript:void(0)"><button type="button" class="btn btn-default rounded close-order-cart"><%= t '__return_to_previous__' %></button></a>
+    </div>
+    </div>
+     </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+<div class="modal-backdrop in"></div>
+<div class="modal-backdrop in"></div>

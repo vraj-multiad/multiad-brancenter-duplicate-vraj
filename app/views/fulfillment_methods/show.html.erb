@@ -1,0 +1,18 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @fulfillment_method.name %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @fulfillment_method.title %>
+</p>
+<p>
+  <strong>Email Address:</strong>
+  <%= @fulfillment_method.email_address %>
+</p>
+
+<%= link_to 'Edit', edit_fulfillment_method_path(@fulfillment_method) %> |
+<%= link_to 'Back', fulfillment_methods_path %>

@@ -1,0 +1,94 @@
+<!-- AdCreator -->
+    <div id="adcreator-panel">      
+
+      <div id="adcreator-contents">
+
+        <!-- Top Toolbar -->
+        <div class="navbar navbar-default navbar-fixed-top" id="adcreator-top-toolbar">
+          <ul class="nav navbar-nav">
+
+            <!-- Size Selection -->
+            <li class="dropdown ac-toolbar-tool">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="template-width"></span> x <span id="template-height"></span> <b class="caret"></b></a>
+              <div class="dropdown-menu ac-dropdown ac-size-dropdown">  
+                  <form class="form-inline" role="form">
+                    <div class="form-group ac-size-input-group">
+                      <input type="text" class="form-control" id="width-input" placeholder="W">
+                    </div>
+                    &nbsp;x&nbsp;
+                    <div class="form-group ac-size-input-group">
+                      <input type="text" class="form-control " id="height-input" placeholder="H">
+                    </div>
+                  </form>                
+              </div>
+            </li>
+            <!-- End: Size Selection -->
+
+            <!-- Scaling -->
+            <li class="dropdown ac-toolbar-tool">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="template-scale-label" class="auto">auto</span> <span id="template-scale-percentage"></span>  <b class="caret"></b></a>
+              <ul class="dropdown-menu ac-scale-dropdown">
+                <li><a class="scale-preview" href="#">auto</a></li>
+                <li><a class="scale-preview" href="#">25%</a></li>
+                <li><a class="scale-preview" href="#">50%</a></li>
+                <li><a class="scale-preview" href="#">75%</a></li>
+                <li><a class="scale-preview" href="#">100%</a></li>
+              </ul>
+            </li>
+            <!-- End: Scaling -->
+
+            <!-- Preview Button -->
+            <li class="ac-toolbar-tool"><a href="#"><span class="glyphicon glyphicon-zoom-in"></span></a></li>
+            <!-- End: Preview Button -->
+
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right" id="edit-main-nav">
+            <li class="ac-toolbar-tool"><a href="#" id="close-template">close template</a></li>
+            <li class="ac-toolbar-tool"><a href="#" id="save-template">save template</a></li>
+            <li class="ac-toolbar-tool"><a href="#" id="export-template" class="inactive">export template</a></li>
+          </ul>
+
+        </div>
+        <!-- End: Top Toolbar -->
+
+        <!-- Side Toolbar -->
+        <div id="adcreator-side-toolbar">
+
+        </div>
+        <!-- End: Side Toolbar -->
+
+        <!-- Canvas -->
+        <div id="adcreator-canvas-area">
+          <div class="container_canvas">
+            <h2>Template Name</h2>
+
+            <!-- Template Canvas -->
+            <div class="container template-canvas">
+
+              <!-- Template -->
+              <div class="template" data-dimensions='{"width":"800","height":"960"}' id="test-template-1234" style="background-image: url('../images/placeholders/fake-template.png');">                
+                <div class="template-highlight" style="width: 31.25%; height: 20.83%; top: 1.60%; left: 1.75%;"></div>
+                <div class="template-highlight" style="width: 31.25%; height: 20.83%; top: 1.60%; left: 34.87%;"></div>
+                <div class="clearfix"></div>               
+                <div class="template-highlight" style="width: 31.25%; height: 20.83%; top: 23.95%; left: 1.75%;"></div>
+                <div class="template-highlight" style="width: 31.25%; height: 20.83%; top: 23.95%; left: 34.87%;"></div>
+                <div class="template-highlight" style="width: 96.38%; height: 26%; top: 46.35%; left: 1.75%;"></div>
+                <div class="template-highlight" style="width: 96.38%; height: 9.5%; top: 88.64%; left: 1.75%;"></div>
+              </div> <!-- End: .template -->
+              <!-- End: Template -->   
+
+            </div> <!-- End: .template-canvas -->
+            <!-- End: Template Canvas -->
+
+          </div> <!-- End: .container -->
+        </div> <!-- End: #adcreator-canvas-area -->
+        <!-- End: Canvas -->
+
+
+      </div> <!-- End: #adcreator-content -->
+
+      <div class="modal-backdrop in"></div>
+
+    </div>
+    <!-- End: AdCreator Panel -->

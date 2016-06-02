@@ -1,0 +1,24 @@
+<% count=0 %>
+<% if results.length > MAX_RESULTS_AC_SEARCH %>
+  <div class="alert alert-info limited-search">Search results limited to <%= MAX_RESULTS_AC_SEARCH %> use keywords or filters to refine results.</div>
+<% end %>
+<% results.first(MAX_RESULTS_AC_SEARCH).each do |result| %>
+  <% resize = 'resize' %>
+  <% logo = '' %>
+  <% auto_submit = 'auto_submit' if ac_step.form_data('auto_submit') %>
+  <% display = 'none' %>
+  <% bg_visible = false %>
+  <% if count < MORE_AC_SEARCH_RESULTS_COUNT %>
+    <% display= 'block' %>
+    <% bg_visible = true %>
+  <% end %>
+  <div class="image-choice image-choice-paginate kwikee-product-choice multiple-select" style="display:<%= display %>;" data-background-image-url="<%= result.thumbnail_url %>" data-asset-type="<%= result.class.name %>" data-asset-token="<%= result.token.to_s %>">
+    <div class="img-thumbs paginate" <% if bg_visible %>style="background-image: url('<%= result.thumbnail_url %>')"<% end %>></div>
+  </div>
+  <% count = count + 1 %>
+<% end %>
+<% if count > MORE_AC_SEARCH_RESULTS_COUNT %>
+  <div class="show-more-container">
+  <%= button_tag("show more results", :type => 'button', :'data-more-count' => MORE_AC_SEARCH_RESULTS_COUNT, :class => "btn btn-default show-more-results ac-show-more") %>
+  </div>
+<% end %>

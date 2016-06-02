@@ -1,0 +1,31 @@
+<h1>Listing kwikee_custom_data_attributes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Kwikee custom data</th>
+      <th>Name</th>
+      <th>Value</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @kwikee_custom_data_attributes.each do |kwikee_custom_data_attribute| %>
+      <tr>
+        <td><%= kwikee_custom_data_attribute.kwikee_custom_datum_id %></td>
+        <td><%= kwikee_custom_data_attribute.name %></td>
+        <td><%= kwikee_custom_data_attribute.value %></td>
+        <td><%= link_to 'Show', kwikee_custom_data_attribute %></td>
+        <td><%= link_to 'Edit', edit_kwikee_custom_data_attribute_path(kwikee_custom_data_attribute) %></td>
+        <td><%= link_to 'Destroy', kwikee_custom_data_attribute, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Kwikee custom data attribute', new_kwikee_custom_data_attribute_path %>

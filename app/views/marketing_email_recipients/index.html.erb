@@ -1,0 +1,29 @@
+<h1>Listing marketing_email_recipients</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Marketing email</th>
+      <th>Email address</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @marketing_email_recipients.each do |marketing_email_recipient| %>
+      <tr>
+        <td><%= marketing_email_recipient.marketing_email_id %></td>
+        <td><%= marketing_email_recipient.email_address %></td>
+        <td><%= link_to 'Show', marketing_email_recipient %></td>
+        <td><%= link_to 'Edit', edit_marketing_email_recipient_path(marketing_email_recipient) %></td>
+        <td><%= link_to 'Destroy', marketing_email_recipient, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Marketing email recipient', new_marketing_email_recipient_path %>

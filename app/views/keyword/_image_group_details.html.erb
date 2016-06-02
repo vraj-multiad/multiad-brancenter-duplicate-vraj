@@ -1,0 +1,33 @@
+<div id="large-preview-panel">
+	<div class="container">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<%= t '__asset_details__' %>
+		</div>
+		<div class="panel-body">
+			
+			<div class="form-group">
+				<strong>DESCRIPTION:</strong>
+			</div>
+			<div class="description-tag" style="margin-bottom:15px;">
+				<%= simple_format(@asset.description.to_s.html_safe) %>
+			</div>
+			
+			
+			<% @assets.each do |asset| %>
+				<% searchable_type = asset.class.name %>
+				<% searchable_id = asset.id %>
+				<% display= 'block' %>
+	            <% visible = true %>
+	            <%= render partial: 'asset_preview_result', :locals => { :searchable_type => searchable_type, :searchable_id => searchable_id, :display => display, :visible => visible } %>
+			<% end %>
+			
+		</div><!--end panel body-->
+		<div class="panel-footer" style="text-align:center">
+				<a href="javascript:void(0)" id="close-asset-detail">
+					<button type="button" class="btn btn-default rounded"><%= t '__return_to_search__' %></button>
+				</a>
+		</div><!--end panel footer-->
+	</div><!-- end panel-->
+	</div><!-- end container -->
+</div><!-- end wrapper -->

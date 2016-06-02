@@ -1,0 +1,11 @@
+Inprocess Ac Creator Templates</br>
+<% @inprocess_ac_creator_templates.each do |t| %>
+  <%= t.created_at.localtime.strftime('%m/%d/%Y : %l:%M %p') %> 
+  - <%= t.bundle.filename %> - <%= link_to( 'link', t.bundle.url) %>
+  - <%= form_tag('/admin/process_ac_creator_template', :remote => false,  :id => 'user_uploaded_images_processing_ac_image', :'data-user-uploaded-images-processing-ac-image' => 'user-uploaded-images-processing-ac-image') do %>
+    <input type='hidden' name='token' value=<%= t.token %> >
+    <%= text_field_tag 'title', nil,  placeholder: 'title' %><%= submit_tag "Process Template" %>
+  <% end %>
+  - <%= t.status %>
+  - expire<br/>
+<% end %>

@@ -1,0 +1,2 @@
+module DynamicFormInputGroupsHelper
+end

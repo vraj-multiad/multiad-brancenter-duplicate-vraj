@@ -1,0 +1,32 @@
+<div style="display: none;padding-bottom:200px;" class="edit-tool select-image clearfix" id="<%= ac_step.step_number %>" ac_step_id="<%= ac_step.step_number %>">
+  <!-- ac_image_with_upload -->
+  <h3><span class="edit-numx"><%= ac_step.step_number.to_s %>.</span> Select Products</h3>
+  <%= form_tag('/adcreator/load_step_kwikee_products', :remote => true, :'data-ac-load-step-images' => 'step-images' + ac_step.id.to_s, :id => 'load-image-form' + ac_step.id.to_s, :role => 'form', :class => 'search-form' + ac_step.id.to_s) do %>
+    <%= hidden_field_tag 'ac_session_id', @ac_session.id %>
+    <%= hidden_field_tag 'ac_step_id', ac_step.id %>
+    <%= text_field_tag 'keyword', '', :class => "form-control", :placeholder => t('__search__') %>
+    <div class="form-group">
+      <% search_access_levels = @current_user.permissions.pluck(:title, :id).unshift([t('__select_access_group__'), '']) %>
+      <%= select_tag 'search_access_levels', options_for_select(search_access_levels), class: "form-control ac-step-image-filter" %>
+    </div>
+  <% end %>
+  <%= form_tag('/adcreator/process_step', :remote => true, :'data-ac-process-step' => 'adcreator-contents', :'data-step-number' => ac_step.step_number, :'data-step-id' => ac_step.id.to_s, :id => 'kwikee-product-form' + ac_step.id.to_s, :role => 'form') do %>
+    <%= hidden_field_tag 'ac_session_id', @ac_session.id %>
+    <%= hidden_field_tag 'ac_step_id', ac_step.id %>
+    <%= hidden_field_tag 'layer_element', ac_step.form_data('element_name') %>
+    <%= hidden_field_tag 'layer', '' %>
+    <%= hidden_field_tag 'set_layer', '' %>
+    <div class="images-container">
+      <div id='<%= 'step-images' + ac_step.id.to_s %>'>
+        <% results = ac_step.search(@ac_session.user, @ac_session.current_ac_session_history_id, {}) %>
+        <%= render partial: 'load_step_kwikee_products', locals: { results: results, ac_step: ac_step } %>
+      </div>
+    </div>
+    <div class="kwikee-sort-wrapper" style="display:none;">
+    	<h3 style="font-size:14px;float:left;width:100%;">Sort Your Selected Items</h3>
+	    <ul class="kwikee-product-choices sortable" id="kwikee-product-choices<%= ac_step.id.to_s %>" data-min-selections='<%= ac_step.form_data('min_selections') %>' data-max-selections='<%= ac_step.form_data('max_selections') %>' style="list-style-type: none;float:left;width:100%;">  <!-- Kwikee Product choices append into this section and should be sortable -->
+	    </ul>
+	    <%= button_tag(t('__submit__'), :type => 'submit', :style => "display:none;", :id => 'submit' + ac_step.step_number.to_s ,:class => "btn btn-primary image-choice-submit submit-butt special-button set-layer") %>
+	  <% end %>
+  	</div>
+</div>

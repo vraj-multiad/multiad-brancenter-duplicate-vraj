@@ -1,0 +1,45 @@
+<h1>Listing ac_exports</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Created At</th>
+      <th>Ac session history</th>
+      <th>Export ID</th>
+      <th>Email Fields</th>
+      <th>Format</th>
+      <th>Bleed</th>
+      <th>Location</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ac_exports.each do |ac_export| %>
+      <tr>
+        <td><%= Time.utc(*ac_export.created_at.to_a) %></td>
+        <td align='center'><%= ac_export.ac_session_history_id %></td>
+        <td align='center'><%= ac_export.id %></td>
+        <td>
+          <% %w(email_address email_subject email_body from_name from_address reply_to).each do |email_field| %>
+            <% if ac_export.send(email_field).present? %>
+              <%= email_field + ': ' + ac_export.send(email_field).to_s %><br/>
+            <% end %>
+          <% end %>
+        </td>
+        <td><%= ac_export.format %></td>
+        <td><%= ac_export.bleed.to_s %></td>
+        <td><%= ac_export.location %></td>
+        <td><%= link_to 'Show', ac_export %></td>
+        <td><%= link_to 'Edit', edit_ac_export_path(ac_export) %></td>
+        <td><%= link_to 'Destroy', ac_export, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ac export', new_ac_export_path %>

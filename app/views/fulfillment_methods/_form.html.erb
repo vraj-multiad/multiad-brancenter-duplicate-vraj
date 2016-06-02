@@ -1,0 +1,29 @@
+<%= form_for(@fulfillment_method) do |f| %>
+  <% if @fulfillment_method.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@fulfillment_method.errors.count, "error") %> prohibited this fulfillment_method from being saved:</h2>
+
+      <ul>
+      <% @fulfillment_method.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :email_address %><br>
+    <%= f.text_field :email_address %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

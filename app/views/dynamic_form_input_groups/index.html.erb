@@ -1,0 +1,35 @@
+<h1>Listing dynamic_form_input_groups</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dynamic form</th>
+      <th>Name</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Input group type</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dynamic_form_input_groups.each do |dynamic_form_input_group| %>
+      <tr>
+        <td><%= dynamic_form_input_group.dynamic_form.present? ? "#{dynamic_form_input_group.dynamic_form.name}: #{dynamic_form_input_group.dynamic_form_id}" : "Not selected" %></td>
+        <td><%= dynamic_form_input_group.name %></td>
+        <td><%= dynamic_form_input_group.title %></td>
+        <td><%= truncate(dynamic_form_input_group.description, length: 200, escape: false).to_s.html_safe %></td>
+        <td><%= dynamic_form_input_group.input_group_type %></td>
+        <td><%= link_to 'Show', dynamic_form_input_group %></td>
+        <td><%= link_to 'Edit', edit_dynamic_form_input_group_path(dynamic_form_input_group) %></td>
+        <td><%= link_to 'Destroy', dynamic_form_input_group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Dynamic form input group', new_dynamic_form_input_group_path %>

@@ -1,0 +1,30 @@
+<h1>Listing saved ads</h1>
+
+
+    <% @ac_session_histories.each do |ac_session_history| %>
+   <% next if ac_session_history.expired == true %>
+
+   <% logger.debug ac_session_history.ac_document.inspect %>
+   <td><a href="<%= ac_session_history.ac_document.preview_url %>"><img src="<%= ac_session_history.ac_document.thumbnail_url %>"/></a></td>
+    <%= form_tag('/adcreator/load', :remote => true, :'data-update-adcreator' => 'adcreator-contents') do %>
+      <input type="hidden" name="ac_session_id" value="<%= ac_session_history.ac_session_id %>">
+      <input type="hidden" name="ac_session_history_id" value="<%= ac_session_history.id %>">
+      <%= button_tag 'Build Document', data: { disable_with: '<span class="launch_ac">&nbsp;</span>' }, title: 'edit saved ad', type: 'submit', :class => 'edit-template-button' do %>
+      <% end %>
+    <% end %>    
+    <form action='/adcreator/load'>
+      <input type="hidden" name="ac_session_id" value="<%= ac_session_history.ac_session_id %>">
+      <input type="hidden" name="ac_session_history_id" value="<%= ac_session_history.id %>">
+      <input type="submit" name="submitter" value="Load Saved Ad">
+    </form><br/>
+    Name: <%= ac_session_history.name %><br/>
+    Ac Session ID: <%= ac_session_history.ac_session_id %><br/>
+    Ac Document ID: <%= ac_session_history.ac_document_id %> - Previous Ac Document ID: <%= ac_session_history.previous_ac_document_id %><br/>
+    Expired?: <%= ac_session_history.expired %><br/>
+    <%= link_to 'Destroy', ac_session_history, method: :delete, data: { confirm: 'Are you sure?' } %>
+    <hr>
+    <% end %>
+
+<br>
+
+<%= link_to 'New Ac session history', new_ac_session_history_path %>

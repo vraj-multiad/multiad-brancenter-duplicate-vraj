@@ -1,0 +1,43 @@
+<h1>Listing dl_carts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>User</th>
+      <th>Email address</th>
+      <th>Status</th>
+      <th>Location</th>
+      <th>Cart errors</th>
+      <th>Token</th>
+      <th>Shared page token</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dl_carts.each do |dl_cart| %>
+      <tr>
+        <td><%= dl_cart.id %></td>
+        <td><%= dl_cart.user_id %></td>
+        <td><%= dl_cart.email_address %></td>
+        <td><%= dl_cart.status %></td>
+        <td><%= dl_cart.location %></td>
+        <td><%= dl_cart.cart_errors %></td>
+        <td><%= dl_cart.token %></td>
+        <td><%= dl_cart.shared_page_token %></td>
+        <td><%= link_to 'Show', dl_cart %></td>
+        <td><%= link_to 'Edit', edit_dl_cart_path(dl_cart) %></td>
+        <td><%= link_to 'Destroy', dl_cart, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<a href='/dl_cart/clear'>Clear current cart</a>
+<a href='/dl_cart/close'>Close current cart</a>
+
+<br>
+
+<%= link_to 'New Dl cart', new_dl_cart_path %>

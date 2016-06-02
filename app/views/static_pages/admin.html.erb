@@ -1,0 +1,58 @@
+<div id="main-content" class="content">
+	<div class="container">
+	<div id="position-help-admin">
+	<div id="help-page-intro" style="float:left;margin-bottom:40px;">
+		<div class="category-padding" id="container-admin">
+		<ul class="nav nav-tabs" role="tablist">
+			<li class="active admin-filter-tab admin-tab">
+				<a>
+				<%= form_tag('/admin/filter', :remote => true, :'data-admin-asset-keywords' => 'admin-panel') do %>
+			    	<input type='submit' name='Add / Delete Filters' value='<%= t '__add_delete_categories__' %>' class='admin-buttons admin-filters-button'>
+				<% end %>
+				</a>
+			</li>
+			<li class="admin-users-tab admin-tab">
+				<a>
+				<%= form_tag('/admin/users', :remote => true, :'data-admin-users' => 'admin-panel') do %>
+					<input type='submit' name='Edit / Delete Users' value='<%= t '__edit_delete_users__' %>' class='admin-buttons admin-users-button'>
+				<% end %>
+				</a>
+			</li>
+			<% if ENABLE_USER_APPROVAL.present? && false %>
+				<li class="admin-user-approvals-tab admin-tab">
+					<a>
+					<%= form_tag('/admin/approve_users', :remote => true, :'data-admin-users' => 'admin-panel') do %>
+						<input type='submit' name='Approve Users' value='<%= t '__approve_users__' %>' class='admin-buttons admin-users-button'>
+					<% end %>
+					</a>
+				</li>
+			<% end %>
+			<% if ENABLE_ADCREATOR_EXPORT_APPROVAL.present? %>
+				<li class="admin-adcreator-export-approvals-tab admin-tab">
+					<a>
+					<%= form_tag('/admin/approve_documents', :remote => true, :'data-admin-users' => 'admin-panel') do %>
+						<input type='submit' name='Approve Documents' value='<%= t '__approve_documents__' %>' class='admin-buttons admin-users-button'>
+					<% end %>
+					</a>
+				</li>
+			<% end %>
+			<% if ENABLE_ORDER_APPROVAL.present? && false %>
+				<li class="admin-order-approvals-tab admin-tab">
+					<a>
+					<%= form_tag('/admin/approve_orders', :remote => true, :'data-admin-orders' => 'admin-panel') do %>
+						<input type='submit' name='Approve Orders' value='<%= t '__approve_orders__' %>' class='admin-buttons admin-users-button'>
+					<% end %>
+					</a>
+				</li>
+			<% end %>
+		</ul>
+		</div>
+		<div class="category-padding">
+			<div id="admin-panel">
+				<%= render :partial => 'keyword_terms/admin' %>
+			</div>
+		</div>
+	</div>
+	</div>
+	</div>
+</div>

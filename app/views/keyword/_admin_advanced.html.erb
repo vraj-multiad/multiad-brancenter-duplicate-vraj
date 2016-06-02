@@ -1,0 +1,89 @@
+<div class="alert alert-warning" style="margin-top:15px;float:left;width:100%;display:none;"><%= t '__advanced_tab_details__' %></div>
+<%= form_tag(asset_group_admin_refresh_path, :remote => true, :id => 'admin-admin-advanced-refresh', :'data-categorize' => 'categorize-contents') do %>
+	<%= hidden_field_tag('admin_active_panel', 'advanced') %>
+<% end %>
+<%= form_tag(admin_fulfillment_items_path, :remote => true, :id => 'asset-admin-advanced', :'data-panel-admin-advanced' => 'panel-admin-advanced') do %>
+
+	<button class="btn btn-default btn-lg categorize-choice-all dynamic" type="button" style="float:left; width:100%; margin-bottom:15px;margin-top:15px;"><%= t '__select_all__' %></button>
+
+	<div class="category-padding select-thumbnail" style="padding-top:15px;">
+		<div class="row" style="margin-left: -23px">
+
+	    <% @group_objs.each do |group_obj| %>
+	        <% group_obj_class = 'asset-ungrouped' %>
+	        <% if group_obj[:key] != 'ungrouped' %>
+	          <% group_obj_class = 'asset-grouped' %>
+	        <% end %>
+	        <div class="<%= group_obj_class %>">
+	          <div class="panel panel-default category-box">
+	          <div class="panel-heading" style="padding:10px 15px;font-size:15px;">
+	
+	            <% if group_obj[:asset].present? %>
+	              <%= group_obj[:asset].name.to_s + '' + group_obj[:asset].title.to_s %>
+	              <%= button_tag(t("__edit_bundle__"), :type => 'submit', data: { disable_with: '<span class="launch_ac">&nbsp;</span>', action: admin_dl_image_group_edit_path(group_obj[:asset].token) }, :class => "btn btn-default btn-lg admin-advanced-submit edit-template-button pull-right") %>
+	            <% end %>
+	          </div>
+	          <div class="panel-body">
+		        <% group_obj[:assets].each do |asset_obj| %>
+					    <% logger.debug asset_obj.inspect %>
+					    <% asset = asset_obj[:asset] %>
+					    <% next if %w(KwikeeProduct KwikeeAsset).include?(asset.class.name) %>
+				      <label for="categorized_asset[]">
+				        <div class="results-spacing">
+					        <div class="thumbnail categorize-choice dynamic">
+					          <div class="crop-images">
+					            <div class="align-images">
+					              <% if asset.class.name == 'UserUploadedImage' %>
+				                  <%= image_tag( asset.thumbnail_url ) %>
+					                <%= check_box_tag('asset[]', asset.class.name.to_s + '|' + asset.token.to_s ) %>
+					              <% else %>
+                          <%= image_tag( asset.thumbnail_url ) %>
+                          <%= check_box_tag('asset[]', asset.class.name.to_s + '|' + asset.token.to_s) %>
+					              <% end %>
+					            </div>
+					          </div> 
+					          <div class="caption">
+				              <p><%= truncate(asset.title, length: 46, escape: false).to_s.html_safe %></p>
+				            </div>
+				          </div>
+				        </div>
+				      </label>
+				<% end %>
+	          </div>
+				  </div>
+	        </div>
+		  <% end %>
+		  
+		</div>
+	</div>
+	<div class="panel-button">
+ <% if @group_objs.length > 1 %><!-- style="display:none;" -->
+<% end %>
+			<%= button_tag(t("__edit_asset_details__"), :type => 'submit', data: { disable_with: '<span class="launch_ac">&nbsp;</span>', action: admin_edit_assets_path }, :class => "btn btn-default btn-lg admin-advanced-submit submit-butt pull-right disabled") %>
+
+		<%= button_tag(t("__create_bundle__"), :type => 'submit', data: { disable_with: '<span class="launch_ac">&nbsp;</span>', action: admin_dl_image_group_create_path }, :class => "btn btn-default btn-lg admin-advanced-submit submit-butt pull-right disabled") %>
+
+		<button class="btn btn-lg btn-default submit-butt pull-right disabled" style="padding:0px;">
+			<ul class="nav nav-pills">
+				<li class="dropup">
+				<a id="activate-action-panel" class="dropdown-toggle btn-topnav" data-toggle="dropdown" href="javascript:void(0)" title="">
+					<%= t '__add_to_bundle__' %>
+					<span class="caret" style="border-bottom-width:7px;"></span>
+				</a>
+				<ul class="dropdown-menu dropdown-menu-right" role="menu">
+			  		<% if @group_objs.each do |group_obj| %>
+			  			<% next if group_obj[:key] == 'ungrouped'  %>
+				  		<li id="asset-group-admin-keywords-button">
+				  			<%= link_to group_obj[:asset].title, 'javascript:void(0);', data: { action: admin_dl_image_group_add_path(group_obj[:asset].token) }, class: "admin-advanced-submit", style: "display:block" %>
+				  		</li>
+				  	<% end %>
+				</ul>
+			</li>
+			</ul>
+		</button>
+		<% if ENABLE_ADVANCED_ORDER_DETAIL && @fulfillment_methods.present? %>
+			<%= button_tag(t("__assign_order__"), :type => 'submit', data: { disable_with: '<span class="launch_ac">&nbsp;</span>', action: admin_fulfillment_items_path }, :class => "btn btn-default btn-lg admin-advanced-submit submit-butt pull-right disabled") %>
+		<% end %>
+	</div>
+<% end %><!--end of form-->
+<% end %>

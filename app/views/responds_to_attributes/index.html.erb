@@ -1,0 +1,33 @@
+<h1>Listing responds_to_attributes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Respondable</th>
+      <th>Respondable type</th>
+      <th>Name</th>
+      <th>Value</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @responds_to_attributes.each do |responds_to_attribute| %>
+      <tr>
+        <td><%= responds_to_attribute.respondable_id %></td>
+        <td><%= responds_to_attribute.respondable_type %></td>
+        <td><%= responds_to_attribute.name %></td>
+        <td><%= responds_to_attribute.value %></td>
+        <td><%= link_to 'Show', responds_to_attribute %></td>
+        <td><%= link_to 'Edit', edit_responds_to_attribute_path(responds_to_attribute) %></td>
+        <td><%= link_to 'Destroy', responds_to_attribute, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Responds to attribute', new_responds_to_attribute_path %>

@@ -1,0 +1,65 @@
+<%= form_for(@dynamic_form) do |f| %>
+  <% if @dynamic_form.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@dynamic_form.errors.count, "error") %> prohibited this dynamic_form from being saved:</h2>
+
+      <ul>
+      <% @dynamic_form.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :language_id %><br>
+    <%= f.select :language_id, Language.pluck(:title, :id), {include_blank: 'Select Language'}, class: 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title, class: 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description, class: 'form-control2' %>
+  </div>
+  <div class="field">
+    <%= f.label :email_text %><br>
+    <%= f.text_area :email_text, class: 'form-control2' %>
+  </div>
+  <div class="field">
+    <%= f.label :response_text %><br>
+    <%= f.text_area :response_text, class: 'form-control2' %>
+  </div>
+  <div class="field">
+    <%= f.label :recipient %><br>
+    <%= f.text_field :recipient, class: 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label :recipient_field %><br>
+    <%= f.select(:recipient_field, @dynamic_form.all_dynamic_form_inputs, { include_blank: true }, class: 'form-control') %>
+  </div>
+  <div class="field">
+    <%= f.label :expired %><br>
+    <%= f.check_box :expired %>
+  </div>
+  <div class="field">
+    <%= f.label :published %><br>
+    <%= f.check_box :published %>
+  </div>
+  <div class="field">
+    <%= f.label :token %><br>
+    <%= f.text_field :token, class: 'form-control' %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+  
+
+
+
+<% end %>

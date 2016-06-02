@@ -1,0 +1,35 @@
+<h1>Listing click_events</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Clickable type</th>
+      <th>Clickable</th>
+      <th>Click event type</th>
+      <th>Event name</th>
+      <th>Event details</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @click_events.each do |click_event| %>
+      <tr>
+        <td><%= click_event.clickable_type %></td>
+        <td><%= click_event.clickable_id %></td>
+        <td><%= click_event.click_event_type %></td>
+        <td><%= click_event.event_name %></td>
+        <td><%= click_event.event_details %></td>
+        <td><%= link_to 'Show', click_event %></td>
+        <td><%= link_to 'Edit', edit_click_event_path(click_event) %></td>
+        <td><%= link_to 'Destroy', click_event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Click event', new_click_event_path %>

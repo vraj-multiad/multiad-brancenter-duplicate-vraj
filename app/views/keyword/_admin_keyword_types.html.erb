@@ -1,0 +1,181 @@
+<% if @access_levels.count > 1 || @languages.count > 1 %>
+	<%= form_tag('/asset_group/admin_keyword_types', :remote => true, :id => 'admin-keyword-types-form', :'data-admin-keyword-types' => 'admin-keyword-types') do %>
+	<%= hidden_field_tag 'previous_access_level', @access_level_id %>
+	<%= hidden_field_tag 'previous_language', @language_id %>
+	<ul class="nav nav-pills main-filter" style="margin-top:15px">
+
+		<% if @access_levels.count == 1 %>
+	        <%= hidden_field_tag 'access_level', @access_levels.first.id %>
+		<% else %>
+			<li class="dropdown li-topnav user">
+			<a class="dropdown-toggle btn-topnav" data-toggle="dropdown" href="javascript:void(0)">
+				<% if @access_level.nil? %>
+					<%= t( '__select_access_group__') %>
+				<% else %>
+					<%= @access_level.title %>
+				<% end %>
+				<span class="caret"></span>
+			</a>
+			<ul class="dropdown-menu" role="menu">
+				<% @access_levels.each do |al| %>
+					<li class="category-selections category-selections-access_level admin-filter-submit"><a><%= al.title.to_s  %><input type="checkbox" name="access_level" value="<%= al.id %>" style="display:none;" /></a></li>
+				<% end %>
+			</ul>
+		  </li>
+		<% end %>
+		<% if @languages.count == 1 %>
+	    	<%= hidden_field_tag 'language', @languages.first.id %>
+		<% else %>
+			<li class="dropdown li-topnav user">
+			<a class="dropdown-toggle btn-topnav" data-toggle="dropdown" href="javascript:void(0)">
+				<% if @language.nil? %>
+					<%= t( '__select_language__') %>
+				<% else %>
+			    	<%= @language.title %>
+				<% end %>
+				<span class="caret"></span>
+			</a>
+			<ul class="dropdown-menu" role="menu">
+				<% if @language %>
+				<% end %>
+				<% @languages.each do |language| %>
+					<li class="category-selections category-selections-language admin-filter-submit"><a><%= language.title.to_s  %><input type="checkbox" name="language" value="<%= language.id %>" style="display:none;" /></a></li>
+				<% end %>
+			</ul>
+			</li>
+		<% end %>
+	</ul>
+	<% end %>
+<% end %>
+
+<%= form_tag('/admin/assets_keywords', :remote => true, :id => 'categorize-assets', :'data-categorize' => 'categorize-contents') do %>
+
+  <%= hidden_field_tag('admin_active_panel', 'add') %>
+	<%= hidden_field_tag 'access_level', @access_level_id.to_s %>
+	<%= hidden_field_tag 'language', @language_id.to_s %>
+
+	<% if @filter_criteria_met %>
+		<div class="categorize-top">
+			<div class="categorize-sections">
+				<!-- keyword_types sans search -->
+				<% @top_level_categories.each do |keyword_type, top_level_keywords| %>
+					<ul class="nav nav-pills main-filter" style="margin-top:0px;">					
+						<li class="dropdown li-topnav user">
+							<a class="dropdown-toggle btn-topnav" data-toggle="dropdown" id="main-filter-button" href="javascript:void(0)">
+								<%= t '__add__' %> <%= keyword_type.pluralize.sub(/_/, ' ') %><span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu" role="menu">
+							<div class="dropdown-menu-height">
+								<% top_level_keywords.each do |top_level_keyword| %>
+						            <li class="category-selections category-selections-<%= keyword_type %>" data-type="<%= keyword_type %>" data-term-id="<%= keyword_type + '-' + top_level_keyword.id.to_s %>">
+						            	<a class="category-links"><input type="checkbox" data-type="<%= keyword_type %>" name="<%= top_level_keyword.term %>" value="<%= top_level_keyword.term %>" /><%= top_level_keyword.term %></a>
+						            </li>
+						            <% top_level_keyword.sub_terms.order(:term).each do |child_keyword| %>
+							            <li class="category-selections cat-select-sub category-selections-<%= keyword_type %> child-category-selections child-category-selections-<%= keyword_type + '-' + top_level_keyword.id.to_s %>" style="display:none;">
+							            	<a class="category-links"><input type="checkbox" data-type="<%= keyword_type %>" name="<%= child_keyword.term %>" value="<%= child_keyword.term %>" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <%= child_keyword.term %></a>
+							            </li>
+						            <% end %>
+					            <% end %>
+					            <li>&nbsp;</li>
+							</div>
+								<li class="add-selected">
+									<a class="add-category-dynamic" data-type="<%= keyword_type %>" href="javascript:void(0)"><%= t '__add_selected__' %></a>
+								</li>
+							</ul>
+						</li>
+				    </ul>
+			    <% end %>
+			</div>
+			<div class="categorize-sections" style="float:right;width:49%">
+			    <div class="form-group" style="position:relative;">
+			    	<textarea class="form-control" id="keyword_list" placeholder="<%= t '__add_new_keywords__' %>" name="search-list"></textarea>
+			    	<a id="add-key-button" class="add-keyword btn btn-default" href="javascript:void(0)"><%= t '__add_keywords__' %></a>
+			    	<div id="keyword-note"><%= t '__add_multiple__' %></div>
+			    </div>
+			</div>
+		</div><!--end categorize-top-->
+
+		<div class="categorize-sections">
+			<div class="place-categories">
+				<!-- hidden until selected from drop-downs -->
+				<% @top_level_categories.each do |keyword_type, top_level_keywords| %>
+				      <ul class="add-category-list" role="menu" style="display:block;">
+				        <% top_level_keywords.each do |top_level_keyword| %>
+							<li class="add-category-list-item categories-selected categories-selected-<%= keyword_type %>" data-type="<%= keyword_type %>" data-term-id="<%= keyword_type + '-' + top_level_keyword.id.to_s %>" style="display:none;"><a><%= top_level_keyword.term %><input type="checkbox" data-type="<%= keyword_type %>" name="<%= top_level_keyword.term %>" value="<%= top_level_keyword.term %>" style="display:none;" /></a></li>
+							<% top_level_keyword.sub_terms.order(:term).each do |child_keyword| %>
+								<li class="add-category-list-item-sub categories-selected categories-selected-<%= keyword_type %> child-categories-selected child-categories-selected-<%= keyword_type + '-' + top_level_keyword.id.to_s %>" style="display:none;"><a> <%= child_keyword.term %><input type="checkbox" data-type="<%= keyword_type %>" name="<%= child_keyword.term %>" value="<%= child_keyword.term %>" style="display:none;" /></a></li>
+							<% end %>
+				        <% end %>
+				      </ul>
+					<div style="display:none;"><%= t '__add_these__' %> <%= keyword_type %>: <%= text_field_tag(keyword_type) %></div>
+				<% end %>
+				<% @top_level_categories.each do |keyword_type, top_level_keywords| %>
+					<ul id="add-category-list-<%= keyword_type %>"></ul>
+				<% end %>
+			</div><!--end place-categories-->
+		</div><!-- end categorize-sections-->
+
+		<div class="categorize-sections" style="float:right;width:49%">
+			<textarea id="keyword_display" name="keyword_display" class="place-categories" disabled="disabled"></textarea>
+				<%= hidden_field_tag('search', '', id: 'keyword') %>
+		</div>
+	<% end %>
+
+
+	<!-- search keywords -->
+	  
+	<div class="alert alert-warning" style="margin-top:15px;float:left;"><%= t '__once_you_add__' %></div>
+
+	<button class="btn btn-default btn-lg categorize-choice-all dynamic" type="button" style="float:left; width:100%; margin-bottom:15px;"><%= t '__select_all__' %></button>
+	  
+	  <% @top_level_categories.each do |keyword_type, top_level_keywords| %>
+	    <div style="display:none;"><%= t '__add_these_categories__' %>: <%= text_field_tag($keyword_type) %></div>
+	  <% end %>
+	    
+	    <div class="category-padding select-thumbnail">
+	    <div class="row" style="margin-left: -23px">
+	    <input type="hidden" name="operation" value="add">
+	    <% @group_objs.each do |group_obj| %>
+	    	<% group_obj_class = 'asset-ungrouped' %>
+	    	<% if group_obj[:key] != 'ungrouped' %>
+		    	<% group_obj_class = 'asset-grouped' %>
+	    	<% end %>
+	    	<div class="<%= group_obj_class %>">
+	    		<div class="panel panel-default category-box">
+				<div class="panel-heading" style="padding:10px 15px;font-size:15px;">
+
+			    	<% if group_obj[:asset].present? %>
+		    			<%= group_obj[:asset].name.to_s + '' + group_obj[:asset].title.to_s %>
+	    			<% end %>
+	    			
+	    		</div>
+	    	<div class="panel-body">
+	        <% group_obj[:assets].each do |asset_obj| %>
+			      <% logger.debug asset_obj.inspect %>
+			      <% asset = asset_obj[:asset] %>
+		        <label for="categorized_asset[]">
+		          <div class="results-spacing">
+			          <div class="thumbnail categorize-choice dynamic">
+			            <div class="crop-images">
+			              <div class="align-images">
+                      <%= image_tag( asset.thumbnail_url ) %>
+                      <%= check_box_tag('categorized_asset[]', asset.class.name.to_s + '|' + asset.token.to_s) %>
+			              </div>
+			            </div> 
+			            <div class="caption">
+			              <p><%= truncate(asset.title, length: 46, escape: false).to_s.html_safe %></p>
+			            </div>
+			          </div>
+			        </div>
+			      </label>
+			    <% end %>
+		    </div>
+	    		</div>
+	    	</div>
+	    <% end %>
+	  </div><!--end: row -->
+	</div><!--end: category-padding-->
+	<div class="panel-button">
+	  <%= button_tag(t("__APPLY__"), :type => 'submit', data: { disable_with: '<span class="launch_ac">&nbsp;</span>' }, :class => "btn btn-default btn-lg submit-butt pull-right disabled") %>
+	</div>
+<% end %>

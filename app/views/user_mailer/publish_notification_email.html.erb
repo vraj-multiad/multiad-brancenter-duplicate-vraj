@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1><%= t('email_publish_notification_body_h', app_name_proper: APP_NAME_PROPER, date: @date) %></h1>
+    <p>
+      <% @results.each do |status, assets| %>
+        <p>
+          <h3><%= t("asset_status_#{status}").capitalize + ' ' + t("__assets__") %>:</h3>
+          <table border=1>
+            <tr>
+              <td><%= t("__owner__") %></td>
+              <td><%= t("__asset_type__") %></td>
+              <td><%= t("__title__") %></td>
+            </tr>
+            <% assets.each do |asset| %>
+              <tr>
+                <td><%= asset['owner_email_address'] %></td>
+                <td><%= t("asset_type_#{asset['class_name']}") %></td>
+                <td><%= asset['title'] %></td>
+              </tr>
+          <% end %>
+        </p>
+      <% end %>
+    </p>
+  </body>
+</html>

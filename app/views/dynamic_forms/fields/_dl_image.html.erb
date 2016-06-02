@@ -1,0 +1,100 @@
+<% case render_type %>
+<% when 'edit' %>
+  <div class="results-spacing col-lg-4 col-md-6 col-sm-6 col-xs-12">
+    <% dl_image = dynamic_form_input.dl_image %>
+    <% required = '' %>
+    <% if dynamic_form_input.required %>
+      <% required = 'required-field' %>
+      <span class="" style="color:red;margin-left:0px;">*</span>
+    <% end %>
+    <div class="form-group" style="float:left">
+      <div class="thumbnail" style="width:345px;height:300px;">
+        <div class="align-images" style="height:100%;float:left">
+          <% if dl_image.present? %>
+            <%= link_to( '#', class: 'asset-preview-link', data: { 'type' => dl_image.class.name, 'token' => dl_image.token, 'preview' => dl_image.token } ) do %>
+              <%= image_tag(dl_image.thumbnail_url) %>
+              <div class="image-description-lg">
+                <%= f.label dl_image.title, dl_image.title %><br/>
+                <%= dynamic_form_input.title.html_safe %>
+                <% if dynamic_form_input.description.present? %>
+                  <br/><br/><%= dynamic_form_input.description.html_safe %>
+                <% end %>
+              </div>
+            <% end %>
+          <% else %>
+            <div class="image-description-lg">
+              <%= 'DL IMAGE NOT LINKED TO INPUT' %>
+              <%= dynamic_form_input.title.html_safe %>
+              <% if dynamic_form_input && dynamic_form_input.description.present? %>
+                <br/><br/><%= dynamic_form_input.description.html_safe %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+        <% if dynamic_form_input.parsed_input_choices.present? %>
+          <div class="form-group" style="width:130px;float:right;">
+            <% dynamic_form_input.parsed_input_choices.each do |input| %>
+              <% input_type = input['input_type'] %>
+              <% name = input['name'] %>
+              <% case input['input_type'] %>
+              <% when 'quantity' %>
+              <% when 'inline_text' %>
+                <%= name %>:<br/>
+                <%= text_field_tag "dynamic_form[properties][#{dynamic_form_input.name}-#{name}]", nil, :class => "form-control sub-input" %>
+              <% when 'inline_checkbox' %>
+                <%= name %>: <%= check_box_tag "dynamic_form[properties][#{dynamic_form_input.name}-#{name}]", '1', nil, :class => 'sub-input' %><br/>
+              <% when 'text_field' %>
+              <% when 'text_area' %>
+              <% when 'checkbox' %>
+              <% else %>
+              <% end %>
+            <% end %>
+            <% #= hidden_field_tag "dynamic_form[properties][#{dynamic_form_input.name}]", '', id: 'dynamic_form_attachment_input_' + dynamic_form_input.id.to_s, class: "#{required} " + dynamic_form_input.html_class, data: { alert: t('__missing_required_value__') + ': ' + dynamic_form_input.title } %>
+          </div>
+        <% else %>
+          <div class="form-group" style="width:130px;float:right;">
+            <% #= f.text_field dynamic_form_input.name, class: "form-control #{required} " + dynamic_form_input.html_class, data: { alert: t('__missing_required_value__') + ': ' + dynamic_form_input.title } %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% when 'show', 'email' %>
+  <div class="field">
+    <%= dynamic_form_input.title %>: <%= @dynamic_form_submission.properties[dynamic_form_input.name] %><br/>
+      <% if dynamic_form_input.parsed_input_choices.present? %>
+        <ul>
+          <% dynamic_form_input.parsed_input_choices.each do |input| %>
+            <% input_type = input['input_type'] %>
+            <% name = input['name'] %>
+            <% case input['input_type'] %>
+            <% when 'quantity' %>
+            <% when 'inline_text' %>
+              <li>
+                <%= name %>:
+                <%= @dynamic_form_submission.properties["#{dynamic_form_input.name}-#{name}"] %>
+              </li>
+            <% when 'inline_checkbox' %>
+              <li>
+                <%= name %>:
+                <%= @dynamic_form_submission.properties["#{dynamic_form_input.name}-#{name}"] %><br/>
+              </li>
+            <% when 'text_field' %>
+            <% when 'text_area' %>
+            <% when 'checkbox' %>
+            <% else %>
+            <% end %>
+          <% end %>
+          <% #= hidden_field_tag "dynamic_form[properties][#{dynamic_form_input.name}]", '', id: 'dynamic_form_attachment_input_' + dynamic_form_input.id.to_s, class: "#{required} " + dynamic_form_input.html_class, data: { alert: t('__missing_required_value__') + ': ' + dynamic_form_input.title } %>
+        </ul>
+      <% else %>
+        <%= name %>:<br/>
+        <%= dynamic_form_input.name %>
+      <% end %>
+  </div>
+<% when 'email' %>
+  <div class="field">
+    <%= dynamic_form_input.title %>: <%= @dynamic_form_submission.properties[dynamic_form_input.name] %><br/>
+  </div>
+<% else %>
+<% end %>

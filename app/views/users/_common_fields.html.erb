@@ -1,0 +1,83 @@
+<div class="form-group">
+  <span><% if REQUIRE_FIRST_NAME %><span style="color:red;margin-left:0px;">*</span><% end %> <%= t '__first_name__' %></span>
+  <%= text_field_tag 'user[first_name]', @user.first_name , class: "form-control", placeholder: '' %>
+</div>              
+<div class="form-group">
+  <span><% if REQUIRE_LAST_NAME %><span style="color:red;margin-left:0px;">*</span><% end %> <%= t '__last_name__' %></span>
+  <%= text_field_tag 'user[last_name]', @user.last_name , class: "form-control", placeholder: '' %>
+</div>
+<div class="form-group">
+  <span><% if REQUIRE_TITLE %><span style="color:red;margin-left:0px;">*</span><% end %> <%= t '__title__' %></span>
+  <%= text_field_tag 'user[title]', @user.title , class: "form-control", placeholder: '' %>
+</div>  
+<div class="form-group">
+  <span><% if REQUIRE_COMPANY_NAME %><span style="color:red;margin-left:0px;">*</span><% end %> <%= t '__company_name__' %></span>
+  <%= text_field_tag 'user[company_name]', @user.company_name , class: "form-control", placeholder: '' %>
+</div>              
+<div class="form-group">
+  <span><% if REQUIRE_ADDRESS_1 %><span style="color:red;margin-left:0px;">*</span><% end %> <%= t '__address_1__' %></span>
+  <%= text_field_tag 'user[address_1]', @user.address_1 , class: "form-control", placeholder: '' %>
+</div>
+<div class="form-group">
+  <span><% if REQUIRE_ADDRESS_2 %><span style="color:red;margin-left:0px;">*</span><% end %> <%= t '__address_2__' %></span>
+  <%= text_field_tag 'user[address_2]', @user.address_2 , class: "form-control", placeholder: '' %>
+</div>
+<div class="form-group" style="width:49%;float:left;">
+  <span><% if REQUIRE_CITY %><span style="color:red;margin-left:0px;">*</span><% end %> <%= t '__city__' %></span>
+  <%= text_field_tag 'user[city]', @user.city , class: "form-control", placeholder: '' %>
+</div>
+<div class="form-group" style="width:25%;float:left;margin-left:2%">
+  <span><% if REQUIRE_STATE %><span style="color:red;margin-left:0px;">*</span><% end %> <%= t '__state__' %></span>
+  <%= select_tag 'user[state]', options_for_select(profile_state_select, @user.state), class: "form-control" %>
+</div>
+<div class="form-group" style="width:22%;float:left;margin-left:2%">
+  <span><% if REQUIRE_ZIP_CODE %><span style="color:red;margin-left:0px;">*</span><% end %> <%= t '__zip_code__' %></span>
+  <%= text_field_tag 'user[zip_code]', @user.zip_code , class: "form-control", placeholder: '' %>
+</div>
+<div class="form-group">
+  <span><% if REQUIRE_COUNTRY %><span style="color:red;margin-left:0px;">*</span><% end %> <%= t '__country__' %></span>
+  <% #= select_tag 'user[country]', options_for_select(countries, @user.country), class: "form-control" %>
+  <%= country_select('user', 'country', { priority_countries: profile_priority_countries, prompt: 'Select Country' },  {class: "form-control" } ) %>
+</div>
+<div class="form-group" style="width:49%;float:left">
+  <span><% if REQUIRE_PHONE_NUMBER %><span style="color:red;margin-left:0px;">*</span><% end %> <%= t '__phone__' %></span>
+  <%= text_field_tag 'user[phone_number]', @user.phone_number , class: "form-control", placeholder: '' %>
+</div>
+<div class="form-group" style="width:49%;float:left;margin-left:2%;">
+  <span><% if REQUIRE_MOBILE_NUMBER %><span style="color:red;margin-left:0px;">*</span><% end %> <%= t '__mobile__' %></span>
+  <%= text_field_tag 'user[mobile_number]', @user.mobile_number , class: "form-control", placeholder: '' %>
+</div>
+<div class="form-group" style="width:49%;float:left">
+  <span><% if REQUIRE_FAX_NUMBER %><span style="color:red;margin-left:0px;">*</span><% end %> <%= t '__fax__' %></span>
+  <%= text_field_tag 'user[fax_number]', @user.fax_number , class: "form-control", placeholder: '' %>
+</div>
+<div class="form-group" style="width:49%;float:left;margin-left:2%;">
+  <span><% if REQUIRE_WEBSITE %><span style="color:red;margin-left:0px;">*</span><% end %> <%= t '__website__' %></span>
+  <%= text_field_tag 'user[website]', @user.website , class: "form-control", placeholder: '' %>
+</div>
+<% if ENABLE_FACEBOOK_ID %>
+  <div class="form-group">
+    <span>Facebook</span>
+    <%= text_field_tag 'user[facebook_id]', @user.facebook_id , class: "form-control", placeholder: '' %>
+  </div>
+<% end %>
+<% if ENABLE_LINKEDIN_ID %>
+  <div class="form-group">
+    <span>LinkedIn</span>
+    <%= text_field_tag 'user[linkedin_id]', @user.linkedin_id , class: "form-control", placeholder: '' %>
+  </div>
+<% end %>
+<% if ENABLE_TWITTER_ID %>
+  <div class="form-group">
+    <span>Twitter</span>
+    <%= text_field_tag 'user[twitter_id]', @user.twitter_id , class: "form-control", placeholder: '' %>
+  </div>
+<% end %>
+<div class="form-group">
+  <span><span style="color:red;margin-left:0px;">*</span> <%= t '__email_address__' %></span>
+  <%= text_field_tag 'user[email_address]', @user.email_address , class: "form-control", placeholder: '' %>
+</div>
+<div class="form-group">
+  <span><span style="color:red;margin-left:0px;">*</span> <%= t '__repeat_email_address__' %></span>
+  <%= text_field_tag 'user[email_address_confirmation]', @user.email_address , class: "form-control", placeholder: '' %>
+</div>

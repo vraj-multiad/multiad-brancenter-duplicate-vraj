@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Kwikee product:</strong>
+  <%= @kwikee_asset.kwikee_product_id %>
+</p>
+
+<p>
+  <strong>Asset:</strong>
+  <%= @kwikee_asset.asset_id %>
+</p>
+
+<p>
+  <strong>Promotion:</strong>
+  <%= @kwikee_asset.promotion %>
+</p>
+
+<p>
+  <strong>Asset type:</strong>
+  <%= @kwikee_asset.asset_type %>
+</p>
+
+<p>
+  <strong>Version:</strong>
+  <%= @kwikee_asset.version %>
+</p>
+
+<p>
+  <strong>View:</strong>
+  <%= @kwikee_asset.view %>
+</p>
+
+<%= link_to 'Edit', edit_kwikee_asset_path(@kwikee_asset) %> |
+<%= link_to 'Back', kwikee_assets_path %>

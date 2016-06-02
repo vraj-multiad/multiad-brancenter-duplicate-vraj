@@ -1,0 +1,22 @@
+<div>
+  <h3><strong><%= t '__uploaded_email_lists__' %></strong></h3>
+  <div class="editable-area2" style="min-height:167px;">
+    <div class="row social-headers">
+      <div class="col-xs-12 col-sm-12 col-lg-12">
+        <div class="user-email-list">
+          <ul style="list-style:none;margin-top:13px;float:left;padding:0px;width:379px">
+            <% email_lists.each do |email_list| %>
+              <li class="parent-keyword-type" style="position:relative;margin-bottom:8px;">
+              	<%= email_list.title.to_s %>
+                <%= form_tag( email_lists_delete_list_path, remote: true, :'data-update-user-email-lists' => 'user-email-lists' ) do %>
+                  <%= hidden_field_tag 'token', email_list.token %>
+                  <%= button_tag '', class: 'destroy-filter', style: 'border:none;position:absolute;', type: 'submit', data: { confirm: t('__are_you_sure__'), disable_with: '&nbsp;' } %>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        </div><!-- end user-email-list-->
+      </div> <!-- end:col-xs -->
+    </div><!--end row-->
+  </div><!--end editable-area2-->
+</div>

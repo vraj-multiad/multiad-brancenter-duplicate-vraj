@@ -1,0 +1,27 @@
+<div id="main-content" class="content">
+  <%= render :partial => 'keyword/my_library_search' %>
+
+  <div id="search-results-area" style="display:block;"> <!-- #search-results-area -->
+    <div class="container"><!-- Search Results -->
+      <div id="results" class="row">
+      </div>
+    </div><!-- end: container -->
+  </div> <!-- end: #search-results-area -->
+</div><!-- end: main-content Area -->
+
+<div id="drag-n-drop-box" class="collapse">
+  <div class="glyphicon glyphicon-remove close-item-button"></div>
+  <div id="droptarget" class="image-upload">
+    <ul class="fileupload-status-library"></ul> <%# upload_manager.js.coffee populates this with app/assets/javascripts/templates/upload_progress.hbs %>
+
+    <div class="image-upload library">
+      <label class="cabinet">
+        <input type="file" name="file" class="image-upload-input file library fileupload-library" />
+      </label>
+
+      <input type="text" class="upload-text" placeholder="upload a single piece" readonly="readonly" />
+
+      <button class="btn btn-sm btn-default add-to collapse">ADD TO LIBRARY</button>
+    </div>
+  </div>
+</div>

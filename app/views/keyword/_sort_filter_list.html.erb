@@ -1,0 +1,27 @@
+<li class="dropdown li-topnav user pull-right">
+  <a class="dropdown-toggle btn-topnav" data-toggle="dropdown" id="user_categories_menu" href="javascript:void(0)">
+    <span class="filter-text" id="sort_title"><%= t('__sort_options__') %></span> <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <% if ENABLE_SORT_NAME %>
+      <li><%= link_to t('__name_asc__'), 'javascript:void(0)', { onClick: "setSort('name_asc', " + (@search_sort == 'name_asc' ? 1 : 0).to_s + ");", class: @search_sort == 'name_asc' ? 'active' : '' } %></li>
+      <li><%= link_to t('__name_desc__'), 'javascript:void(0)', { onClick: "setSort('name_desc', " + (@search_sort == 'name_desc' ? 1 : 0).to_s + ");", class: @search_sort == 'name_desc' ? 'active' : '' } %></li>
+    <% end %>
+    <% if ENABLE_SORT_TITLE %>
+      <li><%= link_to t('__title_asc__'), 'javascript:void(0)', { onClick: "setSort('title_asc', " + (@search_sort == 'title_asc' ? 1 : 0).to_s + ");", class: @search_sort == 'title_asc' ? 'active' : '' } %></li>
+      <li><%= link_to t('__title_desc__'), 'javascript:void(0)', { onClick: "setSort('title_desc', " + (@search_sort == 'title_desc' ? 1 : 0).to_s + ");", class: @search_sort == 'title_desc' ? 'active' : '' } %></li>
+    <% end %>
+    <% if ENABLE_SORT_DATE %>
+      <li><%= link_to t('__date_asc__'), 'javascript:void(0)', { onClick: "setSort('date_asc', " + (@search_sort == 'date_asc' ? 1 : 0).to_s + ");", class: @search_sort == 'date_asc' ? 'active' : '' } %></li>
+      <li><%= link_to t('__date_desc__'), 'javascript:void(0)', { onClick: "setSort('date_desc', " + (@search_sort == 'date_desc' ? 1 : 0).to_s + ");", class: @search_sort == 'date_desc' ? 'active' : '' } %></li>
+    <% end %>
+    <% if ENABLE_SORT_CUSTOM_1 %>
+      <li><%= link_to t('__custom_1_asc__'), 'javascript:void(0)', { onClick: "setSort('custom_1_asc', " + (@search_sort == 'custom_1_asc' ? 1 : 0).to_s + ");", class: @search_sort == 'custom_1_asc' ? 'active' : '' } %></li>
+      <li><%= link_to t('__custom_1_desc__'), 'javascript:void(0)', { onClick: "setSort('custom_1_desc', " + (@search_sort == 'custom_1_desc' ? 1 : 0).to_s + ");", class: @search_sort == 'custom_1_desc' ? 'active' : '' } %></li>
+    <% end %>
+    <% if ENABLE_SORT_CUSTOM_2 %>
+      <li><%= link_to t('__custom_2_asc__'), 'javascript:void(0)', { onClick: "setSort('custom_2_asc', " + (@search_sort == 'custom_2_asc' ? 1 : 0).to_s + ");", class: @search_sort == 'custom_2_asc' ? 'active' : '' } %></li>
+      <li><%= link_to t('__custom_2_desc__'), 'javascript:void(0)', { onClick: "setSort('custom_2_desc', " + (@search_sort == 'custom_2_desc' ? 1 : 0).to_s + ");", class: @search_sort == 'custom_2_desc' ? 'active' : '' } %></li>
+    <% end %>
+  </ul>
+</li>

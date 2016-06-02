@@ -1,0 +1,35 @@
+<div id="main-content" class="content">
+  <div class="container">
+  <div id="position-help-admin">
+  <div id="help-page-intro" style="float:left;margin-bottom:40px;">
+    <div id="container-admin">
+
+      <table class="user-table" style="width:100%; margin-left:0px;">
+        <tr class="table-header">
+          <td style="text-align:left;"><%= t '__username__' %></td>
+          <td style="text-align:left;"><%= t '__email_address__' %></td>
+          <td><%= t '__title__' %></td>
+          <td><%= t '__activated__' %></td>
+          <td><%= t '__user_role__' %></td>
+          <td style="display:none;">token</td>
+          <td><%= t '__Become_User__' %></td>
+        </tr>
+        <% @users.each do |user| %>
+          <tr>
+            <td style="text-align:left;"><%= user.username %></td>
+            <td style="text-align:left;"><%= user.email_address %></td>
+            <td><%= user.title %></td>
+            <td><%= t(user.activated) %></td>
+            <td><%= t(user.user_type) %></td>
+            <td style="display:none;"><%= user.token %></td>
+            <td><a href="/superuser/become_user?id=<%= user.id %>"><%= t '__Become__' %> <%= user.username %></a></td>
+          </tr>
+        <% end %>
+      </table>
+
+    </div>
+  </div>
+  </div>
+  </div>
+</div>
+

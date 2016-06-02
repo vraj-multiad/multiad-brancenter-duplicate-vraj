@@ -1,0 +1,20 @@
+
+<div class="col-lg-6 col-md-6 col-sm-6" style="margin-top:30px;float:left;" id="email-list-upload-area">
+  <h3><strong><%= t '__upload_email_list__' %></strong></h3>
+
+  <div class="editable-area2">
+    <div class="row social-headers">
+      <div class="col-xs-12 col-sm-12 col-lg-12">
+        <div class="profile-email-list-upload">
+          <iframe style="width:100%;min-height:149px;" frameBorder="0" src='/email_list/upload_form' name="email_list_upload_form_iframe" id="email_list_upload_form_iframe" onLoad="$('#refresh_profile_user_email_lists').submit();" ></iframe>
+          <%= form_tag('/profile/user_email_lists', :remote => true, :'data-update-user-email-lists' => 'user-email-lists', :class => "form-inline", :role => "form", :id => 'refresh_profile_user_email_lists') do %>
+          <% end %>
+          <ul class="fileupload-status-email-list"></ul>
+        </div><!-- profile-email-list-upload -->
+      </div><!-- col-xs-12-->
+    </div><!--end row social-headers-->
+  </div><!--end editable-area2-->
+</div><!--end email-list-upload-area-->
+<div class="col-lg-6 col-md-6 col-sm-6" style="margin-top:30px;float:left;" id="user-email-lists">
+  <%= render partial: "email_lists/user_email_lists", locals: { email_lists: @user.email_lists } %>
+</div><!--end:logos-->

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Kwikee product:</strong>
+  <%= @kwikee_custom_datum.kwikee_product_id %>
+</p>
+
+<p>
+  <strong>Kwikee profile:</strong>
+  <%= @kwikee_custom_datum.kwikee_profile_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @kwikee_custom_datum.name %>
+</p>
+
+<%= link_to 'Edit', edit_kwikee_custom_datum_path(@kwikee_custom_datum) %> |
+<%= link_to 'Back', kwikee_custom_data_path %>

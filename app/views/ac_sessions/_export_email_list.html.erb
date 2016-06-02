@@ -1,0 +1,15 @@
+<!-- _export_email_list.html.erb -->
+<% if @ac_session.ready? %>
+  <div class="pull-left" style="margin-top:20px;">
+    <p><%= t('__marketing_email_submitted__') %></p>
+  </div>
+<% else %>
+  <div name='ac_auto_refresh'>
+    <%= form_tag('/adcreator/workspace', :remote => true, :'data-ac-process-export' => 'panel-functions-export', :id => 'ac_auto_refresh') do %>
+      <input type="hidden" name="id" value="<%= @ac_session.id %>"/>
+    <% end %>
+  </div>
+  <div class="pull-left" style="margin-top:20px;">
+    <p><%= t('__marketing_email_in_process__') %></p>
+  </div>
+<% end %>

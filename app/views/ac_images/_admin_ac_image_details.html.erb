@@ -1,0 +1,17 @@
+<% ac_images.each do |ac_image| %>
+  <%= ac_image.name %> - <%= ac_image.title %>
+  - <a href='/admin/ac_image/display?token=<%= ac_image.token.to_s %>'> <%= image_tag( ac_image.thumbnail_url) %> </a>
+  <% case ac_image.status %>
+  <% when 'staged' %>
+  - <a href='/admin/ac_image/publish?token=<%= ac_image.token.to_s %>&status=unstaged'> Unstage ac_image </a>
+  <% when 'processed' %>
+  - <a href='/admin/ac_image/publish?token=<%= ac_image.token.to_s %>&status=unstaged'> Unstage ac_image </a>
+  - <a href='/admin/ac_image/publish?token=<%= ac_image.token.to_s %>&status=production'> Publish (Production) ac_image </a>
+  <% when 'production' %>
+  - <a href='/admin/ac_image/publish?token=<%= ac_image.token.to_s %>&status=unpublished'> UnPublish ac_image </a>
+  <% when 'unpublished' %>
+  - <a href='/admin/ac_image/publish?token=<%= ac_image.token.to_s %>&status=staged'> Stage ac_image </a>
+  - <a href='/admin/ac_image/publish?token=<%= ac_image.token.to_s %>&status=unstaged'> Unstage ac_image </a>
+  <% end %>
+  <br/>
+<% end %>

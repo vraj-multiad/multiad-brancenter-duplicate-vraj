@@ -1,0 +1,29 @@
+<%= form_for(@ac_session) do |f| %>
+  <% if @ac_session.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ac_session.errors.count, "error") %> prohibited this ac_session from being saved:</h2>
+
+      <ul>
+      <% @ac_session.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.number_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :ac_creator_template %><br>
+    <%= f.text_field :ac_creator_template %>
+  </div>
+  <div class="field">
+    <%= f.label :ac_base_id %><br>
+    <%= f.number_field :ac_base_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

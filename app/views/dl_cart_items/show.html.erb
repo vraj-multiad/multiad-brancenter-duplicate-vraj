@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Dl cart:</strong>
+  <%= @dl_cart_item.dl_cart_id %>
+</p>
+
+<p>
+  <strong>Downloadable:</strong>
+  <%= @dl_cart_item.downloadable_id %>
+</p>
+
+<p>
+  <strong>Downloadable type:</strong>
+  <%= @dl_cart_item.downloadable_type %>
+</p>
+
+<%= link_to 'Edit', edit_dl_cart_item_path(@dl_cart_item) %> |
+<%= link_to 'Back', dl_cart_items_path %>

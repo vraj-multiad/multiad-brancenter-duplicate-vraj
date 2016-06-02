@@ -1,0 +1,4 @@
+<div class="form-group">
+  <strong><%= t '__mailing_lists__' %></strong>
+  <%= select_tag 'order[order_items_attributes][][mailing_list_id]', options_for_select(@order.user.mailing_lists_select(min, max), mailing_list_id), class: "form-control" %>
+</div>

@@ -1,0 +1,43 @@
+<div class="edit-user-panel-position">
+<div class="container">
+<div class="panel panel-default" style="width:75%;margin-left:auto;margin-right:auto;margin-top:60px;margin-bottom:50px;">
+<div class="panel-heading"><%= t '__edit_user_info__' %></div>
+<%= form_tag('/admin/user/save', :id => 'admin-user-save-form', method: 'PATCH', :remote => true, :'data-admin-user-save' => 'admin-panel') do %>
+  <%= hidden_field_tag 'admin_user_save_id', @user.id %>
+  <div class="panel-body">
+    <% if @access_levels.count > 1 %>
+      <div class="form-group">
+        <span>Set Access Roles</span>
+        <div class="alert alert-warning">
+          <ul class="nav nav-pills pill-checkboxes">
+            <% @access_levels.each do |al| %>
+              <% disabled = false %>
+              <% if al.name == 'everyone' %>
+                <% disabled = true %>
+              <% elsif !@real_user.has_access?(al.id) %>
+                <% disabled = true %>
+              <% end %>
+              <% if disabled %>
+                <li><label for="<%= al.title.to_s  %>"><%= al.title.to_s  %>:</label><%= check_box_tag "disabled", nil, @user.has_access?(al.id), disabled: disabled %></li>
+              <% else %>
+                <li><label for="<%= al.title.to_s  %>"><%= al.title.to_s  %>:</label><%= check_box_tag "user[access_level_ids][]", al.token, @user.has_access?(al.id), disabled: disabled %></li>
+              <% end %>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    <% end %>
+    <div class="form-group">
+      <%= select_tag 'user[user_type]', options_for_select([[ t('__user__'),'user'],[ t('__contributor__'),'contributor'],[t('__admin__'),'admin']], @user.user_type), class: "form-control" %>
+    </div> 
+    <%= render partial: 'common_fields' %>
+  </div>
+  <div class="panel-footer" style="text-align:center;">
+    <button type="button" class="btn btn-default admin-user-edit-cancel" data-dismiss="modal"><%= t '__cancel__' %></button>
+    <%= button_tag (t '__submit__'), :class => "btn btn-default" %>          
+  </div>
+<% end %>
+</div>
+</div>
+</div>
+<div class="modal-backdrop in"></div>

@@ -1,0 +1,62 @@
+<% if notice.present? %>
+	<p id="notice" class="alert alert-warning"><%= notice %></p>
+<% end %>
+
+<% if @dl_image_group.token.present? %>
+  <% path = admin_dl_image_group_update_url(@dl_image_group.token) %>
+<% else %>
+  <% path = admin_dl_image_group_create_path %>
+<% end %>
+<%= form_tag(path, :id => 'admin-dl-image-create-form', :remote => true, :'data-panel-admin-advanced' => 'panel-admin-advanced') do %>
+  <span class="" style="color:red;margin-left:0px;">* <%= t('__required__') %></span>
+  <div class="form-group">
+	  <span><%= t('__title__') %>:</span><span class="" style="color:red;margin-left:0px;"> *</span>
+	  <%= text_field_tag 'dl_image_group[title]', @dl_image_group.title, :class => "form-control required-field", data: { alert: t('__missing_required_value__') + ': ' + t('__title__') } %>
+  </div>
+  <div class="form-group">
+	  <span><%= t('__description__') %>:</span> 
+	  <%= text_area_tag 'dl_image_group[description]', @dl_image_group.description, :class => "form-control2" %>
+  </div>
+  
+  <div class="row">
+  <% @dl_images.order(:id).each do |asset| %>
+  	<div class="results-spacing">
+		<div class="thumbnail" style="width:359px;height:300px;">
+			<div class="crop-images">
+			  <div class="align-images">
+					<% if asset.video? %>
+					  <div class="result-thumb"><%= image_tag( asset.thumbnail_url ) %></div>
+          <% else %>
+            <%= image_tag( asset.thumbnail_url ) %>
+					<% end %>
+			  </div>
+			</div> 
+			<div class="cart-item-details">
+				<%= hidden_field_tag('form_dl_image_ids[]', asset.token.to_s) %>
+				<div class="form-group">
+					<strong><%= t('__bundle_only__') %>:</strong><br/>
+					<%= check_box_tag('group_only_dl_image_ids[]', asset.token.to_s, asset.group_only_flag) %>
+				</div>
+				<div class="form-group">
+					<strong><%= t('__remove_from_bundle__') %>:</strong><br/>
+					<%= check_box_tag('exclude_dl_image_ids[]', asset.token.to_s) %>
+				</div>
+				<div class="form-group">
+					<strong><%= t('__set_to_main_image__') %>:</strong><br/>
+					<%= radio_button_tag('main_dl_image_token', asset.token.to_s, @dl_image_group.main_dl_image_id == asset.id) %>
+				</div>
+			
+			</div>
+			  
+			<div class="caption" style="width:100%;">
+			<!-- <h3>Thumbnail label</h3> -->
+			  <p style="width:100%;text-align:left;"><%= asset.title %></p>
+			</div>
+		</div>
+	</div>
+	<% end %><!-- end dl_images.order-->
+  </div>
+  <%= button_tag  t('__save__'), class: 'btn btn-primary rounded pull-right validate-and-submit-form', type: 'button', data: { 'form-id' => 'admin-dl-image-create-form' } %>
+<% end %>
+
+<div class="asset-admin-advanced-close" style="width:0; margin:0;"><button class="btn btn-default rounded pull-left">close image bundle panel</button></div>

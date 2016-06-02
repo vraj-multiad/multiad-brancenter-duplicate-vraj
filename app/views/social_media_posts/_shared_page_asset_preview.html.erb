@@ -1,0 +1,91 @@
+<% @assets.each do |asset| %>
+<div id="large-preview-panel">
+  <div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <%= t '__asset_details__' %> <%= asset.title %>
+    </div>
+    <div class="panel-body">
+
+
+  <div class="large-preview">
+    <div class="preview-position">
+      <% if asset.image? %>
+        <%= image_tag( asset.preview_url ) %>
+      <% elsif asset.video? %>
+        <%= content_tag :div, :class => 'flowplayer functional play-button' do %>
+          <%= content_tag :video, :id => 'video', :preload => 'none', :poster => asset.thumbnail_url do %>
+            <%= content_tag :source, '', :src => asset.video_preview_url, :type => 'video/mp4' %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <%= image_tag(asset.thumbnail_url) %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="asset-download-types">
+    <% if asset.downloadable? %>
+      <div class="form-group">
+        <strong><%= t('__download__').upcase %>:</strong>
+      </div>
+      <% extensions = Hash.new %>
+      <% if asset.class.name == 'KwikeeAsset' %>
+        <% asset.kwikee_files.each do |kf| %>
+          <%= form_tag('/download', :remote => true, :'data-dl-single' => 'dl_single_' + asset.token ) do %>
+            <input type="hidden" name="shared_page_token" value="<%= @shared_page_token %>">
+            <input type="hidden" name="shared_page_view_token" value="<%= @shared_page_view_token %>">
+            <input type="hidden" name="token" value="<%= asset.token %>">
+            <input type="hidden" name="downloadable_type" value="<%= asset.class.name %>">
+            <input type="hidden" name="filetype" value="<%= kf.extension.to_s %>">
+            <a href="javascript:void(0)" class="download-single-file-button tip" data-toggle="tooltip"  title="download this asset"><%= kf.label %></a>
+          <% end %>
+        <% end %>
+      <% else %>
+        <% asset.cart_files.each do |file| %>
+          <% logger.debug file %>
+          <% path = nil %>
+          <% if file["location"] %>
+            <% path = file["location"] %>
+          <% else %>
+            <% path = file["path"] %>
+          <% end %>
+          <% filetype = File.extname(path) %>
+          <% unless extensions[filetype] %>
+            <% extensions[filetype] = 1 %>
+            <% label = filetype.sub('.', '').upcase %>
+            <%= form_tag(shared_download_path, :remote => true, :'data-dl-single' => 'dl_single_' + asset.token ) do %>
+              <input type="hidden" name="shared_page_token" value="<%= @asset.token %>">
+              <input type="hidden" name="shared_page_view_token" value="<%= @shared_page_view_token %>">
+              <input type="hidden" name="token" value="<%= asset.token %>">
+              <input type="hidden" name="downloadable_type" value="<%= asset.class.name %>">
+              <input type="hidden" name="filetype" value="<%= filetype.to_s %>">
+
+              <a href="javascript:void(0)" class="download-single-file-button tip" data-toggle="tooltip"  title="download this asset"><%= label %></a>
+            <% end %>
+            <div id="dl_single_<%= asset.token %>"></div>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+    
+      <div class="form-group">
+      <strong><%= t('__description__').upcase %>:</strong>
+    </div>
+    <div class="description-tag">
+      <%= simple_format(asset.description) %>
+    </div>
+  </div>
+
+    </div>
+    <div class="panel-footer" style="text-align:center">
+        <a href="javascript:void(0)" id="close-shared-page-asset-preview">
+          <button type="button" class="btn btn-default rounded"><%= t '__return_to_search__' %></button>
+        </a>
+    </div>
+  </div>
+  </div>
+</div>
+<% end %>
+<div class="modal-backdrop in"></div>
+<div class="modal-backdrop in"></div>

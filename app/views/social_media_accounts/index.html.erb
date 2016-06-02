@@ -1,0 +1,43 @@
+<h1>Listing social_media_accounts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Expires at</th>
+      <th>Oauth refresh token</th>
+      <th>Oauth secret</th>
+      <th>Oauth token</th>
+      <th>Profile image</th>
+      <th>Profile name</th>
+      <th>User</th>
+      <th>Uid</th>
+      <th>Type</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @social_media_accounts.each do |social_media_account| %>
+      <tr>
+        <td><%= social_media_account.expires_at %></td>
+        <td><%= social_media_account.oauth_refresh_token %></td>
+        <td><%= social_media_account.oauth_secret %></td>
+        <td><%= social_media_account.oauth_token %></td>
+        <td><%= social_media_account.profile_image %></td>
+        <td><%= social_media_account.profile_name %></td>
+        <td><%= social_media_account.user_id %></td>
+        <td><%= social_media_account.uid %></td>
+        <td><%= social_media_account.type %></td>
+        <td><%= link_to 'Show', social_media_account %></td>
+        <td><%= link_to 'Edit', edit_social_media_account_path(social_media_account) %></td>
+        <td><%= link_to 'Destroy', social_media_account, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Social media account', new_social_media_account_path %>

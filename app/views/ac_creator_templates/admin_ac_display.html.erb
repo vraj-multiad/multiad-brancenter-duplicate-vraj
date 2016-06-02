@@ -1,0 +1,181 @@
+<a href='/admin/ac?display=staged'>Return Staged</a> - - -
+<a href='/admin/ac?display=pre-publish'>Return Pre-publish</a> - - - 
+<a href='/admin/ac?display=production'>Return Production</a> - - - 
+<a href='/admin/ac?display=unpublished'>Return Unpublished</a><br/><br/>
+<a href='/admin/ac/display?token=<%= @ac_creator_template.token.to_s %>&init=1' >Reload with embedded step data</a><br/>
+  <table>
+    <tr width="100%">
+      <td width="50%">
+        <h3>Ac Base:</h3><br/>
+        id: <%= @ac_creator_template.ac_base.id.to_s %><br/>
+        name: <%= @ac_creator_template.ac_base.name.to_s %><br/>
+        title: <%= @ac_creator_template.ac_base.title.to_s %><br/>
+
+        <h3>Ac Creator Template:</h3><br/>
+        <%= "id: #{@ac_creator_template.id} " %><br/>
+        <%= "created: #{@ac_creator_template.created_at.to_date}" %><br/>
+        <%= "name: #{@ac_creator_template.name}" %><br/>
+        <%= "title: #{@ac_creator_template.title}" %><br/>
+        <%= "status: #{@ac_creator_template.status}" %><br/>
+        <%= "pub at: #{@ac_creator_template.publish_at}" %><br/>
+        <%= "unpub at #{@ac_creator_template.unpublish_at}" %><br/>
+        thumbnail_url: <%= @ac_creator_template.thumbnail_url.to_s %> - <%#= image_tag( @ac_creator_template.thumbnail_url) %><br/>
+        bundle_url: <a href='<%= @ac_creator_template.bundle_url.to_s %>'><%= @ac_creator_template.bundle_url.to_s %></a><br/>
+      </td>
+      <td width="50%">
+        <% if @ac_creator_template.ac_base.ac_steps && @ac_creator_template.ac_base.ac_steps.length > 0 %>
+
+          <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6 adcreator-result">
+            <div>
+              <div>
+                <%= image_tag( @ac_creator_template.thumbnail_url ) %>
+              </div>
+
+              <div class="result-info">
+                <div class="result-text">
+                  <%= @ac_creator_template.title %>
+                </div>
+                <div class="result-buttons">
+
+                  <%= form_tag('/adcreator/start', :remote => true, :'data-update-adcreator' => 'adcreator-contents') do %>
+                    <input type="hidden" name="ac_creator_template_id" value="<%= @ac_creator_template.id %>">
+                    <input type="hidden" name="ac_base_id" value="<%= @ac_creator_template.ac_base_id %>">
+
+                    <%= button_tag 'Build Document', data: { disable_with: '<span class="launch_ac">&nbsp;</span>' }, title: t('__edit_ad__'), type: 'submit', :class => 'edit-template-button form-control' do %>
+                    <% end %>
+                  <% end %>
+
+                </div>
+              </div>
+              <div class="result-border"></div>
+            </div>
+          </div>
+
+          <% else %>
+          <%= image_tag( @ac_creator_template.thumbnail_url) %>
+        <% end %>
+      </td>
+    </tr>
+  </table>
+
+<%= form_tag('/admin/ac/save') do %>
+  <br/>
+  <span>Template Type (for use in ac_creator_template_groups</span>
+  <%= text_field_tag 'ac_creator_template_type', @ac_creator_template.ac_creator_template_type.to_s %>
+  <input type="hidden" name="token" value="<%= @ac_creator_template.token %>">
+  <table border=1>
+    <tr>
+      <td colspan='2'>Search:</td>
+    </tr>
+    <% @keyword_types.each do |keyword_type| %>
+      <tr>
+        <td width='25%'>
+            loaded keyword[<%= keyword_type %>]:<br/><br/> <%= @loaded_keywords[keyword_type].join(',') %>
+        </td>
+        <td>
+            base keyword[<%= keyword_type %>]: <br/><%= text_area_tag 'pre-' + keyword_type, @keywords[keyword_type].join(','), :class => "form-control2", :rows => 2, :cols => 40, :placeholder => '' %>
+        </td>
+      </tr>
+    <% end %>
+    <tr>
+      <td colspan='2'>
+          Full text search elements:
+      </td>
+    </tr>
+
+    <% @text_elements.each do |element_name, text| %>
+      <tr>
+        <td>
+            <%= element_name %>:
+        </td>
+        <td>
+            <%= hidden_field_tag 'full_text[]', text %>
+            <%= text %>
+        </td>
+      </tr>
+    <% end %>
+    <tr>
+      <td colspan='2'>
+        Document Size:<br/>
+        Original Width: <%= @element_coordinates['doc_specs']['width'] /72 %> inches<br/>
+        Original Height: <%= @element_coordinates['doc_specs']['height'] /72 %> inches<br/>
+        Allow Resize: <%= check_box_tag "resize_flag", '1', @resize_flag %><br/>
+        <br/>
+        Export Options:<br/>
+        Require Approval?:<%= check_box_tag "approval_flag", '1', @approval_flag %><br/>
+        Bleed?:<%= check_box_tag "bleed_flag", '1', @bleed_flag %><br/>
+        Order?:<%= check_box_tag "order_flag", '1', @order_flag %><br/>
+        Order or Download?:<%= check_box_tag "order_or_download_flag", '1', @order_or_download_flag %><br/>
+        Email?:<%= check_box_tag "email_flag", '1', @email_flag %><br/>
+        Email Subject (will be superseded by @email_subject set_attribute): <%= text_field_tag "email_subject", @email_subject %><br/>
+        Inline Email?:<%= check_box_tag "inline_email_flag", '1', @inline_email_flag %><br/>
+        Marketing Email?:<%= check_box_tag "marketing_email_flag", '1', @marketing_email_flag %><br/>
+        <br/>
+        If no formats have been selected, ALL formats will be available.<br/>
+        PDF?: <%= check_box_tag "pdf_flag", '1', @pdf_flag %> JPG?: <%= check_box_tag "jpg_flag", '1', @jpg_flag %> EPS?: <%= check_box_tag "eps_flag", '1', @eps_flag %><br/>
+        <br/>
+
+        <% if @access_levels.count > 0 %>
+          <div class="form-group">
+            <span>Set Access Roles</span>
+            <div class="alert alert-warning">
+              <ul class="nav nav-pills pill-checkboxes">
+                <% @access_levels.each do |al| %>
+                  <li><label for="<%= al.title.to_s  %>"><%= al.title.to_s  %>:</label> 
+                    <%= check_box_tag "access_level_ids[]", al.id, (@current_access_levels.include? al.id) %></li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        <% end %>
+
+        <div class="form-group col-lg-12">
+          Ac Creator Template Fields
+        </div>
+
+        <div class="form-group col-lg-6">
+          <span><%= t('__name__') %></span>
+          <%= text_field_tag "name", @ac_creator_template.name, class: "required-field form-control" %>
+          <span><%= t('__title__') %></span>
+          <%= text_field_tag "title", @ac_creator_template.title, class: "required-field form-control" %>
+        </div>
+
+        <div class="form-group col-lg-6 col-md-6 col-sm-6">
+          <span><%= t('__publish_date__') %></span>
+          <%= text_field_tag 'publish_at', @ac_creator_template.publish_at.present? ? @ac_creator_template.publish_at.to_date : '', class: "datepicker required-field form-control", data: { alert: t('__missing_required_value__') + ': ' + t('__publish_date__'), 'max-date' => '3650' } %>
+          <span><%= t('__unpublish_date__') %></span>
+          <%= text_field_tag 'unpublish_at', @ac_creator_template.unpublish_at.present? ? @ac_creator_template.unpublish_at.to_date : '', class: "datepicker required-field form-control", data: { alert: t('__missing_required_value__') + ': '+ t('__unpublish_date__'), 'max-date' => '3650' } %>
+        </div>
+
+        <%= submit_tag 'Save Steps' %><br/>
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan='2'>Elements</td>
+    </tr>
+    <% @steps.sort.each do |k,e| %>
+      <tr>
+        <td>
+          name: <%= e['name'].to_s %><br/>
+          description: <%= text_area_tag 'description', e['description'].to_s, :class => "form-control2", :rows => 5, :placeholder => '' %><br/>
+          <% if e['text'] && e['text'].length > 0 %>
+            default_text: <%= text_area_tag 'text', e['text'].to_s, :class => "form-control2", :rows => 5, :placeholder => '' %><br/>
+          <% end %>
+        </td>
+        <td>
+          <% logger.debug "k: " + k.to_s %>
+          <%= text_area_tag 'step_xml[]', @step_xml[k], :style => "height:300px", :class => "form-control2", :placeholder => '' %>
+        </td>
+      </tr>
+    <% end %>
+
+    <tr>
+      <td colspan='2'>Other Named Elements (sub elements?)</td>
+    </tr>
+  <% @other_elements.sort.each do |k,e| %>
+    <tr><td>name: <%= e['name'].to_s %></td><td></td></tr>
+  <% end %>
+
+  </table>
+<% end %>  <!-- form_tag -->

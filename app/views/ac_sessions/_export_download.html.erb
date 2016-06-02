@@ -1,0 +1,24 @@
+<!-- _export_download.html.erb -->
+<% if @ac_session.ready? %>
+  <div class="pull-left" style="margin-top:20px;">
+    <p><%= t '__processing_is_complete__' %></p>
+    <p><a id="download_url" data-download-url="<%= @ac_export.download_url %>" href="<%= @ac_export.download_url %>" class="btn branded-button"><%= t '__click_to_download__' %></a></p>
+  </div>
+<% else %>
+  <div name='ac_auto_refresh'>
+    <%= form_tag('/adcreator/workspace', :remote => true, :'data-ac-process-export' => 'export-copy', :id => 'ac_auto_refresh') do %>
+      <input type="hidden" name="id" value="<%= @ac_session.id %>"/>
+    <% end %>
+  </div>
+  <div class="pull-left">
+    <h3 style="display:inline-block;"><%= t '__zipping__' %></h3><%= image_tag("zipping.gif", class: "", style: "display:inline-block;margin-top:-10px;") %>
+    <p><%= t '__files_being_zipped__' %></p>
+    <div id="email-when-ready" class="alert alert-warning">
+      <%= form_tag('/adcreator/set_export_email_address', :remote => true, :'data-ac-process-exportx' => 'export-copy', :id => 'set_export_email_address') do %>
+        <input type="hidden" name="id" value="<%= @ac_session.id %>"/>
+        <p><%= t '__large_files__' %><br><br></p>
+        <button type="button" id="send-export-email-when-ready" class="btn btn-warning"><%= t '__email_when_ready__' %></button>
+      <% end %>
+    </div>
+  </div>
+<% end %>

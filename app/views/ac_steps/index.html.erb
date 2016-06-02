@@ -1,0 +1,35 @@
+<h1>Listing ac_steps</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Title</th>
+      <th>Actions</th>
+      <th>Form</th>
+      <th>Ac base</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ac_steps.each do |ac_step| %>
+      <tr>
+        <td><%= ac_step.step_number.to_s + ' - ' + ac_step.name %></td>
+        <td><%= ac_step.title %></td>
+        <td><%= ac_step.actions %></td>
+        <td><%= ac_step.form %></td>
+        <td><%= ac_step.ac_base_id %></td>
+        <td><%= link_to 'Show', ac_step %></td>
+        <td><%= link_to 'Edit', edit_ac_step_path(ac_step) %></td>
+        <td><%= link_to 'Destroy', ac_step, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ac step', new_ac_step_path %>

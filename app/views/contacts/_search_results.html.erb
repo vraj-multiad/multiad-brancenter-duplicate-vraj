@@ -1,0 +1,44 @@
+<%= form_tag(contact_remove_path, :id => 'contact-remove-form', :remote => true) do %>
+  <%= hidden_field_tag 'id', '', id: 'contact_form_remove_id' %>
+<% end %>
+<%= form_tag(contact_edit_path, :id => 'contact-edit-form', :remote => true, data: { 'contact-form' => 'contact-form-panel' }) do %>
+  <%= hidden_field_tag 'id', '', id: 'contact_form_edit_id' %>
+<% end %>
+<div id="contact-form-contents" style="display:none;">
+  <div id="contact-form-wrapper">
+    <div class="container">
+      <div id="contact-form-panel">
+        <div id="contact-form-panel2">
+          <div class="contact-form-options col-lg-7 col-md-7 col-sm-7 col-xs-7">
+            <h5><%= t '__contact__' %></h5>
+          </div><!--end:contact-form-options-->
+        </div><!--end:contact-form-panel2-->
+      </div><!--end:contact-form-panel-->
+    </div><!--end: container-->
+  </div><!--end: contact-form-wrapper-->
+</div><!-- contact-form-contents -->
+
+   
+<div class='row social-headers'>
+  <table class='contact-table'>
+    <thead>
+      <tr>
+        <th style="text-align:left;"><%= t '__contacts__' %></th>
+        <th></th>
+        <th>
+          <%= form_tag(contact_new_path, :id => 'new-contact-form', :remote => true, data: { 'contact-form' => 'contact-form-panel' }) do %>
+            <%= button_tag(t("__new__"), :type => 'submit', data: { disable_with: '<span class="launch_ac">&nbsp;</span>', action: contact_new_path }, :class => "btn btn-default admin-advanced-submit pull-right") %>
+          <% end %>
+        </th>
+      </tr>
+    </thead>
+    <% @contacts.each do |contact| %>
+      <tr>
+        <td style="text-align:left;"><%= contact.one_line %></td>
+        <td><a><div class="contact-edit-form-submit" data-id="<%= contact.id %>"><%= t '__edit__' %></div></a></td>
+        <td><a><div class="contact-remove-form-submit" data-confirm="<%= t('__are_you_sure__') %>" data-id="<%= contact.id %>"><%= t '__remove_contact__' %></div></a></td>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>

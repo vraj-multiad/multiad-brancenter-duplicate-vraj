@@ -1,0 +1,279 @@
+<script>
+$(document).ready(function(){
+ 	 $("div#help-dropdown").click(function(){
+ 	 $("div#help-content").toggle();
+ 	 $("div#problem-01").hide();
+ 	 $("div#problem-02").hide();
+ 	 $("div#problem-03").hide();
+ 	 $("div#problem-04").hide();
+ 	 $("div#problem-05").hide();
+ 	 $("div#problem-06").hide();
+  });
+  	 $("#problem-01-butt").click(function(){
+  	 $("div#help-content").hide();
+	 $("div#problem-01").show(); 	 
+  });
+  $("#problem-02-butt").click(function(){
+  	 $("div#help-content").hide();
+	 $("div#problem-02").show(); 	 
+  });
+  $("#problem-03-butt").click(function(){
+  	 $("div#help-content").hide();
+	 $("div#problem-03").show(); 	 
+  });
+  $("#problem-04-butt").click(function(){
+  	 $("div#help-content").hide();
+	 $("div#problem-04").show(); 	 
+  });
+  $("#problem-05-butt").click(function(){
+  	 $("div#help-content").hide();
+	 $("div#problem-05").show(); 	 
+  });
+  	 $("#problem-06-butt").click(function(){
+  	 $("div#help-content").hide();
+	 $("div#problem-06").show(); 	 
+  });
+  	 $("#sub-top-01").click(function(){
+	 $("#sub-cat-01").toggle();
+	 $("#sub-cat-02,#sub-cat-03,#sub-cat-04,#sub-cat-05,#sub-cat-06,#sub-cat-07,#sub-cat-08,#sub-cat-09,#sub-cat-10").hide(); 	 
+  });
+  	 $("#sub-top-02").click(function(){
+	 $("#sub-cat-02").toggle();
+	 $("#sub-cat-01,#sub-cat-03,#sub-cat-04,#sub-cat-05,#sub-cat-06,#sub-cat-07,#sub-cat-08,#sub-cat-09,#sub-cat-10").hide();  	 
+  });
+  	 $("#sub-top-03").click(function(){
+	 $("#sub-cat-03").toggle();
+	 $("#sub-cat-01,#sub-cat-02,#sub-cat-04,#sub-cat-05,#sub-cat-06,#sub-cat-07,#sub-cat-08,#sub-cat-09,#sub-cat-10").hide();  	 
+  });
+  	 $("#sub-top-04").click(function(){
+	 $("#sub-cat-04").toggle();
+	 $("#sub-cat-01,#sub-cat-02,#sub-cat-03,#sub-cat-05,#sub-cat-06,#sub-cat-07,#sub-cat-08,#sub-cat-09,#sub-cat-10").hide();  	 
+  });
+  	 $("#sub-top-05").click(function(){
+	 $("#sub-cat-05").toggle();
+	 $("#sub-cat-01,#sub-cat-02,#sub-cat-03,#sub-cat-04,#sub-cat-06,#sub-cat-07,#sub-cat-08,#sub-cat-09,#sub-cat-10").hide();  	 
+  });
+  	 $("#sub-top-06").click(function(){
+	 $("#sub-cat-06").toggle();
+	 $("#sub-cat-01,#sub-cat-02,#sub-cat-03,#sub-cat-04,#sub-cat-05,#sub-cat-07,#sub-cat-08,#sub-cat-09,#sub-cat-10").hide();  	 
+  });
+  	 $("#sub-top-07").click(function(){
+	 $("#sub-cat-07").toggle();
+	 $("#sub-cat-01,#sub-cat-02,#sub-cat-03,#sub-cat-04,#sub-cat-05,#sub-cat-06,#sub-cat-08,#sub-cat-09,#sub-cat-10").hide();  	 
+  });
+  	 $("#sub-top-08").click(function(){
+	 $("#sub-cat-08").toggle();
+	 $("#sub-cat-01,#sub-cat-02,#sub-cat-03,#sub-cat-04,#sub-cat-05,#sub-cat-06,#sub-cat-07,#sub-cat-09,#sub-cat-10").hide();  	 
+  });
+  	 $("#sub-top-09").click(function(){
+	 $("#sub-cat-09").toggle();
+	 $("#sub-cat-01,#sub-cat-02,#sub-cat-03,#sub-cat-04,#sub-cat-05,#sub-cat-06,#sub-cat-07,#sub-cat-08,#sub-cat-10").hide();  	 
+  });
+  	 $("#sub-top-10").click(function(){
+	 $("#sub-cat-10").toggle();
+	 $("#sub-cat-01,#sub-cat-02,#sub-cat-03,#sub-cat-04,#sub-cat-05,#sub-cat-06,#sub-cat-07,#sub-cat-08,#sub-cat-09").hide();   	 
+  });
+});
+</script>
+
+<div id="main-content" class="content"> 
+	<div class="container">
+		<div id="position-help">
+		<div id="help-page-intro" style="float:left;margin-bottom:40px;">
+			<div style="float:left;">It's easy to find help with any of the issues you may be having. Simply select from the list of possible issues below.</div>			
+			<div id="help-dropdown" class="active">What do you need help with?<span class="caret pull-right"></span></div>
+			
+			<div id="problem-01">
+				<h4><strong>I don't understand how this site works. Can you help?</strong></h4>
+				<p>We're sorry you are having problems using Ad Creator. Let's try to figure out exactly what you are having issues with.</p>
+				<ul class="help-subtopics">
+					<li id="sub-top-01">What are the "search content you can edit" and "search content you can download" buttons for?</li>
+						<li id="sub-cat-01">
+								<div class="container">
+									<!-- Site Options -->
+									<div id="shadow" style="float:left;width:100%;">
+										<ul class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+											<li class="site-options interactable adcreator"><span>search content <br/> you can edit</span></li>        
+										</ul>
+										<ul class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+											<li class="site-options interactable asset-library"><span>search content <br/> you can download</span></li>              
+										</ul>
+									</div>
+									<!-- end: Site Options -->              
+								</div>
+								
+								<p><br />The Illinois Farm Bureau AdCreator has several ways of organizing its content to assist you in finding what you need quickly. The above "Quick Search" boxes are just one of those ways.</p>
+								<p>The "<strong>search content you can edit</strong>" button will bring up every advertising material the AdCreator has that can be customized by you. These pieces are identified by their edit icon <span><%= image_tag("icons/icon-edit.png") %></span>. Clicking on <span><%= image_tag("icons/icon-edit.png") %></span> will launch the AdCreator, allowing you to begin editing. If you are having issues editing a piece, please see the <i>"I'm trying to edit my content, but the ad creation process is confusing me."</i> section.</p>
+								<p>The "<strong>search content you can download</strong>" button will bring up all materials that can be downloaded. These materials include logos, photos, PowerPoints, and more. These pieces are identified by their check and download icons <span><%= image_tag("icons/icon-checkmark.png") %></span>&nbsp;<span><%= image_tag("icons/icon-download.png") %></span>. Clicking on <span><%= image_tag("icons/icon-checkmark.png") %></span> will activate the <span><%= image_tag("download-all-example.png") %></span> button which will always appear in the lower right-hand corner of your screen.</p>
+								<p>Each <span><%= image_tag("icons/icon-checkmark.png") %></span> you click will increase the number of items you can download all at once by clicking on <span><%= image_tag("download-all-example.png") %></span>.</p> 
+								<p>These items will be zipped for quicker downloading and for your convenience an email will be sent to you with a link to your zipped content. However, these links are only available for <strong>7 days</strong>.</p>
+								<p>If you only need to download one piece you can simply click on <span><%= image_tag("icons/icon-download.png") %></span> and your download will begin instantly.</p>
+								<p class="highlight">Note: You may see other icons on a downloadable piece of content. These icons could be any of the following: The add to your library icon <span><%= image_tag("add-library-example.png") %></span>, the share icon <span><%= image_tag("share-example.png") %></span>, and/or the cart icon <span><%= image_tag("cart-example.png") %></span>.
+								<br />
+								<br />
+								To learn more about <span><%= image_tag("add-library-example.png") %></span> please visit the "<i>What is the "search and add to my library button for?</i>" section.
+								<br />
+								<br />
+								To learn more about <span><%= image_tag("share-example.png") %></span> please visit the "<i>What does the "share" button do?</i>" section.
+								<br />
+								<br />
+								To learn more about <span><%= image_tag("cart-example.png") %></span> please visit the "<i>How do I order items?</i>" section.
+								</p>
+							
+						</li>
+					<li id="sub-top-02">What is the "search and add to my library" button for?</li>
+						<li id="sub-cat-02">
+							<div class="container">
+								<!-- Site Options -->
+								<div id="shadow" style="float:left;width:100%;">
+									<ul class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										<li class="site-options interactable asset-library"><span>search and add to <br/> your library</span></li>              
+									</ul>
+								</div>
+								<!-- end: Site Options -->              
+							</div>
+							<p><br />Clicking the button shown above takes you to your library. This section of the Illinois Farm Bureau AdCreator is just for you. In your library you can upload content that will only be visible by you and share groups of content through social media, a link, or email.</p>
+							<p>You can also access your library by clicking on the "my library" button found in the top navigation: <br /><br /><span class="scale-image-01"><%= image_tag("my-library-example.png") %></span></p>
+							<p>Uploading content to your library is easy. Once you're in your library simply click <span><%= image_tag("upload-content-example.png") %></span> and the Upload Panel will appear in the lower left corner of the screen. Simply drag-and-drop any item from your computer into this area and your content will automatically be uploaded. Once your content is done being processed, the "ADD TO LIBRARY" <span><%= image_tag("add-to-library.png") %></span> button will become active. Clicking <span><%= image_tag("add-to-library.png") %></span> will bring up the category panel and once there you can begin adding categories and keywords to your uploaded content.</p>
+							<p>
+							<h4>Add Categorization and Keywords</h4>
+							The categorization panel allows you to organize content in your library and make it searchable for future reference. To organize your content, simply enter a name in the "create new category" field <span><%= image_tag("create-new-cat-example.png") %></span> and press the "add" button <span><%= image_tag("icons/add-stuff.png") %></span>. All names created this way will become a part of your ongoing categories available via this dropdown <span><%= image_tag("add-cat-example.png") %></span>. Next time you categorize content you can just click on this dropdown area and select as many categories as you'd like to add. Once selected, you can add them to the list of categories to be attached to content using the "add selected" <span><%= image_tag("add-selected.png") %></span> button. 
+							</p>
+							<p>Now that you have created and added categories to the list of categories awaiting to be attached, we can attach them to the content we'd like to categorize. Clicking on an piece of content in the category window will select it:
+							   <br />
+							   <br />
+							   <span><%= image_tag("selected-content.png") %></span>
+							   <br />
+							   <br />
+							   With your piece (or multiple pieces) of content selected, click on the "apply additions to selected assets" button. Your content is now categorized! Think of categorizing content as putting files on your computer into a folder. It allows you to organize multiply pieces of content you've uploaded in a single area for easy access and for sharing. <i>To find out more about sharing please visit the "What does the "share" button do?"</i>
+							</p>
+							<p>Along with categorizing content you can also apply keywords very similar methods. In the "add new keywords" field. You can type as many keywords as you'd like (comma separated) and then click the "add button" <span><%= image_tag("icons/add-stuff.png") %></span> to add them to a list of keywords awaiting to be attached. Again, click on the content you want to assign your keywords to and click the "apply additions to selected assets" button. Now these pieces can be searched, in any area of the site, using those keywords. Just like your categories, and the content you've uploaded, these keywords are only for your use. No other users will see be able to see your categories, your content, or search using your keywords.</p>
+							<h4>Edit Categorization and Keywords</h4>
+							<p>Wanting to organize your uploaded content is a great thing, but sometimes you want to edit what you've organized. Removing categories and keywords is simple. Click on the EDIT CATEGORIZATION tab in the categorization panel and select the assets you want to edit. The REMOVE CATEGORIES and REMOVE KEYWORDS areas will show you all categories and keywords attached to all content you've selected. If you see keywords or categories you no longer want to use for the selected content, click on the remove icon <span><%= image_tag("icons/remove-stuff.png") %></span>. Once you've removed the the categories or keywords you no longer want to use don't forget to press the "apply modifications to selected assets" button.</p>
+							<p class="highlight">NOTE: You can also add items to your library that have been uploaded by Illinois Farm Bureau. Additionally, you can categorize and keyword these assets for your library. Just like your own content, categorizes and keywords you apply to system uploaded content will only be seen by you. This can be done by clicking <span><%= image_tag("add-library-example.png") %></span> on any piece of content that has this icon. Clicking this will activate the <span><%= image_tag("organize-library-example.png") %></span> button, which will always appear in the lower right-hand corner of the screen. Select as many pieces using <span><%= image_tag("add-library-example.png") %></span> as you'd like to add to your library and then click <span><%= image_tag("organize-library-example.png") %></span> to launch the categorization panel.</p>
+							
+							<p class="hightlight">NOTE: Searching in your library will only search your library. In order to search outside of your library click the home button or the Illinois Farm Bureau logo.</p>
+						</li>
+					<li id="sub-top-03">What is the "search my saved ads" button for?</li>
+						<li id="sub-cat-03">
+							<div class="container">
+								<!-- Site Options -->
+								<div id="shadow" style="float:left;width:100%;">
+									<ul class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										<li class="site-options interactable asset-library"><span>search your <br/> saved ads</span></li>              
+									</ul>
+								</div>
+								<!-- end: Site Options -->              
+							</div>
+							<p><br />Every piece of content that you've edited will automatically be saved in this area. From here you can launch the AdCreator to continue editing a piece you may have started but didn't finish or reuse a piece you've finished in the past. While the Illinois Farm Bureau AdCreator will automatically save all your progress, sometimes you'll want to name a saved ad for future reference. You can do this by clicking the <span><%= image_tag("save-ad.png") %></span> button in the upper right-hand corner of your screen. This will provide you a field to give your saved ad a name. Enter the name and press the "save" button.</p>
+							<p>Now that you've saved an ad using a saved name, you can search for the ad in your saved ads section. Any auto-saving done to this ad will honor your saved name and never overwrite or duplicate the saved piece. If you'd like to have multiple versions of a single saved ad, launch the ad from your saved ads section and give it a different name.</p>
+							<p>To remove ads from your saved ads section, hover over the item and the "remove icon" <span><%= image_tag("icons/remove-icon.png") %></span> will appear in the upper right-hand corner of the preview. Clicking on this button will permanently remove the piece from your saved ads section.</p>
+							<p class="highlight">NOTE: Searching in your saved ads will only search your saved ads. In order to search outside of your saved ads click the home button or the Illinois Farm Bureau logo.</p>
+						</li>
+					<li id="sub-top-04">What is "Filter Results" doing?</li>
+						<li id="sub-cat-04"><p>Illinois Farm Bureau has created filters to help aid you in getting to your content quickly. Selecting a filter will remove all pieces of content that do not apply to the filter selected. If you are only looking for pieces pertaining to "Farm Safety" simply select the "Farm Safety" topic and all content not pertaining to "Farm Safety" will be removed. Media Types work the same way. If you are only looking for images of the milo harvest, select "Photo Library" and "Milo Harvest" to have all materials not pertaining to photos of the milo harvest to be removed from your results.</p>
+						   <p>Filters are a quick way to browse lots of pieces of content that pertain to specific topics or media types.</p>
+						   <p class="highlight">NOTE: You can reset filters by clicking on the <strong>"Select ..."</strong> name in the original dropdown or by clicking on the "refresh" icon <span><%= image_tag("refresh-icon-example.png") %></span>.</p>
+						   <p class="highlight">NOTE: Search and Filters work together. This means that if you type a search phrase in the "search" bar and select filters it will apply the filters to any results that were produced from your searched phrase.</p>
+						</li>
+					<li id="sub-top-05">I found my content, now how do I download or edit it?</li>
+						<li id="sub-cat-05">
+								<p>Searching will provide you with thumbnail images of results and these thumbnails will have icons attached to them. Pieces that can be customized are identified by their edit icon <span><%= image_tag("icons/icon-edit.png") %></span>. Clicking on <span><%= image_tag("icons/icon-edit.png") %></span> will launch the AdCreator, allowing you to begin editing. If you are having issues editing a piece, please see the <i>"I'm trying to edit my content, but the ad creation process is confusing me."</i> section.</p>
+								<p>Downloadable pieces are identified by their check and download icons <span><%= image_tag("icons/icon-checkmark.png") %></span>&nbsp;<span><%= image_tag("icons/icon-download.png") %></span>. Clicking on <span><%= image_tag("icons/icon-checkmark.png") %></span> will activate the <span><%= image_tag("download-all-example.png") %></span> button which will always appear in the lower right-hand corner of your screen.</p>
+								<p>Each <span><%= image_tag("icons/icon-checkmark.png") %></span> you click will increase the number of items you can download all at once by clicking on <span><%= image_tag("download-all-example.png") %></span>.</p> 
+								<p>These items will be zipped for quicker downloading and for your convenience an email will be sent to you with a link to your zipped content. However, these links are only available for <strong>7 days</strong>.</p>
+								<p>If you only need to download one piece you can simply click on <span><%= image_tag("icons/icon-download.png") %></span> and your download will begin instantly.</p>
+								<p class="highlight">Note: You may see other icons on a downloadable piece of content. These icons could be any of the following: The add to your library icon <span><%= image_tag("add-library-example.png") %></span>, the share icon <span><%= image_tag("share-example.png") %></span>, and/or the cart icon <span><%= image_tag("cart-example.png") %></span>.
+								<br />
+								<br />
+								To learn more about <span><%= image_tag("add-library-example.png") %></span> please visit the "<i>What is the "search and add to my library button for?</i>" section.
+								<br />
+								<br />
+								To learn more about <span><%= image_tag("share-example.png") %></span> please visit the "<i>What does the "share" button do?</i>" section.
+								<br />
+								<br />
+								To learn more about <span><%= image_tag("cart-example.png") %></span> please visit the "<i>How do I order items?</i>" section.
+								</p>
+						</li>
+					<li id="sub-top-06">What does the "share" button do?</li>
+						<li id="sub-cat-06"><p>Clicking on the "share" button <span><%= image_tag("share-example.png") %></span> will bring up the Share Panel. In the Share Panel, you may select from a variety of ways to share content with others. You can share content using social media (Facebook, Twitter, YouTube) and/or by sending a link. Clicking on any of the social media icons will provide you fields so that you may enter a message with your social media post.</p>
+						<p>Clicking the "email" button will provide you with a link you may copy-and-paste into any application you're using to share with people. Additionally, you can email the same link directly from the system by filling in the email addresses (comma separated) of those you wish to send the link to and providing a message in the message field.</p>
+						<p class="highlight">NOTE: If you are not seeing one or any of the social media buttons you may not be logged into your social media account. To login, please visit your profile and login at the "Social Media Accounts" section.</p>
+						</li>
+					<li id="sub-top-07">How do I order items?</li>
+						<li id="sub-cat-07"><p>There are two types of pieces that can be ordered from the Illinois Farm Bureau AdCreator. Customizable and direct order pieces. Customizable pieces that can also be ordered will appear with other customizable pieces, however, after editing your piece the typical export panel will be replaced by an order panel. In this order panel you will be provided directions on how to order a particular piece.</p>
+						<p>Direct order pieces will be with downloadable assets and be identified by their cart icon <span><%= image_tag("cart-example.png") %></span>. Clicking on <span><%= image_tag("cart-example.png") %></span> will add the selected item to your cart. Your cart can be viewed by clicking on the cart button in the top navigation <span><%= image_tag("top-cart-example.png") %></span>.</p>
+						<p>Once in your cart you may select the quantity for each item in your cart. Clicking "order items" will walk you through the steps for ordering the pieces you're looking for.</p>
+						<p class="highlight">NOTE: If you are having issues with something you've already ordered, please review your order confirmation email for instructions. If you are not receiving your order confirmation email, please visit the <i>I'm not getting my order confirmation email.</i> section.</p>
+						<p class="highlight">NOTE: Items that can be added to the cart will sometimes be available for direct download. These items are not to be used for fulfillment and instead are just for reference purposes.</p>
+						</li>
+					<li id="sub-top-08">I'm trying to edit my content, but the ad creation process is confusing me.</li>
+						<li id="sub-cat-08">
+							<p>Editing a piece is as simple as clicking on blue boxes on the preview of the piece you're looking to edit. Once you've clicked on a piece, fields or images will appear in the right-hand navigation. Clicking an image will replace the image in the preview with the image you've selected and entering text and clicking submit will replace the text.</p>
+							<p>Additionally, you can resize your piece by clicking on the resize dropdown in the upper left-hand corner <span><%= image_tag("resize-example.png") %></span>. Once clicked you will be presented with fields to enter a height and width (in inches) and a resize button. Clicking the resize button will resize your preview and your final document.</p>
+							<p>Being able to view all the available customizable fields is important. That is why the Illinois Farm Bureau AdCreator is set to show the preview at a size that will always fit to your screen size. However, if you'd like see the piece at it's natural size, select the zoom dropdown <span><%= image_tag("zoom.png") %></span> and select 100%.</p>
+							<p>Once you've customized all the steps of the piece you can click the green export button in the upper right-hand corner of the screen. This will bring up the export panel and provide you with several options for downloading and/or emailing your piece.</p>
+						</li>
+					<li id="sub-top-09">What does saving do for me and how do I get to items I've saved?</li>
+						<li id="sub-cat-09">
+							<p><br />Every piece of content that you've edited will automatically be saved to your saved ads area. From your saved ads area you can launch the AdCreator to continue editing a piece you may have started but didn't finish or reuse a piece you've finished in the past. While the Illinois Farm Bureau AdCreator will automatically save all your progress, sometimes you'll want to name a saved ad for future reference. You can do this by clicking the <span><%= image_tag("save-ad.png") %></span> button in the upper right-hand corner of your screen. This will provide you a field to give your saved ad a name. Enter the name and press the "save" button.</p>
+							<p>Now that you've saved an ad using a saved name, you can search for the ad in your saved ads section. Any auto-saving done to this ad will honor your saved name and never overwrite or duplicate the saved piece. If you'd like to have multiple versions of a single saved ad, launch the ad from your saved ads section and give it a different name.</p>
+							<p>To remove ads from your saved ads section, hover over the item and the "remove icon" <span><%= image_tag("icons/remove-icon.png") %></span> will appear in the upper right-hand corner of the preview. Clicking on this button will permanently remove the piece from your saved ads section.</p>
+							<p>You can get to your saved ads by clicking on "my saved ads" in the top navigation or by clicking on the "search your saved ads" button on the homepage.</p>
+							<p class="highlight">NOTE: Searching in your saved ads will only search your saved ads. In order to search outside of your saved ads click the home button or the Illinois Farm Bureau logo.</p>
+						</li>
+					<li id="sub-top-10">I've created my own custom material, but I can't figure out how to get the final piece.</li>
+						<li id="sub-cat-10">
+							<p>Once you've customized a piece you can click on the green export button in the upper right-hand corner of the screen to bring up the export panel. From the export panel you can select the file format you'd like to use when downloading or emailing your piece. Once you've selected your file formats, you can click the download button and a high-res version of your ad will begin to be built and downloaded. You can also supply email address (comma separated) and have the system email your finished piece.</p>
+							<p>Sometimes a very large piece can take some time to build and download, so Illinois Farm Bureau AdCreator has provided the ability to have the system email you a link to the finished piece when it's completed.</p>
+						</li>
+				</ul>
+			</div>
+			
+			<div id="problem-02">
+				<h4><strong>I'm not getting the search results I'm expected.</strong></h4>
+				<p>If you've used the search bar to type in a phrase or word you'd like the system to search and it produced no results the content may not be in the system. It is also possible the didn't understand your phrase or word. Check for misspellings or try another phrase.</p>
+				<p>If you've used a phrase in conjunction with a filter it is possible to receive no results. Try another filter or no filters at all.</p>
+				<p>If you believe the system should have a piece utilizing the search criteria you've entered you can contact our customer support team and they'll assist you further.</p>
+				<p class="highlight">Our free support number is <strong>1.877.203.6020</strong> and we are open <strong>Monday-Friday, 7:00am-5:00pm</strong>. You may also email us: <strong>support@multiad.com</strong>.</p>
+			</div>
+			
+			<div id="problem-03">
+				<h4><strong>I'm trying to edit an advertising piece and I'm running into issues.</strong></h4>
+				<p>If you have encountered an error please call our free technical support number and we will get the issue resolved as fast as possible.</p>
+				<p class="highlight">Our free support number is <strong>1.877.203.6020</strong> and we are open <strong>Monday-Friday, 7:00am-5:00pm</strong>. You may also email us: <strong>support@multiad.com</strong>.</p>
+				<p>If you are not running into errors but don't understand how to get your piece completed, please visit the "I don't understand how this site works. Can you help?" section.</p>
+			</div>
+			
+			<div id="problem-04">
+				<h4><strong>Downloading materials is taking a long time.</strong></h4>
+				<p>We apologize that it is taking a long time to download your materials. Many of the pieces in the AdCreator are very large files and may take a few moments to zip and download. For your convenience, all bulk downloads are followed-up with an email to your email address. In this email you will be provided a link to the finished zip file. So if you do not want to wait for your download to begin you can check your email later. It is important to note though that these links only remain active for <strong>7 days</strong>.</p>
+				<p>If you are trying to export a customized document and are experiencing a long wait for the download to begin you can click the "email when ready" button. AdCreator will send you an email when it has finished building and zipping your piece.</p>
+			</div>
+			
+			<div id="problem-05">
+				<h4><strong>I'm not getting my order confirmation email.</strong></h4>
+				<p>We apologize you are having issues getting your order confirmation email. First try checking your spam folder to ensure it hasn't been inappropriately flagged by your mail provider. If you have checked your spam folder and you still haven't received your email please contact our free technical support.</p>
+				<p class="highlight">Our free support number is <strong>1.877.203.6020</strong> and we are open <strong>Monday-Friday, 7:00am-5:00pm</strong>. You may also email us: <strong>support@multiad.com</strong>.</p>
+			</div>			
+			
+			<div id="problem-06">
+				<h4><strong>My issue isn't listed here.</strong></h4>
+				<p>We're sorry your issue wasn't listed in our help topics, but no worries, we're still going to do everything we can to help you.</p>
+				<p class="highlight">Please call our free support number to assist you further. Our number is <strong>1.877.203.6020</strong> and we are open <strong>Monday-Friday, 7:00am-5:00pm</strong>. You may also email us: <strong>support@multiad.com</strong>.</p>
+			</div>
+			
+			<div id="help-content">
+					<ul id="help-main-cats">
+						<li id="problem-01-butt">I don't understand how this site works. Can you help?</li>
+						<li id="problem-02-butt">I'm not getting the search results I'm expected.</li>
+						<li id="problem-03-butt">I'm trying to edit an advertising piece and I'm running into issues.</li>
+						<li id="problem-04-butt">Downloading materials is taking a long time.</li>
+						<li id="problem-05-butt">I'm not getting my order confirmation email.</li>
+						<li id="problem-06-butt">My issue isn't listed here.</li>
+					</ul>
+			</div>
+		</div>
+		</div>
+	</div>
+</div>

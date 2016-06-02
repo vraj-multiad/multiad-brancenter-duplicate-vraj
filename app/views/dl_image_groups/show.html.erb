@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Main dl image:</strong>
+  <%= @dl_image_group.main_dl_image_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @dl_image_group.name %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @dl_image_group.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @dl_image_group.description %>
+</p>
+
+<p>
+  <strong>Related DlImages:</strong><br/>
+  <% @dl_image_group.dl_images.each do |dli| %>
+    <%= dli.id %> - <%= dli.name %> - <%= dli.title %> <%= link_to 'Show', dli %><br/>
+  <% end %>
+</p>
+
+
+<p>
+  <strong>AccessLevels:</strong><br/>
+  <% @dl_image_group.asset_access_levels.each do |aal| %>
+    <%= aal.access_level.name %> - <%= aal.id %><br/>
+  <% end %>
+</p>
+
+<% ['media_type', 'topic', 'keyword', 'system'].each do |keyword_type| %>
+
+  <p>
+    <strong>Keyword: (<%= keyword_type %>)</strong><br/>
+    <textarea><%= @dl_image_group.keywords.where("keyword_type like '%" + keyword_type +"'").pluck(:term).join(', ') %></textarea>
+  </p>
+
+<% end %>
+
+
+<%= link_to 'Edit', edit_dl_image_group_path(@dl_image_group) %> |
+<%= link_to 'Back', dl_image_groups_path %>

@@ -1,0 +1,49 @@
+<% case render_type %>
+<% when 'edit-form' %>
+  <div class="field">
+    <% required = '' %>
+    <% if dynamic_form_input.required %>
+      <% required = 'required-field' %>
+      <span class="" style="color:red;margin-left:0px;">*</span>
+    <% end %>
+    <%= f.label dynamic_form_input.title, dynamic_form_input.title %><br/>
+    <%= f.select dynamic_form_input.name, dynamic_form_input.parsed_input_choices %>
+  </div>
+<% when 'edit' %>
+  <div class="form-group">
+    <% if dynamic_form_input.required %>
+      <% required = 'required-field' %>
+      <span class="" style="color:red;margin-left:0px;">*</span>
+    <% end %>
+    <%= f.label dynamic_form_input.title, dynamic_form_input.title %><br/>
+    <% if dynamic_form_input.description.present? %>
+      <%= dynamic_form_input.description.html_safe %><br/>
+    <% end %>
+    <div id='dynamic_form_attachment_input_<%= dynamic_form_input.id.to_s %>_form_active'>
+      <%= button_tag t('__attach_file__'), id: 'submit-get-attachment-form-' + dynamic_form_input.dynamic_form_input_group.dynamic_form.token + '-' + dynamic_form_input.id.to_s, class: 'btn button-default submit-form-button', style: 'margin-top:15px;', type: 'button', data: { 'target-form' => 'get-attachment-form-' + dynamic_form_input.dynamic_form_input_group.dynamic_form.token + '-' + dynamic_form_input.id.to_s, 'dynamic-form-input' => dynamic_form_input.id } %>
+    </div>
+    <div id='dynamic_form_attachment_input_<%= dynamic_form_input.id.to_s %>_form_submitted' style="display: none;">
+      <span id='dynamic_form_attachment_input_<%= dynamic_form_input.id.to_s %>_form_value' style="margin-top:-3px;margin-bottom:6px">
+      </span><span class='cancel-attachment progress-cancel' data-dynamic-form-input-id='dynamic_form_attachment_input_<%= dynamic_form_input.id.to_s %>' style="margin-top:-3px;margin-bottom:6px"></span>
+    </div>
+    <%= hidden_field_tag "dynamic_form[properties][#{dynamic_form_input.name}]", '', id: 'dynamic_form_attachment_input_' + dynamic_form_input.id.to_s, class: "#{required} " + dynamic_form_input.html_class, data: { alert: t('__missing_required_value__') + ': ' + dynamic_form_input.title } %>
+  </div>
+<% when 'show' %>
+  <div class="field">
+    <% if @dynamic_form_submission.properties[dynamic_form_input.name].present? %>
+      <% attachment_token = @dynamic_form_submission.properties[dynamic_form_input.name] %>
+      <% attachment = @dynamic_form_submission.user.user_uploaded_images.attachment.find_by(token: attachment_token) %>
+      <%= dynamic_form_input.title %>: <%= attachment.filename %><br/>
+    <% end %>
+  </div>
+<% when 'email' %>
+  <div class="field">
+    <% if @dynamic_form_submission.properties[dynamic_form_input.name].present? %>
+      <% attachment_token = @dynamic_form_submission.properties[dynamic_form_input.name] %>
+      <% attachment = @dynamic_form_submission.user.user_uploaded_images.attachment.find_by(token: attachment_token) %>
+      <%= dynamic_form_input.title %>: <%= attachment.filename %> - 
+      <a href='<%= shared_assets_page_url + '?asset_id=' + attachment.token %>'>Download</a><br/>
+    <% end %>
+  </div>
+<% else %>
+<% end %>

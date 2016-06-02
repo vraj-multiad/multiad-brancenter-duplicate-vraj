@@ -1,0 +1,50 @@
+<%= form_for(@dynamic_form_input_group) do |f| %>
+  <% if @dynamic_form_input_group.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@dynamic_form_input_group.errors.count, "error") %> prohibited this dynamic_form_input_group from being saved:</h2>
+
+      <ul>
+      <% @dynamic_form_input_group.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div style='margin-bottom:15px;'>
+    <div class="col-lg-12">
+      <%= f.label :dynamic_form_id %><br>
+      <%= f.select :dynamic_form_id, DynamicForm.admin.collect{ |p| [p.name, p.id] }, {include_blank: 'Select Dynamic Form'}, class: 'form-control' %>
+    </div>
+    <div class="col-lg-4 col-md-4 col-xs-4">
+      <%= f.label :name %><br>
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+    <div class="col-lg-6 col-md-6 col-xs-6">
+      <%= f.label :title %><br>
+      <%= f.text_field :title, class: 'form-control' %>
+    </div>
+    <div class="col-lg-12">
+      <%= f.label :description %><br>
+      <%= f.text_area :description, class: 'form-control2' %>
+    </div>
+    <div class="col-lg-3 col-md-3 col-xs-3">
+      <%= f.label :html_class %><br>
+      <%= f.select :html_class, @html_classes, {}, class: 'form-control' %>
+    </div>
+    <div class="col-lg-5 col-md-5 col-xs-5">
+      <%= f.label :input_group_type %><br>
+      <%= f.text_field :input_group_type, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="col-lg-11 col-md-11 col-xs-11" style='margin:15px;border'>
+    <%= f.fields_for :dynamic_form_inputs do |builder| %>
+      <%= render 'dynamic_form_input_fields', f: builder %>
+    <% end %>
+  </div>
+  <div class="col-lg-11 col-md-11 col-xs-11" style='margin:15px'>
+    <%= link_to_add_dynamic_form_inputs "Add Input", f, :dynamic_form_inputs %><br/><br/>
+  </div>
+  <div class="col-lg-11 col-md-11 col-xs-11" style='margin:25px;'>
+    <%= f.submit %>
+  </div>
+<% end %>

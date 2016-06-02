@@ -1,0 +1,124 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User ID:</strong>
+  <%= @contact.user_id %>
+</p>
+
+<p>
+  <strong>Contact type:</strong>
+  <%= @contact.contact_type_id %>
+</p>
+
+<p>
+  <strong>First name:</strong>
+  <%= @contact.first_name %>
+</p>
+
+<p>
+  <strong>Last name:</strong>
+  <%= @contact.last_name %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @contact.title %>
+</p>
+
+<p>
+  <strong>Company name:</strong>
+  <%= @contact.company_name %>
+</p>
+
+<p>
+  <strong>Address 1:</strong>
+  <%= @contact.address_1 %>
+</p>
+
+<p>
+  <strong>Address 2:</strong>
+  <%= @contact.address_2 %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @contact.city %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @contact.state %>
+</p>
+
+<p>
+  <strong>Zip code:</strong>
+  <%= @contact.zip_code %>
+</p>
+
+<p>
+  <strong>Country:</strong>
+  <%= @contact.country %>
+</p>
+
+<p>
+  <strong>Alt address:</strong>
+  <%= @contact.alt_address %>
+</p>
+
+<p>
+  <strong>Phone number:</strong>
+  <%= @contact.phone_number %>
+</p>
+
+<p>
+  <strong>Fax number:</strong>
+  <%= @contact.fax_number %>
+</p>
+
+<p>
+  <strong>Mobile number:</strong>
+  <%= @contact.mobile_number %>
+</p>
+
+<p>
+  <strong>Website:</strong>
+  <%= @contact.website %>
+</p>
+
+<p>
+  <strong>Email address:</strong>
+  <%= @contact.email_address %>
+</p>
+
+<p>
+  <strong>Custom contact:</strong>
+  <%= @contact.custom_contact_id %>
+</p>
+
+<p>
+  <strong>Facebook:</strong>
+  <%= @contact.facebook_id %>
+</p>
+
+<p>
+  <strong>Twitter:</strong>
+  <%= @contact.twitter_id %>
+</p>
+
+<p>
+  <strong>Comments:</strong>
+  <%= @contact.comments %>
+</p>
+
+<p>
+  <strong>Map link:</strong>
+  <%= @contact.map_link %>
+</p>
+
+<p>
+  <strong>Shared flag:</strong>
+  <%= @contact.shared_flag %>
+</p>
+
+<%= link_to 'Edit', edit_contact_path(@contact) %> |
+<%= link_to 'Back', contacts_path %>

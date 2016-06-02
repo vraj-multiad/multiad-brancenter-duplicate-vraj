@@ -1,0 +1,81 @@
+<div class="navbar" id="site-menu" role="navigation">
+  <div class="container">
+    <div class="category-padding">
+      <div class="home-logo">
+        <a href="/" tabindex="-1">
+          <%= image_tag("logo.png") %>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="main-content" class="content"> 
+	<div class="container">
+		<div id="position-help">
+			<div id="help-page-intro" style="float:left;margin-bottom:40px;">
+				<div id="social-media">
+					<%= form_for(@user) do |f| %>
+						<h3><%= t '__system_info__' %></h3>
+						
+						<div class="row social-headers">
+							<div class="col-xs-12 col-sm-12 col-lg-12">
+							
+						  <% if @user.errors.any? %>
+						    <div id="error_explanation" class="alert alert-danger">
+						      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+						
+						      <ul>
+						      <% @user.errors.full_messages.each do |msg| %>
+						        <li><%= msg %></li>
+						      <% end %>
+						      </ul>
+						    </div>
+						  <% end %>
+						  
+						  <div class="form-blocks">
+							  <% unless @source_page.present? %>
+							    <div class="form-group">
+							      <span><span style="color:red;margin-left:0px;">*</span> <%= t '__username__' %></span>
+							      <%= f.text_field :username, class: "form-control" %>
+							    </div>
+							    <div class="form-group">
+							    <span><span style="color:red;margin-left:0px;">*</span> <%= t '__password__' %></span>
+							      <%= f.password_field :password, class: "form-control" %>
+							    </div>
+							    <div class="form-group">
+							    <span><span style="color:red;margin-left:0px;">*</span> <%= t '__repeat_password__' %></span>
+							      <%= f.password_field :password_confirmation, class: "form-control" %>
+							    </div>
+						    <% end %>
+							  <div style="display:none;">
+							    <%= text_field_tag 'alternative_name', nil  %>
+							  </div>
+							  
+						  <% if @selectable_roles.length > 1 %>
+							  <div class="form-group">
+							    <span><span style="color:red;margin-left:0px;">*</span> <%= t '__select_role__' %></span>
+						      <%= select_tag 'role_token', options_for_select(@selectable_roles.pluck(:title, :token), nil), class: "form-control" %>
+							  </div>
+						  <% else %>
+						  	<%= hidden_field_tag 'role_token', @selectable_roles[0].token %>
+						  <% end %>
+						  </div>
+						  
+						  <h3><%= t '__personal_info__' %></h3>
+						  <div class="form-blocks">
+						  	<%= render partial: 'common_fields' %>
+						  </div>
+						  
+						  <div><span style="color:red;margin-left:0px;font-size:12px;">* Required Fields</span> </div>
+						
+						    <div class="form-group">
+						      <%= f.submit (t '__complete_registration__'), class: "btn branded-button pull-right" %>
+						    </div>
+						  </div>
+						</div>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

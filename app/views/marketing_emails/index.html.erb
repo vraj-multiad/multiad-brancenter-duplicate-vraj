@@ -1,0 +1,49 @@
+<h1>Listing marketing_emails</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>
+      User<br/>
+      Ac export<br/>
+      Ac creator template<br/>
+      Ac session history</th>
+      <th>Location<br/>
+      Subject<br/>
+      Status</th>
+      <th>From Name<br/>
+      From Address<br/>
+      Reply To</th>
+      <th>User Error String</th>
+      <th>Error String</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @marketing_emails.each do |marketing_email| %>
+      <tr>
+        <td>User: <%= marketing_email.user_id %><br/>
+        Ac export: <%= marketing_email.ac_export_id %><br/>
+        Ac creator template: <%= marketing_email.ac_creator_template_id %><br/>
+        Ac session history: <%= marketing_email.ac_session_history_id %></td>
+        <td><%= marketing_email.location %><br/>
+        <%= marketing_email.subject %><br/>
+        <%= marketing_email.status %></td>
+        <td><%= marketing_email.from_name %><br/>
+        <%= marketing_email.from_address %><br/><%= marketing_email.reply_to %></td>
+        <td><%= marketing_email.user_error_string %></td>
+        <td><%= marketing_email.error_string %></td>
+        <td><%= link_to 'Show', marketing_email %></td>
+        <td><%= link_to 'Edit', edit_marketing_email_path(marketing_email) %></td>
+        <td><%= link_to 'Destroy', marketing_email, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Marketing email', new_marketing_email_path %>

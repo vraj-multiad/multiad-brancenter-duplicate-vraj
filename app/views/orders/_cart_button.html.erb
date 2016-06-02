@@ -1,0 +1,9 @@
+<a href="javascript:void(0)" class="btn-topnav order-cart-button"><%= t '__cart__' %>&nbsp;<span class="badge"><%= active_cart_items %></span></a>
+<% if active_cart_items.to_i > 0 %>
+  <div id='active-cart-items-found' style="display:none;"></div>
+<% end %>
+<%= form_tag('/cart', remote: true, :'data-order-cart-panel' => 'order-cart-panel', id: 'order-cart-panel-form', role: 'form') do %>
+  <%= button_tag(t('__cart__'), type: 'submit', style: "display:none;", id: 'cart-form-submit'  ,class: "") do %>cart<% end %>
+<% end %>
+<%= form_tag('/cart_button', remote: true, :'data-update-cart-button' => 'cart-button', id: 'update-cart-button-form', role: 'form') do %>
+<% end %>

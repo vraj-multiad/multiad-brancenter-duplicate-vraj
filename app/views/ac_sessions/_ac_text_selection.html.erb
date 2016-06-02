@@ -1,0 +1,23 @@
+<div style="display: none;" class="edit-tool body-text ac-text-selection-step" id="<%= ac_step.step_number %>" ac_step_id="<%= ac_step.step_number %>">
+  <h3><span class="edit-numx"><%= ac_step.step_number.to_s %>.</span> <%= ac_step.title %></h3>
+  <div class="form-group">
+    <% ac_step_id = ac_step.id %>
+    <% ac_session_id = @ac_session.id %>
+    <% ac_session_history_id = @ac_session.current_ac_session_history_id %>
+    <% results = ac_step.search(@ac_session.user, ac_session_history_id, {})  %>
+    <% if results.present? %>
+      <%= form_tag('/adcreator/process_step', :remote => true, :'data-ac-process-step' => 'template-canvas', :id => "text-form", :role => "form") do %>
+        <%= hidden_field_tag 'ac_step_id', ac_step_id %>
+        <%= hidden_field_tag 'ac_session_id', ac_session_id %>
+        <%= hidden_field_tag 'ac_session_history_id', ac_session_history_id %>
+        <%= hidden_field_tag 'option_type', 'AcText' %>
+        <%= hidden_field_tag 'template_canvas_only', '1' %>
+        <%= hidden_field_tag 'layer_element', ac_step.form_data('element_name') %>
+        <%= hidden_field_tag 'layer', '' %>
+        <%= hidden_field_tag 'set_layer', '' %>
+        <%= select_tag 'option_token', options_for_select(results.pluck(:html, :token)), data: {ac_step_id: ac_step.step_number},  class: "form-control ac-step-text-selection" %>
+        <%= submit_tag 'Choose', type: 'submit' , class: "btn btn-primary text-selection set-layer", style: "margin-top:15px;" %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

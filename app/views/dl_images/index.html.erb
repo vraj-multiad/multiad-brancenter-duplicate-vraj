@@ -1,0 +1,47 @@
+<h1>Listing dl_images</h1>
+
+<table border=1>
+  <thead>
+    <tr>
+      <th></th>      
+      <th></th>      
+      <th>Status</th>
+      <th>Expired</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dl_images.each do |dl_image| %>
+
+      <tr>
+        <td valign="top">
+          Name:</br>
+      Title:</br>
+      Location:</br>
+      Preview:</br>
+      Thumbnail:</br>
+      Folder:</br>
+      Filename:</td>
+        <td  valign="top"><%= dl_image.name %></br>
+        <%= dl_image.title %></br>
+        <%= dl_image.location %></br>
+        <%= dl_image.preview %></br>
+        <%= dl_image.thumbnail %></br>
+        <%= dl_image.folder %></br>
+        <%= dl_image.filename %></th>            
+        <td><%= dl_image.status %></td>
+        <td><%= dl_image.expired %></td>
+        <td><%= link_to 'Show', dl_image %></td>
+        <td><%= link_to 'Edit', edit_dl_image_path(dl_image) %></td>
+        <td><%= link_to 'Destroy', dl_image, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Dl image', new_dl_image_path %>

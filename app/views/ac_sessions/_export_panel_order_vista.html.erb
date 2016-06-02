@@ -1,0 +1,18 @@
+<div id="export-panel">
+  <div class="export-options col-lg-7 col-md-7 col-sm-7 col-xs-7">
+    <%= form_tag('/adcreator/process_step', :remote => true,  :id => 'export_form', :'data-ac-process-order' => 'export-copy') do %>
+      <h5>order fulfillment</h5>
+      <%= hidden_field_tag 'ac_session_id', @ac_session.id %>
+      <%= hidden_field_tag 'ac_step', 'export' %>
+      <%= hidden_field_tag 'export_type', 'order_vista' %>
+      <%= hidden_field_tag 'export_formats[]', 'PDF' %>
+      <%= hidden_field_tag 'layer', '', :id => 'export_layer' %>
+      <%= hidden_field_tag 'set_layer', '' %>
+    <% end %> 
+    <div class="export-copy" id="export-copy">
+      <p>Download your file and send it to a local sign vendor. Or, upload your completed design to the Vista Print website at <a href="http://www.vistaprint.com" target="_blank">www.vistaprint.com</a> and place your order online. It’s fast and easy.</p>
+      <%= button_tag(t('__submit__'), :type => 'button', :id => 'submit-order', :class => "btn btn-default ladda-button submit-order", data: { disable_with: '<span class="ladda-label">Processing</span>', style: 'slide-down'}) do %><span class="ladda-label">Download</span><% end %>
+    </div>
+  </div>
+  <div class="export-preview"><img src="<%= @ac_session.preview( 1 ) %>" width="100%" /></div>
+</div>

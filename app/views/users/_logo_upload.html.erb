@@ -1,0 +1,24 @@
+<div class="col-lg-6 col-md-6 col-sm-6" style="margin-top:30px;" id="logo-upload-area">
+  <h3><strong><%= t '__upload_logo__' %></strong></h3>
+
+  <div class="editable-area2">
+    <div class="row social-headers">
+      <div class="col-xs-12 col-sm-12 col-lg-12">
+        <% if @user.user_uploaded_images.logo.available.length > 5 %>
+          <div class="alert alert-danger saved-logo-alert" style="margin-bottom:0px;"><%= t '__max_logos__' %></div>
+        <% else %>
+          <div class="profile-logo-upload">
+
+            <%= render partial: 'direct_upload_form_logo' %>
+
+            <ul class="fileupload-status-logo"></ul>
+          </div><!-- profile-logo -->
+        <% end %>
+      </div><!-- col-xs-12-->
+    </div><!--end row social-headers-->
+  </div><!--end editable-area2-->
+</div><!--end logo-upload-area-->
+
+<div class="col-lg-6 col-md-6 col-sm-6" style="margin-top:30px;" id="logos">
+  <%= render partial: "logos" %>
+</div><!--end:logos-->

@@ -1,0 +1,4 @@
+
+<% user_uploaded_images.each do |x| %>
+  <%= truncate(x.filename, length: 33, escape: false).to_s.html_safe %><br/>
+<% end %>

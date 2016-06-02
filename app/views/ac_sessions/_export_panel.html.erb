@@ -1,0 +1,50 @@
+<% include_export = false %>
+<% include_order = false %>
+<% export_active = '' %>
+<% order_active = '' %>
+<% export_display = 'none' %>
+<% order_display = 'none' %>
+<% operation = ac_step.form_data('operation') %>
+<% case operation %>
+<% when 'order' %>
+  <% order_display = 'block' %>
+  <% order_active = 'active' %>
+  <% include_order = true %>
+<% when 'order_or_download' %>
+  <% export_display = 'block' %>
+  <% export_active = 'active' %>
+  <% include_export = true %>
+  <% include_order = true %>
+<% else # when 'export' %>
+  <% export_display = 'block' %>
+  <% export_active = 'active' %>
+  <% include_export = true %>
+<% end %>
+<br/>
+<div class="category-padding">
+  <ul class="nav nav-tabs" role="tablist">
+    <% if include_export %>
+      <li id="export-panel-export" class="show-hide export-panel-tab <%= export_active %>" style="display:block;" data-show-id="panel-functions-export" data-hide-class="panel-functions" data-remove-active-class="export-panel-tab" data-add-active-id="export-panel-export">
+        <a href="javascript:void(0)" class="admin-buttons" ><%= t '__export_options__' %></a>
+      </li>
+    <% end %>
+    <% if include_order %>
+      <li id="export-panel-order" class="show-hide export-panel-tab <%= order_active %>" data-show-id="panel-functions-order" data-hide-class="panel-functions" data-remove-active-class="export-panel-tab" data-add-active-id="export-panel-order">
+        <a href="javascript:void(0)" class="admin-buttons" ><%= t '__order_fulfillment__' %></a>
+      </li>
+    <% end %>
+  </ul>
+</div>
+<%= form_tag('/adcreator/export_panel', :remote => true, :'data-refresh-ac-export-panel' => 'export-panel-wrapper', :id => 'export-panel-refresh-form') do %>
+  <input type="hidden" name="ac_step_id" value="<%= ac_step.id %>">
+  <input type="hidden" name="ac_session_id" value="<%= @ac_session.id %>">
+<% end %>
+<div class="panel-body">
+  <% if include_export %>
+    <%= render partial: 'export_panel_export', locals: { ac_step: ac_step, export_display: export_display  } %>
+  <% end %>
+  <% if include_order %>
+    <%= render partial: 'export_panel_order', locals: { ac_step: ac_step, order_display: order_display } %>
+  <% end %>
+  <div id="export-preview" class="export-preview"></div>
+</div>

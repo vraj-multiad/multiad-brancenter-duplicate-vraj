@@ -1,0 +1,19 @@
+<%= direct_upload_form_for @email_list.sheet do |f| %>
+  <%#= f.file_field :file , class: "image-upload-input file fileupload-email-list" %>
+  <%#= f.submit 'Upload List' %>
+    <div class="image-upload-warning" style="padding:0px 0px 25px 0px;border:none;display:block;">
+      <div class="image-upload" style="margin-bottom:16px;">
+        <label class="cabinet" style="position:absolute;top:-1px;width:98%;">
+          <%= f.file_field :file, class: "image-upload-input file fileupload-email-list", style: "width:100%" %>
+        </label>
+        <input type="text" readonly="readonly" placeholder="<%= t '__upload_list__' %>" class="upload-text" style="z-index:0;width:98%">
+      </div>
+      <div>
+        <%= button_tag 'submit-email-list', class: 'btn', style: 'color:white;background-color:white;border-color:white;', data: { disable_with: '<span style="background:url(/assets/process-bar.gif) no-repeat top left;display:block;width:220px;height:19px;margin-top:40px;margin-left:-10px;"></span>', type: 'submit' }  do  %>
+          <%= t '__submit_email-list__' %>
+        <% end %>
+      </div>
+    </div>
+<% end %>
+
+Notice: Please ensure your email list contains proper column headers as seen in the example <a href='/sample_email_list/sample_email_list.xlsx'>sample_email_list.xlsx</a>. <br/><br/>Additionally, the following spreadsheet formats are supported .xls, .xlsx, .csv and .ods.

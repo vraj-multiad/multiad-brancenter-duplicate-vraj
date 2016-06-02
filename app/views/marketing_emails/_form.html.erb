@@ -1,0 +1,53 @@
+<%= form_for(@marketing_email) do |f| %>
+  <% if @marketing_email.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@marketing_email.errors.count, "error") %> prohibited this marketing_email from being saved:</h2>
+
+      <ul>
+      <% @marketing_email.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :ac_export_id %><br>
+    <%= f.number_field :ac_export_id %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.number_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :ac_creator_template_id %><br>
+    <%= f.number_field :ac_creator_template_id %>
+  </div>
+  <div class="field">
+    <%= f.label :ac_session_history_id %><br>
+    <%= f.number_field :ac_session_history_id %>
+  </div>
+  <div class="field">
+    <%= f.label :location %><br>
+    <%= f.text_field :location %>
+  </div>
+  <div class="field">
+    <%= f.label :subject %><br>
+    <%= f.text_field :subject %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br>
+    <%= f.text_field :status %>
+  </div>
+  <div class="field">
+    <%= f.label :user_error_string %><br>
+    <%= f.text_field :user_error_string %>
+  </div>
+  <div class="field">
+    <%= f.label :error_string %><br>
+    <%= f.text_field :error_string %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,79 @@
+<h1>Listing users</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Title</th>
+      <th>Address 1</th>
+      <th>Address 2</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Zip code</th>
+      <th>Phone number</th>
+      <th>Fax number</th>
+      <th>Email address</th>
+      <th>Username</th>
+      <th>Password digest</th>
+      <th>Last login</th>
+      <th>License agreement flag</th>
+      <th>Update profile flag</th>
+      <th>Ship first name</th>
+      <th>Ship last name</th>
+      <th>Ship address 1</th>
+      <th>Ship address 2</th>
+      <th>Ship city</th>
+      <th>Ship state</th>
+      <th>Ship zip code</th>
+      <th>Ship phone number</th>
+      <th>Ship fax number</th>
+      <th>Ship email address</th>
+      <th>Same billing shipping</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.first_name %></td>
+        <td><%= user.last_name %></td>
+        <td><%= user.title %></td>
+        <td><%= user.address_1 %></td>
+        <td><%= user.address_2 %></td>
+        <td><%= user.city %></td>
+        <td><%= user.state %></td>
+        <td><%= user.zip_code %></td>
+        <td><%= user.phone_number %></td>
+        <td><%= user.fax_number %></td>
+        <td><%= user.email_address %></td>
+        <td><%= user.username %></td>
+        <td><%= user.password_digest %></td>
+        <td><%= user.last_login %></td>
+        <td><%= user.license_agreement_flag %></td>
+        <td><%= user.update_profile_flag %></td>
+        <td><%= user.ship_first_name %></td>
+        <td><%= user.ship_last_name %></td>
+        <td><%= user.ship_address_1 %></td>
+        <td><%= user.ship_address_2 %></td>
+        <td><%= user.ship_city %></td>
+        <td><%= user.ship_state %></td>
+        <td><%= user.ship_zip_code %></td>
+        <td><%= user.ship_phone_number %></td>
+        <td><%= user.ship_fax_number %></td>
+        <td><%= user.ship_email_address %></td>
+        <td><%= user.same_billing_shipping %></td>
+        <td><%= link_to 'Show', user %></td>
+        <td><%= link_to 'Edit', edit_user_path(user) %></td>
+        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New User', new_user_path %>

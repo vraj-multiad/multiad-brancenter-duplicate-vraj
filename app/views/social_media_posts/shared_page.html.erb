@@ -1,0 +1,39 @@
+<div id="shared-page-asset-detail-contents" style="display:none;position:fixed;z-index:2002;top:0;left:0;">
+  <div id="shared-page-asset-detail-display">
+  </div>
+   <div class="modal-backdrop in"></div>
+   <div class="modal-backdrop in"></div>
+</div>
+<div id="shared-page-asset-preview-panel" style="display:none;position:fixed;z-index:2002;top:0;left:0;">
+</div>
+
+<div id="shared-page" style="display:block;">
+  <% if @asset.present? %>
+    <div id="share-wrapper">
+      <div class="container">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <%= t '__shared_from__' %> <%= APP_NAME_PROPER %>
+          </div>
+          <div class="panel-body">
+            <input type="hidden" name="operation" value="add">
+            <% @assets.each do |shared_asset| %>
+              <% next if shared_asset.expired %>
+              <%= render partial: 'shared_page_result', :locals => { shared_asset: shared_asset } %>
+            <% end %>
+          </div><!--end:panel-body -->
+        </div><!--end:panel-->
+      </div><!--end: container-->
+    </div><!--end: share-wrapper-->
+  <% else %>
+    <div id="share-wrapper">
+      <div class="container">
+        <div class="panel panel-default" style="text-align:center">
+          The page you are accessing does not exist or has expired
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div><!-- end: share-page id -->
+  <div class="modal-backdrop in"></div>
+  <div class="modal-backdrop in"></div>

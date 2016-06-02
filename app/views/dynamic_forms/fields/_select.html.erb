@@ -1,0 +1,25 @@
+<% case render_type %>
+<% when 'edit' %>
+  <div class="form-group" style="padding:15px;">
+    <% required = '' %>
+    <% if dynamic_form_input.required %>
+      <% required = 'required-field' %>
+      <span class="" style="color:red;margin-left:0px;">*</span>
+    <% end %>
+    <%= f.label dynamic_form_input.title, dynamic_form_input.title %><br/>
+    <% if dynamic_form_input.description.present? %>
+      <%= dynamic_form_input.description.html_safe %><br/>
+    <% end %>
+    <%= f.select(dynamic_form_input.name, dynamic_form_input.parsed_input_choices, {}, { class: "form-control #{required} " + dynamic_form_input.html_class, data: { alert: t('__missing_required_value__') + ': ' + dynamic_form_input.title } }) %>
+  </div>
+<% when 'show' %>
+  <div class="field">
+    <%= dynamic_form_input.title %>: <%= @dynamic_form_submission.properties[dynamic_form_input.name] %><br/>
+  </div>
+<% when 'email' %>
+  <div class="field">
+    <%= dynamic_form_input.title %>: <%= @dynamic_form_submission.properties[dynamic_form_input.name] %><br/>
+  </div>
+<% else %>
+<% end %>
+

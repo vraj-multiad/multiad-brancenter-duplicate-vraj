@@ -1,0 +1,83 @@
+<div id="admin-advanced-asset-<%= edit_asset.token %>" class="order-panel">
+  <% if edit_asset_messages.count > 0 %>
+    <ul class="alert alert-success">
+      <% edit_asset_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <%= form_tag('/admin/edit_assets/update', :remote => true, :id => 'admin-edit-assets-update-' + edit_asset.token, :'data-admin-advanced-asset' => 'admin-advanced-asset-' + edit_asset.token ) do %>
+    <div style="float:left;width:73%">
+      <span class="" style="color:red;margin-left:0px;">* <%= t('__required__') %></span>
+      <div class="form-group">
+        <span><%= t '__display_name__'%></span><span class="" style="color:red;margin-left:0px;"> *</span>
+        <%= text_field_tag 'title', edit_asset.title.to_s, class: "required-field form-control", data: { alert: t('__missing_required_value__') + ': ' + t('__display_name__') } %>
+      </div>
+      <%= hidden_field_tag 'asset_index', i %>
+      <%= hidden_field_tag 'asset_type', edit_asset.class.name %>
+      <%= hidden_field_tag 'asset_token', edit_asset.token %>
+      <% if edit_asset.has_attribute?(:description)  %>
+        <div class="form-group">
+          <span><%= t('__description__') %></span>
+          <%= text_area_tag 'description', edit_asset.description.to_s, class: "form-control2" %>
+        </div>
+      <% end %>
+
+      <div class="row">
+        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+          <span><%= t('__publish_date__') %></span><span class="" style="color:red;margin-left:0px;"> *</span>
+          <%= text_field_tag 'publish_at', edit_asset.publish_at.present? ? edit_asset.publish_at.to_date : '', class: "datepicker required-field form-control", data: { alert: t('__missing_required_value__') + ': ' + t('__publish_date__'), 'max-date' => '3650' } %>
+        </div>
+        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+          <span><%= t('__unpublish_date__') %></span><span class="" style="color:red;margin-left:0px;"> *</span>
+          <%= text_field_tag 'unpublish_at', edit_asset.unpublish_at.present? ? edit_asset.unpublish_at.to_date : '', class: "datepicker required-field form-control", data: { alert: t('__missing_required_value__') + ': '+ t('__unpublish_date__'), 'max-date' => '3650' } %>
+        </div>
+      </div>
+
+      <% if edit_asset.class.name == 'DlImage' %>
+        <div class="row">
+          <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <%= hidden_field_tag 'is_downloadable', 'false' %>
+            <%= check_box_tag 'is_downloadable', 'true', edit_asset.downloadable?, {} %><span class=""><%= t '__downloadable__' %>?</span>
+          </div>
+          <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <%= hidden_field_tag 'is_shareable_via_email', 'false' %>
+            <%= check_box_tag 'is_shareable_via_email', 'true', edit_asset.shareable_via_email?, {} %><span class=""><%= t '__shareable_via_email__' %>?</span>
+          </div>
+          <% if ENABLE_SOCIAL_MEDIA %>
+            <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-6">
+              <%= hidden_field_tag 'is_shareable_via_social_media', 'false' %>
+              <%= check_box_tag 'is_shareable_via_social_media', 'true', edit_asset.shareable_via_social_media?, {} %><span class=""><%= t '__shareable_via_social_media__' %>?</span>
+            </div>
+          <% end %>
+        </div>
+        <div class="form-group">
+          <span><%= t '__external_link_label__'%></span>
+          <%= text_field_tag 'external_link_label', edit_asset.external_link_label.to_s, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <span><%= t '__external_link__'%></span>
+          <%= text_field_tag 'external_link', edit_asset.external_link.to_s, class: "form-control" %>
+        </div>
+      <% end %>
+
+      <%= button_tag(t('__save__'), class: 'btn branded-button validate-and-submit-form', style: 'float:right;', type: 'button', data: { 'form-id' => 'admin-edit-assets-update-' + edit_asset.token}) %>
+    </div>
+
+    <div class="export-preview" style="text-align:center">
+      <div class="thumbnail" style="width:100%">
+        <div class="crop-images" style="width:100%">
+          <div class="align-images2" style="width:1000px">
+              <%= image_tag edit_asset.thumbnail_url %>
+          </div>
+        </div> 
+          
+        <div class="caption" style="width:100%">
+          <p style="width:100%;text-align:left;"><%= truncate(edit_asset.title, length: 46, escape: false).to_s.html_safe %></p>
+        </div>
+      </div>
+    </div>
+
+  <% end %>
+
+</div>

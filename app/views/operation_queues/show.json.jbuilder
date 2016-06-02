@@ -1,0 +1,1 @@
+json.extract! @operation_queue, :operable_type, :operable_id, :queue_type, :operation_type, :operation, :status, :error_message, :path, :alt_path, :scheduled_at, :completed_at, :created_at, :updated_at

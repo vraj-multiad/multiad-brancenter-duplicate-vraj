@@ -1,0 +1,23 @@
+<li class="dropdown ac-toolbar-tool">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b class="caret" style="margin-right:10px;"></b><span id="template-width"></span> x <span id="template-height"></span></a>
+  <div class="dropdown-menu ac-dropdown ac-size-dropdown" style="text-align:center;min-width:200px;">
+    <%= form_tag('/adcreator/process_step', :remote => true, :'data-ac-process-step' => 'adcreator-contents', :class => "form-inline", :role => "form") do %>
+      <div class="form-group ac-size-input-group">
+        <% #logger.debug @resize['min_width'] %>
+        Min: <%= @resize['min_width'] %>"
+        <input type="text" class="form-control resize-input" data-min="<%=@resize['min_width'] %>" data-max="<%= @resize['max_width'] %>" id="width-input" placeholder="W" name="resize_width" style="width:100%">
+        Max: <%= @resize['max_width'] %>"
+      </div>&nbsp;x&nbsp;<div class="form-group ac-size-input-group">
+        Min: <%= @resize['min_height'] %>"
+        <input type="text" class="form-control resize-input" data-min="<%= @resize['min_height'] %>" data-max="<%= @resize['max_height'] %>" id="height-input" placeholder="H" name="resize_height" style="width:100%">
+        Max: <%= @resize['max_height'] %>"
+      </div>
+      <input type="hidden" name="ac_session_id" value="<%= @ac_session.id %>"/>
+      <input type="hidden" name="ac_step_id" value="<%= ac_step.id %>"/>
+      <%= button_tag 'resize', data: { disable_with: 'Resizing' }, type: 'submit', :class => 'btn btn-default btn-sm' do %>
+        Resize
+      <% end %>                
+      <!-- <button type="submit" class="btn btn-default btn-sm" style="float:right;margin-top:8px;">Resize</button> -->
+    <% end %>
+  </div>
+</li>

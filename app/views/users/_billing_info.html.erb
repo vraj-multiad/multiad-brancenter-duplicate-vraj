@@ -1,0 +1,141 @@
+<div class="col-lg-12 col-lg-offset-12 col-md-12 col-md-offset-12 col-sm-12" id="billing_info" >
+  <h3><strong><%= t '__user_info__' %></strong></h3>
+
+  <div class="row">
+    <div class="col-lg-6 " id="prof_name">
+      <h4>
+      <span class="billing" style="letter-spacing:1px;">
+        <%= @user.first_name %> <%= @user.last_name %>
+      </span>
+      </h4>
+    </div> 
+  </div> 
+
+  <div class="editable-area billing">
+
+    <div class="row"> 
+      <div class="col-xs-2 col-sm-3 col-lg-3">
+        <%= t '__address__' %>:
+      </div>
+      <div class="col-xs-4 col-sm-5 col-md-6 col-lg-5" id="prof_address">
+        <span class="billing" >
+          <%= @user.address_1 %><br/>
+          <% if @user.address_2 %>
+            <%= @user.address_2 %><br/>
+          <% end %>
+          <%= @user.city %>, <%= @user.state %> <%= @user.zip_code %>
+        </span>
+      </div>
+    </div>
+
+    <div class="row bump-10"> 
+      <div class="col-xs-2 col-sm-3 col-lg-3">
+        <%= t '__phone_single__' %>:
+      </div>
+      <div class="col-xs-4 col-sm-5 col-md-6 col-lg-5" id="prof_phone">
+        <span class="billing" >
+          <%= @user.phone_number %>
+        </span>
+      </div>
+    </div>
+
+    <div class="row bump-10"> 
+      <div class="col-xs-2 col-sm-3 col-lg-3">
+        <%= t '__mobile_single__' %>:
+      </div>
+      <div class="col-xs-4 col-sm-5 col-md-6 col-lg-5" id="prof_mobile">
+        <span class="billing" >
+          <%= @user.mobile_number %>
+        </span>
+      </div>
+    </div>
+
+    <div class="row bump-10"> 
+      <div class="col-xs-2 col-sm-3 col-lg-3">
+        <%= t '__fax_single__' %>:
+      </div>
+      <div class="col-xs-4 col-sm-5 col-md-6 col-lg-5" id="prof_fax">
+        <span class="billing" >
+          <%= @user.fax_number %>
+        </span>
+      </div>
+    </div>
+
+    <div class="row bump-10"> 
+      <div class="col-xs-2 col-sm-3 col-lg-3">
+        <%= t '__email_single__' %>:
+      </div>
+      <div class="col-xs-4 col-sm-5 col-md-6 col-lg-5" id="prof_email">
+        <span class="billing" >
+          <%= @user.email_address %>
+        </span>
+      </div>
+    </div>
+
+    <div class="edit-button"><div class="glyphicon glyphicon-pencil"><span><%= t '__edit__' %></span></div></div>
+
+  </div> <!-- End: .editable-area.billing -->
+
+  <div class="row bump-10" style="display:none;">
+    <div class="col-lg-7">
+      <%= form_tag('/update_profile', { method: 'PATCH', id: 'same_billing_shipping_form' }) do %>        
+      <label class="checkbox-inline">
+        <%= check_box "user", "same_billing_shipping", {}, 'true', 'false' %>Shipping info same as billing info 
+      </label>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="click_to_edit">
+  </div>
+
+</div> <!-- End: #billing_info -->
+
+
+
+<!-- Billing Info Modal -->
+<div id="edit-billing-wrapper">
+  <div class="modal fade" id="edit_billing_info">
+  <% if @user.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+   <div class="container">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <% unless @user.update_profile_flag %>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <% end %>
+          <h4 class="modal-title"><%= t '__update_your_info__' %></h4>
+        </div>
+        <%= form_tag('/update_profile', method: 'PATCH') do %>
+          <%= hidden_field_tag 'source_page', source_page %>
+          <div class="modal-body">
+            <div class="row">
+              <div style="padding:15px;">
+                <%= render partial: 'common_fields' %>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <% unless @user.update_profile_flag %>
+              <button type="button" class="btn btn-default" data-dismiss="modal"><%= t '__cancel__' %></button>
+            <% end %>
+            <%= button_tag(t("__submit__"), :class => "btn btn-default") %>
+          </div>
+       <% end %>        
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+   </div>
+  </div><!-- /.modal -->
+  <div class="modal-backdrop in"></div> 
+</div>
+  <!-- End: Billing Info Modal -->

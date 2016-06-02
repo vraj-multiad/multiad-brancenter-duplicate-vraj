@@ -1,0 +1,7 @@
+<% logger.debug 'in template' %>
+<%= direct_upload_form_for @video.video do |f| %>
+  <% logger.debug 'in form' %>
+  <%= f.file_field :file , class: "bundle-input file" %>
+  <br>
+  <%= f.submit 'Upload Video' %>
+<% end %>

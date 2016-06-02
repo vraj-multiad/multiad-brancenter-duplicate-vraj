@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+  <% case @status %>
+  <% when 'submitted' %>
+    <p><%= simple_format(t('email_ac_export_approval_notification_user_body_submitted')) %></p>
+  <% when 'approved' %>
+    <p><%= simple_format(t('email_ac_export_approval_notification_user_body_approved', email_recipients: @email_recipients)) %></p>
+  <% when 'denied' %>
+    <p><%= simple_format(t('email_ac_export_approval_notification_user_body_denied', comments: @comments)) %></p>
+  <% end %>
+  </body>
+</html>

@@ -1,0 +1,14 @@
+<% if @dl_cart.location %>
+  <a id="dl_cart_download_url" data-dl-cart-download-url="<%= @pickup_url + @dl_cart.location %>" href="<%= @dl_cart.location %>"></a>
+<% elsif @dl_cart.status == 'direct_download' %>
+  <a id="dl_cart_download_url" data-dl-cart-download-url="<%= @dl_cart.dl_cart_items.first.downloadable.image_uploader.zip.url.gsub('&amp;', '&') %>" href="<%= @dl_cart.dl_cart_items.first.downloadable.image_uploader.full_filename %>"></a>
+<% elsif @dl_cart.status == 'submitted' %>
+  <div name='dl_cart_auto_refresh'>
+    <%= form_tag('/asset_group/download', :remote => true, :'data-asset-group-download' => 'asset-group-download', :id => 'dl_cart_auto_refresh') do %>
+    <% end %>
+  </div>
+<% elsif @dl_cart.status == 'wait' %>
+  <%= form_tag('/dl_cart/wait', :remote => true, :'data-dl-single' => 'dl_single_' + @token.to_s, :id => 'dl_cart_auto_refresh_' + @token.to_s) do %>
+    <%= hidden_field_tag('dl_cart_token', @dl_cart.token) %>
+  <% end %>
+<% end %>

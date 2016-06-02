@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Marketing email:</strong>
+  <%= @marketing_email_recipient.marketing_email_id %>
+</p>
+
+<p>
+  <strong>Email address:</strong>
+  <%= @marketing_email_recipient.email_address %>
+</p>
+
+<%= link_to 'Edit', edit_marketing_email_recipient_path(@marketing_email_recipient) %> |
+<%= link_to 'Back', marketing_email_recipients_path %>

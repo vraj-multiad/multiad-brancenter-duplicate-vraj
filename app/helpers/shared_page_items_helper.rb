@@ -1,0 +1,2 @@
+module SharedPageItemsHelper
+end

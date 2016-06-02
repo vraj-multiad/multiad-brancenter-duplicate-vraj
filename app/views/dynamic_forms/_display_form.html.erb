@@ -1,0 +1,70 @@
+<div class='container'>
+  <div class='row'>
+    <div class='col-lg-12'>
+
+      <% attachments = [] %>
+      <%= form_for(:dynamic_form, url: { action: 'submit_form' }, html: { id: 'dynamic-form' }) do |f| %>
+        <% if @dynamic_form.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@dynamic_form.errors.count, "error") %> prohibited this dynamic_form from being saved:</h2>
+
+            <ul>
+            <% @dynamic_form.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="form-group col-lg-12">
+          <h3><%= @dynamic_form.title %></h3><br>
+          <%= @dynamic_form.description.html_safe %><br>
+          <%= f.hidden_field :token %>
+          <% if @dynamic_form.required_inputs? %>
+            <span class="" style="color:red;margin-left:0px;">* <%= t('__required__') %></span>
+          <% end %>
+        </div>
+        <% @dynamic_form.dynamic_form_input_groups.order(:name).each do |dfig| %>
+          <div class="field row <%= dfig.html_class %>">
+            <% if dfig.title.present? %>
+              <h3><%= dfig.title %></h3><br>
+            <% end %>
+            <% if dfig.description.present? %>
+              <%= dfig.description %><br>
+            <% end %>
+            <%= f.fields_for :properties, OpenStruct.new(@dynamic_form_submission.properties) do |builder| %>
+              <% dfig.dynamic_form_inputs.order(:name).each do |dfi| %>
+                <% attachments << dfi if dfi.attachment? %>
+                <%= render partial: "dynamic_forms/fields/#{dfi.input_type}", locals: { dynamic_form_input: dfi, f: builder, render_type: 'edit' } %>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+
+        <div class="col-lg-12">
+          <p>
+            <%= button_tag('Submit', class: 'btn branded-button validate-and-submit-form', style: 'float:right;', type: 'button', data: { 'form-id' => 'dynamic-form' }) %>
+          </p>
+        </div>
+
+      <% end %>
+        
+      <div id= 'attachment-form-modal' class='modal' style='display: none;'>
+
+        <div class='container'>
+          <div class='row'>
+            <div class='col-lg-12'>
+              <div id= 'attachment-form'></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-backdrop in"></div>
+      </div>
+      <% attachments.each do |attachment| %>
+        <%= form_tag(dynamic_form_get_attachment_form_path( token: attachment.dynamic_form_input_group.dynamic_form.token, dynamic_form_input_id: attachment.id), method: "get", remote: true, id: 'get-attachment-form-' + attachment.dynamic_form_input_group.dynamic_form.token + '-' + attachment.id.to_s, data: { 'attachment-form-div' => 'attachment-form' } ) do %>
+        <% end %><br/>
+      <% end %>
+    </div>
+  </div>
+</div>

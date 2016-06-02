@@ -1,0 +1,37 @@
+<h1>Listing kwikee_assets</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Kwikee product</th>
+      <th>Asset</th>
+      <th>Promotion</th>
+      <th>Asset type</th>
+      <th>Version</th>
+      <th>View</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @kwikee_assets.each do |kwikee_asset| %>
+      <tr>
+        <td><%= kwikee_asset.kwikee_product_id %></td>
+        <td><%= kwikee_asset.asset_id %></td>
+        <td><%= kwikee_asset.promotion %></td>
+        <td><%= kwikee_asset.asset_type %></td>
+        <td><%= kwikee_asset.version %></td>
+        <td><%= kwikee_asset.view %></td>
+        <td><%= link_to 'Show', kwikee_asset %></td>
+        <td><%= link_to 'Edit', edit_kwikee_asset_path(kwikee_asset) %></td>
+        <td><%= link_to 'Destroy', kwikee_asset, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Kwikee asset', new_kwikee_asset_path %>

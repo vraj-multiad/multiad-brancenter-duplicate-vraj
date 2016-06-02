@@ -1,0 +1,85 @@
+<div class='col-lg-6'>
+  <div class='col-lg-12'>
+    <%= form_tag(ac_texts_name_title_search_url, remote: true, data: { 'index-ac-text-results' => 'index-ac-text-results' }, id: 'ac-texts-keyword-search-form') do %>
+      <strong>Name/Title Search (Uses && logic if field present, case sensitive, to wildcard, add % to front or back)</strong><br/>
+      <div class='col-lg-11'>
+        Name: <%= text_field_tag 'name', @name.to_s, class: 'form-control' %>
+        Title: <%= text_field_tag 'title', @title.to_s, class: 'form-control' %>
+      </div>
+      <div class='col-lg-1'><br/>
+        <%= button_tag(t("__submit__"), :type => 'submit', :class => "btn btn-default submit-butt", data: { disable_with: '<span class="launch_ac">&nbsp;</span>' }) %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class='col-lg-12'>
+    <%= form_tag(ac_texts_keyword_search_url, remote: true, data: { 'index-ac-text-results' => 'index-ac-text-results' }, id: 'ac-texts-keyword-search-form') do %>
+      <strong>Keyword Search (will lowercase input)</strong><br/>
+      <div class='col-lg-11'>
+        <%= text_field_tag 'keyword', @keyword.to_s, class: 'form-control' %>
+      </div>
+      <div class='col-lg-1'>
+        <%= button_tag(t("__submit__"), :type => 'submit', :class => "btn btn-default submit-butt", data: { disable_with: '<span class="launch_ac">&nbsp;</span>' }) %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class='col-lg-12'>
+    <%= form_tag(ac_texts_text_search_url, remote: true, data: { 'index-ac-text-results' => 'index-ac-text-results' }, id: 'ac-texts-text-search-form') do %>
+      <strong>Creator/HTML Search (is case sensitive!)</strong><br/>
+      <div class='col-lg-11'>
+        <%= text_field_tag 'text', @text.to_s, class: 'form-control' %>
+      </div>
+      <div class='col-lg-1'>
+        <%= button_tag(t("__submit__"), :type => 'submit', :class => "btn btn-default submit-butt", data: { disable_with: '<span class="launch_ac">&nbsp;</span>' }) %>
+      </div>
+    <% end %>
+  </div>
+ 
+</div>
+
+
+
+<div class='col-lg-6'>
+  <div class='col-lg-12'>
+    <%= form_tag(ac_texts_set_search_url, remote: true, data: { 'index-ac-text-results' => 'index-ac-text-results' }, id: 'ac-texts-set-search-form') do %>
+      <strong>Set Attribute Search (is case sensitive!)</strong><br/>
+      <div class='col-lg-11'>
+        Name: <%= text_field_tag 'name', @set_name.to_s, class: 'form-control' %>
+        Value: <%= text_field_tag 'value', @set_value.to_s, class: 'form-control' %>
+      </div>
+      <div class='col-lg-1'><br/>
+        <%= button_tag(t("__submit__"), :type => 'submit', :class => "btn btn-default submit-butt", data: { disable_with: '<span class="launch_ac">&nbsp;</span>' }) %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class='col-lg-12'>
+    <%= form_tag(ac_texts_responds_search_url, remote: true, data: { 'index-ac-text-results' => 'index-ac-text-results' }, id: 'ac-texts-responds-search-form-search-form') do %>
+      <strong>Responds To Attribute Search (is case sensitive!)</strong><br/>
+      <div class='col-lg-11'>
+        Name: <%= text_field_tag 'name', @responds_name.to_s, class: 'form-control' %>
+        Value: <%= text_field_tag 'value', @responds_value.to_s, class: 'form-control' %>
+      </div>
+      <div class='col-lg-1'><br/>
+        <%= button_tag(t("__submit__"), :type => 'submit', :class => "btn btn-default submit-butt", data: { disable_with: '<span class="launch_ac">&nbsp;</span>' }) %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<h1>Listing ac_texts 
+  <%= form_tag('/ac_texts', method: 'GET', remote: false, id: 'ac-texts-index-all-form') do %>
+    <%= hidden_field_tag 'all', 'true' %>
+    <%= button_tag('display all', type: 'submit', class: 'btn btn-default submit-butt') %>
+  <% end %>
+</h1>
+
+<div id='index-ac-text-results'>
+  <%= render partial: 'index_results' %>
+</table>
+</div>
+
+<br>
+
+<%= link_to 'New Ac text', new_ac_text_path %>

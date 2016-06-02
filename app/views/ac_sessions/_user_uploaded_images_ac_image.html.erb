@@ -1,0 +1,19 @@
+<% upload_count=0 %>
+<% @ac_session.user.user_uploaded_images.ac_image.complete.each do |user_uploaded_image| %>
+  <% next if user_uploaded_image.expired %>
+  <% upload_count = upload_count + 1 %>
+<% end %>
+<% if upload_count > 0 %>
+  <h3 style="font-size:14px;float:left;width:100%">uploaded images</h3>
+<% end %>
+<% @ac_session.user.user_uploaded_images.ac_image.complete.each do |user_uploaded_image| %>
+  <% next if user_uploaded_image.expired %>
+  <% auto_submit = 'validate-and-submit-form' %>
+  <% auto_submit = 'resize' if ENABLE_RESIZE_USER_UPLOADED_IMAGE %>
+  <div class="image-choice <%= auto_submit %>">
+    <div class="img-thumbs paginate" style="background-image: url('<%= user_uploaded_image.image_upload.thumbnail.url %>');">
+      <%= radio_button_tag 'option_token', user_uploaded_image.token %>
+    </div>
+  </div>
+<% end %>
+<br/>

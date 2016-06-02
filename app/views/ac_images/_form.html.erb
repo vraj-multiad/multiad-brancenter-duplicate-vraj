@@ -1,0 +1,58 @@
+<%= form_for(@ac_image) do |f| %>
+  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+    <% if @ac_image.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@ac_image.errors.count, "error") %> prohibited this ac_image from being saved:</h2>
+
+        <ul>
+        <% @ac_image.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div>
+      <%= f.label :name %><br>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+    <div>
+      <%= f.label :title %><br>
+      <%= f.text_field :title, class: "form-control" %>
+    </div>
+    <div>
+      <%= f.label :thumbnail %><br>
+      <%= f.text_field :thumbnail, class: "form-control" %>
+    </div>
+    <div>
+      <%= f.label :preview %><br>
+      <%= f.text_field :preview, class: "form-control" %>
+    </div>
+    <div>
+      <%= f.label :location %><br>
+      <%= f.text_field :location, class: "form-control" %>
+    </div>
+    <div>
+      <%= f.label :folder %><br>
+      <%= f.text_field :folder, class: "form-control" %>
+    </div>
+    <div>
+      <%= f.label :filename %><br>
+      <%= f.text_field :filename, class: "form-control" %>
+    </div>
+    <%= render partial: 'keyword/form_publish_dates' , locals: { f: f, publish_at: @ac_image.publish_at, unpublish_at: @ac_image.unpublish_at } %>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+    <div class="field">
+      <%= render partial: 'set_attributes/set_attribute_list', locals: {attribute_list: @ac_image.set_attributes} %>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+    <div class="field">
+      <%= render partial: 'responds_to_attributes/responds_to_attribute_list', locals: {attribute_list: @ac_image.responds_to_attributes} %>
+    </div>
+  </div>
+  <div class="actions col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <%= f.submit %>
+  </div>
+<% end %>

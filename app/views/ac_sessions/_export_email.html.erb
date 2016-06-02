@@ -1,0 +1,18 @@
+<!-- _export_email.html.erb -->
+<% if @ac_session.ready? %>
+  <div class="pull-left" style="margin-top:20px;">
+    <p><%= t '__export_completed__' %> <%= @recipient_email_address %></p>
+    <% unless @ac_export.inline_email? %>
+      <p><a href="<%= @ac_export.download_url %>"><%= t '__click_to_download__' %></a></p>
+    <% end %>
+  </div>
+<% else %>
+  <div class="pull-left">
+    <div name='ac_auto_refresh'>
+      <%= form_tag('/adcreator/workspace', :remote => true, :'data-ac-process-export' => 'export-copy', :id => 'ac_auto_refresh') do %>
+        <input type="hidden" name="id" value="<%= @ac_session.id %>"/>
+      <% end %>
+    </div>
+    <h3><%= t 'ac_export_email_in_process' %></h3>
+  </div>
+<% end %>

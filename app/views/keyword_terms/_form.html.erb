@@ -1,0 +1,37 @@
+<%= form_for(@keyword_term) do |f| %>
+  <% if @keyword_term.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@keyword_term.errors.count, "error") %> prohibited this keyword_term from being saved:</h2>
+
+      <ul>
+      <% @keyword_term.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :language_id %><br>
+    <%= f.number_field :language_id %>
+  </div>
+  <div class="field">
+    <%= f.label :term %><br>
+    <%= f.text_field :term %>
+  </div>
+  <div class="field">
+    <%= f.label :parent_term_id %><br>
+    <%= f.number_field :parent_term_id %>
+  </div>
+  <div class="field">
+    <%= f.label :keyword_type %><br>
+    <%= f.text_field :keyword_type %>
+  </div>
+  <div class="field">
+    <%= f.label :term_count %><br>
+    <%= f.text_field :term_count %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

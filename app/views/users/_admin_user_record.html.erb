@@ -1,0 +1,13 @@
+<tr>
+  <td style="text-align:left;"><%= user.username %></td>
+  <td style="text-align:left;"><%= user.email_address %></td>
+  <td><%= t(user.activated) %></td>
+  <td><%= t(user.user_type) %></td>
+  <td><a><div class="admin-user-edit-submit" data-id="<%= user.id %>"><%= t '__edit__' %></div></a></td>
+  <td><% unless user.sso_flag %><a><div class="admin-user-reset-password-submit" data-confirm="<%= t('__are_you_sure__') %>" data-id="<%= user.id %>"><%= t '__reset_password__' %></div></a><% end %></td>
+  <% if (user.permissions.pluck(:id) - @real_user.permissions.pluck(:id)).count == 0 %>
+    <td><a><div class="admin-user-expire-submit" data-confirm="<%= t('__are_you_sure__') %>" data-id="<%= user.id %>"><%= t '__expire_account__' %></div></a></td>
+  <% else %>
+    <td><div class="" ><%= t '__expire_account__' %></div></td>
+  <% end %>
+</tr>

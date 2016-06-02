@@ -1,0 +1,135 @@
+<div class="text-choice-container panel panel-default">
+<% if results.present? %>
+  <% results.each do |result| %>
+    <% if result.inputs.present? %>
+
+      <div style="display:none;">
+        <%= form_tag('/adcreator/process_step', :remote => true, data: { 'ac-process-step' => 'template-canvas', 'form-id' => 'text-choice-form-' + result.token.to_s }, id: 'text-choice-form-' + result.token.to_s, role: 'form') do %>
+          <%= hidden_field_tag 'ac_session_id', ac_session_id %>
+          <%= hidden_field_tag 'ac_step_id', ac_step.id %>
+          <%= hidden_field_tag 'option_type', 'AcText' %>
+          <%= hidden_field_tag 'option_token', result.token %>
+          <%= hidden_field_tag 'template_canvas_only', '1' %>
+          <%= hidden_field_tag 'layer_element', ac_step.form_data('element_name') %>
+          <%= hidden_field_tag 'layer', '' %>
+          <%= hidden_field_tag 'set_layer', '' %>
+
+          <div><%= result.html_display.html_safe %></div>
+          <% unless result.inputs.nil? %>
+            <% logger.debug 'ac_session_attributes: ' + @ac_session_attributes.to_s %>
+            <% result.parsed_inputs.each do |input_result| %>
+              <% attribute_name = input_result["name"] %>
+              <% if attribute_name == 'text' %>
+                <% attribute_name = ac_step.id.to_s + 'text' %>
+              <% end %>
+
+              <div class="form-group">
+                <% value = ac_step.form_data('default_copy').to_s %>
+                <% logger.debug 'erb attribute_name: ' + attribute_name.to_s %>
+                <% if input_result["type"].to_s == 'editor' && @wysiwyg_data[ac_step.form_data('element_name')].present? %>
+                  <% value = @wysiwyg_data[ac_step.form_data('element_name')] %>
+                  <% logger.debug 'erb value1: ' + value.to_s %>
+                <% end %>
+                <% if @ac_session_attributes[ attribute_name.downcase].to_s.length > 0 %>
+                  <% value = @ac_session_attributes[ attribute_name.downcase]  %>
+                  <% logger.debug 'erb value2: ' + value.to_s %>
+                <% elsif @ac_session_attributes[ input_result["name"].downcase].to_s.length > 0 %>
+                  <% value = @ac_session_attributes[ input_result["name"].downcase]  %>
+                  <% logger.debug 'erb value3: ' + value.to_s %>
+                <% end %>
+                <% if input_result["type"].to_s == 'textarea' %>
+                  <span><%= input_result["title"].to_s %></span>
+                  <% input_class = 'form-control' %>
+                  <% input_data = {} %>
+                  <% if input_result['required'] %>
+                    <% input_class += ' required-field' %>
+                    <% input_data[:alert] = t('__missing_required_value__') + ': ' + input_result["title"] %>
+                    <span class="" style="color:red;margin-left:0px;">*</span>
+                  <% end %>
+                  <% num_rows = 5 %>
+                  <% num_rows = input_result["num_rows"] if input_result["num_rows"].to_i > 0 %>
+                  <%= text_area_tag input_result["name"], value, :id => input_result["name"] + '-' + ac_session_id.to_s + '-' + ac_session_history_id.to_s + '-' + ac_step_id.to_s, class: input_class, rows: num_rows.to_s, data: input_data %>
+                  <% scale = @element_scales[ac_step.form_data('element_name')].to_i  %>
+                  <% if scale < 100 %>
+                    *Note: Too much text for the available area text is currently scaled down to <%= scale.to_s %>%.
+                  <% end %>
+                <% elsif input_result["type"].to_s == 'editor' %>
+                  <% num_rows = 5 %>
+                  <% num_rows = input_result["num_rows"] if input_result["num_rows"].to_i > 0 %>
+                  <% input_class = 'tinymce' %>
+                  <%= text_area_tag input_result["name"], value, :id => input_result["name"] + '-' + @ac_session.id.to_s + '-' + @ac_session.current_ac_session_history_id.to_s + '-' + ac_step.id.to_s, :class => input_class, :rows => num_rows.to_s %>
+                  <% scale = @element_scales[ac_step.form_data('element_name')].to_i  %>
+                  <% if scale < 100 %>
+                    *Note: Too much text for the available area text is currently scaled down to <%= scale.to_s %>%.
+                  <% end %>
+                <% elsif input_result["type"].to_s == 'select' %>
+                  <span><%= input_result["title"].to_s %></span>
+                  <% input_class = 'form-control ac-step-text-selection' %>
+                  <% input_data = {} %>
+                  <% if input_result['required'] %>
+                    <% input_class += ' required-field' %>
+                    <% input_data[:alert] = t('__missing_required_value__') + ': ' + input_result["title"] %>
+                    <span class="" style="color:red;margin-left:0px;">*</span>
+                  <% end %>
+                  <%= select_tag input_result["name"], options_for_select(ac_step.options_search(input_result["options_keyword"])), :class => input_class, data: input_data %>
+                <% else # text %>
+                  <% logger.debug 'input_result.inspect ' + input_result.inspect %>
+                  <span><%= input_result["title"].to_s %></span>
+                  <% input_class = 'form-control' %>
+                  <% input_data = { 'contact-field' => result["name"] } %>
+                  <% if input_result['required'] %>
+                    <% input_class += ' required-field' %>
+                    <% input_data[:alert] = t('__missing_required_value__') + ': ' + input_result["title"] %>
+                    <span class="" style="color:red;margin-left:0px;">*</span>
+                  <% end %>
+                  <% text_field_tag_params = { class: input_class, data: input_data } %>
+                  <% text_field_tag_params[:maxlength] = input_result["maxlength"] if input_result["maxlength"].present? %>
+                  <%= text_field_tag input_result["name"], value, text_field_tag_params %>
+                <% end %>
+              </div> <!-- form-group -->
+            <% end %> <!-- Array.each -->
+          <% end %> <!-- unless  -->
+          <%= button_tag(t("__submit__"), :type => 'submit', data: { disable_with: '<span class="launch_ac">&nbsp;</span>' }, :class => "btn btn-default pull-right text-choice") %>
+          
+        <% end %> <!-- form -->
+      </div>
+
+
+
+      <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title"><%= result.title %></h3></div>
+        <div class="panel-body">
+          <div><%= result.html_display.html_safe %></div>
+          <%= button_tag 'Choose', type: 'button' , class: "btn btn-default pull-right text-choice-with-input", data: { 'text-choice-token' => result.token.to_s, 'ac_step_id' => ac_step_id } %>
+        </div>
+      </div>
+
+
+
+    <% else %>
+      <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title"><%= result.title %></h3></div>
+        <div class="panel-body">
+          <%= form_tag('/adcreator/process_step', :remote => true, data: { 'ac-process-step' => 'template-canvas', 'form-id' => 'text-choice-form-' + result.token.to_s }, id: 'text-choice-form-' + result.token.to_s, role: 'form') do %>
+            <%= hidden_field_tag 'ac_step_id', ac_step_id %>
+            <%= hidden_field_tag 'ac_session_id', ac_session_id %>
+            <%= hidden_field_tag 'ac_session_history_id', ac_session_history_id %>
+            <%= hidden_field_tag 'option_type', 'AcText' %>
+            <%= hidden_field_tag 'option_token', result.token %>
+            <%= hidden_field_tag 'template_canvas_only', '1' %>
+            <%= hidden_field_tag 'layer', '' %>
+            <%= hidden_field_tag 'set_layer', '' %>
+            <div><%= result.html.html_safe %></div>
+            <%= submit_tag 'Choose', type: 'button' , class: "btn btn-default pull-right text-choice", data: { 'text-choice-token' => result.token.to_s, 'ac_step_id' => ac_step_id } %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+<% else %>
+  <div class="panel panel-default">No text options were found with your specified criteria</div>
+<% end %>
+<%= button_tag( 'Cancel', type: 'button', class: "btn btn-default btn-lg close-text-choice-butt pull-right")  %>
+</div>
+<div class="modal-backdrop in"></div>
+<div class="modal-backdrop in"></div>

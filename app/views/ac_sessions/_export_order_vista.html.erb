@@ -1,0 +1,16 @@
+<% if @ac_session.ready? %>
+  <p>Download your file and send it to a local sign vendor. Or, upload your completed design to the Vista Print website at <a href="http://www.vistaprint.com" target="_blank">www.vistaprint.com</a> and place your order online. It’s fast and easy.</p>
+
+  Processing is complete and download should begin automatically. If problems occur you may click the link to download it manually.<br/>
+  <a id="download_url" data-download-url="<%= @ac_export.download_url %>" href="<%= @ac_export.download_url %>">Click here to download</a>
+<% else %>
+  <div name='ac_auto_refresh'>
+    <%= form_tag('/adcreator/workspace', :remote => true, :'data-ac-process-export' => 'export-copy', :id => 'ac_auto_refresh') do %>
+      <input type="hidden" name="id" value="<%= @ac_session.id %>"/>
+    <% end %>
+  </div>
+  <p>Download your file and send it to a local sign vendor. Or, upload your completed design to the Vista Print website at <a href="http://www.vistaprint.com" target="_blank">www.vistaprint.com</a> and place your order online. It’s fast and easy.</p>
+
+  <h6>Zipping File(s)</h6>
+  <p>Your files are being zipped. When complete, your download will begin automatically.</p>
+<% end %>

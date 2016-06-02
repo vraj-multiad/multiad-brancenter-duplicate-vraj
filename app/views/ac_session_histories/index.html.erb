@@ -1,0 +1,39 @@
+<h1>Listing ac_session_histories</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ac session id</th>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Expired</th>
+      <th>Saved</th>
+      <th>Previous ac document</th>
+      <th>Ac document</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ac_session_histories.each do |ac_session_history| %>
+      <tr>
+        <td><%= ac_session_history.ac_session_id %></td>
+        <td><%= ac_session_history.id %></td>
+        <td><%= ac_session_history.name %></td>
+        <td><%= ac_session_history.expired %></td>
+        <td><%= ac_session_history.saved %></td>
+        <td><%= ac_session_history.previous_ac_document_id %></td>
+        <td><%= ac_session_history.ac_document_id %></td>
+        <td><%= link_to 'Show', ac_session_history %></td>
+        <td><%= link_to 'Edit', edit_ac_session_history_path(ac_session_history) %></td>
+        <td><%= link_to 'Destroy', ac_session_history, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ac session history', new_ac_session_history_path %>

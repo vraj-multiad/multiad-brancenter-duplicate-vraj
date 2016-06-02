@@ -1,0 +1,29 @@
+
+<%= form_tag('/contacts/search', id: 'contact-search-form', :remote => true, data: { 'contact-results' =>  'contact-results' }) do %>
+  <% if @contact_types.count > 1 %>
+    <ul class="nav nav-pills main-filter" style="margin-top:15px">
+      <li class="dropdown li-topnav user">
+        <a class="dropdown-toggle btn-topnav" data-toggle="dropdown" href="javascript:void(0)">
+          <% if @contact_type.nil? %>
+            <%= t( '__select_contact_type__') %>
+          <% else %>
+            <%= @contact_type.title %>
+          <% end %>
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+          <% @contact_types.each do |ct| %>
+            <li class="category-selections admin-filter-submit"><a><%= ct.title.to_s  %><input type="checkbox" name="contact_type_id" value="<%= ct.id %>" style="display:none;" /></a></li>
+          <% end %>
+        </ul>
+      </li>
+    </ul>
+  <% end %>
+  <div class="input-group input-group-lg" style="margin-bottom:20px">
+    <%= text_field_tag 'search', nil,  class: 'form-control input-lg' %>
+    <span class="input-group-btn">
+      <%= button_tag 'search', type:'submit', :class => 'admin-filter-submit btn btn-default pre-search', data:{ disable_with: '<span class="glyphicon glyphicon-repeat glyphicon-repeat-animate"></span>'} do %><span class="glyphicon glyphicon-search"></span>
+        <% end %>
+    </span>
+  </div>
+<% end %>

@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="category-padding">
+    <ul class="nav nav-pills main-filter">
+
+      <li class="dropdown li-topnav user">
+        <a class="dropdown-toggle btn-topnav" data-toggle="dropdown" id="user_categories_menu" href="javascript:void(0)">
+          <span class="filter-text"><%= @user_categories_title %></span> <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+          <% unless  @user_category_title == '__select_category__' %>
+            <li><a href="javascript:void(0)" onClick="setUserCategory('');"><b><%= t '__category_filter__' %></b></a></li>
+          <% end %>
+          <% @all_user_categories.uniq.pluck(:title).each do |user_category| %>
+            <li><a href="javascript:void(0)" onClick="setUserCategory('<%= user_category %>');"><%= user_category %></a></li>
+          <% end %>
+        </ul>
+      </li>
+
+      <li class="reset-filters pull-right" onClick="resetSearchFilters(0);"><span class="glyphicon glyphicon-remove"></span></li>
+
+      <%= render partial: 'sort_filter_list' %>
+    </ul>
+  </div>
+</div>
+<!-- END Results Filters --> 

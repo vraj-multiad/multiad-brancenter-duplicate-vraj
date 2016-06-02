@@ -1,0 +1,89 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @dl_image.name %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @dl_image.title %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @dl_image.location %>
+</p>
+
+<p>
+  <strong>Preview:</strong>
+  <%= @dl_image.preview %>
+</p>
+
+<p>
+  <strong>Thumbnail:</strong>
+  <%= @dl_image.thumbnail %>
+</p>
+
+<p>
+  <strong>Folder:</strong>
+  <%= @dl_image.folder %>
+</p>
+
+<p>
+  <strong>Filename:</strong>
+  <%= @dl_image.filename %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @dl_image.status %>
+</p>
+
+<p>
+  <strong>Expired:</strong>
+  <%= @dl_image.expired %>
+</p>
+
+<p>
+  <strong>Related DlImageGroups:</strong><br/>
+  <% @dl_image.dl_image_groups.each do |dlig| %>
+    <%= dlig.id %> - <%= dlig.name %> - <%= dlig.title %> <%= link_to 'Show', dlig %><br/>
+  <% end %>
+</p>
+
+
+<p>
+  <strong>AccessLevels:</strong><br/>
+  <% @dl_image.asset_access_levels.each do |aal| %>
+    <%= aal.access_level.name %> - <%= aal.id %><br/>
+  <% end %>
+</p>
+
+<% ['media_type', 'topic', 'keyword', 'system'].each do |keyword_type| %>
+
+  <p>
+    <strong>Keyword: (<%= keyword_type %>)</strong><br/>
+    <textarea><%= @dl_image.keywords.where("keyword_type like '%" + keyword_type +"'").pluck(:term).join(', ') %></textarea>
+  </p>
+
+<% end %>
+
+<%= link_to 'Edit', edit_dl_image_path(@dl_image) %> |
+<%= link_to 'Back', dl_images_path %>
+
+<hr>
+<%= form_tag('/admin/dl_image/publish', :remote => true, :'data-expire' => 'search', :'data-location-reload' => 'reload') do %>
+  <input type="hidden" name="token" value="<%= @dl_image.token %>">
+  <input type="hidden" name="status" value="unpublished">
+    <%= button_tag 'Expire Dl Image', data: { disable_with: t('__removing__') }, type: 'submit'  do %>Expire
+    <% end %>
+<% end %>
+<hr>
+<%= form_tag('/admin/dl_image/publish', :remote => true, :'data-expire' => 'search', :'data-location-reload' => 'reload') do %>
+  <input type="hidden" name="token" value="<%= @dl_image.token %>">
+  <input type="hidden" name="status" value="production">
+    <%= button_tag 'Expire Dl Image', data: { disable_with: t('__removing__') }, type: 'submit'  do %>Re-Publish
+    <% end %>
+<% end %>
+<hr>

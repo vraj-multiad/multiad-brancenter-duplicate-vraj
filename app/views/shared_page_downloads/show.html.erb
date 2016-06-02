@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Shared page:</strong>
+  <%= @shared_page_download.shared_page_id %>
+</p>
+
+<p>
+  <strong>Shareable type:</strong>
+  <%= @shared_page_download.shareable_type %>
+</p>
+
+<p>
+  <strong>Shareable:</strong>
+  <%= @shared_page_download.shareable_id %>
+</p>
+
+<%= link_to 'Edit', edit_shared_page_download_path(@shared_page_download) %> |
+<%= link_to 'Back', shared_page_downloads_path %>

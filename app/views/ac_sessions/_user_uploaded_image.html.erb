@@ -1,0 +1,32 @@
+<div  style="display: none;"  class="edit-tool select-image" id="<%= ac_step.step_number %>" ac_step_id="<%= ac_step.id %>">
+<!-- user_uploaded_image -->
+  <h3><span class="edit-numx"><%= ac_step.step_number.to_s %>.</span> Select Logo</h3>
+  <%= form_tag('/adcreator/process_step', :remote => true, :'data-ac-process-step' => 'adcreator-contents') do %>
+    <%= hidden_field_tag 'ac_session_id', @ac_session.id %>
+    <%= hidden_field_tag 'ac_step_id', ac_step.id %>
+    <%= hidden_field_tag 'option_type', 'UserUploadedImage' %>
+    <%= hidden_field_tag 'layer_element', ac_step.form_data('element_name') %>
+    <%= hidden_field_tag 'layer', '' %>
+    <%= hidden_field_tag 'set_layer', '' %>
+    <div class="image-choices">
+      <% @ac_session.user.user_uploaded_images.logo.each do |user_uploaded_image| %>
+        <% next if user_uploaded_image.expired %>
+        <div class="image-choice set-layer">
+          <div class="img-logos" style="background-image: url('<%= user_uploaded_image.image_upload.thumbnail.url %>')">
+            <%= radio_button_tag 'option_token', user_uploaded_image.token %>
+          </div>
+        </div>
+      <% end %>
+      <br/>
+    </div>
+  <% end %>
+  <%= form_tag('/adcreator/process_step', :remote => true, :'data-ac-process-step' => 'adcreator-contents') do %>
+    <%= hidden_field_tag 'ac_session_id', @ac_session.id %>
+    <%= hidden_field_tag 'ac_step_id', ac_step.id %>
+    <%= hidden_field_tag 'option_type', 'DlImage' %>
+    <%= hidden_field_tag 'layer_element', ac_step.form_data('element_name') %>
+    <%= hidden_field_tag 'layer', '' %>
+    <%= hidden_field_tag 'set_layer', '' %>
+  <% end %>
+  <br/>
+</div>

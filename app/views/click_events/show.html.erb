@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Clickable type:</strong>
+  <%= @click_event.clickable_type %>
+</p>
+
+<p>
+  <strong>Clickable:</strong>
+  <%= @click_event.clickable_id %>
+</p>
+
+<p>
+  <strong>Click event type:</strong>
+  <%= @click_event.click_event_type %>
+</p>
+
+<p>
+  <strong>Event name:</strong>
+  <%= @click_event.event_name %>
+</p>
+
+<p>
+  <strong>Event details:</strong>
+  <%= @click_event.event_details %>
+</p>
+
+<%= link_to 'Edit', edit_click_event_path(@click_event) %> |
+<%= link_to 'Back', click_events_path %>

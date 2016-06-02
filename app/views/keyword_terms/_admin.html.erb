@@ -1,0 +1,102 @@
+<%= form_tag('/admin/filter/delete', :id => 'admin-keyword-term-delete-form', :remote => true) do %>
+  <%= hidden_field_tag 'admin_keyword_term_delete_id' %>
+<% end %>
+
+<% if @access_levels.count > 1 || @languages.count > 1 %>
+  <%= form_tag('/admin/filter', :remote => true, :'data-admin-asset-keywords' => 'admin-panel') do %>
+  <%= hidden_field_tag 'previous_access_level', @access_level_id %>
+  <%= hidden_field_tag 'previous_language', @language_id %>
+    <ul class="nav nav-pills main-filter" style="margin-top:15px">
+      <% if @access_levels.count == 1 %>
+        <%= hidden_field_tag 'access_level', @access_levels.first.id %>
+      <% elsif @access_levels.count > 1 %>
+        <li class="dropdown li-topnav user">
+          <a class="dropdown-toggle btn-topnav" data-toggle="dropdown" href="javascript:void(0)">
+            <% if @access_level.nil? %>
+              <%= t( '__select_access_group__') %>
+            <% else %>
+              <%= @access_level.title %>
+            <% end %>
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <% @access_levels.each do |al| %>
+            <% logger.debug 'al.name ' + al.name %>
+              <li class="category-selections admin-filter-submit"><a><%= al.title.to_s %><input type="checkbox" name="access_level" value="<%= al.id %>" style="display:none;" /></a></li>
+            <% end %>
+          </ul>
+        </li>
+      <% end %>
+      <% if @languages.count == 1 %>
+        <%= hidden_field_tag 'language', @languages.first.id %>
+      <% elsif @languages.count > 1 %>
+        <li class="dropdown li-topnav user">
+          <a class="dropdown-toggle btn-topnav" data-toggle="dropdown" href="javascript:void(0)">
+            <% if @language.nil? %>
+              <%= t( '__select_language__') %>
+            <% else %>
+              <%= @language.title %>
+            <% end %>
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <% @languages.each do |language| %>
+              <li class="category-selections admin-filter-submit"><a><%= language.title.to_s %><input type="checkbox" name="language" value="<%= language.id %>" style="display:none;" /></a></li>
+            <% end %>
+          </ul>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>
+    
+<%= form_tag('/admin/filter/new', :id => 'add-new-filter-form', :remote => true, :'data-admin-asset-keywords' => 'admin-panel') do %>
+  <% if @access_levels.count == 1 || @languages.count == 1 %>
+    <% if @access_levels.count == 1 %>
+      <%= hidden_field_tag 'access_level_id', @access_levels.first.id %>
+    <% end %>
+    <% if @languages.count == 1 %>
+      <%= hidden_field_tag 'language_id', @languages.first.id %>
+    <% end %>
+  <% end %>
+  <%= hidden_field_tag 'keyword_term[keyword_type]' %>
+  <%= hidden_field_tag 'keyword_term[parent_term_id]' %>
+  <%= hidden_field_tag 'keyword_term[term]' %>
+  <%= hidden_field_tag 'keyword_term[language_id]', @language_id %>
+  <%= hidden_field_tag 'keyword_term[access_level_id]', @access_level_id %>
+
+  <% @keyword_types.each do |keyword_type| %>
+    <div class="filter-list">
+        <%= t '__add__' %> <%= keyword_type.label.to_s %>
+
+    	<div class="add-new-filter">
+    	  <%= text_field_tag 'term-' + keyword_type.name, nil, :class => "form-control" %>
+        <div class="btn btn-default add-new-filter-submit" data-new-filter-type="<%= keyword_type.name %>" data-new-filter-text-id="term-<%= keyword_type.name %>"><%= t '__add__' %></div>
+      </div>
+    	
+    	<div class="main-filter" id="move-main-filter">
+        <% @top_level_categories[keyword_type.name].each do |keyword_term| %>
+          <ul>
+            <li data-term-id="<%= keyword_term.id  %>" class="parent-keyword-type"><%= keyword_term.term %><span class="caret pull-right" style="margin-top:9px;"></span> <a class="admin-keyword-term-delete-submit destroy-filter" data-id="<%= keyword_term.id %>" > </a></li>
+            
+            <% display='none' %>
+            <div class="edit-sub-categories child-keyword-type-<%= keyword_term.id  %>" style="display:<%= display %>;">
+            
+            <% keyword_term.sub_terms.order(:term).each do |st| %>
+              <% if keyword_term.id.to_s == @parent_term_id.to_s %>
+                <% display='block' %>
+              <% end %>
+              <li style="display:<%= display %>;" class="child-keyword-type-<%= keyword_term.id  %>" class="child-keyword-type"><%= st.term %> <a class="admin-keyword-term-delete-submit destroy-filter" data-confirm="<%=  t('__are_you_sure__') %>" data-id="<%= st.id %>" > </a></li>
+            <% end %>
+            </div>
+            <div style="display:<%= display %>;margin-top:15px;" class="child-keyword-type-<%= keyword_term.id  %> add-new-filter"><%= text_field_tag 'term-' + keyword_type.name + '-' + keyword_term.id.to_s, nil, :class => "form-control", :placeholder => t('__add__')  + keyword_term.term + ' Sub-' + keyword_type.title %>
+              <div class="add-new-filter-submit btn btn-default" data-new-filter-type="<%= keyword_type.name %>" data-new-filter-text-id="term-<%= keyword_type.name %>-<%= keyword_term.id.to_s %>" data-new-filter-parent-id="<%= keyword_term.id.to_s %>"><%= t '__add__' %></div>
+            </div>
+          </ul>
+        <% end %>
+    	</div>
+       
+    </div>
+  <% end %>
+<% end %>
+

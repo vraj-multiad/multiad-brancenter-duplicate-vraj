@@ -1,0 +1,621 @@
+<%= form_for(@kwikee_product) do |f| %>
+  <% if @kwikee_product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@kwikee_product.errors.count, "error") %> prohibited this kwikee_product from being saved:</h2>
+
+      <ul>
+      <% @kwikee_product.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :allergens %><br>
+    <%= f.text_area :allergens %>
+  </div>
+  <div class="field">
+    <%= f.label :brand_id %><br>
+    <%= f.number_field :brand_id %>
+  </div>
+  <div class="field">
+    <%= f.label :brand_name %><br>
+    <%= f.text_area :brand_name %>
+  </div>
+  <div class="field">
+    <%= f.label :case_count %><br>
+    <%= f.text_area :case_count %>
+  </div>
+  <div class="field">
+    <%= f.label :case_depth %><br>
+    <%= f.text_area :case_depth %>
+  </div>
+  <div class="field">
+    <%= f.label :case_gtin %><br>
+    <%= f.text_area :case_gtin %>
+  </div>
+  <div class="field">
+    <%= f.label :case_height %><br>
+    <%= f.text_area :case_height %>
+  </div>
+  <div class="field">
+    <%= f.label :case_width %><br>
+    <%= f.text_area :case_width %>
+  </div>
+  <div class="field">
+    <%= f.label :category %><br>
+    <%= f.text_area :category %>
+  </div>
+  <div class="field">
+    <%= f.label :column_heading %><br>
+    <%= f.text_area :column_heading %>
+  </div>
+  <div class="field">
+    <%= f.label :column_headings %><br>
+    <%= f.text_area :column_headings %>
+  </div>
+  <div class="field">
+    <%= f.label :component_element %><br>
+    <%= f.text_area :component_element %>
+  </div>
+  <div class="field">
+    <%= f.label :component_elements %><br>
+    <%= f.text_area :component_elements %>
+  </div>
+  <div class="field">
+    <%= f.label :consumable %><br>
+    <%= f.text_area :consumable %>
+  </div>
+  <div class="field">
+    <%= f.label :container_type %><br>
+    <%= f.text_area :container_type %>
+  </div>
+  <div class="field">
+    <%= f.label :custom_product_name %><br>
+    <%= f.text_area :custom_product_name %>
+  </div>
+  <div class="field">
+    <%= f.label :department %><br>
+    <%= f.text_area :department %>
+  </div>
+  <div class="field">
+    <%= f.label :depth %><br>
+    <%= f.text_area :depth %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :diabetes_fc_values %><br>
+    <%= f.text_area :diabetes_fc_values %>
+  </div>
+  <div class="field">
+    <%= f.label :disease_claim %><br>
+    <%= f.text_area :disease_claim %>
+  </div>
+  <div class="field">
+    <%= f.label :display_depth %><br>
+    <%= f.text_area :display_depth %>
+  </div>
+  <div class="field">
+    <%= f.label :display_height %><br>
+    <%= f.text_area :display_height %>
+  </div>
+  <div class="field">
+    <%= f.label :display_width %><br>
+    <%= f.text_area :display_width %>
+  </div>
+  <div class="field">
+    <%= f.label :division_name %><br>
+    <%= f.text_area :division_name %>
+  </div>
+  <div class="field">
+    <%= f.label :division_name_2 %><br>
+    <%= f.text_area :division_name_2 %>
+  </div>
+  <div class="field">
+    <%= f.label :extra_text_2 %><br>
+    <%= f.text_area :extra_text_2 %>
+  </div>
+  <div class="field">
+    <%= f.label :extra_text_3 %><br>
+    <%= f.text_area :extra_text_3 %>
+  </div>
+  <div class="field">
+    <%= f.label :extra_text_4 %><br>
+    <%= f.text_area :extra_text_4 %>
+  </div>
+  <div class="field">
+    <%= f.label :fat_free %><br>
+    <%= f.text_area :fat_free %>
+  </div>
+  <div class="field">
+    <%= f.label :flavor %><br>
+    <%= f.text_area :flavor %>
+  </div>
+  <div class="field">
+    <%= f.label :footer %><br>
+    <%= f.text_area :footer %>
+  </div>
+  <div class="field">
+    <%= f.label :footers %><br>
+    <%= f.text_area :footers %>
+  </div>
+  <div class="field">
+    <%= f.label :footnote %><br>
+    <%= f.text_area :footnote %>
+  </div>
+  <div class="field">
+    <%= f.label :footnotes %><br>
+    <%= f.text_area :footnotes %>
+  </div>
+  <div class="field">
+    <%= f.label :format %><br>
+    <%= f.text_area :format %>
+  </div>
+  <div class="field">
+    <%= f.label :gluten_free %><br>
+    <%= f.text_area :gluten_free %>
+  </div>
+  <div class="field">
+    <%= f.label :gpc_attributes_assigned %><br>
+    <%= f.datetime_select :gpc_attributes_assigned %>
+  </div>
+  <div class="field">
+    <%= f.label :gpc_brick_id %><br>
+    <%= f.number_field :gpc_brick_id %>
+  </div>
+  <div class="field">
+    <%= f.label :gpc_brick_name %><br>
+    <%= f.text_area :gpc_brick_name %>
+  </div>
+  <div class="field">
+    <%= f.label :gpc_class_id %><br>
+    <%= f.number_field :gpc_class_id %>
+  </div>
+  <div class="field">
+    <%= f.label :gpc_class_name %><br>
+    <%= f.text_area :gpc_class_name %>
+  </div>
+  <div class="field">
+    <%= f.label :gpc_family_id %><br>
+    <%= f.number_field :gpc_family_id %>
+  </div>
+  <div class="field">
+    <%= f.label :gpc_family_name %><br>
+    <%= f.text_area :gpc_family_name %>
+  </div>
+  <div class="field">
+    <%= f.label :gpc_segment_id %><br>
+    <%= f.number_field :gpc_segment_id %>
+  </div>
+  <div class="field">
+    <%= f.label :gpc_segment_name %><br>
+    <%= f.text_area :gpc_segment_name %>
+  </div>
+  <div class="field">
+    <%= f.label :gtin %><br>
+    <%= f.text_area :gtin %>
+  </div>
+  <div class="field">
+    <%= f.label :guarantee_analysis %><br>
+    <%= f.text_area :guarantee_analysis %>
+  </div>
+  <div class="field">
+    <%= f.label :guarantees %><br>
+    <%= f.text_area :guarantees %>
+  </div>
+  <div class="field">
+    <%= f.label :header %><br>
+    <%= f.text_area :header %>
+  </div>
+  <div class="field">
+    <%= f.label :headers %><br>
+    <%= f.text_area :headers %>
+  </div>
+  <div class="field">
+    <%= f.label :height %><br>
+    <%= f.text_area :height %>
+  </div>
+  <div class="field">
+    <%= f.label :image_indicator %><br>
+    <%= f.text_area :image_indicator %>
+  </div>
+  <div class="field">
+    <%= f.label :indications_copy %><br>
+    <%= f.text_area :indications_copy %>
+  </div>
+  <div class="field">
+    <%= f.label :ingredient_code %><br>
+    <%= f.text_area :ingredient_code %>
+  </div>
+  <div class="field">
+    <%= f.label :ingredients %><br>
+    <%= f.text_area :ingredients %>
+  </div>
+  <div class="field">
+    <%= f.label :instruction_copy_1 %><br>
+    <%= f.text_area :instruction_copy_1 %>
+  </div>
+  <div class="field">
+    <%= f.label :instruction_copy_2 %><br>
+    <%= f.text_area :instruction_copy_2 %>
+  </div>
+  <div class="field">
+    <%= f.label :instruction_copy_3 %><br>
+    <%= f.text_area :instruction_copy_3 %>
+  </div>
+  <div class="field">
+    <%= f.label :instruction_copy_4 %><br>
+    <%= f.text_area :instruction_copy_4 %>
+  </div>
+  <div class="field">
+    <%= f.label :instruction_copy_5 %><br>
+    <%= f.text_area :instruction_copy_5 %>
+  </div>
+  <div class="field">
+    <%= f.label :interactions_copy %><br>
+    <%= f.text_area :interactions_copy %>
+  </div>
+  <div class="field">
+    <%= f.label :is_variant_flag %><br>
+    <%= f.text_area :is_variant_flag %>
+  </div>
+  <div class="field">
+    <%= f.label :kosher %><br>
+    <%= f.text_area :kosher %>
+  </div>
+  <div class="field">
+    <%= f.label :kwikee_why_buy %><br>
+    <%= f.text_area :kwikee_why_buy %>
+  </div>
+  <div class="field">
+    <%= f.label :last_publish_date %><br>
+    <%= f.datetime_select :last_publish_date %>
+  </div>
+  <div class="field">
+    <%= f.label :legal %><br>
+    <%= f.text_area :legal %>
+  </div>
+  <div class="field">
+    <%= f.label :low_fat %><br>
+    <%= f.text_area :low_fat %>
+  </div>
+  <div class="field">
+    <%= f.label :manufacturer_id %><br>
+    <%= f.number_field :manufacturer_id %>
+  </div>
+  <div class="field">
+    <%= f.label :manufacturer_name %><br>
+    <%= f.text_area :manufacturer_name %>
+  </div>
+  <div class="field">
+    <%= f.label :mfr_approved_date %><br>
+    <%= f.datetime_select :mfr_approved_date %>
+  </div>
+  <div class="field">
+    <%= f.label :model %><br>
+    <%= f.text_area :model %>
+  </div>
+  <div class="field">
+    <%= f.label :multiple_shelf_facings %><br>
+    <%= f.text_area :multiple_shelf_facings %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_area :name %>
+  </div>
+  <div class="field">
+    <%= f.label :nutrient_claim_1 %><br>
+    <%= f.text_area :nutrient_claim_1 %>
+  </div>
+  <div class="field">
+    <%= f.label :nutrient_claim_2 %><br>
+    <%= f.text_area :nutrient_claim_2 %>
+  </div>
+  <div class="field">
+    <%= f.label :nutrient_claim_3 %><br>
+    <%= f.text_area :nutrient_claim_3 %>
+  </div>
+  <div class="field">
+    <%= f.label :nutrient_claim_4 %><br>
+    <%= f.text_area :nutrient_claim_4 %>
+  </div>
+  <div class="field">
+    <%= f.label :nutrient_claim_5 %><br>
+    <%= f.text_area :nutrient_claim_5 %>
+  </div>
+  <div class="field">
+    <%= f.label :nutrient_claim_6 %><br>
+    <%= f.text_area :nutrient_claim_6 %>
+  </div>
+  <div class="field">
+    <%= f.label :nutrient_claim_7 %><br>
+    <%= f.text_area :nutrient_claim_7 %>
+  </div>
+  <div class="field">
+    <%= f.label :nutrient_claim_8 %><br>
+    <%= f.text_area :nutrient_claim_8 %>
+  </div>
+  <div class="field">
+    <%= f.label :nutrition_footnotes_1 %><br>
+    <%= f.text_area :nutrition_footnotes_1 %>
+  </div>
+  <div class="field">
+    <%= f.label :nutrition_footnotes_2 %><br>
+    <%= f.text_area :nutrition_footnotes_2 %>
+  </div>
+  <div class="field">
+    <%= f.label :nutrition_head_1 %><br>
+    <%= f.text_area :nutrition_head_1 %>
+  </div>
+  <div class="field">
+    <%= f.label :nutrition_head_2 %><br>
+    <%= f.text_area :nutrition_head_2 %>
+  </div>
+  <div class="field">
+    <%= f.label :organic %><br>
+    <%= f.text_area :organic %>
+  </div>
+  <div class="field">
+    <%= f.label :other_nutrient_statement %><br>
+    <%= f.text_area :other_nutrient_statement %>
+  </div>
+  <div class="field">
+    <%= f.label :override_manufacturer_tasks %><br>
+    <%= f.text_area :override_manufacturer_tasks %>
+  </div>
+  <div class="field">
+    <%= f.label :peg_down %><br>
+    <%= f.text_area :peg_down %>
+  </div>
+  <div class="field">
+    <%= f.label :peg_right %><br>
+    <%= f.text_area :peg_right %>
+  </div>
+  <div class="field">
+    <%= f.label :physical_weight_lb %><br>
+    <%= f.text_area :physical_weight_lb %>
+  </div>
+  <div class="field">
+    <%= f.label :physical_weight_oz %><br>
+    <%= f.text_area :physical_weight_oz %>
+  </div>
+  <div class="field">
+    <%= f.label :post_consumer %><br>
+    <%= f.text_area :post_consumer %>
+  </div>
+  <div class="field">
+    <%= f.label :primary_gtin %><br>
+    <%= f.text_area :primary_gtin %>
+  </div>
+  <div class="field">
+    <%= f.label :primary_type %><br>
+    <%= f.text_area :primary_type %>
+  </div>
+  <div class="field">
+    <%= f.label :primary_version %><br>
+    <%= f.text_area :primary_version %>
+  </div>
+  <div class="field">
+    <%= f.label :product_count %><br>
+    <%= f.text_area :product_count %>
+  </div>
+  <div class="field">
+    <%= f.label :product_form %><br>
+    <%= f.text_area :product_form %>
+  </div>
+  <div class="field">
+    <%= f.label :product_id %><br>
+    <%= f.number_field :product_id %>
+  </div>
+  <div class="field">
+    <%= f.label :product_name %><br>
+    <%= f.text_area :product_name %>
+  </div>
+  <div class="field">
+    <%= f.label :product_size %><br>
+    <%= f.text_area :product_size %>
+  </div>
+  <div class="field">
+    <%= f.label :product_type %><br>
+    <%= f.text_area :product_type %>
+  </div>
+  <div class="field">
+    <%= f.label :profile_id %><br>
+    <%= f.text_area :profile_id %>
+  </div>
+  <div class="field">
+    <%= f.label :promotion %><br>
+    <%= f.text_area :promotion %>
+  </div>
+  <div class="field">
+    <%= f.label :protein_per_serving %><br>
+    <%= f.text_area :protein_per_serving %>
+  </div>
+  <div class="field">
+    <%= f.label :protein_uom %><br>
+    <%= f.text_area :protein_uom %>
+  </div>
+  <div class="field">
+    <%= f.label :romance_copy_1 %><br>
+    <%= f.text_area :romance_copy_1 %>
+  </div>
+  <div class="field">
+    <%= f.label :romance_copy_2 %><br>
+    <%= f.text_area :romance_copy_2 %>
+  </div>
+  <div class="field">
+    <%= f.label :romance_copy_3 %><br>
+    <%= f.text_area :romance_copy_3 %>
+  </div>
+  <div class="field">
+    <%= f.label :romance_copy_4 %><br>
+    <%= f.text_area :romance_copy_4 %>
+  </div>
+  <div class="field">
+    <%= f.label :romance_copy_category %><br>
+    <%= f.text_area :romance_copy_category %>
+  </div>
+  <div class="field">
+    <%= f.label :section_id %><br>
+    <%= f.text_area :section_id %>
+  </div>
+  <div class="field">
+    <%= f.label :section_name %><br>
+    <%= f.text_area :section_name %>
+  </div>
+  <div class="field">
+    <%= f.label :segment %><br>
+    <%= f.text_area :segment %>
+  </div>
+  <div class="field">
+    <%= f.label :segments %><br>
+    <%= f.text_area :segments %>
+  </div>
+  <div class="field">
+    <%= f.label :sensible_solutions %><br>
+    <%= f.text_area :sensible_solutions %>
+  </div>
+  <div class="field">
+    <%= f.label :size_description_1 %><br>
+    <%= f.text_area :size_description_1 %>
+  </div>
+  <div class="field">
+    <%= f.label :size_description_2 %><br>
+    <%= f.text_area :size_description_2 %>
+  </div>
+  <div class="field">
+    <%= f.label :ss_claim_1 %><br>
+    <%= f.text_area :ss_claim_1 %>
+  </div>
+  <div class="field">
+    <%= f.label :ss_claim_2 %><br>
+    <%= f.text_area :ss_claim_2 %>
+  </div>
+  <div class="field">
+    <%= f.label :ss_claim_3 %><br>
+    <%= f.text_area :ss_claim_3 %>
+  </div>
+  <div class="field">
+    <%= f.label :ss_claim_4 %><br>
+    <%= f.text_area :ss_claim_4 %>
+  </div>
+  <div class="field">
+    <%= f.label :supplemental_facts %><br>
+    <%= f.text_area :supplemental_facts %>
+  </div>
+  <div class="field">
+    <%= f.label :tray_count %><br>
+    <%= f.text_area :tray_count %>
+  </div>
+  <div class="field">
+    <%= f.label :tray_depth %><br>
+    <%= f.text_area :tray_depth %>
+  </div>
+  <div class="field">
+    <%= f.label :tray_height %><br>
+    <%= f.text_area :tray_height %>
+  </div>
+  <div class="field">
+    <%= f.label :tray_width %><br>
+    <%= f.text_area :tray_width %>
+  </div>
+  <div class="field">
+    <%= f.label :unit_container %><br>
+    <%= f.text_area :unit_container %>
+  </div>
+  <div class="field">
+    <%= f.label :unit_size %><br>
+    <%= f.text_area :unit_size %>
+  </div>
+  <div class="field">
+    <%= f.label :unit_uom %><br>
+    <%= f.text_area :unit_uom %>
+  </div>
+  <div class="field">
+    <%= f.label :uom %><br>
+    <%= f.text_area :uom %>
+  </div>
+  <div class="field">
+    <%= f.label :upc_10 %><br>
+    <%= f.text_area :upc_10 %>
+  </div>
+  <div class="field">
+    <%= f.label :upc_12 %><br>
+    <%= f.text_area :upc_12 %>
+  </div>
+  <div class="field">
+    <%= f.label :value %><br>
+    <%= f.text_area :value %>
+  </div>
+  <div class="field">
+    <%= f.label :values %><br>
+    <%= f.text_area :values %>
+  </div>
+  <div class="field">
+    <%= f.label :variant_name_1 %><br>
+    <%= f.text_area :variant_name_1 %>
+  </div>
+  <div class="field">
+    <%= f.label :variant_name_2 %><br>
+    <%= f.text_area :variant_name_2 %>
+  </div>
+  <div class="field">
+    <%= f.label :variant_value_1 %><br>
+    <%= f.text_area :variant_value_1 %>
+  </div>
+  <div class="field">
+    <%= f.label :variant_value_2 %><br>
+    <%= f.text_area :variant_value_2 %>
+  </div>
+  <div class="field">
+    <%= f.label :vm_claim_1 %><br>
+    <%= f.text_area :vm_claim_1 %>
+  </div>
+  <div class="field">
+    <%= f.label :vm_claim_2 %><br>
+    <%= f.text_area :vm_claim_2 %>
+  </div>
+  <div class="field">
+    <%= f.label :vm_claim_3 %><br>
+    <%= f.text_area :vm_claim_3 %>
+  </div>
+  <div class="field">
+    <%= f.label :vm_claim_4 %><br>
+    <%= f.text_area :vm_claim_4 %>
+  </div>
+  <div class="field">
+    <%= f.label :vm_type_1 %><br>
+    <%= f.text_area :vm_type_1 %>
+  </div>
+  <div class="field">
+    <%= f.label :vm_type_2 %><br>
+    <%= f.text_area :vm_type_2 %>
+  </div>
+  <div class="field">
+    <%= f.label :vm_type_3 %><br>
+    <%= f.text_area :vm_type_3 %>
+  </div>
+  <div class="field">
+    <%= f.label :vm_type_4 %><br>
+    <%= f.text_area :vm_type_4 %>
+  </div>
+  <div class="field">
+    <%= f.label :warnings_copy %><br>
+    <%= f.text_area :warnings_copy %>
+  </div>
+  <div class="field">
+    <%= f.label :why_buy_copy %><br>
+    <%= f.text_area :why_buy_copy %>
+  </div>
+  <div class="field">
+    <%= f.label :width %><br>
+    <%= f.text_area :width %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

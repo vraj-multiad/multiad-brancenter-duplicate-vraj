@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Bundle:</strong>
+  <%= @ac_document.bundle %>
+</p>
+
+<p>
+  <strong>Document spec xml:</strong>
+  <%= @ac_document.document_spec_xml %>
+</p>
+
+<p>
+  <strong>Pdf:</strong>
+  <%= @ac_document.pdf %>
+</p>
+
+<p>
+  <strong>Preview:</strong>
+  <%= @ac_document.preview %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @ac_document.status %>
+</p>
+
+<p>
+  <strong>Thumbnail:</strong>
+  <%= @ac_document.thumbnail %>
+</p>
+
+<%= link_to 'Edit', edit_ac_document_path(@ac_document) %> |
+<%= link_to 'Back', ac_documents_path %>

@@ -1,0 +1,26 @@
+<% fulfillment_display = 'block' %>
+<% @fulfillment_assets.each_with_index do |fulfillment_asset, i| %>
+  <% fulfillment_item = {} %>
+  <% if fulfillment_asset.fulfillment_items.count > 0 %>
+    <% fulfillment_item = fulfillment_asset.fulfillment_items.first %>
+  <% end %>
+  <div class="fulfillment-asset" id="fulfillment-asset-<%= fulfillment_asset.token %>" style="display:<%= fulfillment_display %>;">
+    <% fulfillment_display = 'none' %>
+    <% fulfillment_item_messages = [] %>
+    <%= render partial: 'admin_asset', locals: { fulfillment_asset: fulfillment_asset, fulfillment_item: fulfillment_item, fulfillment_item_messages: fulfillment_item_messages, i: i, asset_count: @fulfillment_assets.count } %>
+    <ul class="pager" style="width:100%;float:left;">
+    <% if i > 0 %>
+      <li class="fulfillment-item-display-asset" data-asset-token="fulfillment-asset-<%= @fulfillment_assets[i-1].token %>">
+        <a style="cursor:pointer">Previous</a>
+      </li>
+    <% end %>
+    <% if i < @fulfillment_assets.count - 1 %>
+      <li class="fulfillment-item-display-asset" data-asset-token="fulfillment-asset-<%= @fulfillment_assets[i+1].token %>">
+        <a style="cursor:pointer">Next</a>
+      </li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="asset-admin-advanced-close"><button class="btn btn-default rounded">close order panel</button></div>

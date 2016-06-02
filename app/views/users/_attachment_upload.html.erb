@@ -1,0 +1,18 @@
+<div class="col-lg-6 col-md-6 col-sm-6" style="margin-top:30px;background:#fff;" id="attachment-upload-area">
+  <h3><strong><%= t '__upload_attachment__' %></strong></h3>
+
+  <div class="row social-headers">
+    <div class="col-xs-12 col-sm-12 col-lg-12">
+      <div class="image-upload" data-dynamic-form-input-id='dynamic_form_attachment_input_<%= @dynamic_form_input.id %>'>
+
+        <%= render partial: 'users/direct_upload_form_attachment' %>
+
+        <ul class="fileupload-status-attachment"></ul>
+        <%= button_tag t('__cancel__'), class: 'btn button-default cancel-attachment-form-modal', type: 'button', style: 'margin-bottom: 10px;' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-lg-6 col-md-6 col-sm-6" style="margin-top:30px;" id="attachments">
+</div>

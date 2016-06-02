@@ -1,0 +1,31 @@
+<h1>Listing kwikee_api_job_files</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Kwikee api job</th>
+      <th>Status</th>
+      <th>File name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @kwikee_api_job_files.each do |kwikee_api_job_file| %>
+      <tr>
+        <td><%= kwikee_api_job_file.kwikee_api_job_id %></td>
+        <td><%= kwikee_api_job_file.status %></td>
+        <td><%= kwikee_api_job_file.file_name %></td>
+        <td><%= link_to 'Show', kwikee_api_job_file %></td>
+        <td><%= link_to 'Edit', edit_kwikee_api_job_file_path(kwikee_api_job_file) %></td>
+        <td><%= link_to 'Destroy', kwikee_api_job_file, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Kwikee api job file', new_kwikee_api_job_file_path %>

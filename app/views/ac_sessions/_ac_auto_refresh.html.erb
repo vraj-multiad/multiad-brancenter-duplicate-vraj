@@ -1,0 +1,12 @@
+<% section_name = 'adcreator-contents' %>
+<% logger.debug 'template_canvas_only: ' + @template_canvas_only.to_s %>
+<% if @template_canvas_only == '1' %>
+	<% section_name = 'template-canvas' %>
+<% end %>
+
+  <%= form_tag('/adcreator/workspace', :remote => true, :method => 'GET', :'data-ac-process-step' => section_name, :id => 'ac_auto_refresh') do %>
+    <input type="hidden" name="id" value="<%= ac_session_id %>"/>
+    <input type="hidden" name="uuid" value="<%= uuid %>"/>
+    <input type="hidden" name="template_canvas_only" value="<%= @template_canvas_only %>"/>
+    <input type="submit" name="submitter" value="Choose" style="display:none;"/>
+  <% end %>

@@ -1,0 +1,25 @@
+
+
+<div class="container">
+<div class="container asset_group-box">
+  <div class="asset_group-title">
+  <%= form_tag('/social_media_post/share', :remote => true, :'data-share' => 'share-contents' ) do %>
+    <%= hidden_field_tag 'asset_group',  true %>
+    <%= hidden_field_tag 'share_preview',  '' %>
+    <%= button_tag 'Share', data: { disable_with: '<span class="launch_ac">&nbsp;</span>' }, type: 'submit', class: 'share-asset-button share-asset-submit' do %>
+    <% end %>
+  <% end %> <!-- form_tag -->
+  </div>
+  <div id="results" class="row">
+    <!-- Results -->
+    <% if @asset_group.count > 0 %>
+      <% @asset_group.each do |searchable_type, searchable_token| %>
+        <% asset = LoadAsset.load_asset(type: searchable_type, token: searchable_token) %>
+        <%= render partial: 'keyword/search_result', locals: { searchable_type: asset.type, searchable_id: asset.id } %>
+      <% end %>
+    <% else %>
+      No results found. Please try your search again.
+    <% end %>
+  </div>
+</div>
+</div>

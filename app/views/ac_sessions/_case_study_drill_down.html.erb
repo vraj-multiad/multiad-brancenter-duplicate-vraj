@@ -1,0 +1,25 @@
+<div style="display: none;" class="edit-tool body-text" id="<%= ac_step.step_number %>" ac_step_id="<%= ac_step.step_number %>">
+  <h3><span class="edit-numx"><%= ac_step.step_number.to_s %>.</span> <%= ac_step.title %></h3>
+  <div class="form-group">
+    <% case_study_drill_down_keys = [['Choose your drill down type','']] %> 
+    <% case_study_drill_down.keys.each do |key| %>
+      <% case_study_drill_down_keys << [key, key] %>
+    <% end %>
+    <%= select_tag 'case_study_type', options_for_select(case_study_drill_down_keys), data: {ac_step_id: ac_step.step_number},  class: "form-control ac-step-filter case-study-drill-down-type" %>
+    <% case_study_drill_down.each do |case_study_type, drill_down_list| %>
+      <div style="display: none;" class="case-study-drill-down-group" id="drill-down-group-<%= ac_step.step_number.to_s + '-' + Hash[case_study_drill_down.keys.map.with_index.to_a][case_study_type].to_s %>"><!--<%= case_study_type %>-->
+        <%= form_tag(adcreator_get_case_study_results_path, :remote => true, :'data-update-case-study-results' => 'case-study-results') do %>
+          <%= hidden_field_tag 'ac_session_id', @ac_session.id %>
+          <%= hidden_field_tag 'ac_step_id', ac_step.id %>
+          <%= hidden_field_tag 'case_study_type', case_study_type %>
+          <% drill_down_list.each do |list_name, list_values| %>
+            <div class="form-group">
+              <%= select_tag list_name, options_for_select(list_values), class: "form-control ac-step-filter" %>
+            </div>
+          <% end %>
+          <%= submit_tag 'Find Case Studies', class: "btn btn-primary case-study-choice" %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

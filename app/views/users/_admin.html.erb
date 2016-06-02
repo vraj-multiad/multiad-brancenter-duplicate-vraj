@@ -1,0 +1,78 @@
+<%= form_tag('/admin/user/reset_password', :id => 'admin-user-reset-password-form', :remote => true, :'data-admin-user-reset-password' => 'admin-panel') do %>
+  <%= hidden_field_tag 'admin_user_reset_password_id' %>
+<% end %>
+<%= form_tag('/admin/user/expire', :id => 'admin-user-expire-form', :remote => true, :'data-admin-user-expire' => 'admin-panel') do %>
+  <%= hidden_field_tag 'admin_user_expire_id' %>
+<% end %>
+<%= form_tag('/admin/user/edit', :id => 'admin-user-edit-form', :remote => true, :'data-admin-user-edit' => 'admin-user-edit-panel') do %>
+  <%= hidden_field_tag 'admin_user_edit_id' %>
+<% end %>
+<div id="admin-user-edit-contents" style="display:none;">
+  <div id="admin-user-edit-wrapper">
+    <div class="container">
+      <div id="admin-user-edit-panel">
+        <div id="admin-user-edit-panel2">
+          <div class="admin-user-edit-options col-lg-7 col-md-7 col-sm-7 col-xs-7">
+            <h5><%= t '__edit_user__' %></h5>
+          </div><!--end:admin-user-edit-options-->
+        </div><!--end:admin-user-edit-panel2-->
+      </div><!--end:admin-user-edit-panel-->
+    </div><!--end: container-->
+  </div><!--end: admin-user-edit-wrapper-->
+</div><!-- admin-user-edit-contents -->
+
+<%= form_tag('/admin/users', :id => 'admin-user-search-form', :remote => true, :'data-admin-users' => 'admin-panel') do %>
+  <%= hidden_field_tag 'user_results_page' %>
+  <% if @access_levels.count > 1 %>
+    <ul class="nav nav-pills main-filter" style="margin-top:15px">
+      <li class="dropdown li-topnav user">
+        <a class="dropdown-toggle btn-topnav" data-toggle="dropdown" href="javascript:void(0)">
+          <% if @access_level.nil? %>
+            <%= t( '__select_access_group__') %>
+          <% else %>
+            <%= @access_level.title %>
+          <% end %>
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+          <% @access_levels.each do |al| %>
+            <% checked = '' %>
+            <% active = '' %>
+            <% if @access_level.present? && @access_level.id == al.id %>
+              <% checked = 'checked' %>
+              <% active = 'active' %>
+            <% end %>
+            <li class="access-level-selections admin-filter-submit"><a><%= al.title.to_s  %><input type="radio" name="access_level" value="<%= al.id %>" <%= checked %> style="display:none;" class="<%= active.to_s %>" /></a></li>
+          <% end %>
+        </ul>
+      </li>
+    </ul>
+  <% end %>
+  <div class="input-group input-group-lg" style="margin-bottom:20px">
+	  <%= text_field_tag 'user_search', @search,  class: 'form-control input-lg' %>
+	  <span class="input-group-btn">
+		  <%= button_tag 'search', type:'submit', :class => 'admin-filter-submit btn btn-default pre-search', data:{ disable_with: '<span class="glyphicon glyphicon-repeat glyphicon-repeat-animate"></span>'} do %><span class="glyphicon glyphicon-search"></span>
+	      <% end %>
+	  </span>
+  </div>
+<% end %>
+    
+
+<table class="user-table">
+  <tr class="table-header">
+    <td style="text-align:left;"><%= t '__username__' %></td>
+    <td style="text-align:left;"><%= t '__email_address__' %></td>
+    <td><%= t '__activated__' %></td>
+    <td><%= t '__user_role__' %></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <% @users.each do |user| %>
+    <% next if user.id == @real_user.id %>
+    <%= render partial: 'admin_user_record', locals: { user: user } %>
+  <% end %>
+  <% if @num_pages > 1 %>
+    <%= render partial: 'admin_user_pagination' %>
+  <% end %>
+</table>

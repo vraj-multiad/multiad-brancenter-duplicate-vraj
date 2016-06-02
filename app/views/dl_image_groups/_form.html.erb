@@ -1,0 +1,33 @@
+<%= form_for(@dl_image_group) do |f| %>
+  <% if @dl_image_group.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@dl_image_group.errors.count, "error") %> prohibited this dl_image_group from being saved:</h2>
+
+      <ul>
+      <% @dl_image_group.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :main_dl_image_id %><br>
+    <%= f.number_field :main_dl_image_id %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

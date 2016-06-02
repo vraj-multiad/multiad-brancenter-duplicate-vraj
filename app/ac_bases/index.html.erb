@@ -1,0 +1,29 @@
+<h1>Listing ac_bases</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Title</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ac_bases.each do |ac_basis| %>
+      <tr>
+        <td><%= ac_basis.name %></td>
+        <td><%= ac_basis.title %></td>
+        <td><%= link_to 'Show', ac_basis %></td>
+        <td><%= link_to 'Edit', edit_ac_basis_path(ac_basis) %></td>
+        <td><%= link_to 'Destroy', ac_basis, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ac base', new_ac_basis_path %>

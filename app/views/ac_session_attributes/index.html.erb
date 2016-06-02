@@ -1,0 +1,35 @@
+<h1>Listing ac_session_attributes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ac session history</th>
+      <th>Name</th>
+      <th>Value</th>
+      <th>Ac step</th>
+      <th>Attribute type</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ac_session_attributes.each do |ac_session_attribute| %>
+      <tr>
+        <td><%= ac_session_attribute.ac_session_history_id %></td>
+        <td><%= ac_session_attribute.name %></td>
+        <td><%= ac_session_attribute.value %></td>
+        <td><%= ac_session_attribute.ac_step_id %></td>
+        <td><%= ac_session_attribute.attribute_type %></td>
+        <td><%= link_to 'Show', ac_session_attribute %></td>
+        <td><%= link_to 'Edit', edit_ac_session_attribute_path(ac_session_attribute) %></td>
+        <td><%= link_to 'Destroy', ac_session_attribute, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ac session attribute', new_ac_session_attribute_path %>

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Dynamic form:</strong>
+  <%= @dynamic_form_input_group.dynamic_form_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @dynamic_form_input_group.name %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @dynamic_form_input_group.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @dynamic_form_input_group.description %>
+</p>
+
+<p>
+  <strong>Input group type:</strong>
+  <%= @dynamic_form_input_group.input_group_type %>
+</p>
+
+<%= link_to 'Edit', edit_dynamic_form_input_group_path(@dynamic_form_input_group) %> |
+<%= link_to 'Back', dynamic_forms_path %>

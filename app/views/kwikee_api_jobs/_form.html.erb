@@ -1,0 +1,41 @@
+<%= form_for(@kwikee_api_job) do |f| %>
+  <% if @kwikee_api_job.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@kwikee_api_job.errors.count, "error") %> prohibited this kwikee_api_job from being saved:</h2>
+
+      <ul>
+      <% @kwikee_api_job.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :job_type %><br>
+    <%= f.text_field :job_type %>
+  </div>
+  <div class="field">
+    <%= f.label :replication_date %><br>
+    <%= f.datetime_select :replication_date %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br>
+    <%= f.text_field :status %>
+  </div>
+  <div class="field">
+    <%= f.label :transaction_id %><br>
+    <%= f.text_field :transaction_id %>
+  </div>
+  <div class="field">
+    <%= f.label :response_code %><br>
+    <%= f.text_field :response_code %>
+  </div>
+  <div class="field">
+    <%= f.label :response_description %><br>
+    <%= f.text_field :response_description %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

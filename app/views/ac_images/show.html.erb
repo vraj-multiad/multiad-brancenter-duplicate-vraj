@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @ac_image.name %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @ac_image.title %>
+</p>
+
+<p>
+  <strong>Thumbnail:</strong>
+  <%= @ac_image.thumbnail %>
+</p>
+
+<p>
+  <strong>Preview:</strong>
+  <%= @ac_image.preview %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @ac_image.location %>
+</p>
+
+<p>
+  <strong>Folder:</strong>
+  <%= @ac_image.folder %>
+</p>
+
+<p>
+  <strong>Filename:</strong>
+  <%= @ac_image.filename %>
+</p>
+
+<%= link_to 'Edit', edit_ac_image_path(@ac_image) %> |
+<%= link_to 'Back', ac_images_path %>

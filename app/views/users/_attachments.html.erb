@@ -1,0 +1,27 @@
+<div>
+<h3><strong><%= t '__uploaded_attachments__' %></strong></h3>
+
+<div class="editable-area2">
+  <div class="row social-headers">
+  	<div class="col-xs-12 col-sm-12 col-lg-12">
+
+      <% @user.user_uploaded_images.attachment.each do |user_uploaded_image| %>
+        <% logger.debug 'user_uploaded_image.inspect' %>
+        <% logger.debug user_uploaded_image.inspect %>
+        <% next if user_uploaded_image.expired %>
+        <div class="saved-logo">
+          <div class="logo-thumb" style="background-image: url('<%= user_uploaded_image.image_upload.thumbnail.url %>'); 50% 50%; position: relative;">
+            <div class="delete-thumb" style="text-align:center">
+              <%= form_tag('/profile/expire_image', :method => "POST") do %>
+                <input type="hidden" name="expire" value="1"/>
+                <input type="hidden" name="token" value="<%= user_uploaded_image.token %>"/>
+                <input type="submit" name="submitter" value="" style="background-color:transparent;border:none;"/>
+              <% end %>                 
+            </div><!--delete-thumb-->
+          </div><!--logo-thumb-->
+        </div><!--endsaved-logo-->
+      <% end %>
+
+    </div> <!-- end:col-xs -->
+  </div><!--end row-->
+</div><!--endeditable-area2-->

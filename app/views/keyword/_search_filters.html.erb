@@ -1,0 +1,166 @@
+<% topics = [["Filter by Topic",""]] %>
+<% @all_topics.uniq.pluck(:term).each do |topic| %>
+  <% topic_included = false %>
+  <% if params[:topics] %>
+    <% topic_included = params[:topics].include?(topic) ? true : false  %>
+  <% end %>
+  <% topics.push ([topic, topic.downcase]) %>
+<% end %>
+<% media_types = [["Filter by Media Type",""]] %>
+<% @all_media_types.uniq.pluck(:term).each do |media_type| %>
+  <% media_type_included = false %>
+  <% if params[:media_types] %>
+    <% media_type_included = params[:media_types].include?(media_type) ? true : false  %>
+  <% end %>
+  <% media_types.push ([media_type, media_type.downcase]) %>
+<% end %>
+<% # ENABLE CONFIGURATION POINTS %>
+<% display_filter_menu_category = ENABLE_SEARCH_FILTER_MENU_CATEGORY ? 'block' : 'none' %>
+<% display_filter_menu_access_level = ENABLE_SEARCH_FILTER_MENU_ACCESS_LEVEL ? 'block' : 'none' %>
+<% display_filter_menu_media_type = ENABLE_SEARCH_FILTER_MENU_MEDIA_TYPE ? 'block' : 'none' %>
+<% display_filter_menu_topic = ENABLE_SEARCH_FILTER_MENU_TOPIC ? 'block' : 'none' %>
+<% @no_search = false if ENABLE_SEARCH_FILTER_AUTO_SEARCH %>
+<% if ENABLE_SEARCH_FILTER %>
+  <div class="container">
+    <div class="category-padding">
+      <ul class="nav nav-pills main-filter">
+
+        <% if @my_contributions != ["my-contributions"] && @my_documents != ["my_documents"] %>
+          <li class="dropdown li-topnav user" style="display:<%= display_filter_menu_category %>;">
+            <a class="dropdown-toggle btn-topnav" data-toggle="dropdown" id="main-filter-button" href="javascript:void(0)">
+              <span class="filter-text"><%= @category_label %></span> <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+              <% if ENABLE_SEARCH_FILTER_MENU_CATEGORY_ADCREATOR_SEARCH %>
+                <li>
+                  <div class="checkbox search-filter <%= @active_categories['adcreator'] %>">
+                    <label>
+                      <input id="filter-adcreator" class="filter" data-filter="content you can edit" data-search-type="adcreator" data-no-submit=<%= @no_search ? 1 : 0 %> data-update-search-filters=<%= @update_search_filters ? 1 : 0 %> type="checkbox" <%= @checked_categories['adcreator'] %> hidden>
+                      <%= t '__content_you_can_edit__' %> <span class="tick pull-right"></span>
+                    </label>
+                  </div>
+                </li>
+              <% end %>
+              <li>
+                <div class="checkbox search-filter <%= @active_categories['asset-library'] %>">
+                  <label>
+                    <input id="filter-asset-library" class="filter" data-filter="content you can download" data-search-type="asset-library" data-no-submit=<%= @no_search ? 1 : 0 %> data-update-search-filters=<%= @update_search_filters ? 1 : 0 %> type="checkbox" <%= @checked_categories['asset-library'] %> hidden>
+                    <%= t '__content_you_can_download__' %> <span class="tick pull-right"></span>
+                  </label>
+                </div>
+              </li>
+              <li>
+                <div class="checkbox search-filter <%= @active_categories['user-library'] %>">
+                  <label>
+                    <input id="filter-user-library" class="filter" data-filter="content you've uploaded" data-search-type="user-library" data-no-submit=<%= @no_search ? 1 : 0 %> data-update-search-filters=<%= @update_search_filters ? 1 : 0 %> type="checkbox" <%= @checked_categories['user-library'] %> hidden>
+                    <%= t '__content_you_uploaded__' %> <span class="tick pull-right"></span>
+                  </label>
+                </div>
+              </li>
+            </ul>
+          </li>
+        <% end %>
+          <!-- Filters (access_levels) -->
+        <li class="dropdown li-topnav user" style="display:<%= display_filter_menu_access_level %>;">
+          <a id="access_level_menu" class="dropdown-toggle btn-topnav" data-toggle="dropdown" href="javascript:void(0)" title="<%= @access_level_title %>">
+            <%= truncate(@access_level_title, length: 20, escape: false).to_s.html_safe %>
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <% unless  @access_level_title ==  (t '__select_access_group__') %>
+              <li><a href="javascript:void(0)" onClick="setAccessLevel(''<%= ', ' + (@no_search ? '1' : '0') %><%= ', 1' if @update_search_filters %>);"><b><%= t '__select_access_group__' %></b></a></li>
+          <% end %>
+          <% @access_levels.each do |access_level| %>
+            <% next if access_level.name == 'everyone' %>
+            <li><a href="javascript:void(0)" onClick="setAccessLevel(<%= access_level.id.to_json %><%= ', ' + (@no_search ? '1' : '0') %><%= ', 1' if @update_search_filters %>);"><%= access_level.title %></a></li>
+          <% end %>
+          </ul>
+        </li>
+        <!-- Filters (topic) -->
+        <li class="dropdown li-topnav user" style="display:<%= display_filter_menu_topic %>;">
+          <a id="topic_menu" class="dropdown-toggle btn-topnav" data-toggle="dropdown" href="javascript:void(0)" title="<%= @topic_title %>">
+            <%= truncate(@topic_title, escape: false).to_s.html_safe %>
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <% unless  @topic_title == t('__select_topic__') %>
+              <li><a href="javascript:void(0)" onClick="setTopic(''<%= ', ' + (@no_search ? '1' : '0') %><%= ', 1' if @update_search_filters %>);"><b><%= t '__select_topic__' %></b></a></li>
+          <% end %>
+          <% @all_topics.uniq.pluck(:term).each do |topic| %>
+            <li><a href="javascript:void(0)" onClick="setTopic(<%= topic.downcase.to_json %><%= ', ' + (@no_search ? '1' : '0') %><%= ', 1' if @update_search_filters %>);"><%= topic %></a></li>
+          <% end %>
+          </ul>
+        </li>
+          <!-- Topics :: Subcategories -->
+        <% unless @selected_keyword_term_topic.nil? || @selected_keyword_term_topic.permitted_sub_terms(@access_levels.pluck(:id)).nil? || @selected_keyword_term_topic.permitted_sub_terms(@access_levels.pluck(:id)).length == 0 %>
+          <% logger.debug @selected_keyword_term_topic.permitted_sub_terms(@access_levels.pluck(:id)).length %>
+          <hr>
+          <li class="dropdown li-topnav user sub-cat">
+            <a class="dropdown-toggle btn-topnav" data-toggle="dropdown" href="javascript:void(0)" title="<%= @sub_topic_title %>">
+              <%= truncate(@sub_topic_title, length: 20, escape: false).to_s.html_safe %>
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+              <% unless  @sub_topic_title == 'Select Sub Topic' %>
+                <li><a href="javascript:void(0)" onClick="setSubTopic(''<%= ', ' + (@no_search ? '1' : '0') %><%= ', 1' if @update_search_filters %>);"><b><%= t '__select_sub_topic__' %></b></a></li>
+              <% end %>
+              <% search_access_levels = @search_access_levels %>
+              <% search_access_levels = @access_levels.pluck(:id) unless search_access_levels.present? %>
+              <% @selected_keyword_term_topic.permitted_sub_terms(search_access_levels).pluck(:term).uniq.each do |sub_topic| %>
+              <li>
+                <a href="javascript:void(0)"  onClick="setSubTopic(<%= sub_topic.downcase.to_json %><%= ', ' + (@no_search ? '1' : '0') %><%= ', 1' if @update_search_filters %>);"><%= sub_topic %></a>
+              </li>
+              <% end %>
+            </ul>
+          </li>
+        <% end %>
+          <!-- End Topics :: Subcateogies -->
+          <!-- End (Topic) -->
+
+        <!-- Filters (media type) -->
+        <li class="dropdown li-topnav user" style="display:<%= display_filter_menu_media_type %>;">
+          <a id="media_type_menu" class="dropdown-toggle btn-topnav" data-toggle="dropdown" href="javascript:void(0)" title="<%= @media_type_title %>">
+            <%= truncate(@media_type_title, length: 20, escape: false).to_s.html_safe %>
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <% unless  @media_type_title == 'Select Media Type' %>
+              <li><a href="javascript:void(0)" onClick="setMediaType(''<%= ', ' + (@no_search ? '1' : '0') %><%= ', 1' if @update_search_filters %>);"><b><%= t '__select_media_type__' %></b></a></li>
+            <% end %>
+            <% @all_media_types.uniq.pluck(:term).each do |media_type| %>
+              <li><a href="javascript:void(0)" onClick="setMediaType(<%= media_type.downcase.to_json %><%= ', ' + (@no_search ? '1' : '0') %><%= ', 1' if @update_search_filters %>);"><%= media_type %></a></li>
+            <% end %>
+          </ul>
+        </li>
+        <!-- Topics :: Subcategories -->
+        <% unless @selected_keyword_term_media_type.nil? || @selected_keyword_term_media_type.permitted_sub_terms(@access_levels.pluck(:id)).nil? || @selected_keyword_term_media_type.permitted_sub_terms(@access_levels.pluck(:id)).length == 0 %>
+          <% logger.debug @selected_keyword_term_media_type.permitted_sub_terms(@access_levels.pluck(:id)).length %>
+          <hr>
+          <li class="dropdown li-topnav user sub-cat">
+            <a class="dropdown-toggle btn-topnav" data-toggle="dropdown" href="javascript:void(0)" title="<%= @sub_media_type_title %>">
+              <%= truncate(@sub_media_type_title, length: 20, escape: false).to_s.html_safe %>
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+              <% unless  @sub_media_type_title == 'Select Sub Media Type' %>
+                <li><a href="javascript:void(0)" onClick="setSubMediaType(''<%= ', ' + (@no_search ? '1' : '0') %><%= ', 1' if @update_search_filters %>);"><b><%= t '__select_sub_media_type__' %></b></a></li>
+              <% end %>
+              <% search_access_levels = @search_access_levels %>
+              <% search_access_levels = @access_levels.pluck(:id) unless search_access_levels.present? %>
+              <% @selected_keyword_term_media_type.permitted_sub_terms(search_access_levels).pluck(:term).uniq.each do |sub_media_type| %>
+               <li><a href="javascript:void(0)"  onClick="setSubMediaType(<%= sub_media_type.downcase.to_json %><%= ', ' + (@no_search ? '1' : '0') %><%= ', 1' if @update_search_filters %>);"><%= sub_media_type %></a></li>
+              <% end %>
+            </ul>
+          </li>
+        <% end %>
+        <!-- End Filters (media type) -->
+
+        <li class="reset-filters pull-right" onClick="resetSearchFilters(0);"><span class="glyphicon glyphicon-remove"></span></li>
+        <% unless @my_library %>
+          <%= render partial: 'keyword/sort_filter_list' %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>
+<!-- END Results Filters -->

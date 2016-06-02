@@ -1,0 +1,22 @@
+<% edit_display = 'block' %>
+<% @edit_assets.each_with_index do |edit_asset, i| %>
+  <div class="edit-asset" id="edit-asset-<%= edit_asset.token %>" style="display:<%= edit_display %>;">
+    <% edit_display = 'none' %>
+    <% edit_asset_messages = [] %>
+    <%= render partial: 'admin_edit_asset_details', locals: { edit_asset: edit_asset, edit_asset_messages: edit_asset_messages, i: i, asset_count: @edit_assets.count } %>
+    <ul class="pager" style="width:100%;float:left;">
+    <% if i > 0 %>
+      <li class="edit-asset-display-asset" data-asset-token="edit-asset-<%= @edit_assets[i-1].token %>">
+        <a style="cursor:pointer">Previous</a>
+      </li>
+    <% end %>
+    <% if i < @edit_assets.count - 1 %>
+      <li class="edit-asset-display-asset" data-asset-token="edit-asset-<%= @edit_assets[i+1].token %>">
+        <a style="cursor:pointer">Next</a>
+      </li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="asset-admin-advanced-close"><button class="btn btn-default rounded">close edit panel</button></div>

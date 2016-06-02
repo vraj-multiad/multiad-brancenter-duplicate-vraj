@@ -1,0 +1,37 @@
+<h1>Listing user_keywords</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Term</th>
+      <th>Title</th>
+      <th>Categorizable</th>
+      <th>Categorizable type</th>
+      <th>User</th>
+      <th>User keyword type</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user_keywords.each do |user_keyword| %>
+      <tr>
+        <td><%= user_keyword.term %></td>
+        <td><%= user_keyword.title %></td>
+        <td><%= user_keyword.categorizable_id %></td>
+        <td><%= user_keyword.categorizable_type %></td>
+        <td><%= user_keyword.user_id %></td>
+        <td><%= user_keyword.user_keyword_type %></td>
+        <td><%= link_to 'Show', user_keyword %></td>
+        <td><%= link_to 'Edit', edit_user_keyword_path(user_keyword) %></td>
+        <td><%= link_to 'Destroy', user_keyword, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New User keyword', new_user_keyword_path %>

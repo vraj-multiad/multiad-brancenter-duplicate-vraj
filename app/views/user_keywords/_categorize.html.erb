@@ -1,0 +1,224 @@
+<% if @asset_objs.count > 0 %>
+  <div id="categorize-wrapper">
+    <div class="container">
+      <div class="panel panel-default">
+    
+        <div class="panel-heading">
+          <label class="active" id="categorize-add-tab-library"><%= t '__ADD_CATEGORIZATION__' %></label>
+          <label id="categorize-edit-tab-library"><%= t '__REMOVE_CATEGORIZATION__' %></label>
+        </div>
+    
+        <div class="panel-body">
+          <!-- add categories -->
+          <div id="categorize-add-library" style="display:block;">
+          
+            <%= form_tag('/categorize/assets', :remote => true, :id => 'categorize-assets', :'data-categorize' => 'categorize-contents') do %>
+            
+              <div class="categorize-top">
+                <div class="categorize-sections">
+                  <%= hidden_field_tag 'categorizable_type', @categorizable_type %>
+                  <%= hidden_field_tag 'token', @token %>
+                  <ul class="nav nav-pills main-filter" style="margin-top:0px;">
+                    <li class="dropdown li-topnav user">
+                      <a class="dropdown-toggle btn-topnav" data-toggle="dropdown" id="main-filter-button" href="javascript:void(0)">
+                        <%= truncate((t '__add_existing_category__'), length: 21, escape: false).to_s.html_safe %><span class="caret"></span>
+                      </a>
+                      <ul class="dropdown-menu" role="menu">
+                        <% @all_categories.each do |all_category| %>
+                          <li class="category-selections"><a><%= all_category %><input type="checkbox" name="<%= all_category %>" value="<%= all_category %>" style="display:none;" /></a></li>
+                        <% end %>
+                              
+                        <li class="add-selected">
+                          <a class="add-category" href="javascript:void(0)"><%= t '__add_selected__' %></a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <div class="form-group" style="position:relative;">
+                        <input type="text" class="form-control" id="new_category" placeholder="<%= t '__create_new_category__' %>" name="new_category">
+                        <a id="add-cat-button" class="add-category btn btn-default" href="javascript:void(0)"><%= t '__add_category__' %></a>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <div class="categorize-sections" style="float:right;width:49%">
+                  <div class="form-group" style="position:relative;">
+                    <textarea class="form-control" id="keyword_list" placeholder="<%= t '__add_new_keywords__' %>" name="keyword_list"></textarea>
+                    <a id="add-key-button" class="add-keyword btn btn-default" href="javascript:void(0)"><%= t '__add_keywords__' %></a>
+                    <div id="keyword-note"><%= t '__add_multiple__' %></div>
+                  </div>
+                </div>
+              </div><!--end categorize-top-->
+              <div class="categorize-sections">
+                <div class="place-categories">
+                  <ul id="add-category-list" class="add-category-list"></ul>                    
+                </div>
+              </div>
+              <div class="categorize-sections" style="float:right;width:49%">
+                <textarea id="keyword_display" name="keyword_display" class="place-categories" disabled="disabled"></textarea>
+                  <%= hidden_field_tag 'keyword' %>
+              </div>
+              <div class="alert alert-warning" style="margin-top:15px;float:left;"><%= t '__once_you_add__' %></div>
+              <button class="btn btn-default btn-lg categorize-choice-all dynamic" type="button" style="float:left; width:100%; margin-bottom:15px;"><%= t '__select_all__' %></button>
+              <div style="display:none;"><%= t '__add_these_categories__' %>: <%= text_field_tag('category') %></div>
+              <div class="category-padding select-thumbnail">
+                <div class="row" style="margin-left: -23px">
+                  <%= hidden_field_tag 'operation', 'add' %>
+                  <% @asset_objs.each do |asset_obj| %>
+                    <% asset = asset_obj[:asset] %>
+                    <label for="categorized_asset[]">
+                      <div class="results-spacing">
+                        <div class="thumbnail categorize-choice">
+                          <div class="crop-images">
+                            <div class="align-images">
+
+                              <% if asset.class.name == 'UserUploadedImage' %>
+                                <% case asset.upload_type %>
+                                <% when 'ac_image', 'logo', 'library_image', 'library_file' %>
+                                  <%= image_tag(asset.thumbnail_url) %>
+                                <% when 'library_video' %>
+                                  <%= image_tag(asset.image_upload.thumbnail.url) %>
+                                <% end %>
+                                <%= check_box_tag('categorized_asset[]', asset.class.name.to_s + '|' + asset.token.to_s ) %>
+                              <% elsif asset.class.name == 'DlImageGroup' %>
+                                <% main_image = asset.main_image(current_user.id) %>
+                                <% case main_image.upload_type %>
+                                <% when 'image', 'file', 'video' %>
+                                  <% if main_image.thumbnail.present? %>
+                                    <%= image_tag(main_image.thumbnail_url.to_s) %>
+                                  <% elsif main_image.bundle.thumbnail.present? %>
+                                    <%= image_tag(main_image.bundle.thumbnail.url) %>
+                                  <% else %>
+                                    <%= image_tag(thumbnail_url) %>
+                                  <% end %>
+                                <% end %>
+                                <%= check_box_tag('categorized_asset[]', asset.class.name.to_s + '|' + asset.token.to_s ) %>
+                              <% else %>
+                                <% case asset.upload_type %>
+                                <% when 'file' %>
+                                  <%= image_tag(thumbnail_url) %>
+                                <% else %>
+                                  <%= image_tag( asset.thumbnail_url ) %>
+                                <% end %>
+                                <%= check_box_tag('categorized_asset[]', asset.class.name.to_s + '|' + asset.token.to_s) %>
+                              <% end %><!-- I moved this -->
+                            </div>
+                          </div>
+                
+                          <div class="caption">
+                            <p><%= truncate(asset.title, length: 46, escape: false).to_s.html_safe %></p>
+                          </div>
+                        </div>
+                      </div>
+                    </label>
+                  <% end %>
+                </div><!-- end:row-->
+              </div><!--end:category-padding-->
+              <div class="panel-button">
+                <%= button_tag(t("__APPLY__"), :type => 'submit', data: { disable_with: '<span class="launch_ac">&nbsp;</span>' }, :class => "btn btn-default btn-lg submit-butt pull-right disabled") %>
+              </div>
+            <% end %>
+          </div><!--end:categorize-add-->
+
+          <!-- edit categories
+                BEGIN EDIT CATEGORIES
+                edit categories -->
+
+          <div id="categorize-edit-library" style="display:none;">
+            <%= form_tag('/categorize/assets', :remote => true, :id => 'categorize-assets-remove', :'data-categorize' => 'categorize-contents') do %>
+              <div class="alert alert-warning" style="margin-top:15px;float:left;"><%= t '__select_any_number__' %></div>
+              <button class="btn btn-default btn-lg categorize-choice-all dynamic" type="button" style="float:left; width:100%; margin-bottom:15px;"><%= t '__select_all__' %></button>
+              <div class="category-padding select-thumbnail" style="padding-top:15px;">
+                <div class="row" style="margin-left:-23px">
+                  <%= hidden_field_tag 'categorizable_type', @categorizable_type %>
+                  <%= hidden_field_tag 'token', @token %>
+                  <%= hidden_field_tag 'operation', 'remove' %>
+                  <% @asset_objs.each do |asset_obj| %>
+                    <% asset = asset_obj[:asset] %>
+                    <% asset_key = asset_obj[:key] %>
+                    <% asset_keywords = asset_obj[:keywords] %>
+                    <% asset_categories = asset_obj[:categories] %>
+                    <label for="categorized_asset[]">
+                      <div class="results-spacing">
+                        <div class="thumbnail categorize-choice remove-categorize-choice">
+                          <div class="crop-images">
+                            <div class="align-images">
+                              <%= hidden_field_tag  asset_key + '-keywords', asset_keywords.join(','), :class => "keywords-string" %>
+                              <%= hidden_field_tag  asset_key + '-categories', asset_categories.join(','), :class => "categories-string" %>
+                              <% if asset.class.name == 'UserUploadedImage' %>
+                                <% case asset.upload_type %>
+                                <% when 'ac_image', 'logo', 'library_image', 'library_file' %>
+                                  <%= image_tag(asset.thumbnail_url) %>
+                                <% when 'library_video' %>
+                                  <%= image_tag(asset.image_upload.thumbnail.url) %>
+                                <% end %>
+                                <%= check_box_tag('categorized_asset[]', asset.class.name.to_s + '|' + asset.token.to_s ) %>
+                              <% elsif asset.class.name == 'DlImageGroup' %>
+                                <% main_image = asset.main_image(current_user.id) %>
+                                <% case main_image.upload_type %>
+                                <% when 'image', 'file', 'video' %>
+                                  <% if main_image.thumbnail.present? %>
+                                    <%= image_tag(main_image.thumbnail_url.to_s) %>
+                                  <% elsif main_image.bundle.thumbnail.present? %>
+                                    <%= image_tag(main_image.bundle.thumbnail.url) %>
+                                  <% else %>
+                                    <%= image_tag(main_image.thumbnail_url) %>
+                                  <% end %>
+                                <% end %>
+                                <%= check_box_tag('categorized_asset[]', asset.class.name.to_s + '|' + asset.token.to_s ) %>
+                              <% else %>
+                                <% case asset.upload_type %>
+                                <% when 'file' %>
+                                  <%= image_tag(asset.thumbnail_url) %>
+                                <% else %>
+                                  <%= image_tag(asset.thumbnail_url) %>
+                                <% end %>
+                                <%= check_box_tag('categorized_asset[]', asset.class.name.to_s + '|' + asset.token.to_s) %>
+                              <% end %><!-- I moved this -->
+                            </div>
+                          </div>
+                          <div class="caption">
+                            <p><%= asset.title %></p>
+                          </div>
+                        </div>
+                      </div>
+                    </label>
+                  <% end %>
+                </div><!--end:row-->
+              </div><!--end category-padding select-thumbnail-->
+              <div class="more-categorize-options col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                <h6><%= t '__CATEGORIES_ATTACHED_TO_SELECTED__' %></h6>
+                <div class="place-categories">
+                  <ul class="add-category-list" id="remove-categories-list">
+                  </ul>
+                </div>
+              </div>
+
+              <div class="more-categorize-options col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                <h6><%= t '__KEYWORDS_ATTACHED_TO_SELECTED__' %></h6>
+                <div class="place-categories">
+                  <ul id="remove-keywords-list">
+                  </ul>
+                </div>
+              </div>
+
+              <div style="display:none;">
+                remove category: <%= text_field_tag('category', @category_string) %></br>
+                remove keyword: <%= text_field_tag('keyword', @keyword_string) %></br>
+              </div>
+              
+              <div class="panel-button" style="padding-right:15px;">
+                <%= button_tag(t("__APPLY__"), :type => 'submit', data: { disable_with: '<span class="launch_ac">&nbsp;</span>' }, :class => "btn btn-default btn-lg submit-butt pull-right disabled") %>
+              </div>
+            <% end %>
+          </div><!--end:categorize-edit-->
+        </div><!--end:panel-body-->
+        <div class="panel-footer">
+          <a href="javascript:void(0)" id="close-categorize"><button type="button" class="btn btn-default rounded"><%= t '__return_to_search__' %></button></a>
+        </div><!--end: panel-footer-->
+      </div><!--end:panel-->
+    </div><!--end: container-->
+  </div><!--end: share-wrapper-->
+  <div class="modal-backdrop in"></div>
+  <div class="modal-backdrop in"></div>
+<% end %>

@@ -1,0 +1,73 @@
+<h1>Listing contacts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User ID</th>
+      <th>Contact type</th>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Title</th>
+      <th>Company name</th>
+      <th>Address 1</th>
+      <th>Address 2</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Zip code</th>
+      <th>Country</th>
+      <th>Alt address</th>
+      <th>Phone number</th>
+      <th>Fax number</th>
+      <th>Mobile number</th>
+      <th>Website</th>
+      <th>Email address</th>
+      <th>Custom contact</th>
+      <th>Facebook</th>
+      <th>Twitter</th>
+      <th>Comments</th>
+      <th>Map link</th>
+      <th>Shared flag</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @contacts.each do |contact| %>
+      <tr>
+        <td><%= contact.user_id %></td>
+        <td><%= contact.contact_type_id %></td>
+        <td><%= contact.first_name %></td>
+        <td><%= contact.last_name %></td>
+        <td><%= contact.title %></td>
+        <td><%= contact.company_name %></td>
+        <td><%= contact.address_1 %></td>
+        <td><%= contact.address_2 %></td>
+        <td><%= contact.city %></td>
+        <td><%= contact.state %></td>
+        <td><%= contact.zip_code %></td>
+        <td><%= contact.country %></td>
+        <td><%= contact.alt_address %></td>
+        <td><%= contact.phone_number %></td>
+        <td><%= contact.fax_number %></td>
+        <td><%= contact.mobile_number %></td>
+        <td><%= contact.website %></td>
+        <td><%= contact.email_address %></td>
+        <td><%= contact.custom_contact_id %></td>
+        <td><%= contact.facebook_id %></td>
+        <td><%= contact.twitter_id %></td>
+        <td><%= contact.comments %></td>
+        <td><%= contact.map_link %></td>
+        <td><%= contact.shared_flag %></td>
+        <td><%= link_to 'Show', contact %></td>
+        <td><%= link_to 'Edit', edit_contact_path(contact) %></td>
+        <td><%= link_to 'Destroy', contact, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Contact', new_contact_path %>

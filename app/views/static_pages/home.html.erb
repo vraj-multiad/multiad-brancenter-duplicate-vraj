@@ -1,0 +1,69 @@
+<div id="main-content" class="content">
+  <div class="container">
+    <div class="category-padding">
+      <%= render :partial => 'keyword/home_search' %>
+    </div>
+  </div>
+  <!-- MAIN SITE BUTTONS -->
+  <div id="main-site-options">
+
+    <div id="search-filters-area" style="display:block">
+      <%= render partial: "keyword/search_filters" %>
+    </div>
+
+    <div class="container">
+
+      <% begin %>
+        <% role_name = '' %>
+        <% role_name = @role_name.gsub(/\W/, '_') if @role_name.present? %>
+        <%= render partial: "static_pages/home_custom_#{role_name}" %>
+      <% rescue ActionView::MissingTemplate %>
+        <%= render partial: "static_pages/home_custom_default" %>
+      <% end %>
+
+      <% if @whats_popular.present? %>
+        <div class="category-padding" style="margin-top:13px;">
+        <div class="panel panel-default">
+          <div class="panel-heading" style="padding:10px 15px;font-size:15px">
+            <%= t '__whats_new__' %>
+          </div>
+          <div class="panel-body whats-pop">
+          <% @whats_popular.each do |searchable_type, searchable_id| %>
+            <% display= 'block' %>
+            <% visible = true %>
+            <%= render partial: 'keyword/search_result', locals: { :searchable_type => searchable_type, :searchable_id => searchable_id, :display => display, :visible => visible } %>
+          <% end %>
+          </div>
+        </div>
+        </div>
+      <% end %>
+      <!-- Site Options -->
+      <div id="shadow" style="float:left;width:100%;display:none;">
+        <ul class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+          <li id="adcreator" class="site-option interactable adcreator"><span><span id="content-you-can-edit">&nbsp;</span><br/><%= t('__search_edit_content__').html_safe %></span></li>
+        </ul>
+        <ul class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+          <li id="asset-library" class="site-option interactable asset-library"><span><span id="content-you-can-download">&nbsp;</span><br/><%= t('__search_download_content__').html_safe %></span></li>
+        </ul>
+        <ul class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+          <li id="user-content" class="site-option my-library-link"><span><span id="add-to-your-library">&nbsp;</span><br/><%= t('__search_library_content__').html_safe %></span></li>
+        </ul>
+        <ul class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+          <li id="my-documents" class="site-option my-documents-link">
+            <span><span id="your-saved-content">&nbsp;</span><br/><%= t('__search_saved_ads__').html_safe %></span>
+          </li>
+        </ul>
+      </div>
+      <!-- end: Site Options -->
+    </div>
+  </div>
+  <!-- end: MAIN SITE BUTTONS -->
+
+  <div id="search-results-area"> <!-- #search-results-area -->
+    <div class="container"><!-- Search Results -->
+      <div id="results" class="row">
+      </div>
+    </div><!-- end: Search Results -->
+  </div> <!-- end: #search-results-area -->
+
+</div><!-- end: main-content Area -->

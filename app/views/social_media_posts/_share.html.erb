@@ -1,0 +1,185 @@
+<div id="share-wrapper">
+  <div class="container">
+
+    <script>
+      $("#share-link").click(function () {
+         $(this).select();
+      });
+    </script>
+
+    <div class="panel panel-default">
+
+      <div class="panel-body">
+        <div class="panel-functions">
+          <h4><%= t '__please_select_share_options__' %></h4>
+          <%= form_tag('/social_media_post/create', :remote => true,  :id => 'share_form', :'data-process-share' => 'share-copy', :method => 'post') do%>
+            <%= hidden_field_tag 'token', @token.to_s %>
+            <%= hidden_field_tag 'asset_type', @asset_type %>
+            <%= hidden_field_tag 'social_media_post[asset_type]', @asset_type %>
+            <div class="share-vias share-file-types">
+              <% if ENABLE_SOCIAL_MEDIA && @shareable_via_social_media_assets.present? %>
+                <div style="display:block;">
+              <% else %>
+                <div style="display:none;">
+              <% end %>
+              <% if @current_user.facebook_account.logged_in? %>
+                <label style="margin-left:-11px">
+                  <% if ( @page == 'true' || @image == 'true' || @video == 'true' ) && ( @file == 'false' ) %>
+                    <%= image_tag("facebook-button.png") %>&nbsp;facebook<input class="share-via<% unless @shareable_via_social_media_assets.present? %> not-all-items-shareable-via-social-media<% end %>" type="radio" name='via' value="facebook">
+                  <% else %>
+                    <%= image_tag("facebook-button.png") %>&nbsp;facebook<input class="share-via<% unless @shareable_via_social_media_assets.present? %> not-all-items-shareable-via-social-media<% end %>" type="radio" name='via' value="facebook-invalid-format">
+                  <% end %>
+                </label>
+                <% else %>
+                  <label style="margin-left:-11px">
+                    <%= image_tag("facebook-button.png") %>&nbsp;facebook<input class="share-via<% unless @shareable_via_social_media_assets.present? %> not-all-items-shareable-via-social-media<% end %>" type="radio" name='via' value="facebook-not-logged-in">
+                  </label>
+                <% end %>
+
+                <% if @current_user.twitter_account.logged_in? %>
+                  <label>
+                    <% if ( @page == 'true' || @image='true' ) && ( @video == 'false' && @file == 'false' ) %>
+                      <%= image_tag("twitter-button.png") %>&nbsp;twitter<input class="share-via<% unless @shareable_via_social_media_assets.present? %> not-all-items-shareable-via-social-media<% end %>" type="radio" name='via' value="twitter">
+                    <% else %>
+                      <%= image_tag("twitter-button.png") %>&nbsp;twitter<input class="share-via<% unless @shareable_via_social_media_assets.present? %> not-all-items-shareable-via-social-media<% end %>" type="radio" name='via' value="twitter-invalid-format">
+                    <% end %>
+                  </label>
+                <% else %>
+                  <label>
+                    <%= image_tag("twitter-button.png") %>&nbsp;twitter<input class="share-via<% unless @shareable_via_social_media_assets.present? %> not-all-items-shareable-via-social-media<% end %>" type="radio" name='via' value="twitter-not-logged-in">
+                  </label>
+                <% end %>
+
+                <% if @current_user.youtube_account.logged_in? %>
+                  <label>
+                    <% if @video == 'true' %>
+                      <%= image_tag("youtube-button.png") %>&nbsp;YouTube<input class="share-via<% unless @shareable_via_social_media_assets.present? %> not-all-items-shareable-via-social-media<% end %>" type="radio" name='via' value="youtube">
+                    <% else %>
+                      <%= image_tag("youtube-button.png") %>&nbsp;YouTube<input class="share-via<% unless @shareable_via_social_media_assets.present? %> not-all-items-shareable-via-social-media<% end %>" type="radio" name='via' value="youtube-invalid-format">
+                    <% end %>
+                  </label>
+                <% else %>
+                  <label>
+                    <%= image_tag("youtube-button.png") %>&nbsp;YouTube<input class="share-via<% unless @shareable_via_social_media_assets.present? %> not-all-items-shareable-via-social-media<% end %>" type="radio" name='via' value="youtube-not-logged-in">
+                  </label>
+                <% end %>
+              </div>
+
+              <% if @shareable_via_email_assets.present? && (@video == 'true' || @video == 'false') %>
+                <label>
+                  <%= image_tag("email-button.png") %>&nbsp;<%= t '__email__' %><input class="share-via<% if @not_shareable_via_email_assets.present? %> not-all-items-shareable-via-email<% end %>" type="radio" name="via" value="email">
+                </label>
+              <% end %>
+            </div>
+
+            <div class="share-copy" id="share-copy">
+              <%= hidden_field_tag 'share_link', @asset_share_link.to_s %>
+              <%= hidden_field_tag 'share_email_link', @asset_email_link.to_s %>
+
+              <input type="text" id="share-asset-link" name="_share_link_display" class="form-control" value="<%= @asset_email_copy_link %>" style="display:none;" >
+              <span id="share-asset-link-span" style="display:none;"><%= t '__copy_link__' %></span>
+              <input id="share-emails" type="text" class="form-control" style="display:none;" placeholder="<%= t '__send_to__' %>" name="email_address">
+              <span id="share-emails-note" style="display:none;"><%= t '__send_to_multiple__' %></span>
+
+              <% if @video == 'true' %>
+                <input type="text" name="social_media_post[title]" class="form-control" placeholder="title">
+              <% end %>
+
+              <% if ENABLE_SOCIAL_MEDIA_EMAIL_SUBJECT %>
+                <input type="text" name="email_subject" class="form-control" id="share-email-subject" placeholder="<%=  t '__subject__' %>" style="width:100%; max-width:100%;display:none;" value="<%= @email_subject %>">
+              <% end %>
+              <textarea type="text" name="social_media_post[description]" class="form-control" id="share-message" placeholder="<%= t '__message__' %>" style="width:100%; max-width:100%;display:none;"></textarea>
+
+              <div id="facebook_post_as_div" class="alert alert-warning" style="display:none;float:right;width:100%;">
+                <h4>Post as</h4>
+                <div class="profile">
+                  <img src='' id='facebook_profile_image' />
+                </div>
+                <% if @facebook_post_as_options && @facebook_post_as_options.length > 0 %>
+                  <%= select_tag 'facebook_page_id', options_for_select(@facebook_post_as_options, @facebook_post_as_default), :id => 'facebook_post_as_select' , class: "form-control"%>
+                <% end %>
+              </div>
+              <div id="facebook-not-logged-in-div" class="alert alert-warning" style="display:none;float:right;width:100%;">
+                In order to share this piece on Facebook you must first login. To login, please visit the <a href='/profile'>Profile</a> page.
+              </div>
+              <div id="twitter-not-logged-in-div" class="alert alert-warning" style="display:none;float:right;width:100%;">
+                In order to share this piece on Twitter you must first login. To login, please visit the <a href='/profile'>Profile</a> page.
+              </div>
+              <div id="youtube-not-logged-in-div" class="alert alert-warning" style="display:none;float:right;width:100%;">
+                In order to share this piece on Youtube you must first login. To login, please visit the <a href='/profile'>Profile</a> page.
+              </div>
+
+              <div id="facebook-invalid-format-div" class="alert alert-danger" style="display:none;float:right;width:100%;">
+                The current piece you are viewing is not a support type of Facebook. You may only post images and videos to Facebook.
+              </div>
+              <div id="twitter-invalid-format-div" class="alert alert-danger" style="display:none;float:right;width:100%;">
+                The current piece you are viewing is not a format supported by Twitter. You may only post images to Twitter.
+              </div>
+              <div id="youtube-invalid-format-div" class="alert alert-danger" style="display:none;float:right;width:100%;">
+                The current piece you are viewing is not a format supported by YouTube. You may only post videos to YouTube.
+              </div>
+
+              <div id="not-all-items-shareable-via-email-div" class="alert alert-danger" style="display:none;float:right;width:100%;">
+                Please note one or more items are not available for sharing via email.  Those items will be excluded. <br/><a target="_blank" href="<%= @asset_email_link %>">click to preview</a>
+
+              </div>
+              <div id="not-all-items-shareable-via-social-media-div" class="alert alert-danger" style="display:none;float:right;width:100%;">
+                Please note, one or more items are not available for sharing via social media.  Those items will be excluded. <br/><a target="_blank" href="<%= @asset_share_link %>">click to preview</a>
+              </div>
+
+            </div>
+
+            <div class="social-media-message" style="float:left; width:100%;">
+              <button id="share_form_submit" type="submit" class="btn btn-default btn-sm" style="float:right;margin-top:8px;margin-bottom:15px;display:none;"><%= t '__share__' %></button>
+            </div>
+          <% end %>
+        </div>
+            
+        <div class="share-preview-container">
+          <% if @page == 'true' %>
+            <div id="share-preview-social-media" style="display:none;"><%= t '__chosen_multiple_items__' %>
+              <br/><br/>
+              <a target="_blank" href="<%= @asset_share_link %>"><%= t '__click_to_preview__' %></a>
+              <br/><br/>
+              <% if @not_shareable_via_social_media_assets.present? %>
+                <%= t '__not_shareable_via_social_media__' %><br/>
+                <% @not_shareable_via_social_media_assets.each do |asset| %>
+                  <%= asset.to_s %>
+                <% end %>
+              <% end %>
+            </div>
+            <div id="share-preview-email" style="display:none;"><%= t '__chosen_multiple_items__' %>
+              <br/><br/>
+              <a target="_blank" href="<%= @asset_email_link %>"><%= t '__click_to_preview__' %></a>
+              <br/><br/>
+              <% if @not_shareable_via_email_assets.present? %>
+                <%= t '__not_shareable_via_email__' %><br/>
+                <% @not_shareable_via_email_assets.each do |asset| %>
+                  <%= asset.to_s %>
+                <% end %>
+              <% end %>
+            </div>
+          <% else %>
+            <div class="share-preview">
+              <%= image_tag(@asset_preview, width: "100%") %>
+            </div>
+            <div class="share-preview-title"><%= @title %></div>
+          <% end %>
+        </div>
+              
+      </div>
+      <div class="panel-footer">
+        <a href="javascript:void(0)" id="close-share"><button type="button"class="btn btn-default rounded"><%= t '__return_previous_page__' %></button></a>
+        <script>
+          $(document).ready(function(){
+            $("#share-asset-link").click(function () {
+            $(this).select();
+            });
+          });
+        </script>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-backdrop in"></div>
+<div class="modal-backdrop in"></div>

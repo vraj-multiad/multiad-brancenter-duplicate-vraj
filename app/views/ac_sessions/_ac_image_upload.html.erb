@@ -1,0 +1,93 @@
+<%= form_tag('/adcreator/process_step', :remote => true, :'data-step-number' => ac_step.step_number, :'data-ac-process-step' => 'adcreator-contents', :'data-form-id' => 'image-form-upload' + ac_step.id.to_s, :id => 'image-form-upload' + ac_step.id.to_s, :role => 'form') do %>
+  <%= hidden_field_tag 'ac_session_id', @ac_session.id %>
+  <%= hidden_field_tag 'ac_step_id', ac_step.id %>
+  <%= hidden_field_tag 'option_type', 'UserUploadedImage' %>
+  <%= hidden_field_tag 'resize_top', '' %>
+  <%= hidden_field_tag 'resize_bottom', '' %>
+  <%= hidden_field_tag 'resize_left', '' %>
+  <%= hidden_field_tag 'resize_right', '' %>
+  <%= hidden_field_tag 'layer_element', ac_step.form_data('element_name') %>
+  <%= hidden_field_tag 'layer', '' %>
+  <%= hidden_field_tag 'set_layer', '' %>
+  
+  <div id="user-uploaded-image-ac-image-choices" class="user-uploaded-image-ac-image-choices">
+    <%= render partial: 'user_uploaded_images_ac_image' %>
+  </div>
+  
+  <div class="image-resize-instructions" style="display:none;">  <!-- RESIZE INSTRUCTIONS GO HERE -->
+  </div>
+  <% if ac_step.form_data('upload_inputs').present? && !ac_step.upload_inputs.nil? %>
+    <br/>
+    <% Array(ac_step.upload_inputs).each do |result| %>
+      <% attribute_name = result["name"] %>
+      <% if attribute_name == 'text' %>
+        <% attribute_name = ac_step.id.to_s + 'text' %>
+      <% end %>
+
+      <div class="form-group">
+        <% value = ac_step.form_data('default_copy').to_s %>
+        <% if result["type"].to_s == 'editor' && @wysiwyg_data[ac_step.form_data('element_name')].present? %>
+          <% value = @wysiwyg_data[ac_step.form_data('element_name')] %>
+          <% logger.debug 'erb value1: ' + value.to_s %>
+        <% end %>
+        <% if @ac_session_attributes[ attribute_name.downcase].to_s.length > 0 %>
+          <% value = @ac_session_attributes[ attribute_name.downcase]  %>
+          <% logger.debug 'erb value2: ' + value.to_s %>
+        <% elsif @ac_session_attributes[ result["name"].downcase].to_s.length > 0 %>
+          <% value = @ac_session_attributes[ result["name"].downcase]  %>
+          <% logger.debug 'erb value3: ' + value.to_s %>
+        <% end %>
+        <% if result["type"].to_s == 'textarea' %>
+          <span><%= result["title"].to_s %></span>
+          <% input_class = 'form-control' %>
+          <% input_data = {} %>
+          <% if result['required'] %>
+            <% input_class += ' required-field' %>
+            <% input_data[:alert] = t('__missing_required_value__') + ': ' + result["title"] %>
+            <span class="" style="color:red;margin-left:0px;">*</span>
+          <% end %>
+          <% num_rows = 5 %>
+          <% num_rows = result["num_rows"] if result["num_rows"].to_i > 0 %>
+          <%= text_area_tag result["name"], value, :id => result["name"] + '-' + @ac_session.id.to_s + '-' + @ac_session.current_ac_session_history_id.to_s + '-' + ac_step.id.to_s, class: input_class, rows: num_rows.to_s, data: input_data %>
+          <% scale = @element_scales[ac_step.form_data('element_name')].to_i  %>
+          <% if scale < 100 %>
+            *Note: Too much text for the available area text is currently scaled down to <%= scale.to_s %>%.
+          <% end %>
+        <% elsif result["type"].to_s == 'editor' %>
+          <% num_rows = 5 %>
+          <% num_rows = result["num_rows"] if result["num_rows"].to_i > 0 %>
+          <% input_class = 'tinymce' %>
+          <%= text_area_tag result["name"], value, :id => result["name"] + '-' + @ac_session.id.to_s + '-' + @ac_session.current_ac_session_history_id.to_s + '-' + ac_step.id.to_s, :class => input_class, :rows => num_rows.to_s %>
+          <% scale = @element_scales[ac_step.form_data('element_name')].to_i  %>
+          <% if scale < 100 %>
+            *Note: Too much text for the available area text is currently scaled down to <%= scale.to_s %>%.
+          <% end %>
+        <% elsif result["type"].to_s == 'select' %>
+          <span><%= result["title"].to_s %></span>
+          <% input_class = 'form-control ac-step-text-selection' %>
+          <% input_data = {} %>
+          <% if result['required'] %>
+            <% input_class += ' required-field' %>
+            <% input_data[:alert] = t('__missing_required_value__') + ': ' + result["title"] %>
+            <span class="" style="color:red;margin-left:0px;">*</span>
+          <% end %>
+          <%= select_tag result["name"], options_for_select(ac_step.options_search(result["options_keyword"])), class: input_class, data: input_data %>
+        <% else # text %>
+          <span><%= result["title"].to_s %></span>
+          <% input_class = 'form-control' %>
+          <% input_data = { 'contact-field' => result["name"] } %>
+          <% if result['required'] %>
+            <% input_class += ' required-field' %>
+            <% input_data[:alert] = t('__missing_required_value__') + ': ' + result["title"] %>
+            <span class="" style="color:red;margin-left:0px;">*</span>
+          <% end %>
+          <% text_field_tag_params = { class: input_class, data: input_data } %>
+          <% text_field_tag_params[:maxlength] = result["maxlength"] if result["maxlength"].present? %>
+          <%= text_field_tag result["name"], value, text_field_tag_params %>
+          <% #= text_field_tag result["name"], value, :class => input_class, data: input_data %>
+        <% end %>
+      </div> <!-- form-group -->
+    <% end %> <!-- Array.each -->
+  <% end %> <!-- unless  -->
+    <%= button_tag(t('__submit__'), :type => 'button', :style => 'display:none;', :id => 'button' + ac_step.step_number.to_s ,:class => 'btn btn-primary image-choice-submit submit-butt') %>
+<% end %>

@@ -1,0 +1,57 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @dynamic_form.name %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @dynamic_form.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @dynamic_form.description %>
+</p>
+
+<p>
+  <strong>Response Text:</strong>
+  <%= @dynamic_form.response_text %>
+</p>
+
+<p>
+  <strong>Email Text:</strong>
+  <%= @dynamic_form.email_text %>
+</p>
+
+<p>
+  <strong>Recipient:</strong>
+  <%= @dynamic_form.recipient %>
+</p>
+
+<p>
+  <strong>Recipient Field:</strong>
+  <%= @dynamic_form.recipient_field %>
+</p>
+
+<p>
+  <strong>Expired:</strong>
+  <%= @dynamic_form.expired %>
+</p>
+
+<p>
+  <strong>Token:</strong>
+  <%= @dynamic_form.token %>
+</p>
+
+<div class="field" style="width:75%;float:left;">
+  <%= link_to 'display_form', display_form_path(@dynamic_form.token) %>
+</div>
+<div class="field" style="width:75%;float:left;">
+  <%= link_to 'New Dynamic form input group', new_dynamic_form_input_group_path %>
+</div>
+
+
+<%= link_to 'Edit', edit_dynamic_form_path(@dynamic_form) %> |
+<%= link_to 'Back', dynamic_forms_path %>

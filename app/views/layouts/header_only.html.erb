@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html class="SI-FILES-STYLIZED">
+<head>
+  <title>Brand Center</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--[if IE]>
+      <style type="text/css">
+
+        .result-border {
+          filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='transparent.png', sizingMethod='scale');
+          background:none !important;
+        }
+        </style>
+    <![endif]-->
+  <%= stylesheet_link_tag "bootstrap", media: "all", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+  <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300,700' rel='stylesheet' type='text/css'>
+</head>
+<div id="site-contents">
+    <!-- SITE MENU -->
+    <div class="navbar" id="site-menu" role="navigation">
+      <div class="container">
+      <div class="category-padding">
+    <!-- SITE LOGO -->
+      <a href="/" tabindex="-1" class="home-logo">
+        <%= image_tag("logo.png", class: "img-responsive") %>
+      </a>
+    </div>
+  </div>
+</div>
+<br/>
+<%= yield %>
+</body>
+</html>

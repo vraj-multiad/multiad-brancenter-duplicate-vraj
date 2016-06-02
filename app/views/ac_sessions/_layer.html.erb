@@ -1,0 +1,19 @@
+<div style="display: block;" class="edit-toolx body-text layer-step" id="<%= ac_step.step_number %>" ac_step_id="<%= ac_step.step_number %>">
+  <h3 style="margin-top:0px;font-size:18px"><%= ac_step.title %></h3>
+  <div class="form-group">
+    <%= form_tag('/adcreator/process_step', :remote => true, :id => 'layer_step_' + ac_step.step_number.to_s, :'data-ac-process-step' => 'adcreator-contents', :role => "form" ) do %>
+      <%= hidden_field_tag 'ac_session_id', @ac_session.id %>
+      <%= hidden_field_tag 'ac_step_id', ac_step.id %>
+      <%= hidden_field_tag 'ac_session_history_id', @ac_session.current_ac_session_history_id %>
+      <%= hidden_field_tag 'show_layer', @ac_session.current_layer, id: 'show_layer' %>
+      <%= hidden_field_tag 'current_layer', @ac_session.current_layer, id: 'current_layer' %>
+      <% if ac_step.form_data('layers').present? %>
+        <% layer_list = [['', '']] %>
+        <% ac_step.form_data('layers').each do |f| %>
+          <% layer_list << [f['title'].to_s,f['name'].gsub(/ /, '_').to_s]  %>
+        <% end %>
+        <%= select_tag 'layer', options_for_select(layer_list), data: {ac_step_id: ac_step.step_number},  class: "form-control ac-step-layer-select" %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

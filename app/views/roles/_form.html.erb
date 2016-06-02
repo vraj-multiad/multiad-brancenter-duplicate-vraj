@@ -1,0 +1,96 @@
+<%= form_for(@role) do |f| %>
+  <% if @role.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@role.errors.count, "error") %> prohibited this role from being saved:</h2>
+
+      <ul>
+      <% @role.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <span>Set Access Roles</span>
+    <div class="alert alert-warning">
+      <ul class="nav nav-pills pill-checkboxes">
+        <% @access_levels.each do |al| %>
+          <li><label for="<%= al.title.to_s  %>"><%= al.title.to_s  %>:</label><%= check_box_tag "role[access_level_ids][]", al.token, @role.has_access?(al.id) %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <div class="col-lg-4 col-md-4 col-sm-4">
+    <div class="form-group ">
+      <span>Select Language</span>
+      <%= select_tag 'role[language_id]', options_for_select(@languages.pluck(:title, :id), @role.language_id), class: "form-control" %>
+    </div>
+    <div class="field">
+      <%= f.label :name %>: 
+      <%= f.text_field :name %>
+    </div>
+    <div class="field">
+      <%= f.label :title %>: 
+      <%= f.text_field :title %>
+    </div>
+    <div class="field">
+      <%= f.label :default_flag %>: 
+      <%= f.check_box :default_flag %>
+    </div>
+    <div class="field">
+      <%= f.label :role_type %>: 
+      <%= f.text_field :role_type %>
+    </div>
+  </div>
+  <div class="col-lg-8 col-md-8 col-sm-8">
+    <div class="field">
+      <%= f.label :enable_ac_creator_template_customize %>: 
+      <%= f.check_box :enable_ac_creator_template_customize %>
+    </div>
+    <div class="field">
+      <%= f.label :enable_dl_image_download %>: 
+      <%= f.check_box :enable_dl_image_download %>
+    </div>
+    <div class="field">
+      <%= f.label :enable_user_uploaded_image_download %>: 
+      <%= f.check_box :enable_user_uploaded_image_download %>
+    </div>
+    <div class="field">
+      <%= f.label :enable_order %>: 
+      <%= f.check_box :enable_order %>
+    </div>
+    <div class="field">
+      <%= f.label :enable_share_dl_image_via_email %>: 
+      <%= f.check_box :enable_share_dl_image_via_email %>
+    </div>
+    <div class="field">
+      <%= f.label :enable_share_dl_image_via_social_media %>: 
+      <%= f.check_box :enable_share_dl_image_via_social_media %>
+    </div>
+    <div class="field">
+      <%= f.label :enable_share_user_uploaded_image_via_email %>: 
+      <%= f.check_box :enable_share_user_uploaded_image_via_email %>
+    </div>
+    <div class="field">
+      <%= f.label :enable_share_user_uploaded_via_social_media %>: 
+      <%= f.check_box :enable_share_user_uploaded_via_social_media %>
+    </div>
+    <div class="field">
+      <%= f.label :enable_upload_ac_image %>: 
+      <%= f.check_box :enable_upload_ac_image %>
+    </div>
+    <div class="field">
+      <%= f.label :enable_upload_mailing_list %>: 
+      <%= f.check_box :enable_upload_mailing_list %>
+    </div>
+    <div class="field">
+      <%= f.label :enable_upload_my_library %>: 
+      <%= f.check_box :enable_upload_my_library %>
+    </div>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,112 @@
+<div id="admin-advanced-asset-<%= fulfillment_asset.token %>" class="order-panel">
+  <% if fulfillment_item_messages.count > 0 %>
+    <ul class="alert alert-success">
+      <% fulfillment_item_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <%= form_tag('/admin/fulfillment_items/add', :remote => true, :id => 'admin-fulfillment-items-add', :'data-admin-advanced-asset' => 'admin-advanced-asset-' + fulfillment_asset.token ) do %>
+    <div class="panel-functions">
+      <%= hidden_field_tag 'asset_index', i %>
+      <%= hidden_field_tag 'asset_type', fulfillment_asset.class.name %>
+      <%= hidden_field_tag 'asset_token', fulfillment_asset.token %>
+    <div class="form-group">
+      <span>Description</span>
+      <%= text_area_tag 'fulfillment_item[description]', fulfillment_item['description'].to_s, class: "form-control2" %>
+    </div>
+    <% if @fulfillment_methods.count > 1 %>
+      <div class="form-group">
+        <span>Fulfillment Method ID</span> <%= select_tag 'fulfillment_item[fulfillment_method_id]', options_for_select(@fulfillment_methods.pluck('title','id'), fulfillment_item['fulfillment_method_id'].to_s), class: "form-control" %>
+      </div>
+    <% else %>
+      <%= hidden_field_tag 'fulfillment_item[fulfillment_method_id]', @fulfillment_methods.first.id %>
+    <% end %>
+    <div class="form-group">
+      <span>Mailing List Item:</span>
+      <%= hidden_field_tag 'fulfillment_item[mailing_list_item]', '' %>
+      <%= check_box_tag 'fulfillment_item[mailing_list_item]', true, fulfillment_item['mailing_list_item'] %>
+    </div>
+    <div class="form-group alert alert-warning pull-left" style="width:100%;">
+      <span>Price Schedule</span> 
+      <div class="add-priceline">Click to Add Price Per Unit</div>
+      <% price_schedule = fulfillment_item['price_schedule'] || {} %>
+      <% price_schedule.each do |quantity, price| %>
+      
+        <div class="priceline">
+          <div class="form-group" style="width:44%;float:left">
+          <span>Number of Units</span>
+          <%= text_field_tag 'quantity[]', quantity, class: "form-control" %>
+          </div>
+          <div class="form-group" style="width:44%;float:left;margin-left:2%;">
+          <span>Price Per Unit</span>
+          <%= text_field_tag 'price[]', price, class: "form-control" %> 
+      </div>
+      <div class="form-group" style="float:left;text-align:center;width:8%;margin-left:2%;">
+        <span style="display:block">&nbsp;</span>
+        <div class="delete-priceline btn btn-default add-new-filter-submit" style="width:100%;padding:8px 8px;">
+          <div class="glyphicon glyphicon-remove"></div>
+        </div>
+      </div>
+      </div>
+      <% end %>
+    </div>
+    <div class="form-group">
+      <span>Price Per Unit:</span>
+      <%= text_field_tag 'fulfillment_item[price_per_unit]', fulfillment_item['price_per_unit'].to_s, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <span>Weight Per Unit:</span>
+      <%= text_field_tag 'fulfillment_item[weight_per_unit]', fulfillment_item['weight_per_unit'].to_s, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <span>Min Quantity:</span>
+      <%= text_field_tag 'fulfillment_item[min_quantity]', fulfillment_item['min_quantity'].to_s, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <span>Max Quantity:</span>
+      <%= text_field_tag 'fulfillment_item[max_quantity]', fulfillment_item['max_quantity'].to_s, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <span>Taxable:</span>
+      <%= hidden_field_tag 'fulfillment_item[taxable]', '' %>
+      <%= check_box_tag 'fulfillment_item[taxable]', true, fulfillment_item['taxable'] %>
+    </div>
+    <div class="form-group">
+      <span>Item Category:</span>
+      <%= text_field_tag 'fulfillment_item[item_category]', fulfillment_item['item_category'].to_s, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <span>Item type:</span>
+      <%= text_field_tag 'fulfillment_item[item_type]', fulfillment_item['item_type'].to_s, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <span>Vendor Item ID:</span>
+      <%= text_field_tag 'fulfillment_item[vendor_item_id]', fulfillment_item['vendor_item_id'].to_s, class: "form-control" %>
+    </div>
+    
+    <button class="btn btn-primary rounded" type="submit">
+		    save changes
+		    </button>	
+    </div><!--end:panel-functions-->
+		<div class="export-preview" style="text-align:center">
+			<div class="thumbnail" style="width:100%">
+				<div class="crop-images" style="width:100%">
+				  <div class="align-images" style="width:1000px">
+				      <%= image_tag fulfillment_asset.thumbnail_url %>
+				  </div>
+				</div> 
+				  
+				<div class="caption" style="width:100%">
+				<!-- <h3>Thumbnail label</h3> -->
+				  <p style="width:100%;text-align:left;"><%= truncate(fulfillment_asset.title, length: 46, escape: false).to_s.html_safe %></p>
+				</div>
+			</div>
+			
+		    
+		
+		</div>
+		
+  <% end %>
+	
+</div>

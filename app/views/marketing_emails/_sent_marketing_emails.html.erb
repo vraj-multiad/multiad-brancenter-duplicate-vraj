@@ -1,0 +1,57 @@
+<div>
+  <h3><strong><%= t('__email__').pluralize.titleize %></strong><div class="pull-right">
+      <%= form_tag('/profile/marketing_emails', remote: true, data: { 'user-marketing-emails' => 'user-marketing-emails' }, id: 'refresh-user-marketing-emails-form') do %>
+        <span class="input-group-btn pull-right" style="margin: -5px 41px 0px 0px;">
+          <%= button_tag 'search', type:'submit', :class => 'btn btn-default repeat', data:{ disable_with: '<span class="glyphicon glyphicon-repeat glyphicon-repeat-animate"></span>'} do %>
+            <span class="glyphicon glyphicon-repeat"></span>
+          <% end %>
+        </span>
+      <% end %>
+    </div></h3>
+  <div class="editable-area2">
+    <div class="row social-headers">
+      <div class="col-xs-12 col-sm-12 col-lg-12">
+        <div class="marketing-email">
+          <table>
+          	<thead>
+          		<tr>
+          			<th>Template Name</th>
+          			<th>Email Subject</th>
+          			<th>Date Sent</th>
+          			<th>Full Report</th>
+          		</tr>
+          	</thead>
+          	
+          	<tbody>
+          		<% @marketing_emails.each do |marketing_email| %>
+          		<tr>
+          			<td><%= marketing_email.ac_creator_template.title.to_s %></td>
+          			<td><%= marketing_email.subject.to_s %></td>
+          			<td><%= marketing_email.created_at.strftime('%m/%d/%Y : %l:%M %p') %></td>
+          			<td>
+	          			<%= form_tag( user_marketing_email_stats_path, remote: true, :'data-marketing-email-stats' => 'marketing-email-stats-' + marketing_email.token ) do %>
+		                  <%= hidden_field_tag 'token', marketing_email.token %>
+                      <% if marketing_email.finished? %>
+  		                  <% if marketing_email.created_at < Time.now - 20.minutes %>
+  		                    <%= button_tag 'View Report', type: 'submit', class: 'btn btn-default rounded', data: { disable_with: '&nbsp;' } %>
+  		                  <% else %>
+  		                    Scheduled for Distribution
+  		                  <% end %>
+                      <% else %>
+                        <%= marketing_email.user_error_string %>
+                      <% end %>
+		                <% end %>
+                	</td>
+          		</tr>
+          		<tr>
+	          		<td colspan="4"><div id='marketing-email-stats-<%= marketing_email.token %>' style="display:none;padding:7px 16px 7px 7px;"></div></td>
+          		</tr>
+          		<% end %>
+          	</tbody>
+          	
+          </table>
+        </div><!--user-endemail-list-->
+      </div> <!-- end:col-xs -->
+    </div><!--end row-->
+  </div><!--endeditable-area2-->
+</div>

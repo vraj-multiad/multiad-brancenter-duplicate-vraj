@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @email_list.user_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @email_list.name %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @email_list.title %>
+</p>
+
+<p>
+  <strong>Sheet:</strong>
+  <%= @email_list.sheet %>
+</p>
+
+<p>
+  <strong>Token:</strong>
+  <%= @email_list.token %>
+</p>
+
+<%= link_to 'Edit', edit_email_list_path(@email_list) %> |
+<%= link_to 'Back', email_lists_path %>

@@ -1,0 +1,39 @@
+<a href='/admin/ac_image'>Return</a><br/>
+  <table>
+    <tr width="100%">
+      <td width="50%">
+        Ac Image:<br/>
+        id: <%= @ac_image.id.to_s %><br/>
+        name: <%= @ac_image.name.to_s %><br/>
+        title: <%= @ac_image.title.to_s %><br/>
+        thumbnail_url: <%= @ac_image.thumbnail_url.to_s %> - <%#= image_tag( @ac_image.thumbnail_url) %><br/>
+        bundle_url: <a href='<%= @ac_image.bundle_url.to_s %>'><%= @ac_image.bundle_url.to_s %></a><br/>
+      </td>
+      <td width="50%">
+        <%= image_tag( @ac_image.thumbnail_url) %>
+      </td>
+    </tr>
+  </table>
+
+<%= form_tag('/admin/ac_image/save') do %>
+  <input type="hidden" name="token" value="<%= @ac_image.token %>">
+  <table border=1>
+    <tr>
+      <td colspan='2'>Search:</td>
+    </tr>
+    <% @keyword_types.each do |keyword_type| %>
+      <tr>
+        <td colspan='2'>
+            base keyword[<%= keyword_type %>]: <%= text_area_tag 'pre-' + keyword_type, @loaded_keywords[keyword_type].join(','), :class => "form-control", :rows => 2, :cols => 40, :placeholder => '' %>
+        </td>
+      </tr>
+    <% end %>
+    <tr>
+      <td>
+        <%= submit_tag 'Save Keywords' %>
+      </td>
+      <td>
+      </td>
+    </tr>
+  </table>
+<% end %>  <!-- form_tag -->

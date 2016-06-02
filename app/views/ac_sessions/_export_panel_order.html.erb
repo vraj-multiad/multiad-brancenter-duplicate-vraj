@@ -1,0 +1,21 @@
+<div class="panel-functions" id="panel-functions-order" style='display:<%= order_display %>;'>
+  <br/>
+  <div class="export-order-copy" id="export-order-copy">
+    <%= form_tag('/adcreator/process_step', :remote => true, :id => 'export_form_order', :'data-ac-process-export' => 'export-order-copy') do %>
+      <%= hidden_field_tag 'ac_session_id', @ac_session.id %>
+      <%= hidden_field_tag 'ac_step', 'export' %>
+      <%= hidden_field_tag 'ac_step_id', ac_step.id %>
+      <%= hidden_field_tag 'export_type', 'order' %>
+      <%= hidden_field_tag 'export_formats[]', 'PDF' %>
+      <%= hidden_field_tag 'layer', '', :id => 'export_layer' %>
+      <%= hidden_field_tag 'set_layer', '' %>
+      <% if ac_step.form_data('bleed') == 'y' %>
+        <%= hidden_field_tag 'export_formats[]', 'BLEED_PDF' %>
+      <% end %>
+      <p><strong><%= @ac_session.ac_creator_template.title %></strong></p>
+      <p>Upon clicking the <strong>order now</strong> button below, an email will be sent for fulfillment.</p>
+      <p>Once your order request is received, someone from <%= APP_NAME_PROPER %> will respond within 1 - 2 business days.</p>
+      <%= button_tag(t('__submit__'), :type => 'button', :id => 'submit-order', :class => "btn btn-default ladda-button submit-order", data: { disable_with: '<span class="ladda-label">placing order</span>', style: 'slide-down'}) do %><span class="ladda-label">order now</span><% end %>
+    <% end %> 
+  </div>
+</div>

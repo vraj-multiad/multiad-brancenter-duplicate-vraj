@@ -1,0 +1,26 @@
+<div class="contacts-panel-position">
+  <div class="container">
+    <div class="panel panel-default" style="width:75%;margin-left:auto;margin-right:auto;margin-top:60px;margin-bottom:50px;">
+      <!-- <div class="col-lg-12 col-lg-offset-12 col-md-12 col-md-offset-12 col-sm-12" id="contact-info" > -->
+        <%= form_tag(@contact_action, remote: true, method: 'POST', data: { 'contact-form' => 'contact-form-panel' }) do %>
+          <div class="panel-body">
+            <% if @notice %>
+              <div id="notice" class="alert alert-danger" style="padding-bottom:10px;"><%= @notice %></div>
+            <% end %>
+            <h3><strong><%= t '__contact_info__' %></strong></h3>
+            <div class="row">
+              <div style="padding:15px;">
+                <%= render partial: 'contact_fields' %>
+              </div>
+            </div>
+          </div>
+          <div class="panel-footer" style="text-align:center;">
+            <%= button_tag(t("__cancel__"), :class => "btn btn-default contact-form-cancel", data: {'dismiss' => 'modal'}, type: "button") %>
+            <%= button_tag(t("__submit__"), :class => "btn btn-default") %>
+          </div>
+        <% end %>
+      <!-- </div> -->
+    </div>
+  </div>
+</div>
+<div class="modal-backdrop in"></div>

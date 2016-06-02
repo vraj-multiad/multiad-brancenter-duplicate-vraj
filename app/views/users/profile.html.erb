@@ -1,0 +1,68 @@
+<div id='user-order-details'>
+</div>
+<%= render partial: "change_password" %>
+<div id="main-content" class="content">
+	<div class="container">
+		<div id="position-help">
+		<div id="profile-page-main">
+			<ul class="nav nav-tabs" role="tablist">
+				<li id="profile-tab-main" class="profile-tab show-hide active admin-filter-tab admin-tab" data-show-id="user-information" data-hide-class="profile-tab-contents" ><a href='javascript:void(0);' class="admin-buttons"><%= t('__main__').titleize %></a></li>
+			<% if ENABLE_CONTACTS || @user.system_contacts_user? %>
+				<li class="admin-users-tab admin-tab"><a class="profile-tab show-hide admin-buttons contact-search-form-submit" data-show-id="user-contacts" data-hide-class="profile-tab-contents" href='javascript:void(0);'><%= t('__contacts__').titleize %></a></li>
+			<% end %>
+			<% if @marketing_emails.present? %>
+				<li class="admin-users-tab admin-tab"><a class="profile-tab show-hide admin-buttons" data-show-id="user-marketing-emails" data-hide-class="profile-tab-contents" href='javascript:void(0);'><%= t('__marketing_email_reports__').titleize %></a></li>
+			<% end %>
+			<% if @orders.present? %>
+				<li class="admin-users-tab admin-tab"><a class="profile-tab show-hide admin-buttons" data-show-id="user-orders" data-hide-class="profile-tab-contents" href='javascript:void(0);'><%= t('__orders__').titleize %></a></li>
+			<% end %>
+			</ul>
+			<div id="user-information" class="profile-tab-contents" style="float:left;margin-bottom:40px;">
+				<% if notice.present? %>
+					<p id="notice" class="alert alert-warning"><%= notice %></p>
+				<% end %>
+				<%= render partial: "billing_info", locals: { source_page: 'profile'} %>
+				<% unless @user.sso_flag %>
+					<h3 style="float:left;"><strong><%= t '__system_settings__' %></strong></h3>
+					<div class="change-password btn btn-default"><%= t '__change_password__' %></div>
+				<% end %>
+				
+				<% if @user.update_profile_flag || !@user.valid? %>
+					<script type='text/javascript'> $('#edit-billing-wrapper,#edit_billing_info').modal(); </script>
+				<% end %>
+				<%#= render "shipping_info" %>
+				<% if ENABLE_EMAIL_LIST_UPLOAD %>
+					<%= render partial: "email_list_upload" %>
+				<% end %>
+				<% if ENABLE_MAILING_LIST_UPLOAD && @user.enabled('enable_upload_mailing_list') %>
+					<%= render partial: "mailing_list_upload" %>
+				<% end %>
+				<% if ENABLE_SOCIAL_MEDIA %>
+					<%= render partial: "social_media_accounts" %>
+				<% end %>
+				<% if ENABLE_LOGO_UPLOAD %>
+					<%= render partial: "logo_upload" %>
+				<% end %>
+			</div>
+			<% if ENABLE_CONTACTS || @user.system_contacts_user? %>
+				<div id='user-contacts' class="profile-tab-contents" style="display:none;">
+					<%= render partial: "contacts/search_form" %>
+					<div id='contact-results'>
+						<%= render partial: "contacts/search_results" %>
+					</div>
+				</div>
+			<% end %>
+			<% if @marketing_emails.present? %>
+				<div id='user-marketing-emails' class="profile-tab-contents" style="display:none;">
+					<%= render partial: "marketing_emails/sent_marketing_emails" %>
+				</div>
+			<% end %>
+			<% if @orders.present? %>
+				<div id='user-orders' class="profile-tab-contents" style="display:none;">
+					<%= render partial: "orders/user_orders" %>
+				</div>
+			<% end %>
+		</div>
+		</div>
+	</div>
+</div> <!-- End: .container -->

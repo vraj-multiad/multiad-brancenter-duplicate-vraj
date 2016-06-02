@@ -1,0 +1,46 @@
+<table>
+	<thead>
+		<tr class="center-td">
+			<th>Delivered</th>
+			<th>Opens</th>
+			<th>Unique Opens</th>
+			<th>Clicks</th>
+			<th>Bounces</th>
+			<th>Spam Reports</th>
+			<th>Unsubscribes</th>
+			<th>Blocks</th>
+			<th>&nbsp;</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr class="center-td">
+			<td><%= @marketing_email_stats['delivered'] %></td>
+			<td><%= @marketing_email_stats['opens'] %></td>
+			<td><%= @marketing_email_stats['unique_opens'] %></td>
+			<td><%= @marketing_email_stats['clicks'] %></td>
+			<td><%= @marketing_email_stats['bounces'] %></td>
+			<td><%= @marketing_email_stats['spam_reports'] %></td>
+			<td><%= @marketing_email_stats['unsubscribes'] %></td>
+			<td><%= @marketing_email_stats['blocks'] %></td>
+			<td><a href="javascript:void(0)" class='show-hide' data-hide-id='marketing-email-stats-<%= @marketing_email.token %>'><button type="button" class="btn btn-default rounded pull-right"><%= t '__close__' %></button></a></td>
+		</tr>
+	</tbody>
+</table>
+
+
+<!--
+bounce_drops : <%= @marketing_email_stats['bounce_drops'] %><br/>
+
+deferred : <%= @marketing_email_stats['deferred'] %><br/>
+
+invalid_emails : <%= @marketing_email_stats['invalid_emails'] %><br/>
+
+processed : <%= @marketing_email_stats['processed'] %><br/>
+requests : <%= @marketing_email_stats['requests'] %><br/>
+spam_report_drops : <%= @marketing_email_stats['spam_report_drops'] %><br/>
+
+unique_clicks : <%= @marketing_email_stats['unique_clicks'] %><br/>
+
+unsubscribe_drops : <%= @marketing_email_stats['unsubscribe_drops'] %><br/>
+-->
+

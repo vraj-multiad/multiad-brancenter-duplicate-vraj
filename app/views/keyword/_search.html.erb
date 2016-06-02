@@ -1,0 +1,141 @@
+<% if current_cart_items['DlImage'].length > 0 %>
+  <% case current_cart.status %>
+  <% when 'submitted', 'complete'%>
+    <% #cart_processing = '25px' %>
+    <%= javascript_tag do %>
+      <%=  'setCartButton( numDlItems()); ' %>
+      <%=  '$(document).ready(function() { ' %>
+      <%=   ' submitCart();'  %>
+      <%=  '});' %>
+    <% end %>
+  <% else %>
+    <% #cart_display = '25px' %>
+  <% end %>
+<% else %>
+  <% #do nothing for empty cart %>
+<% end %>
+
+<% case @filter_type %>
+<% when 'ac_image' %>
+  <%= render partial: 'sort_only_filters' %>
+<% when 'search' %>
+  <%= render partial: 'search_filters' %>
+<% when 'user' %>
+  <%= render partial: 'user_filters' %>
+<% end %>
+
+<% if @ac_images == ['ac-images'] || @my_contributions == ['my-contributions'] %>
+  <div class="container">
+    <div class="category-padding">
+      <ul class="nav nav-pills upload-filter fixed-upload">
+      	<li><button class="btn btn-sm btn-default upload"><%= t '__upload_content__' %></button></li>
+      </ul>
+    </div>
+  </div>
+<% end %>
+
+<%# this can be simplified more, right? %>
+<% render_all = true %>
+<% if @user_content == ["user-content"] %>
+  <div class="container">
+    <div class="category-padding">
+      <ul class="nav nav-pills upload-filter fixed-upload">
+        <% if ENABLE_MY_LIBRARY_UPLOAD %>
+          <li><button class="btn btn-sm btn-default upload"><%= t '__upload_content__' %></button></li>
+        <% end %>
+      <label for="group_results_by_user_category_checkbox" class="pull-right">
+      <li class="btn btn-default checkbox-li "><%= t '__group_results__' %>&nbsp;&nbsp;&nbsp;<%= check_box_tag 'group_results_by_user_category_checkbox', 1, (!@group_results_by_user_category.to_i.zero?) %></li>
+      </label>
+      </ul>
+    </div>
+  </div>
+  <div class="container">
+  <% if @group_results_by_user_category.to_s == '1' %>
+    <% render_all = false %>
+    <% @all_user_categories_list.each do |category_name| %>  <!-- categories -->
+
+      <div class="panel panel-default category-box">
+        <div class="panel-heading">
+        <% unless category_name == 'uncategorized' || category_name == 'adcreator images' %>category: <% end %><%= category_name %>
+        <% unless category_name == 'uncategorized' || category_name == 'adcreator images' %>
+          <%= form_tag('/social_media_post/share', :remote => true, :'data-share' => 'share-contents' ) do %>
+            <%= hidden_field_tag 'category',  category_name %>
+            <%= hidden_field_tag 'share_preview',  '' %>
+            <%= button_tag 'Share', data: { disable_with: '' }, type: 'submit', :class => 'share-asset-group-button share-asset-submit' do %>
+            	<span class="classic"><%= t '__share_group__' %></span>
+            <% end %>
+          <% end %> <!-- form_tag -->
+        <% end %>
+        </div>
+        <div class="panel-body">
+          <!-- Results -->
+          <% count=0 %>
+          <% if @categorized_results[category_name].count > 0 %>
+            <% @categorized_results[category_name].each do |searchable_type, searchable_id| %>
+              <% display = 'none' %>
+              <% visible = false %>
+              <% if count < MORE_CATEGORY_RESULTS_COUNT %>
+                <% display= 'block' %>
+                <% visible = true %>
+              <% end %>
+              <%= render partial: 'search_result', :locals => { :searchable_type => searchable_type, :searchable_id => searchable_id, :display => display, :visible => visible } %>
+              <% count = count + 1 %>
+            <% end %>
+            <% if count > MORE_CATEGORY_RESULTS_COUNT %>
+              <div class="show-more-container">
+              <%= button_tag( t('__show_more_search_results__'), :type => 'button', :'data-more-count' => MORE_CATEGORY_RESULTS_COUNT, :class => "btn btn-default btn-lg show-search-results") %>
+              </div>
+            <% end %>
+          <% else %>
+            <%= t '__no_results__' %>
+          <% end %>
+        </div>
+      </div>
+    <% end %> <!-- categories -->
+  <% else %>
+  <% end %>
+  <!-- @group_results_by_user_category -->
+ </div><!-- end container for grouped assets-->
+<% end %> <!-- @user_content -->
+
+
+
+<% if render_all == true %>
+  <% logger.debug 'user_categories is nil: ' + @user_categories.nil?.to_s %>
+
+  <div class="container">
+  <div class="category-padding">
+  <% if @results_count > MAX_RESULTS %>
+    <div class="alert alert-danger" style="margin-top:15px;float:left;width:100%;"><%= t '__showing__' %> <b><%= MAX_RESULTS.to_s %></b> <%= t '__of__' %> <b><%= @results_count.to_s %></b>. <%= t '__please_refine__' %></div>
+  <% else %>
+    <div class="alert alert-info" style="margin-top:15px;float:left;width:100%;"><%= t '__showing__' %> <b><%= @results_count.to_s %></b> <%= t '__results__' %>.</div>
+  <% end %>
+    <div id="results" class="row">
+      <!-- Results -->
+      <% count=0 %>
+      <% if @unique_keys.count > 0 %>
+        <% @unique_keys.each do |searchable_type, searchable_id| %>
+          <% display = 'none' %>
+          <% visible = false %>
+          <% if count < MORE_SEARCH_RESULTS_COUNT %>
+            <% logger.debug "display= 'block'" %>
+            <% display= 'block' %>
+            <% visible = true %>
+          <% end %>
+          <%= render partial: 'search_result', :locals => { :searchable_type => searchable_type, :searchable_id => searchable_id, :display => display, :visible => visible } %>
+          <% count = count + 1 %>
+        <% end %>
+        <% if count > MORE_SEARCH_RESULTS_COUNT %>
+          <div class="show-more-container">
+          <%= button_tag( t('__show_more_search_results__'), :type => 'button', :'data-more-count' => MORE_SEARCH_RESULTS_COUNT, :class => "btn btn-default btn-lg show-search-results") %>
+          </div>
+        <% end %>
+      <% else %>
+        <% unless @user_content == ["user-content"] %>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= t '__no_available_content__' %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  </div>
+<% end %>

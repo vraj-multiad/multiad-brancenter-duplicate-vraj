@@ -1,0 +1,115 @@
+<div class="navbar" id="site-menu" role="navigation">
+  <div class="container">
+    <div class="category-padding">
+      <div class="home-logo">
+        <a href="/" tabindex="-1">
+          <%= image_tag("logo.png") %>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="main-content" class="content"> 
+  <div class="container">
+    <div id="position-help">
+      <div id="help-page-intro" style="float:left;margin-bottom:40px;">
+        <div class="col-lg-8 col-md-9 col-sm-12" style="margin-top:30px; margin-left:auto; margin-right:auto;float:none;" id="social-media">
+        <% provide(:title, "Login") %>
+           <%= form_tag sessions_path do %>
+            <input type="hidden" name="selected_language" value="<%= @selected_language %>"/>
+            <div id="login-inputs" class="row">
+              <h3><strong><%= t '__please_login__' %></strong></h3>
+
+              <div class="row social-headers">
+                <div class="col-xs-12 col-sm-12 col-lg-12">
+                  <% if flash[:notice] %>
+                      <div id="notice" class="alert alert-danger" style="padding-bottom:10px;"><%= flash[:notice] %></div>
+                  <% end %>
+                  <p>
+                    <span><%= t '__username__' %></span>
+                    <%= text_field_tag :username, params[:username], class: "form-control", placeholder: "" %>
+                  </p>
+                  <p>
+                    <span><%= t '__password__' %></span>
+                    <%= password_field_tag :password, nil, class: "form-control" %>
+                  </p>
+                  <% if ENABLE_USER_REGISTRATION %>
+                    <a href="#" class="pull-left" id="new-user"><%= t '__new_user__' %></a>
+                  <% end %>
+                  <% if ENABLE_USER_FORGOT_PASSWORD %>
+                    <a href="#" class="pull-right" id="forgot-password"><%= t '__forgot_password__' %></a> 
+                  <% end %>
+                </div><!-- col-lg4-->
+              </div> <!-- End: .login_inputs -->
+
+              <% if @languages.length > 1 %>
+              <ul class="nav nav-pills top-nav" style="float:left !important; margin-top:0px;">
+                <li class="dropdown li-topnav" style="margin-left:0px;">
+                  <a class="dropdown-toggle btn-topnav" data-toggle="dropdown" href="javascript:void(0)">
+                    <%= @selected_language_title %> <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu" role="menu">
+                     <% @languages.each do |language| %>
+                       <% next if language.name == @selected_language %>
+                      <li><a href="/login?selected_language=<%= language.name %>" class=""><%= language.title %></a></li>
+                    <% end %>
+                  </ul>
+                </li>
+              </ul>
+              <% end %>
+              
+              <div class="form-group pull-right">
+                <%= submit_tag (t '__sign_in__'), class: "btn branded-button pull-right" %>
+              </div><!--formgroup-->
+            </div>
+          <% end %>
+        </div>
+  		</div>
+		</div>
+	</div>
+</div>
+   
+<div class="modal fade" id="forgot_password_panel">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title"><%= t '__forgot_password__' %></h4>
+      </div>
+      <%= form_tag forgot_password_path do %>
+
+        <div class="modal-body">
+          <p><%= t '__enter_email__' %></p>
+          <%= text_field_tag 'email_address', '', :class => "form-control input-lg", :placeholder => t('__email_address__')  %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn branded-button" data-dismiss="modal"><%= t '__cancel__' %></button>
+          <button type="button" class="btn branded-button forgot-password-submit"><%= t '__submit__' %></button>
+        </div>
+      <% end %>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="terms_and_conditions_panel">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">New user terms and conditions</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row" style="padding:15px;margin-top:-20px;overflow:auto;height:400px;">
+          <p><h3><strong>TERMS OF USE</strong></h3></p> 
+        </div>
+      <div class="modal-footer">
+        <p><i>By clicking the accept button, you will be accepting the above Terms of Use.</i></p>
+        <div class="form-group">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Decline</button>
+          <a href="/register" class="btn btn-default pull-right" id="accept_terms">Accept</a>
+
+        </div>  
+      </div>  
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->  

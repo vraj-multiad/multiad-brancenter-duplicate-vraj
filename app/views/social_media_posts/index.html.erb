@@ -1,0 +1,41 @@
+<h1>Listing social_media_posts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Social media account</th>
+      <th>Description</th>
+      <th>Finished at</th>
+      <th>Error</th>
+      <th>Type</th>
+      <th>User uploaded image</th>
+      <th>Title</th>
+      <th>Success</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @social_media_posts.each do |social_media_post| %>
+      <tr>
+        <td><%= social_media_post.social_media_account_id %></td>
+        <td><%= social_media_post.description %></td>
+        <td><%= social_media_post.finished_at %></td>
+        <td><%= social_media_post.error %></td>
+        <td><%= social_media_post.type %></td>
+        <td><%= social_media_post.user_uploaded_image_id %></td>
+        <td><%= social_media_post.title %></td>
+        <td><%= social_media_post.success %></td>
+        <td><%= link_to 'Show', social_media_post %></td>
+        <td><%= link_to 'Edit', edit_social_media_post_path(social_media_post) %></td>
+        <td><%= link_to 'Destroy', social_media_post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Social media post', new_social_media_post_path %>

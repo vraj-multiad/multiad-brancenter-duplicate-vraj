@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @ac_text.name %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @ac_text.title %>
+</p>
+
+<p>
+  <strong>Creator:</strong>
+  <%= @ac_text.creator %>
+</p>
+
+<p>
+  <strong>Html:</strong>
+  <%= @ac_text.html %>
+</p>
+
+<p>
+  <strong>Inputs:</strong>
+  <%= @ac_text.inputs %>
+</p>
+
+<p>
+  <strong>contact_flag:</strong>
+  <%= @ac_text.contact_flag %>
+</p>
+
+<p>
+  <strong>contact_type:</strong>
+  <%= @ac_text.contact_type %>
+</p>
+
+<p>
+  <strong>contact_filter:</strong>
+  <%= @ac_text.contact_filter %>
+</p>
+
+
+<%= link_to 'Edit', edit_ac_text_path(@ac_text) %> |
+<%= link_to 'Back', ac_texts_path %>

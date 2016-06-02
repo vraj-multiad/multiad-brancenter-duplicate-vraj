@@ -1,0 +1,141 @@
+<% if @contact.id.present? %>
+  <%= hidden_field_tag 'id', @contact.id %>
+<% end %>
+<% if @contact_types.length > 1 %>
+  <div class="form-group">
+    <span><%= t '__contact_type__' %></span>
+    <%= select('contact', 'contact_type_id', @contact_types.pluck(:title, :id),  { class: "form-control" } ) %>
+  </div>
+<% else %>
+  <%= hidden_field_tag 'contact[contact_type_id]', @contact_types[0].id %>
+<% end %>
+<% contact_fields = nil %>
+<% if CONTACT_FIELDS.present? %>
+  <% contact_fields = CONTACT_FIELDS.split(/\W+/) %>
+<% end %>
+<% if contact_fields.nil? || contact_fields.include?('display_name') %>
+  <div class="form-group">
+    <span><%= t '__display_name__' %></span>
+    <%= text_field_tag 'contact[display_name]', @contact.display_name , class: "form-control", placeholder: '' %>
+  </div>
+<% end %>
+<% if contact_fields.nil? || contact_fields.include?('first_name') %>
+  <div class="form-group">
+    <span><%= t '__first_name__' %></span>
+    <%= text_field_tag 'contact[first_name]', @contact.first_name , class: "form-control", placeholder: '' %>
+  </div>
+<% end %>
+<% if contact_fields.nil? || contact_fields.include?('last_name') %>
+  <div class="form-group">
+    <span><%= t '__last_name__' %></span>
+    <%= text_field_tag 'contact[last_name]', @contact.last_name , class: "form-control", placeholder: '' %>
+  </div>
+<% end %>
+<% if contact_fields.nil? || contact_fields.include?('title') %>
+  <div class="form-group">
+    <span><%= t '__title__' %></span>
+    <%= text_field_tag 'contact[title]', @contact.title , class: "form-control", placeholder: '' %>
+  </div>
+<% end %>
+<% if contact_fields.nil? || contact_fields.include?('company_name') %> 
+  <div class="form-group">
+    <span><%= t '__company_name__' %></span>
+    <%= text_field_tag 'contact[company_name]', @contact.company_name , class: "form-control", placeholder: '' %>
+  </div>
+<% end %>
+<% if contact_fields.nil? || contact_fields.include?('address_1') %>
+  <div class="form-group">
+    <span><%= t '__address_1__' %></span>
+    <%= text_field_tag 'contact[address_1]', @contact.address_1 , class: "form-control", placeholder: '' %>
+  </div>
+<% end %>
+<% if contact_fields.nil? || contact_fields.include?('address_2') %>
+  <div class="form-group">
+    <span><%= t '__address_2__' %></span>
+    <%= text_field_tag 'contact[address_2]', @contact.address_2 , class: "form-control", placeholder: '' %>
+  </div>
+<% end %>
+<% if contact_fields.nil? || contact_fields.include?('city') %>
+  <div class="form-group" style="width:49%;float:left;">
+    <span><%= t '__city__' %></span>
+    <%= text_field_tag 'contact[city]', @contact.city , class: "form-control", placeholder: '' %>
+  </div>
+<% end %>
+<% if contact_fields.nil? || contact_fields.include?('state') %>
+  <div class="form-group" style="width:25%;float:left;margin-left:2%">
+    <span><%= t '__state__' %></span>
+    <%= select_tag 'contact[state]', options_for_select(profile_state_select, @contact.state), class: "form-control" %>
+  </div>
+<% end %>
+<% if contact_fields.nil? || contact_fields.include?('zip_code') %>
+  <div class="form-group" style="width:22%;float:left;margin-left:2%">
+    <span><%= t '__zip_code__' %></span>
+    <%= text_field_tag 'contact[zip_code]', @contact.zip_code , class: "form-control", placeholder: '' %>
+  </div>
+<% end %>
+<% if contact_fields.nil? || contact_fields.include?('country') %>
+  <div class="form-group">
+    <span><%= t '__country__' %></span>
+    <%= country_select('contact', 'country', { priority_countries: profile_priority_countries, prompt: t('__select_country__') },  {class: "form-control" } ) %>
+  </div>
+<% end %>
+<% if contact_fields.nil? || contact_fields.include?('alt_address') %>
+  <div class="form-group">
+    <span><%= t '__alternative_address__' %></span>
+    <%= text_field_tag 'contact[alt_address]', @contact.alt_address , class: "form-control", placeholder: '' %>
+  </div>
+<% end %>
+<% if contact_fields.nil? || contact_fields.include?('phone_number') %>
+  <div class="form-group" style="width:49%;float:left">
+    <span><%= t '__phone__' %></span>
+    <%= text_field_tag 'contact[phone_number]', @contact.phone_number , class: "form-control", placeholder: '' %>
+  </div>
+<% end %>
+<% if contact_fields.nil? || contact_fields.include?('mobile_number') %>
+  <div class="form-group" style="width:49%;float:left;margin-left:2%;">
+    <span><%= t '__mobile__' %></span>
+    <%= text_field_tag 'contact[mobile_number]', @contact.mobile_number , class: "form-control", placeholder: '' %>
+  </div>
+<% end %>
+<% if contact_fields.nil? || contact_fields.include?('fax_number') %>
+  <div class="form-group" style="width:49%;float:left">
+    <span><%= t '__fax__' %></span>
+    <%= text_field_tag 'contact[fax_number]', @contact.fax_number , class: "form-control", placeholder: '' %>
+  </div>
+<% end %>
+<% if contact_fields.nil? || contact_fields.include?('website') %>
+  <div class="form-group" style="width:49%;float:left;margin-left:2%;">
+    <span><%= t '__website__' %></span>
+    <%= text_field_tag 'contact[website]', @contact.website , class: "form-control", placeholder: '' %>
+  </div>
+<% end %>
+<% if contact_fields.nil? || contact_fields.include?('email_address') %>
+  <div class="form-group">
+    <span><%= t '__email_address__' %></span>
+    <%= text_field_tag 'contact[email_address]', @contact.email_address , class: "form-control", placeholder: '' %>
+  </div>
+<% end %>
+<% if contact_fields.nil? || contact_fields.include?('facebook_id') %>
+  <div class="form-group">
+    <span><%= t '__facebook_id__' %></span>
+    <%= text_field_tag 'contact[facebook_id]', @contact.facebook_id , class: "form-control", placeholder: '' %>
+  </div>
+<% end %>
+<% if contact_fields.nil? || contact_fields.include?('twitter_id') %>
+  <div class="form-group">
+    <span><%= t '__twitter_id__' %></span>
+    <%= text_field_tag 'contact[twitter_id]', @contact.twitter_id , class: "form-control", placeholder: '' %>
+  </div>
+<% end %>
+<% if contact_fields.nil? || contact_fields.include?('map_link') %>
+  <div class="form-group">
+    <span><%= t '__map_link__' %></span>
+    <%= text_field_tag 'contact[map_link]', @contact.map_link , class: "form-control", placeholder: '' %>
+  </div>
+<% end %>
+<% if contact_fields.nil? || contact_fields.include?('shared_flag') %>
+  <div class="form-group">
+    <span><%= t '__shared__' %></span>
+    <%= check_box 'contact', 'shared_flag', { checked: @contact.shared_flag }, 'true', 'false' %>
+  </div>
+<% end %>

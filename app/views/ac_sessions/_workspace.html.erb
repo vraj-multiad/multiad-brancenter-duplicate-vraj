@@ -1,0 +1,207 @@
+<% if @ac_session.ready? %>
+<!-- locked = <%= @ac_session.locked.to_s %>--><!-- uuid = <%= @ac_session.uuid %>-->
+   <!-- Top Toolbar -->
+  <%= form_tag('/adcreator/undo', :remote => true, :'data-ac-process-step' => 'adcreator-contents', :class => "form-inline", :role => "form", :id => 'undo') do %>
+    <input type="hidden" name="id" value="<%= @ac_session.id %>"/>
+  <% end %>
+  <div class="navbar navbar-inverse navbar-fixed-top" id="adcreator-top-toolbar">
+    <div class="obscure-toolbar"></div>
+    <ul class="nav navbar-nav" style="width: 100%;">
+      <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          </button>
+      </div>
+      <div class="collapse navbar-collapse" id="navbar-collapse-1">
+      <% @ac_session.ac_base.ac_steps.each do |ac_step| %>
+        <% if ac_step.form_data('ac_step_type') == 'resize' %>
+          <%= render partial: 'resize', locals: { ac_step: ac_step } %>
+          <% break %>
+        <% end %>
+      <% end %>
+      <% if @ac_session.layer_mappings.present? %>
+        <script>
+          var active_layer = '';
+          var hidden_layers = <%= JSON.pretty_generate(@ac_session.layer_mappings).html_safe %>;
+          var elements_to_layer = <%= JSON.pretty_generate(@elements_to_layer).html_safe %>;
+        </script>
+      <% else %>
+        <script>
+          var elements_to_layer = <%= JSON.pretty_generate(@elements_to_layer).html_safe %>;
+        </script>
+      <% end %>
+
+      <!-- Scaling -->
+      <li class="dropdown ac-toolbar-tool" style="margin-left: 10px;">
+        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+        <span id="template-scale-label" class="auto"><%= t '__auto__' %></span> <span id="template-scale-percentage"></span> <span class="glyphicon glyphicon-zoom-in"></span>
+          </a>
+          <ul class="dropdown-menu ac-scale-dropdown">
+            <li><a class="scale-preview" href="javascript:void(0)"><%= t '__auto__' %></a></li>
+            <li><a class="scale-preview" href="javascript:void(0)">25%</a></li>
+            <li><a class="scale-preview" href="javascript:void(0)">50%</a></li>
+            <li><a class="scale-preview" href="javascript:void(0)">75%</a></li>
+            <li><a class="scale-preview" href="javascript:void(0)">100%</a></li>
+            <li><a class="scale-preview" href="javascript:void(0)">150%</a></li>
+            <li><a class="scale-preview" href="javascript:void(0)">200%</a></li>
+            <li><a class="scale-preview" href="javascript:void(0)">250%</a></li>
+            <li><a class="scale-preview" href="javascript:void(0)">300%</a></li>
+          </ul>
+        </li>
+      <!-- End: Scaling -->
+    
+
+    <div class="nav navbar-nav navbar-right"  id="edit-main-nav" style="margin-top: -7px;margin-left: -4px;">
+      
+      <% if @ac_session.ac_session_histories.length > 0 && false%>
+        <li class="ac-toolbar-tool"><a href="javascript:void(0)" id="undo-template">undo</a></li>
+      <% end %>
+      <li class="ac-toolbar-tool"><a href="javascript:void(0)" id="close-template"><%= t '__close_template__' %></a></li>
+      <li id='save_dropdown' class="ac-toolbar-tool dropdown">
+        <a href="javascript:void(0)" id="save-template" class="dropdown-toggle" data-toggle="dropdown"><b class="caret"></b><%= t '__save_template__' %></a>
+        <div class="dropdown-menu ac-dropdown ac-size-dropdown">
+          <%= form_tag('/adcreator/save', remote: true, class: "form-inline", role: "form", data: { 'close-dropdown' => 'save_dropdown' }) do %>
+            <div class="form-group">
+              <input type="text" class="form-control" id="save_name" placeholder="<%= t '__enter_file_name__' %>" name="save_name" value="<%= @save_name %>">
+            </div>
+            <input type="hidden" name="ac_session_id" value="<%= @ac_session.id %>"/>
+            <%= button_tag 'Save', data: { disable_with: t('__saving__') }, type: 'submit', :class => 'btn btn-default btn-sm save-button' do %><%= t '__save__' %><% end %>
+          <% end %>
+          </div>
+       </li>
+      <li class="ac-toolbar-tool"><a href="javascript:void(0)" id="export-template" class="ac-step-export active"><%= t '__export_template__' %></a></li>
+    </ul></div>
+    
+
+  </div><!-- End: Top Toolbar -->
+
+  <div id="adcreator-side-toolbar" style="overflow:auto;padding-top: 75px;">
+    <%= javascript_tag do %>
+      window.system_contacts = <%= raw @system_contacts.to_json %>
+      window.user_contacts = <%= raw @user_contacts.to_json %>
+    <% end %>
+    <% debug_style = 'none;' %>
+    <% if AC_DEBUG %>
+    <% debug_style = 'block;' %>
+    <% end %>
+    <div style="display:<%= debug_style %>">
+      <%= form_tag('/adcreator/workspace', :remote => true, :'data-ac-process-step' => 'adcreator-contents', :id => 'manual_refresh') do %>
+        <input type="hidden" name="id" value="<%= @ac_session.id %>"/>
+        <input type="submit" name="submitter" value="Refresh Workspace"/>
+      <% end %>
+      audit: <input type="checkbox" id="audit_image" name="audit_image" value="1"><br/>
+    </div>
+    <p>
+      <% @ac_session.ac_base.ac_steps.each do |ac_step| %>
+        <% if ac_step.form_data('ac_step_type') == 'layer' %>
+          <%= render partial: 'layer', locals: { ac_step: ac_step } %>
+        <% end %>
+      <% end %>
+      <% @ac_session.ac_base.ac_steps.each do |ac_step| %>
+        <% next if ac_step.form_data('hidden').present? %>
+        <% if ac_step.form_data('ac_step_type') == 'kwikee_product' %>
+          <%= render partial: 'kwikee_product', locals: { ac_step: ac_step } %>
+        <% end %>
+
+        <% if ac_step.form_data('ac_step_type') == 'image' && ac_step.search(@ac_session.user, @ac_session.current_ac_session_history_id, {}) %>
+          <%= render partial: 'ac_image_with_upload', locals: { ac_step: ac_step } %>
+        <% end %>
+
+        <% if ac_step.form_data('ac_step_type') == 'sub_layer_selection' %>
+          <%= render partial: 'sub_layer_selection', locals: { ac_step: ac_step } %>
+        <% end %>
+
+        <% if ac_step.form_data('ac_step_type') == 'sub_layer_text_choice_multiple' && ac_step.search(@ac_session.user, @ac_session.current_ac_session_history_id, {}) %>
+          <%= render partial: 'ac_text_choice_multiple', locals: { ac_step: ac_step } %>
+        <% end %>
+
+        <% if ac_step.form_data('ac_step_type') == 'text_selection' && ac_step.search(@ac_session.user, @ac_session.current_ac_session_history_id, {}) %>
+          <%= render partial: 'ac_text_selection', locals: { ac_step: ac_step } %>
+        <% end %>
+
+        <% if ac_step.form_data('ac_step_type') == 'text' && ac_step.search(@ac_session.user, @ac_session.current_ac_session_history_id, {}) %>
+          <%= render partial: 'ac_text', locals: { ac_step: ac_step } %>
+        <% end %>
+
+        <% if ac_step.form_data('ac_step_type') == 'text_choice' && ac_step.search(@ac_session.user, @ac_session.current_ac_session_history_id, {}) %>
+          <%= render partial: 'ac_text_choice', locals: { ac_step: ac_step } %>
+        <% end %>
+
+        <% if ac_step.form_data('ac_step_type') == 'text_choice_multiple' && ac_step.search(@ac_session.user, @ac_session.current_ac_session_history_id, {}) %>
+          <%= render partial: 'ac_text_choice_multiple', locals: { ac_step: ac_step } %>
+        <% end %>
+
+        <% if ac_step.form_data('ac_step_type') == 'case_study_drill_down' %>
+          <!-- travelers specific -->
+          <%= render partial: 'case_study_drill_down', locals: { ac_step: ac_step } %>
+        <% end %>
+
+        <% if ac_step.form_data('ac_step_type') == 'user_uploaded_image' %>
+          <%= render partial: 'user_uploaded_image', locals: { ac_step: ac_step } %>
+        <% end %>
+
+        <% if ac_step.form_data('ac_step_type') == 'image_upload' %>
+          <%= render partial: 'image_upload', locals: { ac_step: ac_step } %>
+        <% end %>
+
+      <% end %> <!-- @ac_session.ac_base.ac_steps.each -->
+      <% if @ac_session.user.superuser? || @ac_session.user.admin?%>
+        <%= tinymce :test %>
+      <% else %>
+        <%= tinymce %>
+      <% end %>
+    </p>
+  </div><!-- End: adcreator-side-toolbar -->
+
+  <div id="adcreator-canvas-area" style="margin-top: 25px;">
+    <div class="container_canvas">
+      <h2 class="template-name"><%= @ac_session.ac_creator_template.title %></h2>
+
+      <div id="update-text-choice-results" class="text-choice-results"></div>
+
+      <!-- Template Canvas -->
+      <div class="container template-canvas" id="template-canvas" >
+        <%= render partial: 'template_canvas' %>
+      </div> <!-- End: .template-canvas -->
+      <div id="case-study-results" class="case-study-results"></div>
+
+      <div id="export-wrapper">
+      <div class="container">
+      <div class="panel panel-default">
+        <% @ac_session.ac_base.ac_steps.each do |ac_step| %>
+          <% if ac_step.form_data('ac_step_type') == 'export' %>
+            <div id="export-panel-wrapper">
+              <%= render partial: 'export_panel', locals: { ac_step: ac_step } %>
+            </div>
+            <% break %>
+          <% end %>
+        <% end %>
+
+
+        <div class="panel-footer">
+          <a href="javascript:void(0)" id="close-export-and-return-to-results"><button type="button" class="btn btn-default rounded"><%= t '__return_to_search__' %></button></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" id="close-export"><button type="button" class="btn btn-default rounded"><%= t '__return_to_edited__' %></button>
+          </a>
+        </div>
+      </div><!-- end: panel -->
+      </div><!-- end: container -->
+    </div><!-- end: export wrapper -->
+      <% if @ac_session.spreads.length > 1 %>
+        <% @ac_session.spreads.sort.each do |spread_index, elements| %>
+          <% spread_number = spread_index.to_i + 1 %>
+          <% offset = (spread_index.to_i * 100) + 25 %>
+          <button class="change-spread" data-spread-number="<%= spread_number %>" id="page_<%= spread_number %>_button" style="position:fixed; bottom:25px; left:<%= offset.to_s %>px;"><%= t '__page__' %> <%= spread_number %></button>
+        <% end %>
+      <% end %>
+
+    </div> <!-- End: .container -->
+  </div> <!-- End: #adcreator-canvas-area -->
+
+  <div class="modal-backdrop in"></div>
+<% else %>  <!-- (not) ready --><!-- locked = <%= @ac_session.locked %>-->
+  <%= render :partial => 'ac_auto_refresh', locals: {:ac_session_id => @ac_session.id, :uuid => @ac_session.uuid} %>
+
+
+<% end %> <!-- ready -->

@@ -1,0 +1,48 @@
+<h1>Listing ac_creator_templates</h1>
+
+<table border=1>
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th>Keywords</th>
+      <!-- <th>Graphics</th> -->
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ac_creator_templates.each do |ac_creator_template| %>
+      <tr>
+        <td valign="top">Name</br>
+          Status</br>
+          Title</br>
+          <!-- Preview</br> -->
+          Thumbnail</br>
+          Folder</br>
+          Filename
+        </td>
+        <td valign="top"><%= ac_creator_template.name.to_s %></br>
+        <%= ac_creator_template.status.to_s %></br>
+        <%= ac_creator_template.title.to_s %></br>
+        <%#= ac_creator_template.preview.to_s %><!-- </br> -->
+        <%= ac_creator_template.thumbnail.to_s %></br>
+        <%= ac_creator_template.folder.to_s %></br>
+        <%= ac_creator_template.filename.to_s %></td>
+        <td><%= ac_creator_template.keywords.pluck(:term).inspect %></td>
+        <%# doc_xml = JSON.parse(ac_creator_template.document_spec_xml) %>
+
+        <td><%= link_to 'Show', ac_creator_template %></td>
+        <td><%= link_to 'Edit', edit_ac_creator_template_path(ac_creator_template) %></td>
+        <td><%= link_to 'Destroy', ac_creator_template, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ac creator template', new_ac_creator_template_path %>

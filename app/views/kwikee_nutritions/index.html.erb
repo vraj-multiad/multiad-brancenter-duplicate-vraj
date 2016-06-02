@@ -1,0 +1,199 @@
+<h1>Listing kwikee_nutritions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Kwikee product</th>
+      <th>Cal from sat tran fat</th>
+      <th>Calories per serving</th>
+      <th>Carbo per serving</th>
+      <th>Carbo uom</th>
+      <th>Cholesterol per serving</th>
+      <th>Cholesterol uom</th>
+      <th>Dvp biotin</th>
+      <th>Dvp calcium</th>
+      <th>Dvp carbo</th>
+      <th>Dvp chloride</th>
+      <th>Dvp cholesterol</th>
+      <th>Dvp chromium</th>
+      <th>Dvp copper</th>
+      <th>Dvp fiber</th>
+      <th>Dvp folic acid</th>
+      <th>Dvp iodide</th>
+      <th>Dvp iodine</th>
+      <th>Dvp iron</th>
+      <th>Dvp magnesium</th>
+      <th>Dvp manganese</th>
+      <th>Dvp molybdenum</th>
+      <th>Dvp niacin</th>
+      <th>Dvp panthothenate</th>
+      <th>Dvp phosphorus</th>
+      <th>Dvp potassium</th>
+      <th>Dvp protein</th>
+      <th>Dvp riboflavin</th>
+      <th>Dvp sat tran fat</th>
+      <th>Dvp saturated fat</th>
+      <th>Dvp selenium</th>
+      <th>Dvp sodium</th>
+      <th>Dvp sugar</th>
+      <th>Dvp thiamin</th>
+      <th>Dvp total fat</th>
+      <th>Dvp vitamin a</th>
+      <th>Dvp vitamin b12</th>
+      <th>Dvp vitamin b6</th>
+      <th>Dvp vitamin c</th>
+      <th>Dvp vitamin d</th>
+      <th>Dvp vitamin e</th>
+      <th>Dvp vitamin k</th>
+      <th>Dvp zinc</th>
+      <th>Fat calories per serving</th>
+      <th>Fiber per serving</th>
+      <th>Fiber uom</th>
+      <th>Insol fiber per serving</th>
+      <th>Insol fiber per serving uom</th>
+      <th>Mono unsat fat</th>
+      <th>Mono unsat fat uom</th>
+      <th>Nutrient disclaimer 1</th>
+      <th>Nutrient disclaimer 2</th>
+      <th>Nutrient disclaimer 3</th>
+      <th>Nutrient disclaimer 4</th>
+      <th>Nutrition label</th>
+      <th>Omega 3 polyunsat</th>
+      <th>Omega 3 polyunsat uom</th>
+      <th>Omega 6 polyunsat</th>
+      <th>Omega 6 polyunsat uom</th>
+      <th>Omega 9 polyunsat</th>
+      <th>Omega 9 polyunsat uom</th>
+      <th>Poly unsat fat</th>
+      <th>Poly unsat fat uom</th>
+      <th>Potassium per serving</th>
+      <th>Potassium uom</th>
+      <th>Protein per serving</th>
+      <th>Protein uom</th>
+      <th>Sat fat per serving</th>
+      <th>Sat fat uom</th>
+      <th>Serving size</th>
+      <th>Serving size uom</th>
+      <th>Servings per container</th>
+      <th>Sodium per serving</th>
+      <th>Sodium uom</th>
+      <th>Sol fiber per serving</th>
+      <th>Sol fiber per serving uom</th>
+      <th>Starch per serving</th>
+      <th>Starch per serving uom</th>
+      <th>Sub number</th>
+      <th>Sugar per serving</th>
+      <th>Sugar uom</th>
+      <th>Suger alc per serving</th>
+      <th>Suger alc per serving uom</th>
+      <th>Total fat per serving</th>
+      <th>Total fat uom</th>
+      <th>Trans fat per serving</th>
+      <th>Trans fat uom</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @kwikee_nutritions.each do |kwikee_nutrition| %>
+      <tr>
+        <td><%= kwikee_nutrition.kwikee_product_id %></td>
+        <td><%= kwikee_nutrition.cal_from_sat_tran_fat %></td>
+        <td><%= kwikee_nutrition.calories_per_serving %></td>
+        <td><%= kwikee_nutrition.carbo_per_serving %></td>
+        <td><%= kwikee_nutrition.carbo_uom %></td>
+        <td><%= kwikee_nutrition.cholesterol_per_serving %></td>
+        <td><%= kwikee_nutrition.cholesterol_uom %></td>
+        <td><%= kwikee_nutrition.dvp_biotin %></td>
+        <td><%= kwikee_nutrition.dvp_calcium %></td>
+        <td><%= kwikee_nutrition.dvp_carbo %></td>
+        <td><%= kwikee_nutrition.dvp_chloride %></td>
+        <td><%= kwikee_nutrition.dvp_cholesterol %></td>
+        <td><%= kwikee_nutrition.dvp_chromium %></td>
+        <td><%= kwikee_nutrition.dvp_copper %></td>
+        <td><%= kwikee_nutrition.dvp_fiber %></td>
+        <td><%= kwikee_nutrition.dvp_folic_acid %></td>
+        <td><%= kwikee_nutrition.dvp_iodide %></td>
+        <td><%= kwikee_nutrition.dvp_iodine %></td>
+        <td><%= kwikee_nutrition.dvp_iron %></td>
+        <td><%= kwikee_nutrition.dvp_magnesium %></td>
+        <td><%= kwikee_nutrition.dvp_manganese %></td>
+        <td><%= kwikee_nutrition.dvp_molybdenum %></td>
+        <td><%= kwikee_nutrition.dvp_niacin %></td>
+        <td><%= kwikee_nutrition.dvp_panthothenate %></td>
+        <td><%= kwikee_nutrition.dvp_phosphorus %></td>
+        <td><%= kwikee_nutrition.dvp_potassium %></td>
+        <td><%= kwikee_nutrition.dvp_protein %></td>
+        <td><%= kwikee_nutrition.dvp_riboflavin %></td>
+        <td><%= kwikee_nutrition.dvp_sat_tran_fat %></td>
+        <td><%= kwikee_nutrition.dvp_saturated_fat %></td>
+        <td><%= kwikee_nutrition.dvp_selenium %></td>
+        <td><%= kwikee_nutrition.dvp_sodium %></td>
+        <td><%= kwikee_nutrition.dvp_sugar %></td>
+        <td><%= kwikee_nutrition.dvp_thiamin %></td>
+        <td><%= kwikee_nutrition.dvp_total_fat %></td>
+        <td><%= kwikee_nutrition.dvp_vitamin_a %></td>
+        <td><%= kwikee_nutrition.dvp_vitamin_b12 %></td>
+        <td><%= kwikee_nutrition.dvp_vitamin_b6 %></td>
+        <td><%= kwikee_nutrition.dvp_vitamin_c %></td>
+        <td><%= kwikee_nutrition.dvp_vitamin_d %></td>
+        <td><%= kwikee_nutrition.dvp_vitamin_e %></td>
+        <td><%= kwikee_nutrition.dvp_vitamin_k %></td>
+        <td><%= kwikee_nutrition.dvp_zinc %></td>
+        <td><%= kwikee_nutrition.fat_calories_per_serving %></td>
+        <td><%= kwikee_nutrition.fiber_per_serving %></td>
+        <td><%= kwikee_nutrition.fiber_uom %></td>
+        <td><%= kwikee_nutrition.insol_fiber_per_serving %></td>
+        <td><%= kwikee_nutrition.insol_fiber_per_serving_uom %></td>
+        <td><%= kwikee_nutrition.mono_unsat_fat %></td>
+        <td><%= kwikee_nutrition.mono_unsat_fat_uom %></td>
+        <td><%= kwikee_nutrition.nutrient_disclaimer_1 %></td>
+        <td><%= kwikee_nutrition.nutrient_disclaimer_2 %></td>
+        <td><%= kwikee_nutrition.nutrient_disclaimer_3 %></td>
+        <td><%= kwikee_nutrition.nutrient_disclaimer_4 %></td>
+        <td><%= kwikee_nutrition.nutrition_label %></td>
+        <td><%= kwikee_nutrition.omega_3_polyunsat %></td>
+        <td><%= kwikee_nutrition.omega_3_polyunsat_uom %></td>
+        <td><%= kwikee_nutrition.omega_6_polyunsat %></td>
+        <td><%= kwikee_nutrition.omega_6_polyunsat_uom %></td>
+        <td><%= kwikee_nutrition.omega_9_polyunsat %></td>
+        <td><%= kwikee_nutrition.omega_9_polyunsat_uom %></td>
+        <td><%= kwikee_nutrition.poly_unsat_fat %></td>
+        <td><%= kwikee_nutrition.poly_unsat_fat_uom %></td>
+        <td><%= kwikee_nutrition.potassium_per_serving %></td>
+        <td><%= kwikee_nutrition.potassium_uom %></td>
+        <td><%= kwikee_nutrition.protein_per_serving %></td>
+        <td><%= kwikee_nutrition.protein_uom %></td>
+        <td><%= kwikee_nutrition.sat_fat_per_serving %></td>
+        <td><%= kwikee_nutrition.sat_fat_uom %></td>
+        <td><%= kwikee_nutrition.serving_size %></td>
+        <td><%= kwikee_nutrition.serving_size_uom %></td>
+        <td><%= kwikee_nutrition.servings_per_container %></td>
+        <td><%= kwikee_nutrition.sodium_per_serving %></td>
+        <td><%= kwikee_nutrition.sodium_uom %></td>
+        <td><%= kwikee_nutrition.sol_fiber_per_serving %></td>
+        <td><%= kwikee_nutrition.sol_fiber_per_serving_uom %></td>
+        <td><%= kwikee_nutrition.starch_per_serving %></td>
+        <td><%= kwikee_nutrition.starch_per_serving_uom %></td>
+        <td><%= kwikee_nutrition.sub_number %></td>
+        <td><%= kwikee_nutrition.sugar_per_serving %></td>
+        <td><%= kwikee_nutrition.sugar_uom %></td>
+        <td><%= kwikee_nutrition.suger_alc_per_serving %></td>
+        <td><%= kwikee_nutrition.suger_alc_per_serving_uom %></td>
+        <td><%= kwikee_nutrition.total_fat_per_serving %></td>
+        <td><%= kwikee_nutrition.total_fat_uom %></td>
+        <td><%= kwikee_nutrition.trans_fat_per_serving %></td>
+        <td><%= kwikee_nutrition.trans_fat_uom %></td>
+        <td><%= link_to 'Show', kwikee_nutrition %></td>
+        <td><%= link_to 'Edit', edit_kwikee_nutrition_path(kwikee_nutrition) %></td>
+        <td><%= link_to 'Destroy', kwikee_nutrition, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Kwikee nutrition', new_kwikee_nutrition_path %>

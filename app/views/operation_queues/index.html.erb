@@ -1,0 +1,47 @@
+<h1>Listing operation_queues</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Operable type</th>
+      <th>Operable</th>
+      <th>Queue type</th>
+      <th>Operation type</th>
+      <th>Operation</th>
+      <th>Status</th>
+      <th>Error message</th>
+      <th>Path</th>
+      <th>Alt path</th>
+      <th>Scheduled at</th>
+      <th>Completed at</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @operation_queues.each do |operation_queue| %>
+      <tr>
+        <td><%= operation_queue.operable_type %></td>
+        <td><%= operation_queue.operable_id %></td>
+        <td><%= operation_queue.queue_type %></td>
+        <td><%= operation_queue.operation_type %></td>
+        <td><%= operation_queue.operation %></td>
+        <td><%= operation_queue.status %></td>
+        <td><%= operation_queue.error_message %></td>
+        <td><%= operation_queue.path %></td>
+        <td><%= operation_queue.alt_path %></td>
+        <td><%= operation_queue.scheduled_at %></td>
+        <td><%= operation_queue.completed_at %></td>
+        <td><%= link_to 'Show', operation_queue %></td>
+        <td><%= link_to 'Edit', edit_operation_queue_path(operation_queue) %></td>
+        <td><%= link_to 'Destroy', operation_queue, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Operation queue', new_operation_queue_path %>

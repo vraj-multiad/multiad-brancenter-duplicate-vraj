@@ -1,0 +1,50 @@
+<h1>Listing ac_images</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name/Title</th>
+      <th>Thumbnail/Preview/Location/Filename</th>
+      <th>Keywords</th>
+      <th>Status/Publish_at/Unpublish_at/Expired</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ac_images.each do |ac_image| %>
+      <tr>
+        <td>
+          <%= ac_image.name %><br/>
+          <%= ac_image.title %>
+        </td>
+        <td>
+          <%= ac_image.thumbnail %><br/>
+          <%= ac_image.preview %><br/>
+          <%= ac_image.location %><br/>
+          <%= ac_image.filename %>
+        </td>
+        <td>
+          <%  ac_image.keywords.each do |st| %>
+            <%= st.keyword_type.to_s + ' - ' + st.term %><br/>
+          <% end %>
+        </td>        
+        <td>
+          <strong><%= ac_image.status %><br/>
+          <%= ac_image.publish_at %><br/>
+          <%= ac_image.unpublish_at %><br/>
+          <%= ac_image.expired %></strong>
+        </td>
+        <td><%= link_to 'Show', ac_image %></td>
+        <td><%= link_to 'Edit', edit_ac_image_path(ac_image) %></td>
+        <td><%= link_to 'Destroy', ac_image, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ac image', new_ac_image_path %>

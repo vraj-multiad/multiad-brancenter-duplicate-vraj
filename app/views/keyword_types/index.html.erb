@@ -1,0 +1,31 @@
+<h1>Listing keyword_types</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Title</th>
+      <th>Label</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @keyword_types.each do |keyword_type| %>
+      <tr>
+        <td><%= keyword_type.name %></td>
+        <td><%= keyword_type.title %></td>
+        <td><%= keyword_type.label %></td>
+        <td><%= link_to 'Show', keyword_type %></td>
+        <td><%= link_to 'Edit', edit_keyword_type_path(keyword_type) %></td>
+        <td><%= link_to 'Destroy', keyword_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Keyword type', new_keyword_type_path %>

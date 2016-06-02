@@ -1,0 +1,94 @@
+<h1>Listing open ac_sessions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Ac Session Details
+      </th>
+      <th>
+        Ac session History Details
+      </th>
+      <th>
+        Related Ac session History Details
+      </th>
+      <th>
+      </th>
+
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ac_sessions.each do |ac_session| %>
+      <tr>
+        <td valign="top">
+          Ac Session id: <%= ac_session.id %><br/>
+          user_id: <%= ac_session.user_id %><br/>
+          ac_creator_template_id: <%= ac_session.ac_creator_template_id %><br/>
+          ac_base_id: <%= ac_session.ac_base_id %><br/>
+          created_at: <%= ac_session.created_at %><br/>
+          updated_at: <%= ac_session.updated_at %><br/>
+          locked: <%= ac_session.locked %><br/>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+      </tr>
+      <% ac_session.ac_session_histories.joins(:ac_document).where(ac_session_histories: { expired: false }).each do |ac_session_history| %>
+        <tr>
+          <% repair_session = '' %>
+          <td>
+          </td>
+          <td valign="top">
+            <div>
+              Ac Session id: <%= ac_session_history.ac_session_id %><br/>
+              Ac Session History Id: <%= ac_session_history.id %><br/>
+              Name: <%= ac_session_history.name %><br/>
+              <strong>Expired: <%= ac_session_history.expired %></strong><br/>
+              Saved: <%= ac_session_history.saved %><br/>
+              Previous ac document: <%= ac_session_history.previous_ac_document_id %><br/>
+              Ac document: <%= ac_session_history.ac_document_id %><br/>
+              <strong>created_at: <%= ac_session_history.created_at %></strong><br/>
+              updated_at: <%= ac_session_history.updated_at %><br/>
+              <% if ac_session_history.ac_document.document_spec_xml.match('p.json') %>
+                Document is bad<br>
+                <%= link_to 'Expire Session', admin_expire_ac_session_path(id: ac_session_history.ac_session_id) %>
+              <% end %>
+            </div>
+          </td>
+          <td valign="top">
+            <% AcSessionHistory.joins(:ac_session).where(ac_session_histories: { name: ac_session_history.name }, ac_sessions: { user_id: ac_session.user_id }).order(id: :desc).each do |related_ac_session_history| %>
+                <% next if related_ac_session_history.id == ac_session_history.id %>
+                <% repair_session = related_ac_session_history.id if (ac_session_history.created_at - related_ac_session_history.updated_at).abs < 2 || (ac_session_history.updated_at - related_ac_session_history.updated_at).abs < 1  %>
+                Ac Session id: <%= related_ac_session_history.ac_session_id %><br/>
+                Ac Session History Id: <%= related_ac_session_history.id %><br/>
+                Name: <%= related_ac_session_history.name %><br/>
+                <strong>Expired: <%= related_ac_session_history.expired %></strong><br/>
+                Saved: <%= related_ac_session_history.saved %><br/>
+                Previous ac document: <%= related_ac_session_history.previous_ac_document_id %><br/>
+                Ac document: <%= related_ac_session_history.ac_document_id %><br/>
+                created_at: <%= related_ac_session_history.created_at %><br/>
+                <strong>updated_at: <%= related_ac_session_history.updated_at %></strong><br/>
+
+                <% if related_ac_session_history.ac_document.document_spec_xml.match('p.json') %>
+                  Document is bad<br>
+                <% end %>
+                <br/>
+            <% end %>
+          </td>
+          <td valign="top">
+            <% if repair_session.present? %>
+              <%= link_to 'Repair Session', admin_repair_ac_session_history_path(bad_session_id: ac_session_history.id, good_session_id: repair_session) %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+

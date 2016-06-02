@@ -1,0 +1,39 @@
+<h1>Listing Form Submissions for <%= @dynamic_form.title.to_s %></h1><br/>
+<%= link_to 'display_form', display_form_path(@dynamic_form.token) %>
+
+<table border='1'>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>User<br/>
+        User email Address
+      </th>
+      <th>Recipient</th>
+
+
+      <th>View</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dynamic_form.dynamic_form_submissions.each do |dynamic_form_submission| %>
+      <% dynamic_form = dynamic_form_submission.dynamic_form %>
+      <tr>
+        <td><%= dynamic_form_submission.created_at %></td>
+        <td><%= dynamic_form_submission.user.username %><br/>
+          <%= dynamic_form_submission.user.email_address %>
+        </td>
+        <td><%= dynamic_form.recipient %></td>
+
+
+        <td><%= link_to 'View Submission', display_submitted_form_path(dynamic_form_submission.token) %></td>
+        <td><%= link_to 'Delete Submission', delete_submitted_form_path(dynamic_form_submission.token), data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Dynamic form', new_dynamic_form_path %>

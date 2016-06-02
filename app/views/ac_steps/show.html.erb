@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Step Number:</strong>
+  <%= @ac_step.step_number %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @ac_step.name %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @ac_step.title %>
+</p>
+
+<p>
+  <strong>Actions:</strong>
+  <%= @ac_step.actions %>
+</p>
+
+<p>
+  <strong>Form:</strong>
+  <%= @ac_step.form %>
+</p>
+
+<p>
+  <strong>Ac base:</strong>
+  <%= @ac_step.ac_base_id %>
+</p>
+
+<%= link_to 'Edit', edit_ac_step_path(@ac_step) %> |
+<%= link_to 'Back', ac_steps_path %>

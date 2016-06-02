@@ -1,0 +1,31 @@
+<h1>Listing fulfillment_methods</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Title</th>
+      <th>Email Address</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @fulfillment_methods.each do |fulfillment_method| %>
+      <tr>
+        <td><%= fulfillment_method.name %></td>
+        <td><%= fulfillment_method.title %></td>
+        <td><%= fulfillment_method.email_address %></td>
+        <td><%= link_to 'Show', fulfillment_method %></td>
+        <td><%= link_to 'Edit', edit_fulfillment_method_path(fulfillment_method) %></td>
+        <td><%= link_to 'Destroy', fulfillment_method, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Fulfillment method', new_fulfillment_method_path %>

@@ -1,0 +1,39 @@
+<div  style="display: none;"  class="edit-tool select-image" id="<%= ac_step.step_number %>" ac_step_id="<%= ac_step.id %>">
+  <!-- image_upload -->
+  <h3><span class="edit-numx"><%= ac_step.step_number.to_s %>.</span> Select Image</h3>
+  <% @ac_session.user.user_uploaded_images.each do |user_uploaded_image| %>
+    <% next if user_uploaded_image.expired %>
+    <img src="<%= user_uploaded_image.thumbnail.url %>"/>
+    <br/>
+
+    <%= form_tag('/adcreator/process_step', :remote => true, :'data-ac-process-step' => 'adcreator-contents') do %>
+      <%= hidden_field_tag 'ac_session_id', @ac_session.id %>
+      <%= hidden_field_tag 'ac_step_id', ac_step.id %>
+      <%= hidden_field_tag 'option_type', 'UserUploadedImage' %>
+      <%= hidden_field_tag 'option_token', user_uploaded_image.token %>
+      <%= hidden_field_tag 'layer_element', ac_step.form_data('element_name') %>
+      <%= hidden_field_tag 'layer', '' %>
+      <%= hidden_field_tag 'set_layer', '' %>
+      <%= submit_tag 'Choose', type: 'submit' %>
+    <% end %>
+    <%= form_tag('/adcreator/expire_image_and_session_histories', :remote => true, :'data-ac-process-step' => 'adcreator-contents') do %>
+      <%= hidden_field_tag 'ac_session_id', @ac_session.id %>
+      <%= hidden_field_tag 'option_type', 'UserUploadedImage' %>
+      <%= hidden_field_tag 'option_token', user_uploaded_image.token %>
+      <%= hidden_field_tag 'expire', '1' %>
+      <%= submit_tag 'Expire Image', type: 'submit', class: 'set-layer' %>
+    <% end %>
+  <% end %>
+
+  <!-- Upload New Photo<br/> -->
+  <%= form_tag('/adcreator/process_step', :remote => true, :'data-ac-process-step-post' => 'adcreator-contents', :enctype => "multipart/form-data", :method => "POST") do %>
+    <%= hidden_field_tag 'ac_session_id', @ac_session.id %>
+    <%= hidden_field_tag 'ac_step_id', ac_step.id %>
+    <%= hidden_field_tag 'layer_element', ac_step.form_data('element_name') %>
+    <%= hidden_field_tag 'layer', '' %>
+    <%= hidden_field_tag 'set_layer', '' %>
+    <%= file_field_tag 'image_upload' %>
+    <%= submit_tag 'Upload', type: 'submit', class: 'set-layer' %>
+  <% end %>
+  <br/>
+</div>

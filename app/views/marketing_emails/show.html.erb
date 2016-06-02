@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Ac export:</strong>
+  <%= @marketing_email.ac_export_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @marketing_email.user_id %>
+</p>
+
+<p>
+  <strong>Ac creator template:</strong>
+  <%= @marketing_email.ac_creator_template_id %>
+</p>
+
+<p>
+  <strong>Ac session history:</strong>
+  <%= @marketing_email.ac_session_history_id %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @marketing_email.location %>
+</p>
+
+<p>
+  <strong>Subject:</strong>
+  <%= @marketing_email.subject %>
+</p>
+
+<p>
+  <strong>User Error String:</strong>
+  <%= @marketing_email.user_error_string %>
+</p>
+
+<p>
+  <strong>Error String:</strong>
+  <%= @marketing_email.error_string %>
+</p>
+
+<%= link_to 'Edit', edit_marketing_email_path(@marketing_email) %> |
+<%= link_to 'Back', marketing_emails_path %>

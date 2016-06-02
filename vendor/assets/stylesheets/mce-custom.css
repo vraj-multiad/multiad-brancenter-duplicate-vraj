@@ -1,0 +1,73 @@
+body.mce-content-body p {padding:0; margin:0;}
+body#tinymce {background-color: #D8D8D8;}
+
+@font-face {
+  font-family: 'HandScript';
+  src: url('/assets/HandScript.eot');
+  src: url('/assets/HandScript.eot?#iefix') format('embedded-opentype'), 
+  	   url('/assets/HandScript.woff') format('woff'), 
+  	   url('/assets/HandScript.ttf') format('truetype'), 
+  	   url('/assets/HandScript.svg#HandScript') format('svg');
+}
+
+
+@font-face {
+  font-family: 'Trebuchet';
+  src: url('/assets/Trebuchet MS.eot');
+  src: url('/assets/Trebuchet MS.eot?#iefix') format('embedded-opentype'), 
+  	   url('/assets/Trebuchet MS.woff') format('woff'), 
+  	   url('/assets/Trebuchet MS.ttf') format('truetype'), 
+  	   url('/assets/Trebuchet MS.svg#Trebuchet MS') format('svg');
+}
+
+@font-face {
+  font-family: 'GaramondPro';
+  src: url('/assets/AGaramondPro-Regular.eot');
+  src: url('/assets/AGaramondPro-Regular.eot?#iefix') format('embedded-opentype'), 
+  	   url('/assets/AGaramondPro-Regular.woff') format('woff'), 
+  	   url('/assets/AGaramondPro-Regular.ttf') format('truetype'), 
+  	   url('/assets/AGaramondPro-Regular.svg#AGaramondPro-Regular') format('svg');
+}
+
+@font-face {
+  font-family: 'ArialMT';
+  src: url('/assets/ArialMT.eot');
+  src: url('/assets/ArialMT.eot?#iefix') format('embedded-opentype'), 
+  	   url('/assets/ArialMT.woff') format('woff'), 
+  	   url('/assets/ArialMT.ttf') format('truetype'), 
+  	   url('/assets/ArialMT.svg#ArialMT') format('svg');
+}
+
+@font-face {
+  font-family: 'Constan';
+  src: url('/assets/constan.eot');
+  src: url('/assets/constan.eot?#iefix') format('embedded-opentype'), 
+  	   url('/assets/constan.woff') format('woff'), 
+  	   url('/assets/constan.ttf') format('truetype'), 
+  	   url('/assets/constan.svg#constan') format('svg');
+}
+
+@font-face {
+  font-family: 'Helveticaneue';
+  src: url('/assets/helveticaneue.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Pala';
+  src: url('/assets/pala.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'ArialNarrow';
+  src: url('/assets/ArialNarrow.ttf') format('truetype');
+}
+
+
+@font-face {
+  font-family: 'Georgia';
+  src: url('/assets/georgia.eot');
+  src: url('/assets/georgia.eot?#iefix') format('embedded-opentype'), 
+  	   url('/assets/georgia.woff') format('woff'), 
+  	   url('/assets/georgia.ttf') format('truetype'), 
+  	   url('/assets/georgia.svg#georgia') format('svg');
+}

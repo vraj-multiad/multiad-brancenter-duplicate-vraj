@@ -1,0 +1,39 @@
+<h1>Listing fulfillment_items</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Fulfillable</th>
+      <th>Fulfillment method</th>
+      <th>Price schedule</th>
+      <th>Price per unit</th>
+      <th>Weight per unit</th>
+      <th>Taxable</th>
+      <th>Description</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @fulfillment_items.each do |fulfillment_item| %>
+      <tr>
+        <td><%= "#{fulfillment_item.fulfillable_type}.find(#{fulfillment_item.fulfillable_id})" %></td>
+        <td><% if fulfillment_item.fulfillment_method.present? %><%= "#{fulfillment_item.fulfillment_method.name} #{fulfillment_item.fulfillment_method.id}" %><% end %></td>
+        <td><%= simple_format(fulfillment_item.price_schedule.to_s.gsub(/, \[/,"\n").gsub(/\[|\]/,'')) %></td>
+        <td><%= fulfillment_item.price_per_unit %></td>
+        <td><%= fulfillment_item.weight_per_unit %></td>
+        <td><%= fulfillment_item.taxable %></td>
+        <td><%= fulfillment_item.description %></td>
+        <td><%= link_to 'Show', fulfillment_item %></td>
+        <td><%= link_to 'Edit', edit_fulfillment_item_path(fulfillment_item) %></td>
+        <td><%= link_to 'Destroy', fulfillment_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Fulfillment item', new_fulfillment_item_path %>

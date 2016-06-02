@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @ac_session_history.name %>
+</p>
+
+<p>
+  <strong>Expired:</strong>
+  <%= @ac_session_history.expired %>
+</p>
+
+<p>
+  <strong>Previous ac document:</strong>
+  <%= @ac_session_history.previous_ac_document_id %>
+</p>
+
+<p>
+  <strong>Ac document:</strong>
+  <%= @ac_session_history.ac_document_id %>
+</p>
+
+<p>
+  <strong>Ac session:</strong>
+  <%= @ac_session_history.ac_session_id %>
+</p>
+
+<%= link_to 'Edit', edit_ac_session_history_path(@ac_session_history) %> |
+<%= link_to 'Back', ac_session_histories_path %>
