@@ -65,6 +65,7 @@ group :test do
   gem 'rspec-rails', '> 3.0'        # Specs
   gem 'poltergeist'                 # PhantomJS driver to run JS in capybara
   gem 'rspec-activemodel-mocks'     # Used for testing mailers. Mocks the model
+  gem 'simplecov', :require => false 
 end
 
 group :production do
